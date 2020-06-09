@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Container, Row, Col, Image } from "react-bootstrap";
 import logo from "../logo.svg";
+// import kiara from "../kiara.jpg";
 import "../css/HomePage.css";
 
 const HomePage = (props) => {
@@ -10,7 +11,7 @@ const HomePage = (props) => {
         <Col>
           {/* <h1 className="text-center">Work Your Freedom</h1> */}
           <img
-            src={logo}
+            src={require("../kiara.jpg")}
             className="App-logo rounded mx-auto d-block"
             alt="logo"
           />
