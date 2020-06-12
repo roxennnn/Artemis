@@ -29,8 +29,8 @@ const SignupPage = (props) => {
 
   return (
     <div style={{ margin: 50 }}>
-      <CenterView left={userType != "None" ? backButton : null}>
-        {userType == "None" && (
+      <CenterView left={userType !== "None" ? backButton : null}>
+        {userType === "None" && (
           <Container>
             <h1>Sign Up</h1>
             <h2>I am a...</h2>
@@ -58,8 +58,8 @@ const SignupPage = (props) => {
             </div>
           </Container>
         )}
-        {userType == "Citizen" && <CitizenSignUp />}
-        {userType == "Organization" && <OrganizationSignUp />}
+        {userType === "Citizen" && <CitizenSignUp />}
+        {userType === "Organization" && <OrganizationSignUp />}
       </CenterView>
     </div>
   );

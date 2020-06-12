@@ -12,6 +12,7 @@ const HomePage = (props) => {
           {/* <h1 className="text-center">Work Your Freedom</h1> */}
           <img
             src={require("../kiara.jpg")}
+            // src={logo}
             className="App-logo rounded mx-auto d-block"
             alt="logo"
           />
