@@ -15,6 +15,7 @@ import AboutPage from "../pages/AboutPage";
 import { LoggedContext } from "../components/LoggedContextProvider";
 
 import logo from "../logo.svg";
+
 import "../css/RouterComponent.css";
 
 const RouterComponent = (props) => {
