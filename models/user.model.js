@@ -4,9 +4,18 @@ const { model, Schema } = mongoose;
 const User = model(
   "User",
   new Schema({
-    username: String,
-    email: String,
-    password: String,
+    organization: String,
+    firstName: String,
+    lastName: String,
+    birthday: String,
+    email: {
+      type: String,
+      required: true
+    },
+    password: {
+      type: String,
+      required: true
+    },
     roles: [
       {
         type: Schema.Types.ObjectId,

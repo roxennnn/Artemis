@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 
 import CenterView from "../components/CenterView";
-import CitizenSignUp from "../components/CitizendSignUp";
+import CitizenSignUp from "../components/CitizenSignUp";
 import OrganizationSignUp from "../components/OrganizationSignUp";
 
 import "../css/SignupPage.css";
@@ -58,8 +58,8 @@ const SignupPage = (props) => {
             </div>
           </Container>
         )}
-        {userType === "Citizen" && <CitizenSignUp />}
-        {userType === "Organization" && <OrganizationSignUp />}
+        {userType === "Citizen" && <CitizenSignUp history={props.history} />}
+        {userType === "Organization" && <OrganizationSignUp history={props.history} />}
       </CenterView>
     </div>
   );

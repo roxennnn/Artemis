@@ -3,26 +3,36 @@ import { Form } from "react-bootstrap";
 
 import AuthService from "../services/auth.service";
 
-const OrganizationSignUp = (props) => {
-  const [organization, setOrganization] = useState("");
+const CitizenSignUp = (props) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [birthday, setBirthday] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const submitHandler = async () => {
-    const org = organization;
+    const first = firstName;
+    const last = lastName;
+    const bday = birthday;
     const emailValue = email;
     const pass = password;
     const confirmPass = confirmPassword;
 
     if (pass === confirmPass) {
       try {
-        await AuthService.registerOrganization(organization, email, password);
+        await AuthService.registerCitizen(
+          first,
+          last,
+          bday,
+          emailValue,
+          password
+        );
         props.history.push("/home");
         window.location.reload();
         // props.history.push("/profile");
       } catch (err) {
-        console.log(err.message);
+        console.log(err);
         // THE FOLLOWING CAN BE USED FOR THE ERROR MESSAGE....
         // const resMessage =
         //   (error.response &&
@@ -32,10 +42,12 @@ const OrganizationSignUp = (props) => {
         //   error.toString();
       }
       // reset inputs
-      // setOrganization("");
-      // setEmail("");
-      // setPassword("");
-      // setConfirmPassword("");
+      setFirstName("");
+      setLastName("");
+      setBirthday("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
     } else {
       console.log("Password and confirm password don't match");
     }
@@ -43,22 +55,46 @@ const OrganizationSignUp = (props) => {
 
   return (
     <Form>
-      <h1>Organization Sign Up</h1>
+      <h1>Citizen Sign Up</h1>
       <Form.Group>
-        <Form.Label>Organization Name</Form.Label>
+        <Form.Label>First Name</Form.Label>
         <Form.Control
-          value={organization}
-          onChange={(formValue) => setOrganization(formValue.target.value)}
+          onChange={(name) => setFirstName(name.target.value)}
+          value={firstName}
           type="text"
-          placeholder="Enter your organization's name"
+          placeholder="Enter your first name"
+        />
+      </Form.Group>
+
+      <Form.Group>
+        <Form.Label>Last Name</Form.Label>
+        <Form.Control
+          onChange={(name) => setLastName(name.target.value)}
+          value={lastName}
+          type="text"
+          placeholder="Enter your last name"
+        />
+      </Form.Group>
+
+      <Form.Group>
+        <Form.Label>Birthday</Form.Label>
+        <Form.Control
+          onChange={(day) => {
+            console.log(day.target.value);
+            console.log(typeof day.target.value);
+            setBirthday(day.target.value);
+          }}
+          value={birthday}
+          type="date"
+          placeholder="Enter your birthday"
         />
       </Form.Group>
 
       <Form.Group controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
         <Form.Control
+          onChange={(email) => setEmail(email.target.value)}
           value={email}
-          onChange={(formValue) => setEmail(formValue.target.value)}
           type="email"
           placeholder="Enter email"
         />
@@ -70,8 +106,8 @@ const OrganizationSignUp = (props) => {
       <Form.Group controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
         <Form.Control
+          onChange={(pass) => setPassword(pass.target.value)}
           value={password}
-          onChange={(formValue) => setPassword(formValue.target.value)}
           type="password"
           placeholder="Password"
         />
@@ -80,8 +116,8 @@ const OrganizationSignUp = (props) => {
       <Form.Group controlId="formBasicPassword">
         <Form.Label>Confirm Password</Form.Label>
         <Form.Control
+          onChange={(pass) => setConfirmPassword(pass.target.value)}
           value={confirmPassword}
-          onChange={(formValue) => setConfirmPassword(formValue.target.value)}
           type="password"
           placeholder="Confirm password"
         />
@@ -111,4 +147,4 @@ const OrganizationSignUp = (props) => {
   );
 };
 
-export default OrganizationSignUp;
+export default CitizenSignUp;
