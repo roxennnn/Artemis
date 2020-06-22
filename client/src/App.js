@@ -55,16 +55,20 @@ const App = (props) => {
                 Learn More
               </Link>
             </li>
-            <li className="nav-item">
-              <Link to={"/forum"} className="nav-link">
-                Forum
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to={"/consult-database"} className="nav-link">
-                Consult Database
-              </Link>
-            </li>
+            {currentUser && (
+              <li className="nav-item">
+                <Link to={"/forum"} className="nav-link">
+                  Forum
+                </Link>
+              </li>
+            )}
+            {currentUser && (
+              <li className="nav-item">
+                <Link to={"/consult-database"} className="nav-link">
+                  Consult Database
+                </Link>
+              </li>
+            )}
             <li className="nav-item">
               <Link to={"/about"} className="nav-link">
                 About
@@ -151,7 +155,11 @@ const App = (props) => {
             <Route exact path="/faq" component={FaqPage} />
             <Route exact path="/about" component={AboutPage} />
             <Route exact path="/forum" component={ForumPage} />
-            <Route exact path="/consult-database" component={ConsultDatabasePage} />
+            <Route
+              exact
+              path="/consult-database"
+              component={ConsultDatabasePage}
+            />
             {/* <Route path="/user" component={BoardUser} />
             <Route path="/mod" component={BoardModerator} />
             <Route path="/admin" component={BoardAdmin} /> */}
