@@ -19,6 +19,9 @@ import LoginPage from "./pages/LoginPage";
 import AboutPage from "./pages/AboutPage";
 import LearnMorePage from "./pages/LearnMorePage";
 import ProfilePage from "./pages/ProfilePage";
+import FaqPage from "./pages/FaqPage";
+import ConsultDatabasePage from "./pages/ConsultDatabasePage";
+import ForumPage from "./pages/ForumPage";
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState();
@@ -53,8 +56,23 @@ const App = (props) => {
               </Link>
             </li>
             <li className="nav-item">
+              <Link to={"/forum"} className="nav-link">
+                Forum
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={"/consult-database"} className="nav-link">
+                Consult Database
+              </Link>
+            </li>
+            <li className="nav-item">
               <Link to={"/about"} className="nav-link">
                 About
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={"/faq"} className="nav-link">
+                Faq
               </Link>
             </li>
 
@@ -130,7 +148,10 @@ const App = (props) => {
             <Route exact path="/signup" component={SignupPage} />
             <Route exact path="/profile" component={ProfilePage} />
             <Route exact path="/learn-more" component={LearnMorePage} />
+            <Route exact path="/faq" component={FaqPage} />
             <Route exact path="/about" component={AboutPage} />
+            <Route exact path="/forum" component={ForumPage} />
+            <Route exact path="/consult-database" component={ConsultDatabasePage} />
             {/* <Route path="/user" component={BoardUser} />
             <Route path="/mod" component={BoardModerator} />
             <Route path="/admin" component={BoardAdmin} /> */}

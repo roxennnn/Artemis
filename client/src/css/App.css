@@ -1,3 +1,7 @@
+body {
+  background-color: #f3f6f8;
+}
+
 label {
   display: block;
   margin-top: 10px;
