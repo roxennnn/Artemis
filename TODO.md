@@ -1,5 +1,7 @@
 # TODO
 
+GAS COSTS 4 OPs: https://docs.google.com/spreadsheets/d/1n6mRqkBz3iWcOlRem_mO09GtSKEKrAsfO7Frgx18pNU/edit#gid=0
+
 * Show error message in case login information is wrong
 * Use email instead of username
 * Fix registration data (frontend and backend too)
