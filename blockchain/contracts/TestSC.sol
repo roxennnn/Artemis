@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED ( to remove the warning )
-pragma solidity ^0.6.0;
+pragma solidity ^0.5.0;
 pragma experimental ABIEncoderV2;
 
 contract TestFormContract {

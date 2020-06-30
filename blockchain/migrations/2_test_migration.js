@@ -1,5 +1,5 @@
-const Crud = artifacts.require("Crud");
+const TestFormContract = artifacts.require("TestFormContract");
 
 module.exports = function(deployer) {
-  deployer.deploy(Crud);
+  deployer.deploy(TestFormContract);
 };
