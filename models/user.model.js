@@ -16,6 +16,14 @@ const User = model(
       type: String,
       required: true
     },
+    eth_address: {
+      type: String,
+      required: true
+    },
+    priv_key: {
+      type: String,
+      required: true
+    },
     roles: [
       {
         type: Schema.Types.ObjectId,

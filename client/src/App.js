@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import { Button, NavDropdown } from "react-bootstrap";
 import MdPerson from "react-ionicons/lib/MdPerson";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -22,6 +22,11 @@ import ProfilePage from "./pages/ProfilePage";
 import FaqPage from "./pages/FaqPage";
 import ConsultDatabasePage from "./pages/ConsultDatabasePage";
 import ForumPage from "./pages/ForumPage";
+import TodoPage from "./pages/TodoPage";
+
+import Colors from "./constants/Colors.js";
+
+import LoginComponent from "./components/LoginComponent";
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState();
@@ -44,107 +49,138 @@ const App = (props) => {
   return (
     <Router>
       <div>
-        <nav className="navbar navbar-expand navbar-dark bg-dark">
-          <Link to={"/"} className="navbar-brand">
-            <img src={logo} className="nav-logo" alt="logo" />
-            Work Your Freedom
+        <nav class="navbar navbar-expand-lg navbar-dark primary">
+          <Link
+            to={"/"}
+            className="navbar-brand"
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              marginLeft: 5,
+            }}
+          >
+            {/* <img src={logo} className="nav-logo" alt="logo" /> */}
+            <div style={{ fontSize: 28 }}>Work Your Freedom</div>
+            <div style={{ fontSize: 18 }}>
+              Find the job that best fits your skills!
+            </div>
           </Link>
-          <div className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <Link to={"/learn-more"} className="nav-link">
-                Learn More
-              </Link>
-            </li>
-            {currentUser && (
-              <li className="nav-item">
-                <Link to={"/forum"} className="nav-link">
-                  Forum
-                </Link>
-              </li>
-            )}
-            {currentUser && (
-              <li className="nav-item">
-                <Link to={"/consult-database"} className="nav-link">
-                  Consult Database
-                </Link>
-              </li>
-            )}
-            <li className="nav-item">
-              <Link to={"/about"} className="nav-link">
-                About
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to={"/faq"} className="nav-link">
-                Faq
-              </Link>
-            </li>
+          {/* Collapsed toggler button */}
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarTop"
+            aria-controls="navbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
-            {/* {showModeratorBoard && (
+          {/* Collapsing navbar */}
+          <div class="collapse navbar-collapse" id="navbarTop">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link"
+                  id="navbarDropdown"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Learn More
+                </a>
+                <div
+                  class="dropdown-menu dropdown-menu-learnmore"
+                  aria-labelledby="navbarDropdown"
+                >
+                  <a class="dropdown-item" href="/learn-more">
+                    What is this website
+                  </a>
+                  <a class="dropdown-item" href="/learn-more">
+                    How to use it
+                  </a>
+                  {/* <div class="dropdown-divider"></div> */}
+                  <a class="dropdown-item" href="/learn-more">
+                    What and why of this database
+                  </a>
+                  <a class="dropdown-item" href="/learn-more">
+                    Use of blockchain
+                  </a>
+                  <a class="dropdown-item" href="/learn-more">
+                    Technical documentation
+                  </a>
+                </div>
+              </li>
+              
+              {currentUser && (
+                <li className="nav-item">
+                  <Link to={"/forum"} className="nav-link">
+                    Forum
+                  </Link>
+                </li>
+              )}
+              {currentUser && (
+                <li className="nav-item">
+                  <Link to={"/consult-database"} className="nav-link">
+                    Consult Database
+                  </Link>
+                </li>
+              )}
               <li className="nav-item">
-                <Link to={"/mod"} className="nav-link">
-                  Moderator Board
+                <Link to={"/faq"} className="nav-link">
+                  FAQ
                 </Link>
               </li>
-            )}
-
-            {showAdminBoard && (
-              <li className="nav-item">
-                <Link to={"/admin"} className="nav-link">
-                  Admin Board
+              <li className="nav-item" onclick="myFunction()">
+                <Link to={"/about"} className="nav-link">
+                  Contact Us
                 </Link>
               </li>
-            )}
-
-            {currentUser && (
-              <li className="nav-item">
-                <Link to={"/user"} className="nav-link">
-                  User
-                </Link>
-              </li>
-            )} */}
-          </div>
-
-          {currentUser ? (
-            <div className="navbar-nav ml-auto">
               <li className="nav-item">
                 <Link to={"/profile"} className="nav-link">
-                  {/* {currentUser.username} */}
-                  <MdPerson fontSize="28px" color="gray" /> Profile
+                  TEMP USER
                 </Link>
               </li>
-              <li className="nav-item">
-                {/* <a href="/login" className="nav-link" onClick={logOut}>
-                  LogOut
-                </a> */}
-                <Button variant="outline-danger" href="/home" onClick={logOut}>
-                  Log Out
-                </Button>
+            </ul>
+          </div>
+          <div class="collapse navbar-collapse" id="navbarTop">
+            <ul class="navbar-nav ml-auto">
+              {/* <li class="nav-item">
+                <span class="nav-link nav-text">Already have an account?</span>
+              </li> */}
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link"
+                  id="navbarDropdown"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <span class="nav-text">Already have an account?</span> Login
+                </a>
+                <ul id="login-dp" class="dropdown-menu dropdown-menu-right">
+                  <li>
+                    <div class="row">
+                      <div class="col-xl">
+                        <LoginComponent history={props.history} />
+                        <div class="bottom-login text-center">
+                          New here ?{" "}
+                          <a href="/signup">
+                            <b style={{ color: Colors.primary }}>Join Us</b>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
               </li>
-            </div>
-          ) : (
-            <div className="navbar-nav ml-auto">
-              <li className="nav-item nav-btn">
-                {/* <Link to={"/login"} className="nav-link">
-                  Login
-                </Link> */}
-                <Button variant="outline-primary" href="/login">
-                  Log In
-                </Button>
-              </li>
-
-              <li className="nav-item nav-btn">
-                {/* <Link to={"/signup"} className="nav-link">
-                  Sign Up
-                </Link> */}
-                <Button variant="outline-success" href="/signup">
-                  Sign Up
-                </Button>
-              </li>
-            </div>
-          )}
+            </ul>
+          </div>
         </nav>
-
         <div className="container mt-3">
           <Switch>
             <Route exact path={["/", "/home"]} component={HomePage} />
@@ -155,6 +191,7 @@ const App = (props) => {
             <Route exact path="/faq" component={FaqPage} />
             <Route exact path="/about" component={AboutPage} />
             <Route exact path="/forum" component={ForumPage} />
+            <Route exact path="/todo" component={TodoPage} />
             <Route
               exact
               path="/consult-database"

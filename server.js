@@ -51,8 +51,6 @@ app.use(express.static(path.join(path.resolve(), 'client/build')))
 app.get("*", (req,res) => {
   res.sendFile(path.join(path.resolve(), 'client/build', 'index.html'))
 });
-
-// @TOFIX
 // simple route (it comes from the previous block)
 // app.get("/", (req, res) => {
 //   res.json({ message: "Welcome to workUrFreedom application." });
@@ -102,18 +100,53 @@ const initial = () => {
   });
 };
 
+// TEST
+import Web3 from 'web3';
 
-// Maybe, this things should be done when the user logs in --> and without document --> because we handle it in the backend only
-// Init smart contract
+// import fs from "fs";
+// let rawdata = fs.readFileSync("./blockchain/build/contracts/TestFormContract.json");
+// let TestFormContract = JSON.parse(rawdata);
 
-// import {initWeb3, initContract} from "./blockchain/contractInit";
+import fs from "fs";
+let rawdata = fs.readFileSync("./blockchain/build/contracts/FormContractWithOwner.json");
+let FormContractWithOwner = JSON.parse(rawdata);
 
-// document.addEventListener('DOMContentLoaded', () => {
-//   initWeb3()
-//     .then(_web3 => {
-//       web3 = _web3;
-//       crud = initContract();
-//       initApp(); 
-//     })
-//     .catch(e => console.log(e.message));
+// console.log(TestFormContract.address);
+console.log(FormContractWithOwner.address);
+
+export const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:9545"));
+
+
+// const deploymentKey = Object.keys(TestFormContract.networks)[0];
+// // let TestFormContract = web3.eth.contract([YOUR_ABI]);
+// export const testFormContract = new web3.eth.Contract(
+//   TestFormContract.abi, 
+//   TestFormContract
+//     .networks[deploymentKey]
+//     .address
+// );
+const deploymentKey = Object.keys(FormContractWithOwner.networks)[0];
+// let TestFormContract = web3.eth.contract([YOUR_ABI]);
+export const formContractWithOwner = new web3.eth.Contract(
+  FormContractWithOwner.abi, 
+  FormContractWithOwner
+    .networks[deploymentKey]
+    .address
+);
+
+// app.post('/upload', function(req, res) {
+
+//     Student.createStudents(studentName,studentAccYear, hashCode, {gas: '195253'});
+
+//     var studentEvent = Student.studentInfo();
+//     studentEvent.watch(function(error, result){
+//     if (!error)
+//         {
+//             console.log(result);
+//             } else {
+//             console.log(error);
+//         } 
+//         return;
+//    });
+
 // });

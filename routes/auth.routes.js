@@ -10,7 +10,7 @@ export default (app) => {
     next();
   });
 
-  // I WOULD HAVE PREFERRED USING PARAMS .... (IT DID NOT WORK)
+  // I WOULD HAVE PREFERRED USING PARAMS .... (IT DID NOT WORK) -> in the paths
 
   app.post(
     "/api/auth/signup/organization",

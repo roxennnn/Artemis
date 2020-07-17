@@ -56,13 +56,114 @@ label {
 }
 
 .signupButton {
-  color: greenyellow!important;
+  color: greenyellow !important;
 }
 
 .loginButton {
-  color: blue!important;
+  color: blue !important;
 }
+
+/**********************
+ *      NavBar        *
+ **********************/
 
 .nav-btn {
   margin: 5px !important;
+}
+
+nav.primary {
+  background-color: #3b5998 !important;
+  /* background-color: #25318d !important; */
+  color: "#FFFFFF" !important;
+}
+
+.nav-link {
+  color: white !important;
+  font-size: 18px;
+}
+
+.nav-link:hover {
+  color: #000 !important;
+}
+
+.nav-text {
+  color: rgb(200, 200, 200) !important;
+}
+
+.nav-text:hover {
+  color: rgb(200, 200, 200) !important;
+}
+
+/* Dropdown */
+
+.dropdown .dropdown-menu a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.dropdown .btn:active {
+  color: #000;
+}
+
+@media screen and (min-width: 990px) {
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 990px) {
+  .dropdown-menu-learnmore {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+  }
+
+  .dropdown-menu a {
+    color: #3b5998 !important;
+  }
+
+  a.btn {
+    color: white !important;
+  }
+
+  .dropdown-menu a:hover {
+    background: none;
+    color: #000 !important;
+  }
+}
+
+.dropdown-menu-learnmore {
+  /* background-color: #3b5998; */
+  /* background-color: #25318d; */
+  /* opacity: 0.7; */
+  background-color: rgba(59, 89, 152, 0.8);
+}
+
+.dropdown-menu a:hover {
+  background: none;
+  color: #000;
+}
+
+/* Login Logic */
+#login-dp {
+  min-width: 350px;
+  padding: 14px 14px 0;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+#login-dp .help-block {
+  font-size: 12px;
+}
+#login-dp .bottom-login {
+  /* min-width: 350px; */
+  width: auto;
+  display: block;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-top: 1px solid #ddd;
+  clear: both;
+  padding: 14px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#login-dp .form-group {
+  margin-bottom: 10px;
 }

@@ -47,6 +47,11 @@ const OrganizationSignUp = (props) => {
       <Form.Group>
         <Form.Label>Organization Name</Form.Label>
         <Form.Control
+          onKeyPress={(event) => {
+            if (event.key === "Enter") {
+              submitHandler();
+            }
+          }}
           value={organization}
           onChange={(formValue) => setOrganization(formValue.target.value)}
           type="text"
@@ -57,6 +62,11 @@ const OrganizationSignUp = (props) => {
       <Form.Group controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
         <Form.Control
+          onKeyPress={(event) => {
+            if (event.key === "Enter") {
+              submitHandler();
+            }
+          }}
           value={email}
           onChange={(formValue) => setEmail(formValue.target.value)}
           type="email"
@@ -70,6 +80,11 @@ const OrganizationSignUp = (props) => {
       <Form.Group controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
         <Form.Control
+          onKeyPress={(event) => {
+            if (event.key === "Enter") {
+              submitHandler();
+            }
+          }}
           value={password}
           onChange={(formValue) => setPassword(formValue.target.value)}
           type="password"
@@ -80,6 +95,11 @@ const OrganizationSignUp = (props) => {
       <Form.Group controlId="formBasicPassword">
         <Form.Label>Confirm Password</Form.Label>
         <Form.Control
+          onKeyPress={(event) => {
+            if (event.key === "Enter") {
+              submitHandler();
+            }
+          }}
           value={confirmPassword}
           onChange={(formValue) => setConfirmPassword(formValue.target.value)}
           type="password"
