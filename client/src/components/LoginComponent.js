@@ -78,6 +78,7 @@ const LoginComponent = (props) => {
           <a
             className="btn-radius btn"
             style={{
+              background: Colors.gradient,
               backgroundColor: Colors.primary,
               color: Colors.accent,
               margin: 10,

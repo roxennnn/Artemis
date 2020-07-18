@@ -14,7 +14,7 @@ import TodoPage from "../pages/TodoPage";
 
 const SwitchComponent = (props) => {
   return (
-    <div className="container mt-3">
+    <div className="" style={{margin: "2%"}}>
       <Switch>
         <Route exact path={["/", "/home"]} component={HomePage} />
         <Route exact path="/login" component={LoginPage} />

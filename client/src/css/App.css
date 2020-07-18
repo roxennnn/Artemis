@@ -1,5 +1,15 @@
+#root {
+  width: "100%";
+}
+
 body {
-  background-color: #f3f6f8;
+  /* background-color: #f3f6f8; */
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  /* border-style: solid;
+  border-width: 5px;
+  border-color: red; */
 }
 
 label {
@@ -134,6 +144,7 @@ nav.primary {
   /* background-color: #3b5998; */
   /* background-color: #25318d; */
   /* opacity: 0.7; */
+  background: linear-gradient(rgba(0,150,250,0.3),transparent);
   background-color: rgba(59, 89, 152, 0.8);
 }
 

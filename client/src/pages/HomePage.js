@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import logo from "../logo.svg";
+import logo from "../images/logo.svg";
 import "../css/HomePage.css";
 
 const HomePage = (props) => {

@@ -7,7 +7,7 @@ import LoginComponent from "./LoginComponent";
 
 const NavComponent = (props) => {
   return (
-    <nav class="navbar navbar-expand-lg navbar-dark primary">
+    <nav class="navbar navbar-expand-lg navbar-dark primary" style={{background: Colors.gradient}}>
       <Link
         to={"/"}
         className="navbar-brand"

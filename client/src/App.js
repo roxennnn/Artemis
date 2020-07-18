@@ -30,7 +30,7 @@ const App = (props) => {
 
   return (
     <Router>
-      <div>
+      <div style={{width: "100%", height: "100%"}}>
         <NavComponent currentUser={currentUser} />
         <SwitchComponent />
       </div>
