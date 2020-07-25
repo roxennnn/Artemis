@@ -102,6 +102,11 @@ const NavComponent = (props) => {
               TEMP USER
             </Link>
           </li>
+          <li className="nav-item">
+            <Link to={"/survey"} className="nav-link">
+              TEMP SURVEY
+            </Link>
+          </li>
         </ul>
       </div>
       <div class="collapse navbar-collapse" id="navbarTop">

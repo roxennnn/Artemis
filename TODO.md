@@ -24,3 +24,6 @@ https://ec.europa.eu/esco/api/resource/skill?uri=http://data.europa.eu/esco/skil
 --> "isEssentialForOccupation" field --> to get the occupations
 * Occupation: https://ec.europa.eu/esco/api/resource/occupation?uri=http://data.europa.eu/esco/occupation/3e6488b6-3ca5-46b9-b380-5cd251d24824&language=en
 
+
+# NICE SURVEY
+https://www.surveymonkey.com/mp/customer-satisfaction-survey-template/

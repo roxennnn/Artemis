@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 
-import CenterView from "../components/CenterView";
 import Colors from "../constants/Colors";
 
 import AuthService from "../services/auth.service";

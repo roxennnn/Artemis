@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 
-import HomePage from "../pages/HomePage";
+// import HomePage from "../pages/HomePage";
 import SignupPage from "../pages/SignupPage";
 import LoginPage from "../pages/LoginPage";
 import AboutPage from "../pages/AboutPage";
@@ -11,12 +11,14 @@ import FaqPage from "../pages/FaqPage";
 import ConsultDatabasePage from "../pages/ConsultDatabasePage";
 import ForumPage from "../pages/ForumPage";
 import TodoPage from "../pages/TodoPage";
+import LandingPage from "../pages/LandingPage";
+import TEMPSurvey from "../pages/TEMPSurvey";
 
 const SwitchComponent = (props) => {
   return (
     <div className="" style={{margin: "2%"}}>
       <Switch>
-        <Route exact path={["/", "/home"]} component={HomePage} />
+        <Route exact path={["/", "/home"]} component={LandingPage} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/signup" component={SignupPage} />
         <Route exact path="/profile" component={ProfilePage} />
@@ -26,6 +28,7 @@ const SwitchComponent = (props) => {
         <Route exact path="/forum" component={ForumPage} />
         <Route exact path="/todo" component={TodoPage} />
         <Route exact path="/consult-database" component={ConsultDatabasePage} />
+        <Route exact path="/survey" component={TEMPSurvey} />
         {/* <Route path="/user" component={BoardUser} />
             <Route path="/mod" component={BoardModerator} />
             <Route path="/admin" component={BoardAdmin} /> */}

@@ -45,6 +45,18 @@ label {
   border-radius: 50%;
 }
 
+.btn-radius {
+  width: 30%!important;
+  min-width: 200px;
+  /* height: 40px; */
+  border-radius: 100px!important;
+}
+
+.center-col {
+  /* border-style: solid; */
+  text-align: center;
+}
+
 .nav-logo {
   height: 5vmin;
   pointer-events: none;
