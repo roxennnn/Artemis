@@ -23,6 +23,7 @@ const Radiobuttons = (props) => {
   return (
     <div
       id="container"
+      class="to-hover"
       style={{
         ...props.style.container,
       }}
@@ -31,7 +32,6 @@ const Radiobuttons = (props) => {
       <FormControl component="fieldset">
         {/* <FormLabel component="legend">{props.title}</FormLabel> */}
         <RadioGroup
-          name="gender1"
           value={props.value}
           onChange={props.onChange}
         >

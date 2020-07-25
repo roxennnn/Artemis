@@ -1,3 +1,14 @@
 .MuiRadio-colorPrimary.Mui-checked {
   color: #3b5998 !important;
 }
+
+.to-hover {
+  opacity: 0.3;
+  box-shadow: 0 2px 4px 0 rgba(59,89,152,0.2);
+  transition: 0.3s;
+}
+
+.to-hover:hover {
+  opacity: 1;
+  box-shadow: 0 4px 8px 0 rgba(59,89,152,0.2);
+}

@@ -20,6 +20,7 @@ const RowRadios = (props) => {
       style={{
         ...props.style.container,
       }}
+      class="to-hover"
     >
       <div>{props.title}</div>
       <FormControl component="fieldset">

@@ -26,7 +26,7 @@ const CustomDropdown = (props) => {
       style={{
         ...props.style.container
       }}
-      class="select-dropdown"
+      class="select-dropdown to-hover"
     >
       <div>{props.title}</div>
       <Dropdown onSelect={props.onSelect}>

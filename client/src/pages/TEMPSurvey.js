@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import CenterView from "../components/CenterView";
+import Colors from "../constants/Colors";
 
 import Dropdrown from "../components/surveyComponents/Dropdown";
 import Checkboxes from "../components/surveyComponents/Checkboxes";
@@ -24,15 +26,30 @@ const optionList = [
 
 const rowOptions = [1, 2, 3, 4];
 
-const borderStyle = {
+const containerStyle = {
   container: {
-    borderStyle: "solid",
-    borderWidth: 2,
-    borderColor: "black",
+    // borderStyle: "solid",
+    // borderWidth: 2,
+    // borderColor: "black",
+
+    padding: "2%",
+    margin: "2%",
+    borderRadius: 20,
+    shadow: 100,
+    background: "white"
   },
 };
 
 const TEMPSurvey = (props) => {
+
+  useEffect(() => {
+    document.body.style = `background: rgba(59,89,152,0.05);`;
+
+    return () => {
+      document.body.style = `background: rgb(255,255,255);`;
+    }
+  }, []);
+
   const [dropDownValue, setDropDownValue] = useState();
   const [checkboxesValues, setCheckboxesValues] = useState(
     new Array(optionList.length).fill(0)
@@ -68,44 +85,46 @@ const TEMPSurvey = (props) => {
 
   return (
     <div>
-      <div>
-        <h1>This page is used to study the Survey components</h1>
-        <Dropdrown
-          valueList={ages}
-          value={dropDownValue}
-          onSelect={dropDownOnChangeHandler}
-          title="DROPDOWN"
-          style={borderStyle}
-        />
-      </div>
-      <div>
-        <Checkboxes
-          title="CHECKBOXES"
-          optionList={optionList}
-          style={borderStyle}
-          onChange={checkboxesOnChangeHandler}
-        />
-      </div>
-      <div>
-        <Radiobuttons
-          title="RADIOBUTTONS"
-          optionList={optionList}
-          style={borderStyle}
-          onChange={radioOnChangeHandler}
-          value={radioValue}
-        />
-      </div>
-      <div>
-        <RowRadios
-          style={borderStyle}
-          title="ROW RADIOS"
-          optionList={rowOptions}
-          value={rowRadioValue}
-          onChange={rowRadioOnChangeHandler}
-          left="Not at all likely"
-          right="Most likely"
-        />
-      </div>
+      <CenterView middle={8} sides={2}>
+        <div>
+          <h1>This page is used to study the Survey components</h1>
+          <Dropdrown
+            valueList={ages}
+            value={dropDownValue}
+            onSelect={dropDownOnChangeHandler}
+            title="DROPDOWN"
+            style={containerStyle}
+          />
+        </div>
+        <div>
+          <Checkboxes
+            title="CHECKBOXES"
+            optionList={optionList}
+            style={containerStyle}
+            onChange={checkboxesOnChangeHandler}
+          />
+        </div>
+        <div>
+          <Radiobuttons
+            title="RADIOBUTTONS"
+            optionList={optionList}
+            style={containerStyle}
+            onChange={radioOnChangeHandler}
+            value={radioValue}
+          />
+        </div>
+        <div>
+          <RowRadios
+            style={containerStyle}
+            title="ROW RADIOS"
+            optionList={rowOptions}
+            value={rowRadioValue}
+            onChange={rowRadioOnChangeHandler}
+            left="Not at all likely"
+            right="Most likely"
+          />
+        </div>
+      </CenterView>
     </div>
   );
 };
