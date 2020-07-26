@@ -13,11 +13,43 @@ div.some-info > div {
 }
 
 div.action-list-item:hover {
-  background: linear-gradient(rgba(0,150,250,0.5),transparent);
-  background-color:  #3b5998;
+  background: linear-gradient(rgba(0, 150, 250, 0.5), transparent);
+  background-color: #3b5998;
   color: white;
+  cursor: pointer;
 }
 
 /* #inside {
   background: linear-gradient(rgba(0,150,250,0.5),transparent)
 }  */
+
+.hover-border {
+  border-style: solid;
+  border-radius: 20px;
+  border-color: white;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.hover-border:hover {
+  border-color: #3b5998;
+  box-shadow: 0 4px 8px 0 rgba(59, 89, 152, 0.2);
+  transition: 0.2s;
+}
+
+.margin-children > * {
+  margin-right: 20px;
+}
+
+.delete-a-style > a {
+  color: black;
+}
+
+.delete-a-style > a:hover {
+  text-decoration: none;
+}
+
+.svg-inline--fa:hover {
+  font-size: 120%;
+  transition: 1ms;
+}

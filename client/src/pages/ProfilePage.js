@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 
-import ProfileOne from "../components/ProfileOne";
-import ProfileTwo from "../components/ProfileTwo";
-import ProfileThree from "../components/ProfileThree";
-
-import CenterView from "../components/CenterView";
-
 import "../css/ProfilePage.css";
+
+// images
 import laura from "../images/laura.png";
 import avatar from "../images/avatar.png";
+import survey from "../images/survey.png";
+import survey_done from "../images/survey_done.png";
+
+// Fontawesome
+import { faRedoAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Colors from "../constants/Colors";
 
@@ -21,7 +23,7 @@ const styles = {
     // borderStyle: "solid",
   },
   userBox: {
-    background: Colors.gradient, 
+    background: Colors.gradient,
     backgroundColor: Colors.primary,
   },
   someInfo: {
@@ -48,18 +50,132 @@ const styles = {
   },
 };
 
+// Utility components
+
 const ActionListItem = (props) => {
   return (
     <div
       className="action-list-item"
       style={{ ...styles.actionListItem, ...props.style }}
+      onClick={() => {
+        props.onClick(props.value);
+      }}
     >
       <span style={styles.actionListText}>{props.title}</span>
     </div>
   );
 };
 
+const SurveysCompleted = (props) => {
+  return (
+    <div style={styles.redBox}>
+      <div id="survey-progressbar">
+        <h2>Surveys completed:</h2>
+        <div style={{ marginLeft: "5%", marginRight: "5%", marginTop: "2%" }}>
+          <ProgressBar
+            text="1/3"
+            percentage="33%"
+            color={Colors.primary}
+            gradient={Colors.gradient}
+            textStyle={{ color: Colors.accent }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const DoSurveyItem = (props) => {
+  return (
+    <div class="container" style={{ margin: 30 }}>
+      <div
+        class="row margin-children"
+        style={{ display: "flex", alignItems: "center", padding: "1%" }}
+      >
+        <span className="hover-border delete-a-style" style={{ width: "30%" }}>
+          <a href={`/survey${props.value}`}>
+            <img
+              style={{
+                width: "25%",
+              }}
+              src={props.done ? survey_done : survey}
+            />
+            <span style={{ marginLeft: "5%" }}>{props.title}</span>
+          </a>
+        </span>
+        {/* <i class="far fa-redo-alt"></i> */}
+        <a href="" style={{width: "3%"}}>
+          <FontAwesomeIcon icon={faRedoAlt} color="#3b5998" />
+        </a>
+        <div style={{marginLeft: "5%"}}>Last time taken at {props.timestamp}</div>
+      </div>
+    </div>
+  );
+};
+
+// *********************
+// showValue components
+// *********************
+
+// showValue = 0
+const ProfileIntro = (props) => {
+  return (
+    <div>
+      <div style={styles.rowBox}>
+        <div>
+          <div>Gain your independence by finding a job!</div>
+          <div>
+            This platform will analyse your skills and match your profile with
+            the best fitting jobs
+          </div>
+          <div>Just follow these steps:</div>
+          <div id="steps-list" style={{ overflow: "visible" }}>
+            <ol>
+              <li>Fill in all the 3 surveys,</li>
+              <li>Go to the section "Next Steps", and</li>
+              <li>Start applying!</li>
+            </ol>
+          </div>
+        </div>
+        <div id="laura-img" style={{ width: "40%" }}>
+          <img src={laura} alt="" />
+        </div>
+      </div>
+      <SurveysCompleted />
+    </div>
+  );
+};
+
+//showValue = 1
+const ProfileSurveys = (props) => {
+  return (
+    <div>
+      <h1>Fill the surveys!</h1>
+      <div>
+        Here, you can find the three surveys that will help us create a match
+        with your ideal job. Fill all of them in and then see discover what your
+        next steps are.
+      </div>
+      <div id="surveys">
+        <DoSurveyItem title="Demographics" done={true} timestamp="06/09/19 18:12"/>
+        <DoSurveyItem title="Your Skills" timestamp="06/09/19 18:12"/>
+        <DoSurveyItem title="Your experience" timestamp="06/09/19 18:12"/>
+      </div>
+      <SurveysCompleted />
+    </div>
+  );
+};
+
 const ProfilePage = (props) => {
+  const [showValue, setShowValue] = useState(1);
+  // 0: ProfileIntro
+  // 1: ProfileSurveys
+  // 2: ProfileMatches (?)
+
+  const onClickActionListHandler = (value) => {
+    setShowValue(value);
+  };
+
   return (
     <div
       className="my-container"
@@ -86,7 +202,13 @@ const ProfilePage = (props) => {
             }}
           >
             <img
-              style={{ width: "38%", marginBottom: "5%", marginTop: "3%" }}
+              style={{
+                width: "38%",
+                marginBottom: "5%",
+                marginTop: "3%",
+                borderStyle: "solid",
+                borderColor: "white",
+              }}
               class="rounded-pill"
               src={avatar}
             />
@@ -94,7 +216,6 @@ const ProfilePage = (props) => {
               style={{
                 color: Colors.accent,
                 fontSize: 28,
-                // fontWeight: "bold",
                 marginBottom: "3%",
                 display: "flex",
                 justifyContent: "center",
@@ -128,11 +249,23 @@ const ProfilePage = (props) => {
               marginTop: "15%",
             }}
           >
-            {/* <div className="action-list-item" style={{...styles.actionListItem, borderTopWidth: 3, borderTopStyle: "solid"}}><span style={styles.actionListText}>Surveys</span></div>
-            <div className="action-list-item" style={styles.actionListItem}><span style={styles.actionListText}>Next Steps</span></div> */}
-            <ActionListItem title="Surveys" style={styles.firstListItem} />
-            <ActionListItem title="Forum" />
-            <ActionListItem title="Next Steps" />
+            <ActionListItem
+              title="Summary"
+              style={styles.firstListItem}
+              value={0}
+              onClick={onClickActionListHandler}
+            />
+            <ActionListItem
+              title="Surveys"
+              value={1}
+              onClick={onClickActionListHandler}
+            />
+            {/* <ActionListItem title="Forum" /> */}
+            <ActionListItem
+              title="Next Steps"
+              value={2}
+              onClick={onClickActionListHandler}
+            />
           </div>
         </div>
 
@@ -141,40 +274,8 @@ const ProfilePage = (props) => {
           className="some-info"
           style={{ ...styles.redBox, ...styles.someInfo }}
         >
-          <div style={styles.rowBox}>
-            <div>
-              <div>Gain your independence by finding a job!</div>
-              <div>
-                This platform will analyse your skills and match your profile
-                with the best fitting jobs
-              </div>
-              <div>Just follow these steps:</div>
-              <div id="steps-list" style={{ overflow: "visible" }}>
-                <ol>
-                  <li>Fill in all the 3 surveys,</li>
-                  <li>Go to the section "Next Steps", and</li>
-                  <li>Start applying!</li>
-                </ol>
-              </div>
-            </div>
-            <div id="laura-img" style={{ width: "40%" }}>
-              <img src={laura} alt="" />
-            </div>
-          </div>
-          <div style={styles.redBox}>
-            <div id="survey-progressbar">
-              <h2>Surveys completed:</h2>
-              <div style={{ marginLeft: "5%", marginRight: "5%", marginTop: "2%" }}>
-                <ProgressBar
-                  text="2/3"
-                  percentage="66%"
-                  color={Colors.primary}
-                  gradient={Colors.gradient}
-                  textStyle={{ color: Colors.accent }}
-                />
-              </div>
-            </div>
-          </div>
+          {showValue === 0 && <ProfileIntro />}
+          {showValue === 1 && <ProfileSurveys />}
         </div>
       </div>
     </div>
@@ -182,19 +283,3 @@ const ProfilePage = (props) => {
 };
 
 export default ProfilePage;
-
-// return (
-//   <div>
-//     <button class="btn btn-warning"
-//       onClick={() => {
-//         setWhich((which+1)%3);
-//       }}
-//     >
-//       Change Profile Layout
-//     </button>
-//     <hr />
-//     {which === 0 && <ProfileOne />}
-//     {which === 1 && <ProfileTwo />}
-//     {which === 2 && <ProfileThree />}
-//   </div>
-// );
