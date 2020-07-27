@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Dropdown } from "react-bootstrap";
 
 import Colors from "../../constants/Colors";
@@ -11,7 +11,7 @@ import "../../css/surveyComponents/Dropdown.css";
  * - value: state value used to keep track of the answer of the question (MAYBE NOT NEEDED)
  * - onSelect: handler function to react to the value change
  * - valueList: list of values from which the user has to choose
- * - defaultMessage: default message to show before any value is choosen
+ * - defaultMessage: default message to show before any value is chosen
  * - style: to add some custom style { container | button }
  ***************************************************************************/
 
@@ -24,9 +24,12 @@ const CustomDropdown = (props) => {
     <div
       id="container"
       style={{
-        ...props.style.container
+        ...props.style.container,
       }}
-      class="select-dropdown to-hover"
+      // class="select-dropdown to-hover"
+      class={
+        props.error ? "select-dropdown error-box" : "select-dropdown to-hover"
+      }
     >
       <div>{props.title}</div>
       <Dropdown onSelect={props.onSelect}>
@@ -34,9 +37,12 @@ const CustomDropdown = (props) => {
           variant="success"
           // id="dropdown-basic"
           style={{
+            background: Colors.gradient,
             backgroundColor: Colors.primary,
+            color: Colors.accent,
             minWidth: 150,
-            ...props.style.button
+            margin: 10,
+            ...props.style.button,
           }}
         >
           {current}
@@ -44,12 +50,30 @@ const CustomDropdown = (props) => {
 
         <Dropdown.Menu>
           {props.valueList.map((value) => (
-            <Dropdown.Item eventKey={value.value} href="" onClick={() => {setCurrent(value.name)}}>
+            <Dropdown.Item
+              eventKey={value.value}
+              href=""
+              onClick={() => {
+                setCurrent(value.name);
+              }}
+            >
               {value.name}
             </Dropdown.Item>
           ))}
         </Dropdown.Menu>
       </Dropdown>
+      {props.error && (
+        <div
+          style={{
+            color: "red",
+            fontSize: 16,
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
+          You did not respond to this question!
+        </div>
+      )}
     </div>
   );
 };

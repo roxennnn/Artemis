@@ -11,23 +11,38 @@ import "../../css/surveyComponents/Checkboxes.css";
  * - style: to add some custom style { container }
  ***************************************************************************/
 
-
 const Checkboxes = (props) => {
   return (
     <div
       id="container"
-      class="to-hover"
+      class={props.error ? "error-box" : "to-hover"}
       style={{
-        ...props.style.container
+        ...props.style.container,
       }}
     >
       <div id="title">{props.title}</div>
       {props.optionList.map((option) => (
         <div>
-          <Checkbox value={option.value} onChange={props.onChange} color="primary" />
+          <Checkbox
+            value={option.value}
+            onChange={props.onChange}
+            color="primary"
+          />
           <span>{option.label}</span>
         </div>
       ))}
+      {props.error && (
+        <div
+          style={{
+            color: "red",
+            fontSize: 16,
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
+          You did not respond to this question!
+        </div>
+      )}
     </div>
   );
 };

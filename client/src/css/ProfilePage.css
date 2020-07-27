@@ -53,3 +53,10 @@ div.action-list-item:hover {
   font-size: 120%;
   transition: 1ms;
 }
+
+.btn-radius2 {
+  width: 10% !important;
+  min-width: 200px;
+  /* height: 40px; */
+  border-radius: 100px!important;
+}

@@ -14,6 +14,8 @@ import TodoPage from "../pages/TodoPage";
 import LandingPage from "../pages/LandingPage";
 import TEMPSurvey from "../pages/TEMPSurvey";
 
+import DemographicSurvey from "../pages/surveys/DemographicSurvey";
+
 const SwitchComponent = (props) => {
   return (
     <div className="" style={{margin: "2%"}}>
@@ -32,6 +34,7 @@ const SwitchComponent = (props) => {
         {/* <Route path="/user" component={BoardUser} />
             <Route path="/mod" component={BoardModerator} />
             <Route path="/admin" component={BoardAdmin} /> */}
+        <Route exact path="/profile/demographic-survey" component={DemographicSurvey} />
       </Switch>
     </div>
   );

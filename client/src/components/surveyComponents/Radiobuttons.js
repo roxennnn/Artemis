@@ -18,12 +18,12 @@ import "../../css/surveyComponents/Radiobuttons.css";
  * - style: to add some custom style { container }
  ***************************************************************************/
 
-
 const Radiobuttons = (props) => {
   return (
     <div
       id="container"
-      class="to-hover"
+      // class="to-hover"
+      class={props.error ? "error-box" : "to-hover"}
       style={{
         ...props.style.container,
       }}
@@ -31,20 +31,29 @@ const Radiobuttons = (props) => {
       <div>{props.title}</div>
       <FormControl component="fieldset">
         {/* <FormLabel component="legend">{props.title}</FormLabel> */}
-        <RadioGroup
-          value={props.value}
-          onChange={props.onChange}
-        >
+        <RadioGroup value={props.value} onChange={props.onChange}>
           {props.optionList.map((option) => (
             <FormControlLabel
               value={option.value}
-              control={<Radio color="primary"/>}
+              control={<Radio color="primary" />}
               label={option.label}
               color="primary"
             />
           ))}
         </RadioGroup>
       </FormControl>
+      {props.error && (
+        <div
+          style={{
+            color: "red",
+            fontSize: 16,
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
+          You did not respond to this question!
+        </div>
+      )}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import "../css/ProfilePage.css";
 
@@ -89,11 +89,11 @@ const DoSurveyItem = (props) => {
   return (
     <div class="container" style={{ margin: 30 }}>
       <div
-        class="row margin-children"
+        class="row margin-children  delete-a-style"
         style={{ display: "flex", alignItems: "center", padding: "1%" }}
       >
-        <span className="hover-border delete-a-style" style={{ width: "30%" }}>
-          <a href={`/survey${props.value}`}>
+        <a className="hover-border" href={`profile/${props.href}`} style={{ width: "30%" }}>
+          <span>
             <img
               style={{
                 width: "25%",
@@ -101,13 +101,19 @@ const DoSurveyItem = (props) => {
               src={props.done ? survey_done : survey}
             />
             <span style={{ marginLeft: "5%" }}>{props.title}</span>
-          </a>
-        </span>
-        {/* <i class="far fa-redo-alt"></i> */}
-        <a href="" style={{width: "3%"}}>
-          <FontAwesomeIcon icon={faRedoAlt} color="#3b5998" />
+          </span>
         </a>
-        <div style={{marginLeft: "5%"}}>Last time taken at {props.timestamp}</div>
+        {/* <i class="far fa-redo-alt"></i> */}
+        {props.done && (
+          <a href="" style={{ width: "3%" }}>
+            <FontAwesomeIcon icon={faRedoAlt} color="#3b5998" />
+          </a>
+        )}
+        {props.done && (
+          <div style={{ marginLeft: "5%" }}>
+            Last time taken at {props.timestamp}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -142,6 +148,24 @@ const ProfileIntro = (props) => {
         </div>
       </div>
       <SurveysCompleted />
+      <div
+        className="col"
+        style={{ display: "flex", justifyContent: "flex-end", padding: 10 }}
+      >
+        <a
+          className="btn-radius2 btn"
+          style={{
+            background: Colors.gradient,
+            backgroundColor: Colors.primary,
+            color: Colors.accent,
+            marginRight: "4%",
+          }}
+          role="button"
+          onClick={props.onClick}
+        >
+          Go to surveys -{">"}
+        </a>
+      </div>
     </div>
   );
 };
@@ -157,9 +181,24 @@ const ProfileSurveys = (props) => {
         next steps are.
       </div>
       <div id="surveys">
-        <DoSurveyItem title="Demographics" done={true} timestamp="06/09/19 18:12"/>
-        <DoSurveyItem title="Your Skills" timestamp="06/09/19 18:12"/>
-        <DoSurveyItem title="Your experience" timestamp="06/09/19 18:12"/>
+        <DoSurveyItem
+          title="Demographics"
+          href="demographic-survey"
+          done={false}
+          timestamp="06/09/19 18:12"
+        />
+        <DoSurveyItem
+          title="Your Skills"
+          href="-survey"
+          done={false}
+          timestamp="06/09/19 18:12"
+        />
+        <DoSurveyItem
+          title="Your experience"
+          href="-survey"
+          done={false}
+          timestamp="06/09/19 18:12"
+        />
       </div>
       <SurveysCompleted />
     </div>
@@ -167,13 +206,23 @@ const ProfileSurveys = (props) => {
 };
 
 const ProfilePage = (props) => {
-  const [showValue, setShowValue] = useState(1);
+  const [showValue, setShowValue] = useState(0);
   // 0: ProfileIntro
   // 1: ProfileSurveys
   // 2: ProfileMatches (?)
 
+  useEffect(() => {
+    if (props.location.state && props.location.state.from) {
+      setShowValue(1);      
+    }
+  }, []);
+
   const onClickActionListHandler = (value) => {
     setShowValue(value);
+  };
+
+  const onGoToSurveys = () => {
+    setShowValue(1);
   };
 
   return (
@@ -274,7 +323,7 @@ const ProfilePage = (props) => {
           className="some-info"
           style={{ ...styles.redBox, ...styles.someInfo }}
         >
-          {showValue === 0 && <ProfileIntro />}
+          {showValue === 0 && <ProfileIntro onClick={onGoToSurveys} />}
           {showValue === 1 && <ProfileSurveys />}
         </div>
       </div>
