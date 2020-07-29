@@ -1,5 +1,10 @@
 import React from "react";
-import { Checkbox } from "@material-ui/core";
+import {
+  Checkbox,
+  FormControl,
+  FormGroup,
+  FormControlLabel,
+} from "@material-ui/core";
 
 import "../../css/surveyComponents/Checkboxes.css";
 
@@ -21,16 +26,18 @@ const Checkboxes = (props) => {
       }}
     >
       <div id="title">{props.title}</div>
-      {props.optionList.map((option) => (
-        <div>
-          <Checkbox
-            value={option.value}
-            onChange={props.onChange}
-            color="primary"
-          />
-          <span>{option.label}</span>
-        </div>
-      ))}
+      <FormControl component="fieldset">
+        {/* <FormLabel component="legend">{props.title}</FormLabel> */}
+        <FormGroup value={props.value} onChange={props.onChange}>
+          {props.optionList.map((option) => (
+            <FormControlLabel
+              value={option.value}
+              label={option.label}
+              control={<Checkbox color="primary" />}
+            />
+          ))}
+        </FormGroup>
+      </FormControl>
       {props.error && (
         <div
           style={{
@@ -40,7 +47,7 @@ const Checkboxes = (props) => {
             justifyContent: "flex-end",
           }}
         >
-          You did not respond to this question!
+          You must answer to this question!
         </div>
       )}
     </div>

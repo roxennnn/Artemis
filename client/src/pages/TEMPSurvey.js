@@ -6,6 +6,7 @@ import Dropdrown from "../components/surveyComponents/Dropdown";
 import Checkboxes from "../components/surveyComponents/Checkboxes";
 import Radiobuttons from "../components/surveyComponents/Radiobuttons";
 import RowRadios from "../components/surveyComponents/RowRadios";
+import TableQuestions from "../components/surveyComponents/TableQuestions";
 
 const VALUES = [
   { name: "Volvo", value: "volvo" },
@@ -36,18 +37,17 @@ const containerStyle = {
     margin: "2%",
     borderRadius: 20,
     shadow: 100,
-    background: "white"
+    background: "white",
   },
 };
 
 const TEMPSurvey = (props) => {
-
   useEffect(() => {
     document.body.style = `background: rgba(59,89,152,0.05);`;
 
     return () => {
       document.body.style = `background: rgb(255,255,255);`;
-    }
+    };
   }, []);
 
   const [dropDownValue, setDropDownValue] = useState();
@@ -83,6 +83,21 @@ const TEMPSurvey = (props) => {
     setRowRadioValue(parseInt(e.target.value));
   };
 
+  const [tableValue, setTableValue] = useState([0,0,0,0,0]);
+
+  const tableHandler = (e) => {
+    const index = e.target.id - 1;
+    let tmp = tableValue;
+    tmp[index] = parseInt(e.target.value);
+    setTableValue(tmp);
+
+    console.log(tableValue);
+    // console.log(e.target);
+    // e.target.checked = true;
+    // console.log(e.target);
+  };
+  
+
   return (
     <div>
       <CenterView middle={8} sides={2}>
@@ -113,15 +128,14 @@ const TEMPSurvey = (props) => {
             value={radioValue}
           />
         </div>
+        
         <div>
-          <RowRadios
-            style={containerStyle}
-            title="ROW RADIOS"
-            optionList={rowOptions}
-            value={rowRadioValue}
-            onChange={rowRadioOnChangeHandler}
-            left="Not at all likely"
-            right="Most likely"
+          <TableQuestions
+            title="TEST"
+            description="try this text i dont know that to write down here i just need some text even if withouth any punctuation"
+            optionList={['', 'Organise basic activities', 'Perform administrative tasks', 'Process payments', 'Handle money', 'Administer financial information']}
+            value={tableValue}
+            onChange={tableHandler}
           />
         </div>
       </CenterView>

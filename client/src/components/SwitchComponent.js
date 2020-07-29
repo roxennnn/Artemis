@@ -15,6 +15,7 @@ import LandingPage from "../pages/LandingPage";
 import TEMPSurvey from "../pages/TEMPSurvey";
 
 import DemographicSurvey from "../pages/surveys/DemographicSurvey";
+import ExperienceSurvey from "../pages/surveys/ExperienceSurvey";
 
 const SwitchComponent = (props) => {
   return (
@@ -35,6 +36,7 @@ const SwitchComponent = (props) => {
             <Route path="/mod" component={BoardModerator} />
             <Route path="/admin" component={BoardAdmin} /> */}
         <Route exact path="/profile/demographic-survey" component={DemographicSurvey} />
+        <Route exact path="/profile/experience-survey" component={ExperienceSurvey} />
       </Switch>
     </div>
   );

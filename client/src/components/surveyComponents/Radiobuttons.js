@@ -35,9 +35,8 @@ const Radiobuttons = (props) => {
           {props.optionList.map((option) => (
             <FormControlLabel
               value={option.value}
-              control={<Radio color="primary" />}
               label={option.label}
-              color="primary"
+              control={<Radio color="primary" />}
             />
           ))}
         </RadioGroup>
@@ -51,7 +50,7 @@ const Radiobuttons = (props) => {
             justifyContent: "flex-end",
           }}
         >
-          You did not respond to this question!
+          You must answer to this question!
         </div>
       )}
     </div>

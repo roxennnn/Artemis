@@ -300,7 +300,7 @@ const DemographicSurvey = (props) => {
         </div>
         <div>
           <Checkboxes
-            title="Means of transport available"
+            title="Means of transport available:"
             optionList={transportationList}
             style={containerStyle}
             onChange={onTransporationChangeHanlder}

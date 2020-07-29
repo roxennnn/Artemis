@@ -195,7 +195,7 @@ const ProfileSurveys = (props) => {
         />
         <DoSurveyItem
           title="Your experience"
-          href="-survey"
+          href="experience-survey"
           done={false}
           timestamp="06/09/19 18:12"
         />

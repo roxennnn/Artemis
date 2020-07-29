@@ -115,7 +115,7 @@ const CustomCountryDropdown = (props) => {
             justifyContent: "flex-end",
           }}
         >
-          You did not respond to this question!
+          You must answer to this question!
         </div>
       )}
     </div>
