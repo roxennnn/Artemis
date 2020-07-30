@@ -1,37 +1,25 @@
-import React, {useState} from "react";
-import {
-  Radio,
-  FormControl,
-  RadioGroup,
-  FormLabel,
-  FormControlLabel,
-} from "@material-ui/core";
+import React, { useState } from "react";
+import { Radio } from "@material-ui/core";
 
 import "../../css/surveyComponents/Radiobuttons.css";
 
-const styles = {
-  sideLabels: { alignItems: "center", display: "flex" },
-};
-
 const RowRadios = (props) => {
-
-  const [checked, setChecked] = useState(new Array(props.optionList.length).fill(false));
+  const [checked, setChecked] = useState(
+    new Array(props.optionList.length).fill(false)
+  );
   const checkHandler = (e) => {
     console.log(checked);
     const value = parseInt(e.target.value);
     console.log(value);
     let newChecked = new Array(props.optionList.length).fill(false);
-    newChecked[value-1] = true;
+    newChecked[value - 1] = true;
     setChecked(newChecked);
     console.log(checked);
     props.onChange(e);
   };
 
   return (
-    <div
-      id="container"
-      style={props.style}
-    >
+    <div id="container" style={props.style}>
       <div>{props.title}</div>
       <div id="row" style={{ display: "flex", flexDirection: "row" }}>
         <span style={{ display: "flex", alignItems: "center", width: "30%" }}>

@@ -7,18 +7,12 @@ import "../../css/surveyComponents/TableQuestions.css";
 // Possible values
 const rowOptions = [1, 2, 3, 4];
 const columns = ["Beginner", "Intermediate", "Competent", "Proficient"];
-// const rowOptions = [
-//   { label: "Beginner", value: 0 },
-//   { label: "Intermediate", value: 1 },
-//   { label: "Competent", value: 2 },
-//   { label: "Proficient", value: 3 },
-// ];
 
 // Styles
 const containerStyle = {
   container: {
     // padding: "2%",
-    // margin: "2%",
+    margin: "2%",
     borderRadius: 20,
     shadow: 100,
     background: "white",
@@ -28,11 +22,11 @@ const containerStyle = {
 const TableQuestions = (props) => {
   return (
     <div
-      class="to-hover"
+      class={props.error ? "error-box" : "to-hover"}
       style={{ ...containerStyle.container, padding: "2%", marginLeft: "2%" }}
     >
       <div>{props.title}</div>
-      <div>{props.description}</div>
+      <div class="description">{props.description}</div>
       {props.optionList.map((value, index) => {
         return (
           <div>
@@ -49,6 +43,18 @@ const TableQuestions = (props) => {
           </div>
         );
       })}
+      {props.error && (
+        <div
+          style={{
+            color: "red",
+            fontSize: 16,
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
+          You must answer to this question!
+        </div>
+      )}
     </div>
   );
 };

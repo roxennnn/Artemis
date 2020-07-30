@@ -87,9 +87,9 @@ const SurveysCompleted = (props) => {
 
 const DoSurveyItem = (props) => {
   return (
-    <div class="container" style={{ margin: 30 }}>
+    <div className="container" style={{ margin: 30 }}>
       <div
-        class="row margin-children  delete-a-style"
+        className="row margin-children  delete-a-style"
         style={{ display: "flex", alignItems: "center", padding: "1%" }}
       >
         <a className="hover-border" href={`profile/${props.href}`} style={{ width: "30%" }}>
@@ -98,12 +98,13 @@ const DoSurveyItem = (props) => {
               style={{
                 width: "25%",
               }}
+              alt=""
               src={props.done ? survey_done : survey}
             />
             <span style={{ marginLeft: "5%" }}>{props.title}</span>
           </span>
         </a>
-        {/* <i class="far fa-redo-alt"></i> */}
+        {/* <i className="far fa-redo-alt"></i> */}
         {props.done && (
           <a href="" style={{ width: "3%" }}>
             <FontAwesomeIcon icon={faRedoAlt} color="#3b5998" />
@@ -189,7 +190,7 @@ const ProfileSurveys = (props) => {
         />
         <DoSurveyItem
           title="Your Skills"
-          href="-survey"
+          href="skills-survey"
           done={false}
           timestamp="06/09/19 18:12"
         />
@@ -215,7 +216,7 @@ const ProfilePage = (props) => {
     if (props.location.state && props.location.state.from) {
       setShowValue(1);      
     }
-  }, []);
+  }, [props.location.state]); // remove the dependecy??
 
   const onClickActionListHandler = (value) => {
     setShowValue(value);
@@ -258,7 +259,8 @@ const ProfilePage = (props) => {
                 borderStyle: "solid",
                 borderColor: "white",
               }}
-              class="rounded-pill"
+              className="rounded-pill"
+              alt=""
               src={avatar}
             />
             <div
@@ -274,7 +276,7 @@ const ProfilePage = (props) => {
             </div>
             <button
               type="button"
-              class="btn btn-outline-light"
+              className="btn btn-outline-light"
               style={{
                 display: "flex",
                 justifyContent: "center",

@@ -5,7 +5,8 @@ import "../css/AboutPage.css";
 const AboutPage = (props) => {
   return (
     <div>
-      <section class="section-medium section-arrow--bottom-center section-arrow-primary-color bg-primary">
+      <h1>TODO</h1>
+      {/* <section class="section-medium section-arrow--bottom-center section-arrow-primary-color bg-primary">
         <div class="container">
           <div class="row">
             <div class="col-md-12 text-white text-center">
@@ -218,7 +219,7 @@ const AboutPage = (props) => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 };

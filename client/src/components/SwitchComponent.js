@@ -12,10 +12,12 @@ import ConsultDatabasePage from "../pages/ConsultDatabasePage";
 import ForumPage from "../pages/ForumPage";
 import TodoPage from "../pages/TodoPage";
 import LandingPage from "../pages/LandingPage";
-import TEMPSurvey from "../pages/TEMPSurvey";
+// import TEMPSurvey from "../pages/TEMPSurvey";
 
+// Surveys
 import DemographicSurvey from "../pages/surveys/DemographicSurvey";
 import ExperienceSurvey from "../pages/surveys/ExperienceSurvey";
+import SkillsSurvey from "../pages/surveys/SkillsSurvey";
 
 const SwitchComponent = (props) => {
   return (
@@ -31,12 +33,11 @@ const SwitchComponent = (props) => {
         <Route exact path="/forum" component={ForumPage} />
         <Route exact path="/todo" component={TodoPage} />
         <Route exact path="/consult-database" component={ConsultDatabasePage} />
-        <Route exact path="/survey" component={TEMPSurvey} />
-        {/* <Route path="/user" component={BoardUser} />
-            <Route path="/mod" component={BoardModerator} />
-            <Route path="/admin" component={BoardAdmin} /> */}
+        {/* <Route exact path="/survey" component={TEMPSurvey} /> */}
+        
         <Route exact path="/profile/demographic-survey" component={DemographicSurvey} />
         <Route exact path="/profile/experience-survey" component={ExperienceSurvey} />
+        <Route exact path="/profile/skills-survey" component={SkillsSurvey} />
       </Switch>
     </div>
   );

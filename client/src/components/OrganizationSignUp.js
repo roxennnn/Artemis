@@ -10,8 +10,8 @@ const OrganizationSignUp = (props) => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const submitHandler = async () => {
-    const org = organization;
-    const emailValue = email;
+    // const org = organization;
+    // const emailValue = email;
     const pass = password;
     const confirmPass = confirmPassword;
 

@@ -7,7 +7,10 @@ import LoginComponent from "./LoginComponent";
 
 const NavComponent = (props) => {
   return (
-    <nav class="navbar navbar-expand-lg navbar-dark primary" style={{background: Colors.gradient}}>
+    <nav
+      className="navbar navbar-expand-lg navbar-dark primary"
+      style={{ background: Colors.gradient }}
+    >
       <Link
         to={"/"}
         className="navbar-brand"
@@ -25,7 +28,7 @@ const NavComponent = (props) => {
       </Link>
       {/* Collapsed toggler button */}
       <button
-        class="navbar-toggler"
+        className="navbar-toggler"
         type="button"
         data-toggle="collapse"
         data-target="#navbarTop"
@@ -33,15 +36,15 @@ const NavComponent = (props) => {
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <span class="navbar-toggler-icon"></span>
+        <span className="navbar-toggler-icon"></span>
       </button>
 
       {/* Collapsing navbar */}
-      <div class="collapse navbar-collapse" id="navbarTop">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item dropdown">
+      <div className="collapse navbar-collapse" id="navbarTop">
+        <ul className="navbar-nav mr-auto">
+          <li className="nav-item dropdown">
             <a
-              class="nav-link"
+              className="nav-link"
               id="navbarDropdown"
               role="button"
               data-toggle="dropdown"
@@ -51,23 +54,23 @@ const NavComponent = (props) => {
               Learn More
             </a>
             <div
-              class="dropdown-menu dropdown-menu-learnmore"
+              className="dropdown-menu dropdown-menu-learnmore"
               aria-labelledby="navbarDropdown"
             >
-              <a class="dropdown-item" href="/learn-more">
+              <a className="dropdown-item" href="/learn-more">
                 What is this website
               </a>
-              <a class="dropdown-item" href="/learn-more">
+              <a className="dropdown-item" href="/learn-more">
                 How to use it
               </a>
-              {/* <div class="dropdown-divider"></div> */}
-              <a class="dropdown-item" href="/learn-more">
+              {/* <div className="dropdown-divider"></div> */}
+              <a className="dropdown-item" href="/learn-more">
                 What and why of this database
               </a>
-              <a class="dropdown-item" href="/learn-more">
+              <a className="dropdown-item" href="/learn-more">
                 Use of blockchain
               </a>
-              <a class="dropdown-item" href="/learn-more">
+              <a className="dropdown-item" href="/learn-more">
                 Technical documentation
               </a>
             </div>
@@ -92,7 +95,7 @@ const NavComponent = (props) => {
               FAQ
             </Link>
           </li>
-          <li className="nav-item" onclick="myFunction()">
+          <li className="nav-item">
             <Link to={"/about"} className="nav-link">
               Contact Us
             </Link>
@@ -102,35 +105,30 @@ const NavComponent = (props) => {
               TEMP USER
             </Link>
           </li>
-          <li className="nav-item">
-            <Link to={"/survey"} className="nav-link">
-              TEMP SURVEY
-            </Link>
-          </li>
         </ul>
       </div>
-      <div class="collapse navbar-collapse" id="navbarTop">
-        <ul class="navbar-nav ml-auto">
-          {/* <li class="nav-item">
-                <span class="nav-link nav-text">Already have an account?</span>
+      <div className="collapse navbar-collapse" id="navbarTop">
+        <ul className="navbar-nav ml-auto">
+          {/* <li className="nav-item">
+                <span className="nav-link nav-text">Already have an account?</span>
               </li> */}
-          <li class="nav-item dropdown">
+          <li className="nav-item dropdown">
             <a
-              class="nav-link"
+              className="nav-link"
               id="navbarDropdown"
               role="button"
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <span class="nav-text">Already have an account?</span> Login
+              <span className="nav-text">Already have an account?</span> Login
             </a>
-            <ul id="login-dp" class="dropdown-menu dropdown-menu-right">
+            <ul id="login-dp" className="dropdown-menu dropdown-menu-right">
               <li>
-                <div class="row">
-                  <div class="col-xl">
+                <div className="row">
+                  <div className="col-xl">
                     <LoginComponent history={props.history} />
-                    <div class="bottom-login text-center">
+                    <div className="bottom-login text-center">
                       New here ?{" "}
                       <a href="/signup">
                         <b style={{ color: Colors.primary }}>Join Us</b>

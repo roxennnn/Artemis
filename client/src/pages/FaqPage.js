@@ -5,7 +5,8 @@ import "../css/FaqPage.css";
 const FaqPage = (props) => {
   return (
     <div class="container-fluid">
-      <div class="row">
+      <h1>TODO</h1>
+      {/* <div class="row">
         <div class="col-xl-12 pa-0">
           <div class="faq-search-wrap bg-teal-light-3">
             <div class="container">
@@ -243,7 +244,7 @@ const FaqPage = (props) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

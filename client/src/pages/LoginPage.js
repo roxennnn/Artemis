@@ -82,7 +82,7 @@ const LoginPage = (props) => {
             <a
               className="btn-radius btn btn-primary btn-lg"
               role="button"
-              // href="/home"
+              // href=""
               onClick={submitHandler}
             >
               Log In

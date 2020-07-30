@@ -5,7 +5,8 @@ import "../css/ConsultDatabasePage.css";
 const ConsultDatabasePage = (props) => {
   return (
     <div class="content">
-      <div class="container">
+      <h1>TODO</h1>
+      {/* <div class="container">
         <div class="row">
           <div class="col-12">
             <div class="card-box">
@@ -294,7 +295,7 @@ const ConsultDatabasePage = (props) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

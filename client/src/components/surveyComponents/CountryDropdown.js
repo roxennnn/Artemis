@@ -45,7 +45,7 @@ const CustomCountryDropdown = (props) => {
       );
       setRegions(tmp["regions"]);
     }
-  }, [currentCountry]);
+  }, [currentCountry, props.countries, props.defaultMessageRegion]);
 
   return (
     <div
@@ -91,9 +91,9 @@ const CustomCountryDropdown = (props) => {
               {currentRegion}
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              {regions.map((value) => (
+              {regions.map((value,index) => (
                 <Dropdown.Item
-                  eventKey={value.value}
+                  eventKey={index}
                   href=""
                   onClick={() => {
                     setCurrentRegion(value.name);

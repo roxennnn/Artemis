@@ -12,15 +12,11 @@ import SwitchComponent from "./components/SwitchComponent";
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState();
-  const [showModeratorBoard, setShowModeratorBoard] = useState(false);
-  const [showAdminBoard, setShowAdminBoard] = useState(false);
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
     if (user) {
       setCurrentUser(user);
-      setShowModeratorBoard(user.roles.includes("ROLE_MODERATOR"));
-      setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
     }
   }, []);
 
