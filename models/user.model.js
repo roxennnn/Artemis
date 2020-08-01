@@ -4,32 +4,48 @@ const { model, Schema } = mongoose;
 const User = model(
   "User",
   new Schema({
-    organization: String,
-    firstName: String,
-    lastName: String,
-    birthday: String,
+    organization: String,   // How to handle organizations? Maybe, a different object
+
+    // Necessary for end-user
+    username: {
+      type: String,
+      required: true,  // organisations do not use usernames...
+    },
     email: {
       type: String,
-      required: true
+      required: true,
     },
     password: {
       type: String,
-      required: true
+      required: true,
     },
     eth_address: {
       type: String,
-      required: true
+      required: true,
     },
     priv_key: {
       type: String,
-      required: true
+      required: true,
     },
-    roles: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Role",
-      },
-    ],
+    // Surveys:
+    // - Demographics
+    demographics_done: {
+      type: Boolean,
+      default: false,
+    },
+    demographics_timestamp: Date,
+    // - Skillz
+    skills_done: {
+      type: Boolean,
+      default: false,
+    },
+    skills_timestamp: Date,
+    // - Experience
+    experience_done: {
+      type: Boolean,
+      default: false,
+    },
+    experience_timestamp: Date,
   })
 );
 

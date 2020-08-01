@@ -1,24 +1,30 @@
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 
 import Colors from "../constants/Colors";
 
 import AuthService from "../services/auth.service";
 
 const LoginComponent = (props) => {
-  const [emailValue, setEmailValue] = useState("");
+  const history = useHistory();
+
+  const [usernameValue, setUsernameValue] = useState("");
   const [passValue, setPassValue] = useState("");
 
   const submitHandler = async () => {
-    const email = emailValue;
+    const username = usernameValue;
     const pass = passValue;
 
     // make login POST request
     try {
-      await AuthService.login(email, pass);
-      props.history.push("/home");
+      await AuthService.login(username, pass);
+      history.push("/profile");
       window.location.reload();
       // props.history.push("/profile");
+      // reset inputs
+      setUsernameValue("");
+      setPassValue("");
     } catch (err) {
       console.log(err);
       // THE FOLLOWING CAN BE USED FOR THE ERROR MESSAGE....
@@ -29,29 +35,23 @@ const LoginComponent = (props) => {
       //   error.message ||
       //   error.toString();
     }
-    // reset inputs
-    setEmailValue("");
-    setPassValue("");
   };
 
   return (
     <div className="col-md-12">
       <Form>
-        <Form.Group controlId="formBasicEmail">
+        <Form.Group controlId="formUsername">
           <Form.Control
-            type="email"
-            placeholder="Email address"
-            onChange={(email) => setEmailValue(email.target.value)}
-            value={emailValue}
+            type="text"
+            placeholder="Username"
+            onChange={(username) => setUsernameValue(username.target.value)}
+            value={usernameValue}
             onKeyPress={(event) => {
               if (event.key === "Enter") {
                 submitHandler();
               }
             }}
           />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
         </Form.Group>
 
         <Form.Group controlId="formBasicPassword">
@@ -62,7 +62,6 @@ const LoginComponent = (props) => {
             value={passValue}
             onKeyPress={(event) => {
               if (event.key === "Enter") {
-                console.log("TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTS");
                 submitHandler();
               }
             }}

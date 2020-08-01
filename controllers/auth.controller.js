@@ -3,7 +3,6 @@ import Wallet from "ethereumjs-wallet";
 import { secret } from "../config/auth.config.js";
 import db from "../models/index.js";
 const User = db.user;
-const Role = db.role;
 
 import jsonwebtoken from "jsonwebtoken";
 const { sign } = jsonwebtoken;
@@ -11,7 +10,9 @@ const { sign } = jsonwebtoken;
 import bcryptjs from "bcryptjs";
 const { hashSync, compareSync } = bcryptjs;
 
+// "WHY DID I USE THESE ADDRESSES??"
 ///////////////////////////////////////////////////////////////
+// ***********************************************************
 // ONLY FOR TESTING
 const addresses = [
   "0x55958faddf67d6051fe7f5f9bff015531c09d4ed",
@@ -41,8 +42,10 @@ const priv_keys = [
 
 let crazyId = 1;
 const OWNER_ADDR = addresses[0];
+// *************************************************************
 ////////////////////////////////////////////////////////////////
 
+// NOT USED...
 export const signup = (req, res) => {
   console.log(req.body);
   z;
@@ -57,117 +60,56 @@ export const signup = (req, res) => {
       res.status(500).send({ message: err });
       return;
     }
-
-    if (req.body.roles) {
-      Role.find(
-        {
-          name: { $in: req.body.roles },
-        },
-        (err, roles) => {
-          if (err) {
-            res.status(500).send({ message: err });
-            return;
-          }
-
-          user.roles = roles.map((role) => role._id);
-          user.save((err) => {
-            if (err) {
-              res.status(500).send({ message: err });
-              return;
-            }
-
-            res.send({ message: "User was registered successfully!" });
-          });
-        }
-      );
-    } else {
-      Role.findOne({ name: "user" }, (err, role) => {
-        if (err) {
-          res.status(500).send({ message: err });
-          return;
-        }
-
-        user.roles = [role._id];
-        user.save((err) => {
-          if (err) {
-            res.status(500).send({ message: err });
-            return;
-          }
-
-          res.send({ message: "User was registered successfully!" });
-        });
-      });
-    }
   });
 };
 
 // Add smartcontract communication
 export const signupCitizen = (req, res) => {
-  console.log(req.body);
+  // not the best approach for production --> @TOFIX
 
-  const user = new User({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    birthday: req.body.birthday,
-    email: req.body.email,
+  // Generate a public(address)-private key pair
+  // let addressData = Wallet.default.generate();   // RIGHT APPROACH
+  
+  // USING TRUFFLE ADDRESSES
+  if (crazyId >= 10) {
+    process.exit();
+  }
+  // Kind of random generated address (?)
+  const address = addresses[crazyId];
+  const priv_key = priv_keys[crazyId];
+  crazyId++;
+  console.log(`CRAZYID: ${crazyId}`);
+
+  const user = new User({ // survey data are not stored, defult values used
+    username: req.body.username,
+    email: hashSync(req.body.email, 8),
     password: hashSync(req.body.password, 8),
+    // eth_address: addressData.getAddressString(), // used when random generated
+    // priv_key: addressData.getPrivateKeyString(), // used when random generated
+    eth_address: address,                           // used only now, for pre-set addresses
+    priv_key: priv_key,                             // used only now, for pre-set addresses
   });
 
   user.save((err, user) => {
     if (err) {
       res.status(500).send({ message: err });
       return;
-    }
-
-    if (req.body.roles) {
-      Role.find(
-        {
-          name: { $in: req.body.roles },
-        },
-        (err, roles) => {
-          if (err) {
-            res.status(500).send({ message: err });
-            return;
-          }
-
-          user.roles = roles.map((role) => role._id);
-          user.save((err) => {
-            if (err) {
-              res.status(500).send({ message: err });
-              return;
-            }
-
-            res.send({ message: "User was registered successfully!" });
-          });
-        }
-      );
     } else {
-      Role.findOne({ name: "user" }, (err, role) => {
-        if (err) {
-          res.status(500).send({ message: err });
-          return;
-        }
-
-        user.roles = [role._id];
-        user.save((err) => {
-          if (err) {
-            res.status(500).send({ message: err });
-            return;
-          }
-
-          res.send({ message: "User was registered successfully!" });
-        });
-      });
+      res.status(200).send();
     }
   });
 };
 
-import { formContractWithOwner, web3 } from "../server.js";
+// import { formContractWithOwner, web3 } from "../server.js";
 
+// TO BE @FIXED 
 export const signupOrganization = async (req, res) => {
   // not the best approach for production --> @TOFIX
+
   // Generate a public(address)-private key pair
-  // let addressData = Wallet.default.generate();
+  // let addressData = Wallet.default.generate();   // RIGHT APPROACH
+  
+  // USING TRUFFLE ADDRESSES
   if (crazyId >= 10) {
     process.exit();
   }
@@ -177,106 +119,55 @@ export const signupOrganization = async (req, res) => {
   crazyId++;
   console.log(crazyId);
 
-  const user = new User({
+  const user = new User({ // survey data are not stored, defult values used
     organization: req.body.organization,
     email: req.body.email,
     password: hashSync(req.body.password, 8),
-    // eth_address: addressData.getAddressString(),
-    // priv_key: addressData.getPrivateKeyString(),
-    eth_address: address,
-    priv_key: priv_key,
+    // eth_address: addressData.getAddressString(), // used when random generated
+    // priv_key: addressData.getPrivateKeyString(), // used when random generated
+    eth_address: address,                           // used only now, for pre-set addresses
+    priv_key: priv_key,                             // used only now, for pre-set addresses
   });
-  // console.log(testFormContract.methods);
-  // console.log(await web3.eth.getBalance(address));
-  let result;
+
+  // SUPER USEFUL BLOCKCHAIN STUFF
+
+  // let result;
   // try {
-  //   result = await testFormContract.methods
-  //     .addNewUser(req.body.organization, req.body.email)
+  //   result = await formContractWithOwner.methods
+  //     .addNewUser(req.body.organization, req.body.email, address)
   //     // .send({from: accounts[0]})
   //     // .send({ from: addressData.getAddressString() })
-  //     .send({ from: address, gas: 6721975 });
+  //     .send({ from: OWNER_ADDR, gas: 6721975 });
 
   //   console.log(`Result1: ${result}`);
 
-  //   let result2 = await testFormContract.methods.getUserData().call({ from: address });
+  //   let result2 = await formContractWithOwner.methods.getUserData().call({ from: address });
 
   //   console.log(`Result2: ${result2}`);
   // } catch (err) {
   //   console.log(`THIS IS THE ERROR: ${err}`);
   // }
-  try {
-    result = await formContractWithOwner.methods
-      .addNewUser(req.body.organization, req.body.email, address)
-      // .send({from: accounts[0]})
-      // .send({ from: addressData.getAddressString() })
-      .send({ from: OWNER_ADDR, gas: 6721975 });
 
-    console.log(`Result1: ${result}`);
-
-    let result2 = await formContractWithOwner.methods.getUserData().call({ from: address });
-
-    console.log(`Result2: ${result2}`);
-  } catch (err) {
-    console.log(`THIS IS THE ERROR: ${err}`);
-  }
-
-  // @TEST
 
   user.save((err, user) => {
     if (err) {
+      console.log(err);
       res.status(500).send({ message: err });
       return;
-    }
-
-    // Roles stuff
-    if (req.body.roles) {
-      Role.find(
-        {
-          name: { $in: req.body.roles },
-        },
-        (err, roles) => {
-          if (err) {
-            res.status(500).send({ message: err });
-            return;
-          }
-
-          user.roles = roles.map((role) => role._id);
-          user.save((err) => {
-            if (err) {
-              res.status(500).send({ message: err });
-              return;
-            }
-
-            res.send({ message: "User was registered successfully!" });
-          });
-        }
-      );
     } else {
-      Role.findOne({ name: "user" }, (err, role) => {
-        if (err) {
-          res.status(500).send({ message: err });
-          return;
-        }
-
-        user.roles = [role._id];
-        user.save((err) => {
-          if (err) {
-            res.status(500).send({ message: err });
-            return;
-          }
-
-          res.send({ message: "User was registered successfully!" });
-        });
-      });
+      res.status(200).send();
     }
   });
 };
 
 export const signin = (req, res) => {
+  // console.log(req.body.email);
+  // const hashedEmail = hashSync(req.body.email, 8);
+  // console.log(hashedEmail);
   User.findOne({
-    email: req.body.email,
+    username: req.body.username,
   })
-    .populate("roles", "-__v")
+    // .populate("roles", "-__v") // like SQL joins --> but we don't have Roles anymore
     .exec((err, user) => {
       if (err) {
         res.status(500).send({ message: err });
@@ -284,6 +175,7 @@ export const signin = (req, res) => {
       }
 
       if (!user) {
+        console.log("USER NOT FOUND");
         return res.status(404).send({ message: "User Not found." });
       }
 
@@ -300,20 +192,30 @@ export const signin = (req, res) => {
         expiresIn: 86400, // 24 hours
       });
 
-      var authorities = [];
+      // send data
+      // res.status(200).send({
+      //   id: user._id,
+      //   email: user.email,
+      //   address: user.eth_address,
+      //   priv_key: user.priv_key,
+      //   accessToken: token,
+      // });
 
-      for (let i = 0; i < user.roles.length; i++) {
-        authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
-      }
-      console.log(user);
-
-      // send data based on type of user
-
+      // OR: keep all the user data in the DB approach: access it only when needed, using the ID
+      // data to be returned when the user signs in... thus, returning the username (for the profile) and the survey information would be useful
       res.status(200).send({
         id: user._id,
-        email: user.email,
-        roles: authorities,
         accessToken: token,
+
+        // Other information which may be useful
+        username: user.username,  // needed to show it when the user is logged
+        // useful information for the user survey page
+        demographicsDone: user.demographics_done,
+        demographicsTimestamp: user.demographics_timestamp,
+        skillsDone: user.skills_done,
+        skillsTimestamp: user.skills_timestamp,
+        experienceDone: user.experience_done,
+        experienceTimestamp: user.experience_timestamp,
       });
     });
 };

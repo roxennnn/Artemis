@@ -15,8 +15,7 @@ export default (app) => {
   app.post(
     "/api/auth/signup/organization",
     [
-      verifySignUp.checkDuplicateEmail,
-      verifySignUp.checkRolesExisted,
+      verifySignUp.checkDuplicateUser,
     ],
     signupOrganization
   );
@@ -24,8 +23,7 @@ export default (app) => {
   app.post(
     "/api/auth/signup/citizen",
     [
-      verifySignUp.checkDuplicateEmail,
-      verifySignUp.checkRolesExisted,
+      verifySignUp.checkDuplicateUser,
     ],
     signupCitizen
   );

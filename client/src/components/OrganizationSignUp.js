@@ -3,6 +3,8 @@ import { Form } from "react-bootstrap";
 
 import AuthService from "../services/auth.service";
 
+import Colors from "../constants/Colors";
+
 const OrganizationSignUp = (props) => {
   const [organization, setOrganization] = useState("");
   const [email, setEmail] = useState("");
@@ -23,19 +25,7 @@ const OrganizationSignUp = (props) => {
         // props.history.push("/profile");
       } catch (err) {
         console.log(err.message);
-        // THE FOLLOWING CAN BE USED FOR THE ERROR MESSAGE....
-        // const resMessage =
-        //   (error.response &&
-        //     error.response.data &&
-        //     error.response.data.message) ||
-        //   error.message ||
-        //   error.toString();
       }
-      // reset inputs
-      // setOrganization("");
-      // setEmail("");
-      // setPassword("");
-      // setConfirmPassword("");
     } else {
       console.log("Password and confirm password don't match");
     }
@@ -119,8 +109,14 @@ const OrganizationSignUp = (props) => {
       <br />
       <div className="center-col col">
         <a
-          className="btn-radius btn btn-success btn-lg"
+          className="btn-radius btn"
           role="button"
+          style={{
+            background: Colors.gradient,
+            backgroundColor: Colors.primary,
+            color: Colors.accent,
+            margin: 10,
+          }}
           // href="/home"
           onClick={submitHandler}
         >
