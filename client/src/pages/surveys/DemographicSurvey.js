@@ -261,7 +261,8 @@ const DemographicSurvey = (props) => {
       props.history.push({
         pathname: '/profile',
         state: { 
-            from: true
+            from: true,
+            to: 1
         }
       })
     } else { // red border

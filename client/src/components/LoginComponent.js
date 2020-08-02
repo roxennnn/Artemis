@@ -69,7 +69,7 @@ const LoginComponent = (props) => {
         </Form.Group>
         <div className="help-block text-right">
           <a href="/todo" style={{ color: Colors.primary }}>
-            Forget the password ?
+            Forgot the password ?
           </a>
         </div>
         <div className="center-col col">

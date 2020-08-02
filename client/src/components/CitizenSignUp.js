@@ -106,12 +106,6 @@ const CitizenSignUp = (props) => {
         //   error.message ||
         //   error.toString();
       }
-      // // reset inputs
-      // setUsername("");
-      // setEmail("");
-      // setConfirmEmail("");
-      // setPassword("");
-      // setConfirmPassword("");
     } else {
       setTermsAndConditions(false); // user has to accept again
     }

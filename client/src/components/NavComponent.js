@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 
 import Colors from "../constants/Colors.js";
 
-import LoginComponent from "./LoginComponent";
+import LoginNavbar from "./LoginNavbar";
+import LoggedNavbar from "./LoggedNavbar";
 
 const NavComponent = (props) => {
   return (
@@ -100,45 +101,23 @@ const NavComponent = (props) => {
               Contact Us
             </Link>
           </li>
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <Link to={"/profile"} className="nav-link">
               TEMP USER
             </Link>
-          </li>
+          </li> */}
         </ul>
       </div>
       <div className="collapse navbar-collapse" id="navbarTop">
         <ul className="navbar-nav ml-auto">
-          {/* <li className="nav-item">
-                <span className="nav-link nav-text">Already have an account?</span>
-              </li> */}
-          <li className="nav-item dropdown">
-            <a
-              className="nav-link"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <span className="nav-text">Already have an account?</span> Login
-            </a>
-            <ul id="login-dp" className="dropdown-menu dropdown-menu-right">
-              <li>
-                <div className="row">
-                  <div className="col-xl">
-                    <LoginComponent history={props.history} />
-                    <div className="bottom-login text-center">
-                      New here ?{" "}
-                      <a href="/signup">
-                        <b style={{ color: Colors.primary }}>Join Us</b>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </li>
+          {props.currentUser ? (
+            <LoggedNavbar
+              history={props.history}
+              username={props.currentUser.username}
+            />
+          ) : (
+            <LoginNavbar history={props.history} />
+          )}
         </ul>
       </div>
     </nav>

@@ -60,3 +60,10 @@ div.action-list-item:hover {
   /* height: 40px; */
   border-radius: 100px!important;
 }
+
+
+img.profile-page-avatar:hover {
+  border-width: 2px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2) !important;
+  transition: 0.2s !important;
+}

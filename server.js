@@ -66,7 +66,7 @@ import fs from "fs";
 let rawdata = fs.readFileSync("./blockchain/build/contracts/WorkUrFreedomContract.json");
 let WorkUrFreedomContract = JSON.parse(rawdata);
 
-console.log(WorkUrFreedomContract.address);
+// console.log(WorkUrFreedomContract.address);
 
 // Export these components so that other files can use them
 export const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:9545"));

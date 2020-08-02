@@ -138,7 +138,7 @@ nav.primary {
     background-color: rgba(255, 255, 255, 0.9) !important;
   }
 
-  .dropdown-menu a {
+  .dropdown-menu.dropdown-item a {
     color: #3b5998 !important;
   }
 
@@ -146,7 +146,7 @@ nav.primary {
     color: white !important;
   }
 
-  .dropdown-menu a:hover {
+  .dropdown-menu a.dropdown-item:hover {
     background: none;
     color: #000 !important;
   }
@@ -160,9 +160,25 @@ nav.primary {
   background-color: rgba(59, 89, 152, 0.8);
 }
 
-.dropdown-menu a:hover {
+.dropdown-menu a.dropdown-item:hover {
   background: none;
   color: #000;
+}
+
+.profile-dropdown-item:hover {
+  color: #3b5998 !important;
+  cursor: pointer;
+}
+
+a.profile-nav-link:hover * {
+  border-color: black !important;
+  color: black !important;
+}
+
+span.logout-dropdown-item:hover {
+  color: red !important;
+  background-color: white !important;
+  cursor: pointer;
 }
 
 /* Login Logic */

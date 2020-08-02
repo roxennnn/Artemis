@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from "react";
+import ProgressBar from "../components/ProgressBar";
+
+import Colors from "../constants/Colors";
+import AuthService from "../services/auth.service";
 
 import "../css/ProfilePage.css";
 
@@ -12,9 +16,6 @@ import survey_done from "../images/survey_done.png";
 import { faRedoAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import Colors from "../constants/Colors";
-
-import ProgressBar from "../components/ProgressBar";
 
 const styles = {
   redBox: {
@@ -73,11 +74,27 @@ const SurveysCompleted = (props) => {
         <h2>Surveys completed:</h2>
         <div style={{ marginLeft: "5%", marginRight: "5%", marginTop: "2%" }}>
           <ProgressBar
-            text="1/3"
-            percentage="33%"
+            text={`${props.surveysDone}/3`}
+            percentage={`${(props.surveysDone / 3) * 100}%`}
             color={Colors.primary}
             gradient={Colors.gradient}
             textStyle={{ color: Colors.accent }}
+            insideStyle={
+              props.surveysDone === 0
+                ? {
+                    width: "100%",
+                    background: "white",
+                    backgroundColor: "white",
+                  }
+                : {}
+            }
+            textStyle={
+              props.surveysDone === 0
+                ? {
+                    color: Colors.primary,
+                  }
+                : {}
+            }
           />
         </div>
       </div>
@@ -92,7 +109,11 @@ const DoSurveyItem = (props) => {
         className="row margin-children  delete-a-style"
         style={{ display: "flex", alignItems: "center", padding: "1%" }}
       >
-        <a className="hover-border" href={`profile/${props.href}`} style={{ width: "30%" }}>
+        <a
+          className="hover-border"
+          href={`profile/${props.href}`}
+          style={{ width: "30%" }}
+        >
           <span>
             <img
               style={{
@@ -126,6 +147,23 @@ const DoSurveyItem = (props) => {
 
 // showValue = 0
 const ProfileIntro = (props) => {
+  const [surveysDone, setSurveysDone] = useState(0);
+  useEffect(() => {
+    let counter = 0;
+    if (props.currentUser) {
+      if (props.currentUser.demographicsDone) {
+        counter++;
+      }
+      if (props.currentUser.experienceDone) {
+        counter++;
+      }
+      if (props.currentUser.skillsDone) {
+        counter++;
+      }
+    }
+    setSurveysDone(counter);
+  }, [props.currentUser]);
+
   return (
     <div>
       <div style={styles.rowBox}>
@@ -148,7 +186,7 @@ const ProfileIntro = (props) => {
           <img src={laura} alt="" />
         </div>
       </div>
-      <SurveysCompleted />
+      <SurveysCompleted surveysDone={surveysDone} />
       <div
         className="col"
         style={{ display: "flex", justifyContent: "flex-end", padding: 10 }}
@@ -167,12 +205,28 @@ const ProfileIntro = (props) => {
           Go to surveys -{">"}
         </a>
       </div>
+      <h2>Matchings:</h2>
     </div>
   );
 };
 
 //showValue = 1
 const ProfileSurveys = (props) => {
+  const [surveysDone, setSurveysDone] = useState(0);
+  useEffect(() => {
+    let counter = 0;
+    if (props.currentUser.demographicsDone) {
+      counter++;
+    }
+    if (props.currentUser.experienceDone) {
+      counter++;
+    }
+    if (props.currentUser.skillsDone) {
+      counter++;
+    }
+    setSurveysDone(counter);
+  }, [props.currentUser]);
+
   return (
     <div>
       <h1>Fill the surveys!</h1>
@@ -185,28 +239,37 @@ const ProfileSurveys = (props) => {
         <DoSurveyItem
           title="Demographics"
           href="demographic-survey"
-          done={false}
-          timestamp="06/09/19 18:12"
+          done={props.currentUser.demographicsDone}
+          timestamp={props.currentUser.demographicsTimestamp}
         />
         <DoSurveyItem
           title="Your Skills"
           href="skills-survey"
-          done={false}
-          timestamp="06/09/19 18:12"
+          done={props.currentUser.skillsDone}
+          timestamp={props.currentUser.skillsTimestamp}
         />
         <DoSurveyItem
           title="Your experience"
           href="experience-survey"
-          done={false}
-          timestamp="06/09/19 18:12"
+          done={props.currentUser.experienceDone}
+          timestamp={props.currentUser.experienceTimestamp}
         />
       </div>
-      <SurveysCompleted />
+      <SurveysCompleted surveysDone={surveysDone} />
     </div>
   );
 };
 
 const ProfilePage = (props) => {
+
+  const [currentUser, setCurrentUser] = useState(); // data of logged user
+  useEffect(() => {
+    const user = AuthService.getCurrentUser();
+    if (user) {
+      setCurrentUser(user);
+    }
+  }, []);
+
   const [showValue, setShowValue] = useState(0);
   // 0: ProfileIntro
   // 1: ProfileSurveys
@@ -214,7 +277,7 @@ const ProfilePage = (props) => {
 
   useEffect(() => {
     if (props.location.state && props.location.state.from) {
-      setShowValue(1);      
+      setShowValue(props.location.state.to);
     }
   }, [props.location.state]); // remove the dependecy??
 
@@ -259,7 +322,7 @@ const ProfilePage = (props) => {
                 borderStyle: "solid",
                 borderColor: "white",
               }}
-              className="rounded-pill"
+              className="rounded-pill profile-page-avatar"
               alt=""
               src={avatar}
             />
@@ -272,11 +335,14 @@ const ProfilePage = (props) => {
                 justifyContent: "center",
               }}
             >
-              Lauretta96
+              {currentUser ? currentUser.username : ""}
             </div>
             <button
               type="button"
               className="btn btn-outline-light"
+              onClick={() => {
+                props.history.push("/todo");
+              }}
               style={{
                 display: "flex",
                 justifyContent: "center",
@@ -325,8 +391,10 @@ const ProfilePage = (props) => {
           className="some-info"
           style={{ ...styles.redBox, ...styles.someInfo }}
         >
-          {showValue === 0 && <ProfileIntro onClick={onGoToSurveys} />}
-          {showValue === 1 && <ProfileSurveys />}
+          {showValue === 0 && (
+            <ProfileIntro currentUser={currentUser} onClick={onGoToSurveys} />
+          )}
+          {showValue === 1 && <ProfileSurveys currentUser={currentUser} />}
         </div>
       </div>
     </div>
