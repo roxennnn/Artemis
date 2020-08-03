@@ -48,7 +48,7 @@ contract WorkUrFreedomContract {
     // Transactions:
 
     // Transaction: add (or update) demographic answers of userAddr; only the ownerAddr can perform this transaction
-    function addDemographicAnwsers(address userAddr, uint[9] memory answers) public {
+    function addDemographicsAnwsers(address userAddr, uint[9] memory answers) public {
         // Check if the sender of this transaction is the owner
         require(isOwner(msg.sender), "Permission Denied! Only the owner can perform this operation");
 
@@ -144,7 +144,7 @@ contract WorkUrFreedomContract {
     }
 
     // Call: get the user's answers to the demographic survey; user's data can be read only by the user itself
-    function getDemographicData() public view returns(uint[9] memory) {
+    function getDemographicsData() public view returns(uint[9] memory) {
 
         // Check if the address is stored in the map
         require(exists(userData[msg.sender]), "User does not exist...");

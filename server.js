@@ -38,7 +38,9 @@ db.mongoose
 
 // routes
 import auth_routes from "./routes/auth.routes.js";
+import survey_routes from "./routes/survey.routes.js";
 auth_routes(app);
+survey_routes(app);
 
 // This is used in order to make node.js completely host our project
 // @TOFIX

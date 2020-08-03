@@ -77,14 +77,6 @@ label {
   }
 }
 
-.signupButton {
-  color: greenyellow !important;
-}
-
-.loginButton {
-  color: blue !important;
-}
-
 /**********************
  *      NavBar        *
  **********************/
@@ -173,6 +165,11 @@ nav.primary {
 a.profile-nav-link:hover * {
   border-color: black !important;
   color: black !important;
+}
+
+a.profile-nav-link:hover img {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2) !important;
+  transition: 0.2s !important;
 }
 
 span.logout-dropdown-item:hover {

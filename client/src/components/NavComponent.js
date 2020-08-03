@@ -84,13 +84,13 @@ const NavComponent = (props) => {
               </Link>
             </li>
           )}
-          {props.currentUser && (
+          {/* {props.currentUser && (
             <li className="nav-item">
               <Link to={"/consult-database"} className="nav-link">
                 Consult Database
               </Link>
             </li>
-          )}
+          )} */}
           <li className="nav-item">
             <Link to={"/faq"} className="nav-link">
               FAQ

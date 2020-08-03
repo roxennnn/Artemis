@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import CenterView from "../../components/CenterView";
 
-
 import Colors from "../../constants/Colors";
 import Countries from "../../constants/Countries";
+import { binarise } from "../../constants/Utilities";
 
 import Dropdrown from "../../components/surveyComponents/Dropdown";
 import CountryDropdown from "../../components/surveyComponents/CountryDropdown";
 import Checkboxes from "../../components/surveyComponents/Checkboxes";
 import Radiobuttons from "../../components/surveyComponents/Radiobuttons";
-
+import SurveyService from "../../services/survey.service";
 
 // QUESTIONS' DATA
 
@@ -35,46 +35,56 @@ const transportationList = [
 
 // - What is your highest level of education?
 const educationsList = [
-  { label: "No formal education", value: 0 },
-  { label: "Primary education", value: 1 },
-  { label: "Secondary education", value: 2 },
-  { label: "University degree", value: 3 },
-  { label: "Post-graduate university degree", value: 4 },
-  { label: "Other", value: 5 },
+  { label: "No formal education", value: 1 },
+  { label: "Primary education", value: 2 },
+  { label: "Secondary education", value: 3 },
+  { label: "University degree", value: 4 },
+  { label: "Post-graduate university degree", value: 5 },
+  { label: "Other", value: 6 },
 ];
 
 // - What is your marital status?
 const maritalList = [
-  { label: "Single/Never married", value: 0 },
-  { label: "Married", value: 1 },
-  { label: "Divorced/Separated", value: 2 },
-  { label: "Widowed", value: 3 },
-  { label: "Living together/Cohabitation", value: 4 },
-  { label: "Other", value: 5 },
+  { label: "Single/Never married", value: 1 },
+  { label: "Married", value: 2 },
+  { label: "Divorced/Separated", value: 3 },
+  { label: "Widowed", value: 4 },
+  { label: "Living together/Cohabitation", value: 5 },
+  { label: "Other", value: 6 },
 ];
 
 // - Who is the primary income earner of your household?
 const primaryIncomeList = [
-  { label: "Me", value: 0 },
-  { label: "My husband/partner", value: 1 },
-  { label: "One of my parents", value: 2 },
-  { label: "One of my children", value: 3 },
-  { label: "Other", value: 4 },
+  { label: "Me", value: 1 },
+  { label: "My husband/partner", value: 2 },
+  { label: "One of my parents", value: 3 },
+  { label: "One of my children", value: 4 },
+  { label: "Other", value: 5 },
 ];
 
 // - What do you mainly do for work?
 const mainlyWorkList = [
-  { label: "Working full-time for a regular salary", value: 0 },
-  { label: "Working part-time for a regular salary", value: 1 },
-  { label: "Working occasionally, irregular pay (whenever the work is available)", value: 2 },
-  { label: "Working per season (e.g., only during the harvest season)", value: 3 },
-  { label: "Self-employed, working for yourself", value: 4 },
-  { label: "Not working but looking for a job", value: 5 },
-  { label: "Housewife doing household chores and taking care of children", value: 6 },
-  { label: "Full-time student", value: 7 },
-  { label: "Not working because of retirement", value: 8 },
-  { label: "Not working because of sickness, disability, etc.", value: 9 },
-  { label: "Other", value: 10 },
+  { label: "Working full-time for a regular salary", value: 1 },
+  { label: "Working part-time for a regular salary", value: 2 },
+  {
+    label:
+      "Working occasionally, irregular pay (whenever the work is available)",
+    value: 3,
+  },
+  {
+    label: "Working per season (e.g., only during the harvest season)",
+    value: 4,
+  },
+  { label: "Self-employed, working for yourself", value: 5 },
+  { label: "Not working but looking for a job", value: 6 },
+  {
+    label: "Housewife doing household chores and taking care of children",
+    value: 7,
+  },
+  { label: "Full-time student", value: 8 },
+  { label: "Not working because of retirement", value: 9 },
+  { label: "Not working because of sickness, disability, etc.", value: 10 },
+  { label: "Other", value: 11 },
 ];
 
 // Styles
@@ -102,12 +112,20 @@ const DemographicSurvey = (props) => {
     };
   }, []);
 
+  // Use as value list for the wedding age question --> the age must be less than the current one
+  const [weddingAges, setWeddingAges] = useState(ages);
+
   // QUESTIONS
   // - How old are you?
   const [howOldAreYouValue, setHowOldAreYouValue] = useState();
   const [oldError, setOldError] = useState(false);
 
   const howOldAreYouOnChangeHandler = (key, obj) => {
+    let possibleAges = weddingAges.filter((age) => {
+      return age.value <= key;
+    });
+    setWeddingAges(possibleAges); // @TOFIX --> should update the viewed wedding age
+
     setHowOldAreYouValue(key);
   };
 
@@ -142,7 +160,7 @@ const DemographicSurvey = (props) => {
   // - What is your highest level of education?
   const [educationValue, setEducationValue] = useState(-1);
   const [educationError, setEducationError] = useState(false);
-  
+
   const onEducationChangeHandler = (e) => {
     setEducationValue(parseInt(e.target.value));
   };
@@ -150,15 +168,19 @@ const DemographicSurvey = (props) => {
   // - What is your marital status?
   const [maritalStatusValue, setMaritalStatusValue] = useState(-1);
   const [maritalError, setMaritalError] = useState(false);
-  
-  const onMaritalStatusChangeHandler = (e) => {
-    setMaritalStatusValue(parseInt(e.target.value));
-  };
 
   // - How old were you when you got married?
   const [weddingAge, setWeddingAge] = useState();
   const [weddingError, setWeddingError] = useState(false);
-  
+
+  const onMaritalStatusChangeHandler = (e) => {
+    const newValue = parseInt(e.target.value);
+    if (newValue !== 2 || newValue !== 3 || newValue !== 4) {
+      setWeddingAge(0);
+    }
+    setMaritalStatusValue(newValue);
+  };
+
   const onWeddingAgeChangeHandler = (key, obj) => {
     setWeddingAge(key);
   };
@@ -166,7 +188,7 @@ const DemographicSurvey = (props) => {
   // - Who is the primary income earner of your household?
   const [primaryIncomeValue, setPrimaryIncomeValue] = useState(-1);
   const [primaryIncomeError, setPrimaryIncomeError] = useState(false);
-  
+
   const onPrimaryIncomeChangeHandler = (e) => {
     setPrimaryIncomeValue(parseInt(e.target.value));
   };
@@ -174,13 +196,13 @@ const DemographicSurvey = (props) => {
   // - What do you mainly do for work?
   const [mainlyWorkValue, setMainlyWorkValue] = useState(-1);
   const [mainlyWorkError, setMainlyWorkError] = useState(false);
-  
+
   const onMainlyWorkChangeHandler = (e) => {
     setMainlyWorkValue(parseInt(e.target.value));
   };
 
   // SUBMIT button
-  const onSubmit = () => {
+  const onSubmit = async () => {
     // Check if values are set
     let noErrors = true;
 
@@ -230,9 +252,17 @@ const DemographicSurvey = (props) => {
     }
 
     // - Wedding
-    if ((maritalStatusValue === 1 || maritalStatusValue === 2 || maritalStatusValue === 3) && !weddingAge) {
-      setWeddingError(true);
-      noErrors = false;
+    if (
+      maritalStatusValue === 2 ||
+      maritalStatusValue === 3 ||
+      maritalStatusValue === 4
+    ) {
+      if (!weddingAge || parseInt(weddingAge) > parseInt(howOldAreYouValue)) {
+        setWeddingError(true);
+        noErrors = false;
+      } else {
+        setWeddingError(false);
+      }
     } else {
       setWeddingError(false);
     }
@@ -254,22 +284,57 @@ const DemographicSurvey = (props) => {
     }
 
     // Final check:
-    if (noErrors) { // submit
-      console.log("TODO");
+    if (noErrors) {
+      // Check submitted values
+      console.log(`AGE: ${howOldAreYouValue}`);
+      console.log(
+        `COUNTRY: ${parseInt(country) + 1}; REGION: ${parseInt(region) + 1}`
+      );
+      const transportationBinarised = binarise(transportationValues);
+      console.log(
+        `TRANSPORTATION: ${transportationValues}; BINARISED: ${transportationBinarised}`
+      );
+      console.log(`EDUCATION: ${educationValue}`);
+      console.log(`MARITAL STATUS: ${maritalStatusValue}`);
+      console.log(`WEDDING: ${weddingAge ? weddingAge : 0}`);
+      console.log(`PRIMARY INCOME: ${primaryIncomeValue}`);
+      console.log(`MAINLY WORK: ${mainlyWorkValue}`);
+
+      // STEPS:
+      // - make array
+      const answers = [
+        parseInt(howOldAreYouValue),
+        parseInt(country) + 1,
+        parseInt(region) + 1,
+        transportationBinarised,
+        educationValue,
+        maritalStatusValue,
+        parseInt(weddingAge),
+        primaryIncomeValue,
+        mainlyWorkValue,
+      ];
+      console.log(answers);
+      // post request
+      try {
+        await SurveyService.submitSurvey('demographics', answers);
+      } catch (err) {
+        console.log(err);
+      }
+      
+
       // props.setSurveyDone();
-      // props.history.push("/profile");
-      props.history.push({
-        pathname: '/profile',
-        state: { 
-            from: true,
-            to: 1
-        }
-      })
-    } else { // red border
+      // props.history.push({
+      //   pathname: '/profile',
+      //   state: {
+      //       from: true,
+      //       to: 1
+      //   }
+      // })
+    } else {
+      // red border
       // actually don't need to do nothing
       console.log("SOme errors found");
     }
-     
   };
 
   return (
@@ -328,17 +393,17 @@ const DemographicSurvey = (props) => {
             error={maritalError}
           />
         </div>
-        {(maritalStatusValue === 1 ||
-          maritalStatusValue === 2 ||
-          maritalStatusValue === 3) && (
+        {(maritalStatusValue === 2 ||
+          maritalStatusValue === 3 ||
+          maritalStatusValue === 4) && (
           <div>
             <Dropdrown
               title="How old were you when you got married?"
-              valueList={ages}
+              valueList={weddingAges}
               value={weddingAge}
               onSelect={onWeddingAgeChangeHandler}
               style={containerStyle}
-              defaultMessage="Select the age"
+              defaultMessage={"Select the age"}
               error={weddingError}
             />
           </div>

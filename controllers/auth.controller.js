@@ -204,7 +204,7 @@ export const signin = (req, res) => {
       // OR: keep all the user data in the DB approach: access it only when needed, using the ID
       // data to be returned when the user signs in... thus, returning the username (for the profile) and the survey information would be useful
       res.status(200).send({
-        id: user._id,
+        // id: user._id, // can be easily retrieved from the token
         accessToken: token,
 
         // Other information which may be useful

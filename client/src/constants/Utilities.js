@@ -6,3 +6,12 @@ export const validateEmail = (email) => {
     return false;
   }
 };
+
+export const binarise = (arr) => {
+  const arrLength = arr.length;
+  let outputValue = 0;
+  for (let i = 0; i < arrLength; i++) {
+    outputValue += arr[i]*Math.pow(2,i);
+  }
+  return outputValue;
+}

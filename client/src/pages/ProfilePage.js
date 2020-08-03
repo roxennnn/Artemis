@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ProgressBar from "../components/ProgressBar";
+import Unauthorised from "../components/Unauthorised";
 
 import Colors from "../constants/Colors";
 import AuthService from "../services/auth.service";
@@ -15,7 +16,6 @@ import survey_done from "../images/survey_done.png";
 // Fontawesome
 import { faRedoAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 
 const styles = {
   redBox: {
@@ -261,7 +261,6 @@ const ProfileSurveys = (props) => {
 };
 
 const ProfilePage = (props) => {
-
   const [currentUser, setCurrentUser] = useState(); // data of logged user
   useEffect(() => {
     const user = AuthService.getCurrentUser();
@@ -290,113 +289,125 @@ const ProfilePage = (props) => {
   };
 
   return (
-    <div
-      className="my-container"
-      style={{ width: "100%", height: "100%", ...styles.redBox }}
-    >
-      <div className="my-row" style={{ display: "flex", flexDirection: "row" }}>
+    <div>
+      {currentUser ? (
         <div
-          id="left-box"
-          style={{ width: "25%", height: "100%", ...styles.redBox }}
+          className="my-container"
+          style={{ width: "100%", height: "100%", ...styles.redBox }}
         >
           <div
-            className="user-box"
-            style={{
-              ...styles.userBox,
-              ...styles.redBox,
-              display: "flex",
-              // justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-              padding: "3%",
-              margin: "2%",
-              width: "95%",
-              height: "20%",
-            }}
+            className="my-row"
+            style={{ display: "flex", flexDirection: "row" }}
           >
-            <img
-              style={{
-                width: "38%",
-                marginBottom: "5%",
-                marginTop: "3%",
-                borderStyle: "solid",
-                borderColor: "white",
-              }}
-              className="rounded-pill profile-page-avatar"
-              alt=""
-              src={avatar}
-            />
             <div
-              style={{
-                color: Colors.accent,
-                fontSize: 28,
-                marginBottom: "3%",
-                display: "flex",
-                justifyContent: "center",
-              }}
+              id="left-box"
+              style={{ width: "25%", height: "100%", ...styles.redBox }}
             >
-              {currentUser ? currentUser.username : ""}
+              <div
+                className="user-box"
+                style={{
+                  ...styles.userBox,
+                  ...styles.redBox,
+                  display: "flex",
+                  // justifyContent: "center",
+                  alignItems: "center",
+                  flexDirection: "column",
+                  padding: "3%",
+                  margin: "2%",
+                  width: "95%",
+                  height: "20%",
+                }}
+              >
+                <img
+                  style={{
+                    width: "38%",
+                    marginBottom: "5%",
+                    marginTop: "3%",
+                    borderStyle: "solid",
+                    borderColor: "white",
+                  }}
+                  className="rounded-pill profile-page-avatar"
+                  alt=""
+                  src={avatar}
+                />
+                <div
+                  style={{
+                    color: Colors.accent,
+                    fontSize: 28,
+                    marginBottom: "3%",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  {currentUser ? currentUser.username : ""}
+                </div>
+                <button
+                  type="button"
+                  className="btn btn-outline-light"
+                  onClick={() => {
+                    props.history.push("/todo");
+                  }}
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginTop: "10%",
+                    marginBottom: "2%",
+                    fontSize: 22,
+                  }}
+                >
+                  Manage Profile
+                </button>
+              </div>
+
+              <div
+                id="actions-list"
+                style={{
+                  width: "95%",
+                  ...styles.redBox,
+                  fontSize: 22,
+                  margin: "2%",
+                  marginTop: "15%",
+                }}
+              >
+                <ActionListItem
+                  title="Summary"
+                  style={styles.firstListItem}
+                  value={0}
+                  onClick={onClickActionListHandler}
+                />
+                <ActionListItem
+                  title="Surveys"
+                  value={1}
+                  onClick={onClickActionListHandler}
+                />
+                {/* <ActionListItem title="Forum" /> */}
+                <ActionListItem
+                  title="Job matchings"
+                  value={2}
+                  onClick={onClickActionListHandler}
+                />
+              </div>
             </div>
-            <button
-              type="button"
-              className="btn btn-outline-light"
-              onClick={() => {
-                props.history.push("/todo");
-              }}
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                marginTop: "10%",
-                marginBottom: "2%",
-                fontSize: 22,
-              }}
+
+            <div
+              id="right-box"
+              className="some-info"
+              style={{ ...styles.redBox, ...styles.someInfo }}
             >
-              Manage Profile
-            </button>
-          </div>
-
-          <div
-            id="actions-list"
-            style={{
-              width: "95%",
-              ...styles.redBox,
-              fontSize: 22,
-              margin: "2%",
-              marginTop: "15%",
-            }}
-          >
-            <ActionListItem
-              title="Summary"
-              style={styles.firstListItem}
-              value={0}
-              onClick={onClickActionListHandler}
-            />
-            <ActionListItem
-              title="Surveys"
-              value={1}
-              onClick={onClickActionListHandler}
-            />
-            {/* <ActionListItem title="Forum" /> */}
-            <ActionListItem
-              title="Next Steps"
-              value={2}
-              onClick={onClickActionListHandler}
-            />
+              {showValue === 0 && (
+                <ProfileIntro
+                  currentUser={currentUser}
+                  onClick={onGoToSurveys}
+                />
+              )}
+              {showValue === 1 && <ProfileSurveys currentUser={currentUser} />}
+            </div>
           </div>
         </div>
-
-        <div
-          id="right-box"
-          className="some-info"
-          style={{ ...styles.redBox, ...styles.someInfo }}
-        >
-          {showValue === 0 && (
-            <ProfileIntro currentUser={currentUser} onClick={onGoToSurveys} />
-          )}
-          {showValue === 1 && <ProfileSurveys currentUser={currentUser} />}
-        </div>
-      </div>
+      ) : (
+        <Unauthorised />
+      )}
     </div>
   );
 };
