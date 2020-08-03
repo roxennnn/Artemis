@@ -33,19 +33,19 @@ const User = model(
       type: Boolean,
       default: false,
     },
-    demographics_timestamp: Date,
+    demographics_timestamp: String,
     // - Skillz
     skills_done: {
       type: Boolean,
       default: false,
     },
-    skills_timestamp: Date,
+    skills_timestamp: String,
     // - Experience
     experience_done: {
       type: Boolean,
       default: false,
     },
-    experience_timestamp: Date,
+    experience_timestamp: String,
   })
 );
 

@@ -1,5 +1,5 @@
 import authJwt from "../middleware/authJwt.js";
-import { submitSurveyAnswers  } from "../controllers/survey.controller.js";
+import { submitSurveyAnswers, queryProfileData  } from "../controllers/survey.controller.js";
 
 export default (app) => {
   app.use((req, res, next) => {
@@ -9,6 +9,14 @@ export default (app) => {
     );
     next();
   });
+
+  app.get(
+    "/api/survey/vars",
+    [
+      authJwt.verifyToken, // only authorised users can perform this operation
+    ],
+    queryProfileData
+  );
 
   app.post(
     "/api/survey/demographics",

@@ -26,8 +26,6 @@ class SurveyService {
 
   submitSurvey = async (surveyTag, arr) => {
     const header = authHeader();
-    // const userId = JSON.parse(localStorage.getItem('user')).id;
-    // console.log(userId);
 
     const response = await axios.post(
       API_URL + surveyTag,
@@ -39,8 +37,20 @@ class SurveyService {
       }
     );
 
-    console.log(response.status);
-    console.log(response.data);
+    // console.log(response.status);
+    // console.log(response.data);
+    return response.data;
+  };
+
+  queryProfileData = async () => {
+    const header = authHeader();
+    const response = await axios.get(
+      API_URL + "vars",
+      {
+        headers: header
+      }
+    );
+    // console.log(response.data);
     return response.data;
   };
 }

@@ -286,7 +286,8 @@ const DemographicSurvey = (props) => {
     // Final check:
     if (noErrors) {
       // Check submitted values
-      console.log(`AGE: ${howOldAreYouValue}`);
+      // Debugging logs
+      console.log(`BIRTHYEAR: ${parseInt(new Date().getFullYear()) - howOldAreYouValue}`);
       console.log(
         `COUNTRY: ${parseInt(country) + 1}; REGION: ${parseInt(region) + 1}`
       );
@@ -303,7 +304,7 @@ const DemographicSurvey = (props) => {
       // STEPS:
       // - make array
       const answers = [
-        parseInt(howOldAreYouValue),
+        parseInt(new Date().getFullYear()) - howOldAreYouValue,
         parseInt(country) + 1,
         parseInt(region) + 1,
         transportationBinarised,
@@ -313,26 +314,26 @@ const DemographicSurvey = (props) => {
         primaryIncomeValue,
         mainlyWorkValue,
       ];
+      // Debugging logs
       console.log(answers);
+
       // post request
       try {
         await SurveyService.submitSurvey('demographics', answers);
+        // Go back to profile page
+        props.history.push({
+          pathname: '/profile',
+          state: {
+              from: true,
+              to: 1
+          }
+        });
       } catch (err) {
         console.log(err);
       }
-      
-
-      // props.setSurveyDone();
-      // props.history.push({
-      //   pathname: '/profile',
-      //   state: {
-      //       from: true,
-      //       to: 1
-      //   }
-      // })
     } else {
       // red border
-      // actually don't need to do nothing
+      // actually don't need to do anything
       console.log("SOme errors found");
     }
   };

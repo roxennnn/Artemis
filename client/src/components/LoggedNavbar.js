@@ -26,7 +26,7 @@ const LoggedNavbar = (props) => {
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false"
-          // style={{ borderStyle: "solid", borderWidth: 2 }}
+          // style={{ borderStyle: "solid", borderWidth: 1 }}
         >
           <span style={{ fontSize: 20 }}>{props.username}</span>
           <img // No percentages... @TOFIX for a responsive design

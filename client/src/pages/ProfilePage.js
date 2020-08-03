@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { Spinner } from "react-bootstrap";
 import ProgressBar from "../components/ProgressBar";
 import Unauthorised from "../components/Unauthorised";
 
 import Colors from "../constants/Colors";
-import AuthService from "../services/auth.service";
+import SurveyService from "../services/survey.service";
 
 import "../css/ProfilePage.css";
 
@@ -16,6 +17,7 @@ import survey_done from "../images/survey_done.png";
 // Fontawesome
 import { faRedoAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import CenterView from "../components/CenterView";
 
 const styles = {
   redBox: {
@@ -69,7 +71,7 @@ const ActionListItem = (props) => {
 
 const SurveysCompleted = (props) => {
   return (
-    <div style={styles.redBox}>
+    <div style={{ ...styles.redBox, ...props.style }}>
       <div id="survey-progressbar">
         <h2>Surveys completed:</h2>
         <div style={{ marginLeft: "5%", marginRight: "5%", marginTop: "2%" }}>
@@ -93,7 +95,9 @@ const SurveysCompleted = (props) => {
                 ? {
                     color: Colors.primary,
                   }
-                : {}
+                : {
+                    color: "white",
+                  }
             }
           />
         </div>
@@ -110,9 +114,9 @@ const DoSurveyItem = (props) => {
         style={{ display: "flex", alignItems: "center", padding: "1%" }}
       >
         <a
-          className="hover-border"
-          href={`profile/${props.href}`}
-          style={{ width: "30%" }}
+          className={props.done ? "" : "hover-border"}
+          href={props.done ? undefined : `profile/${props.href}`}
+          style={props.done ? { width: "30%", padding: 10 } : { width: "30%" }}
         >
           <span>
             <img
@@ -127,14 +131,12 @@ const DoSurveyItem = (props) => {
         </a>
         {/* <i className="far fa-redo-alt"></i> */}
         {props.done && (
-          <a href="" style={{ width: "3%" }}>
+          <a href="/profile/demographic-survey" style={{ width: "3%" }} title="Redo the survey">
             <FontAwesomeIcon icon={faRedoAlt} color="#3b5998" />
           </a>
         )}
         {props.done && (
-          <div style={{ marginLeft: "5%" }}>
-            Last time taken at {props.timestamp}
-          </div>
+          <div style={{ marginLeft: "5%" }}>Taken at: {props.timestamp}</div>
         )}
       </div>
     </div>
@@ -151,13 +153,13 @@ const ProfileIntro = (props) => {
   useEffect(() => {
     let counter = 0;
     if (props.currentUser) {
-      if (props.currentUser.demographicsDone) {
+      if (props.currentUser.demographics_done) {
         counter++;
       }
-      if (props.currentUser.experienceDone) {
+      if (props.currentUser.experience_done) {
         counter++;
       }
-      if (props.currentUser.skillsDone) {
+      if (props.currentUser.skills_done) {
         counter++;
       }
     }
@@ -215,13 +217,13 @@ const ProfileSurveys = (props) => {
   const [surveysDone, setSurveysDone] = useState(0);
   useEffect(() => {
     let counter = 0;
-    if (props.currentUser.demographicsDone) {
+    if (props.currentUser.demographics_done) {
       counter++;
     }
-    if (props.currentUser.experienceDone) {
+    if (props.currentUser.experience_done) {
       counter++;
     }
-    if (props.currentUser.skillsDone) {
+    if (props.currentUser.skills_done) {
       counter++;
     }
     setSurveysDone(counter);
@@ -239,40 +241,63 @@ const ProfileSurveys = (props) => {
         <DoSurveyItem
           title="Demographics"
           href="demographic-survey"
-          done={props.currentUser.demographicsDone}
-          timestamp={props.currentUser.demographicsTimestamp}
+          done={props.currentUser.demographics_done}
+          timestamp={props.currentUser.demographics_timestamp}
         />
         <DoSurveyItem
           title="Your Skills"
           href="skills-survey"
-          done={props.currentUser.skillsDone}
-          timestamp={props.currentUser.skillsTimestamp}
+          done={props.currentUser.skills_done}
+          timestamp={props.currentUser.skills_timestamp}
         />
         <DoSurveyItem
           title="Your experience"
           href="experience-survey"
-          done={props.currentUser.experienceDone}
-          timestamp={props.currentUser.experienceTimestamp}
+          done={props.currentUser.experience_done}
+          timestamp={props.currentUser.experience_timestamp}
         />
       </div>
-      <SurveysCompleted surveysDone={surveysDone} />
+      <SurveysCompleted
+        surveysDone={surveysDone}
+        style={{ marginBottom: "5%" }}
+      />
     </div>
   );
 };
 
 const ProfilePage = (props) => {
-  const [currentUser, setCurrentUser] = useState(); // data of logged user
+  const [authorisationTimer, setAuthorisationTimer] = useState(true);
+
   useEffect(() => {
-    const user = AuthService.getCurrentUser();
-    if (user) {
-      setCurrentUser(user);
-    }
+    // After 5 seconds, remove the spinner and say 'Unauthorised'
+    const timer = setTimeout(() => {
+      setAuthorisationTimer(false);
+    }, 5000);
+    return () => clearTimeout(timer);
   }, []);
+
+  const [currentUser, setCurrentUser] = useState(); // data of logged user
+
+  const asyncQueryProfileData = async () => {
+    const user = await SurveyService.queryProfileData();
+    if (user) {
+      setCurrentUser(user.user);
+    }
+  };
+
+  useEffect(() => {
+    asyncQueryProfileData();
+  }, []);
+
+  // For debugging
+  // useEffect(() => {
+  //   console.log(currentUser);
+  // }, [currentUser]);
 
   const [showValue, setShowValue] = useState(0);
   // 0: ProfileIntro
   // 1: ProfileSurveys
-  // 2: ProfileMatches (?)
+  // 2: ProfileMatches
 
   useEffect(() => {
     if (props.location.state && props.location.state.from) {
@@ -406,7 +431,17 @@ const ProfilePage = (props) => {
           </div>
         </div>
       ) : (
-        <Unauthorised />
+        <div>
+          {authorisationTimer ? (
+            <CenterView middle={8} sides={2}>
+              <div style={{textAlign: "center"}}>
+                <Spinner animation="border" variant="primary" />
+              </div>
+            </CenterView>
+          ) : (
+            <Unauthorised />
+          )}
+        </div>
       )}
     </div>
   );

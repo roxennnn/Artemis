@@ -15,15 +15,10 @@ const App = (props) => {
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
-    console.log(user);
     if (user) {
       setCurrentUser(user);
     }
   }, []);
-
-  const logOut = () => {
-    AuthService.logout();
-  };
 
   return (
     <Router>

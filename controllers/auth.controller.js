@@ -68,26 +68,26 @@ export const signupCitizen = (req, res) => {
   // not the best approach for production --> @TOFIX
 
   // Generate a public(address)-private key pair
-  // let addressData = Wallet.default.generate();   // RIGHT APPROACH
+  let addressData = Wallet.default.generate();   // RIGHT APPROACH
   
-  // USING TRUFFLE ADDRESSES
-  if (crazyId >= 10) {
-    process.exit();
-  }
+  // // USING TRUFFLE ADDRESSES
+  // if (crazyId >= 10) {
+  //   process.exit();
+  // }
   // Kind of random generated address (?)
-  const address = addresses[crazyId];
-  const priv_key = priv_keys[crazyId];
-  crazyId++;
-  console.log(`CRAZYID: ${crazyId}`);
+  // const address = addresses[crazyId];
+  // const priv_key = priv_keys[crazyId];
+  // crazyId++;
+  // console.log(`CRAZYID: ${crazyId}`);
 
   const user = new User({ // survey data are not stored, defult values used
     username: req.body.username,
     email: hashSync(req.body.email, 8),
     password: hashSync(req.body.password, 8),
-    // eth_address: addressData.getAddressString(), // used when random generated
-    // priv_key: addressData.getPrivateKeyString(), // used when random generated
-    eth_address: address,                           // used only now, for pre-set addresses
-    priv_key: priv_key,                             // used only now, for pre-set addresses
+    eth_address: addressData.getAddressString(), // used when random generated
+    priv_key: addressData.getPrivateKeyString(), // used when random generated
+    // eth_address: address,                           // used only now, for pre-set addresses
+    // priv_key: priv_key,                             // used only now, for pre-set addresses
   });
 
   user.save((err, user) => {
@@ -209,13 +209,13 @@ export const signin = (req, res) => {
 
         // Other information which may be useful
         username: user.username,  // needed to show it when the user is logged
-        // useful information for the user survey page
-        demographicsDone: user.demographics_done,
-        demographicsTimestamp: user.demographics_timestamp,
-        skillsDone: user.skills_done,
-        skillsTimestamp: user.skills_timestamp,
-        experienceDone: user.experience_done,
-        experienceTimestamp: user.experience_timestamp,
+        // useful information for the user survey page --> user the other service instead
+        // demographicsDone: user.demographics_done,
+        // demographicsTimestamp: user.demographics_timestamp,
+        // skillsDone: user.skills_done,
+        // skillsTimestamp: user.skills_timestamp,
+        // experienceDone: user.experience_done,
+        // experienceTimestamp: user.experience_timestamp,
       });
     });
 };
