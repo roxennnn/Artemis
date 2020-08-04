@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import CenterView from "../../components/CenterView";
 
 import Colors from "../../constants/Colors";
+import SurveyService from "../../services/survey.service";
 
 import TableQuestions from "../../components/surveyComponents/TableQuestions";
 
@@ -22,6 +23,7 @@ const t1Description =
 
 // - 2. General skills
 const t2 = [
+  "",
   "Perform cleaning",
   "Activities (at home)",
   "Perform cleaning activities in an environment beyond home",
@@ -37,6 +39,7 @@ const t2Description =
 
 // - 3. Preparing and serving food and drinks
 const t3 = [
+  "",
   "Conduct basic food preparation",
   "Cook meat and fish",
   "Cook vegetables and dairy products",
@@ -61,6 +64,7 @@ const t3Description =
 
 // - 4. Provide beauty care
 const t4 = [
+  "",
   "Apply make-up",
   "Perform nail care treatments",
   "Perform skin care",
@@ -77,6 +81,7 @@ const t4Description =
 
 // - 5. Providing information and support to others
 const t5 = [
+  "",
   "Provide information and give instructions",
   "Write information in a clear way",
   "Collect information",
@@ -99,6 +104,7 @@ const t5Description =
 
 // - 6. Assist people with children, people with special needs and elderly
 const t6 = [
+  "",
   "Provide general care and assistance to children",
   "Assist children in learning",
   "Provide school assistance",
@@ -112,7 +118,6 @@ const t6Title =
   "6. Assist people with children, people with special needs and elderly";
 const t6Description =
   "This section includes activities to help and support children, people with special needs and elderly.\n\nHow familiar are you with the following activities? Please think about your hobbies, house duties and past working experiences (if any). Rate as follows:\nBeginner = I have never done this activity and I don’t have any related knowledge.\nIntermediate = I have done this activity a few times and/or I have some basic related knowledge.\nCompetent = I have done this activity sometimes and I have good related knowledge.\nProficient = I often do this activity and I have a very good related knowledge.\n ";
-
 
 const SkillsSurvey = (props) => {
   // Change background color
@@ -135,8 +140,6 @@ const SkillsSurvey = (props) => {
     let tmp = t1Value;
     tmp[index] = parseInt(e.target.value);
     setT1Value(tmp);
-
-    console.log(t1Value);
   };
 
   // - 2.
@@ -148,8 +151,6 @@ const SkillsSurvey = (props) => {
     let tmp = t2Value;
     tmp[index] = parseInt(e.target.value);
     setT2Value(tmp);
-
-    console.log(t2Value);
   };
 
   // - 3.
@@ -161,8 +162,6 @@ const SkillsSurvey = (props) => {
     let tmp = t3Value;
     tmp[index] = parseInt(e.target.value);
     setT3Value(tmp);
-
-    console.log(t3Value);
   };
 
   // - 4.
@@ -174,8 +173,6 @@ const SkillsSurvey = (props) => {
     let tmp = t4Value;
     tmp[index] = parseInt(e.target.value);
     setT4Value(tmp);
-
-    console.log(t4Value);
   };
 
   // - 5.
@@ -187,8 +184,6 @@ const SkillsSurvey = (props) => {
     let tmp = t5Value;
     tmp[index] = parseInt(e.target.value);
     setT5Value(tmp);
-
-    console.log(t5Value);
   };
 
   // - 6.
@@ -200,12 +195,10 @@ const SkillsSurvey = (props) => {
     let tmp = t6Value;
     tmp[index] = parseInt(e.target.value);
     setT6Value(tmp);
-
-    console.log(t6Value);
   };
 
   // SUBMIT button
-  const onSubmit = () => {
+  const onSubmit = async () => {
     // Check if values are set
     let noErrors = true;
 
@@ -253,16 +246,41 @@ const SkillsSurvey = (props) => {
 
     // Final check:
     if (noErrors) {
-      // submit
-      console.log("TODO");
-      // props.setSurveyDone();
-      // props.history.push("/profile");
-      props.history.push({
-        pathname: "/profile",
-        state: {
-          from: true,
-        },
-      });
+      // Debugging logs
+      // console.log(`t1Value: ${t1Value}`);
+      // console.log(`t2Value: ${t2Value}`);
+      // console.log(`t3Value: ${t3Value}`);
+      // console.log(`t4Value: ${t4Value}`);
+      // console.log(`t5Value: ${t5Value}`);
+      // console.log(`t6Value: ${t6Value}`);
+
+      // STEPS:
+      // - make array
+      const answers = [
+        ...t1Value,
+        ...t2Value,
+        ...t3Value,
+        ...t4Value,
+        ...t5Value,
+        ...t6Value,
+      ];
+      // Debugging logs
+      // console.log(answers);
+
+      // post request
+      try {
+        await SurveyService.submitSurvey('skills', answers);
+        // Go back to profile page
+        props.history.push({
+          pathname: '/profile',
+          state: {
+              from: true,
+              to: 1
+          }
+        });
+      } catch (err) {
+        console.log(err);
+      }
     } else {
       // red border
       // actually don't need to do anything

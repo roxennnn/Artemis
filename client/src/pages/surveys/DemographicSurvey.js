@@ -176,7 +176,7 @@ const DemographicSurvey = (props) => {
   const onMaritalStatusChangeHandler = (e) => {
     const newValue = parseInt(e.target.value);
     if (newValue !== 2 || newValue !== 3 || newValue !== 4) {
-      setWeddingAge(0);
+      setWeddingAge(1);
     }
     setMaritalStatusValue(newValue);
   };
@@ -257,7 +257,7 @@ const DemographicSurvey = (props) => {
       maritalStatusValue === 3 ||
       maritalStatusValue === 4
     ) {
-      if (!weddingAge || parseInt(weddingAge) > parseInt(howOldAreYouValue)) {
+      if (!weddingAge || parseInt(weddingAge) > parseInt(howOldAreYouValue || parseInt(weddingAge) === 1)) {
         setWeddingError(true);
         noErrors = false;
       } else {
@@ -285,21 +285,20 @@ const DemographicSurvey = (props) => {
 
     // Final check:
     if (noErrors) {
-      // Check submitted values
       // Debugging logs
-      console.log(`BIRTHYEAR: ${parseInt(new Date().getFullYear()) - howOldAreYouValue}`);
-      console.log(
-        `COUNTRY: ${parseInt(country) + 1}; REGION: ${parseInt(region) + 1}`
-      );
+      // console.log(`BIRTHYEAR: ${parseInt(new Date().getFullYear()) - howOldAreYouValue}`);
+      // console.log(
+      //   `COUNTRY: ${parseInt(country) + 1}; REGION: ${parseInt(region) + 1}`
+      // );
       const transportationBinarised = binarise(transportationValues);
-      console.log(
-        `TRANSPORTATION: ${transportationValues}; BINARISED: ${transportationBinarised}`
-      );
-      console.log(`EDUCATION: ${educationValue}`);
-      console.log(`MARITAL STATUS: ${maritalStatusValue}`);
-      console.log(`WEDDING: ${weddingAge ? weddingAge : 0}`);
-      console.log(`PRIMARY INCOME: ${primaryIncomeValue}`);
-      console.log(`MAINLY WORK: ${mainlyWorkValue}`);
+      // console.log(
+      //   `TRANSPORTATION: ${transportationValues}; BINARISED: ${transportationBinarised}`
+      // );
+      // console.log(`EDUCATION: ${educationValue}`);
+      // console.log(`MARITAL STATUS: ${maritalStatusValue}`);
+      // console.log(`WEDDING: ${weddingAge ? weddingAge : 1}`);
+      // console.log(`PRIMARY INCOME: ${primaryIncomeValue}`);
+      // console.log(`MAINLY WORK: ${mainlyWorkValue}`);
 
       // STEPS:
       // - make array
@@ -315,7 +314,7 @@ const DemographicSurvey = (props) => {
         mainlyWorkValue,
       ];
       // Debugging logs
-      console.log(answers);
+      // console.log(answers);
 
       // post request
       try {

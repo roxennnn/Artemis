@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import CenterView from "../../components/CenterView";
 
 import Colors from "../../constants/Colors";
+import { binarise } from "../../constants/Utilities";
 
 import Checkboxes from "../../components/surveyComponents/Checkboxes";
+import SurveyService from "../../services/survey.service";
 
 // QUESTIONS' DATA
 
@@ -161,7 +163,7 @@ const ExperienceSurvey = (props) => {
   // Search for 1s in state arrays
   const searchOnes = (arr) => {
     return arr.includes(1);
-  }
+  };
 
   // QUESTIONS' STATE
   const [q7Visibility, setQ7Visibility] = useState(false);
@@ -179,7 +181,14 @@ const ExperienceSurvey = (props) => {
     tmp_values[index] = tmp;
     setQ1Values(tmp_values);
 
-    let q8vist = searchOnes([...tmp_values, ...q1Values, ...q2Values, ...q4Values, ...q5Values, ...q6Values]);
+    let q8vist = searchOnes([
+      ...tmp_values,
+      ...q1Values,
+      ...q2Values,
+      ...q4Values,
+      ...q5Values,
+      ...q6Values,
+    ]);
     setQ8Visibility(q8vist);
   };
 
@@ -195,7 +204,14 @@ const ExperienceSurvey = (props) => {
     tmp_values[index] = tmp;
     setQ2Values(tmp_values);
 
-    let q8vist = searchOnes([...tmp_values, ...q1Values, ...q3Values, ...q4Values, ...q5Values, ...q6Values]);
+    let q8vist = searchOnes([
+      ...tmp_values,
+      ...q1Values,
+      ...q3Values,
+      ...q4Values,
+      ...q5Values,
+      ...q6Values,
+    ]);
     setQ8Visibility(q8vist);
   };
 
@@ -211,7 +227,14 @@ const ExperienceSurvey = (props) => {
     tmp_values[index] = tmp;
     setQ3Values(tmp_values);
 
-    let q8vist = searchOnes([...tmp_values, ...q1Values, ...q2Values, ...q4Values, ...q5Values, ...q6Values]);
+    let q8vist = searchOnes([
+      ...tmp_values,
+      ...q1Values,
+      ...q2Values,
+      ...q4Values,
+      ...q5Values,
+      ...q6Values,
+    ]);
     setQ8Visibility(q8vist);
   };
 
@@ -230,7 +253,14 @@ const ExperienceSurvey = (props) => {
     let q7vist = searchOnes([...tmp_values, ...q5Values, ...q6Values]);
     setQ7Visibility(q7vist);
 
-    let q8vist = searchOnes([...tmp_values, ...q1Values, ...q2Values, ...q3Values, ...q5Values, ...q6Values]);
+    let q8vist = searchOnes([
+      ...tmp_values,
+      ...q1Values,
+      ...q2Values,
+      ...q3Values,
+      ...q5Values,
+      ...q6Values,
+    ]);
     setQ8Visibility(q8vist);
   };
 
@@ -249,7 +279,14 @@ const ExperienceSurvey = (props) => {
     let q7vist = searchOnes([...tmp_values, ...q4Values, ...q6Values]);
     setQ7Visibility(q7vist);
 
-    let q8vist = searchOnes([...tmp_values, ...q1Values, ...q2Values, ...q3Values, ...q4Values, ...q6Values]);
+    let q8vist = searchOnes([
+      ...tmp_values,
+      ...q1Values,
+      ...q2Values,
+      ...q3Values,
+      ...q4Values,
+      ...q6Values,
+    ]);
     setQ8Visibility(q8vist);
   };
 
@@ -268,7 +305,14 @@ const ExperienceSurvey = (props) => {
     let q7vist = searchOnes([...tmp_values, ...q5Values, ...q4Values]);
     setQ7Visibility(q7vist);
 
-    let q8vist = searchOnes([...tmp_values, ...q1Values, ...q2Values, ...q3Values, ...q4Values, ...q5Values]);
+    let q8vist = searchOnes([
+      ...tmp_values,
+      ...q1Values,
+      ...q2Values,
+      ...q3Values,
+      ...q4Values,
+      ...q5Values,
+    ]);
     setQ8Visibility(q8vist);
   };
 
@@ -312,26 +356,57 @@ const ExperienceSurvey = (props) => {
   };
 
   // SUBMIT button
-  const onSubmit = () => {
-    // Check if values are set
-    let noErrors = true;
+  const onSubmit = async () => {
+    // STEPS:
+    // - binarise answers
+    const q1Binarised = binarise(q1Values) + 1;
+    // console.log(`q1 answers: ${q1Values}; Binarised: ${q1Binarised}`);
+    const q2Binarised = binarise(q2Values) + 1;
+    // console.log(`q2 answers: ${q2Values}; Binarised: ${q2Binarised}`);
+    const q3Binarised = binarise(q3Values) + 1;
+    // console.log(`q3 answers: ${q3Values}; Binarised: ${q3Binarised}`);
+    const q4Binarised = binarise(q4Values) + 1;
+    // console.log(`q4 answers: ${q4Values}; Binarised: ${q4Binarised}`);
+    const q5Binarised = binarise(q5Values) + 1;
+    // console.log(`q5 answers: ${q5Values}; Binarised: ${q5Binarised}`);
+    const q6Binarised = binarise(q6Values) + 1;
+    // console.log(`q6 answers: ${q6Values}; Binarised: ${q6Binarised}`);
+    const q7Binarised = binarise(q7Values) + 1;
+    // console.log(`q7 answers: ${q7Values}; Binarised: ${q7Binarised}`);
+    const q8Binarised = binarise(q8Values) + 1;
+    // console.log(`q8 answers: ${q8Values}; Binarised: ${q8Binarised}`);
+    const q9Binarised = binarise(q9Values) + 1;
+    // console.log(`q9 answers: ${q9Values}; Binarised: ${q9Binarised}`);
 
-    // Final check:
-    if (noErrors) {
-      // submit
-      console.log("TODO");
-      // props.setSurveyDone();
-      // props.history.push("/profile");
+    // - make array
+    const answers = [
+      q1Binarised,
+      q2Binarised,
+      q3Binarised,
+      q4Binarised,
+      q5Binarised,
+      q6Binarised,
+      q7Binarised,
+      q8Binarised,
+      q9Binarised,
+    ];
+    
+    // Debugging logs
+    // console.log(answers);
+
+    // post request
+    try {
+      await SurveyService.submitSurvey("experience", answers);
+      // Go back to profile page
       props.history.push({
         pathname: "/profile",
         state: {
           from: true,
+          to: 1,
         },
       });
-    } else {
-      // red border
-      // actually don't need to do nothing
-      console.log("SOme errors found");
+    } catch (err) {
+      console.log(err);
     }
   };
 

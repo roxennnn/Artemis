@@ -116,7 +116,7 @@ const DoSurveyItem = (props) => {
         <a
           className={props.done ? "" : "hover-border"}
           href={props.done ? undefined : `profile/${props.href}`}
-          style={props.done ? { width: "30%", padding: 10 } : { width: "30%" }}
+          style={props.done ? { width: "30%", padding: 13 } : { width: "30%" }}
         >
           <span>
             <img
@@ -131,7 +131,11 @@ const DoSurveyItem = (props) => {
         </a>
         {/* <i className="far fa-redo-alt"></i> */}
         {props.done && (
-          <a href="/profile/demographic-survey" style={{ width: "3%" }} title="Redo the survey">
+          <a
+            href={`profile/${props.href}`}
+            style={{ width: "3%" }}
+            title="Redo the survey"
+          >
             <FontAwesomeIcon icon={faRedoAlt} color="#3b5998" />
           </a>
         )}
@@ -434,7 +438,7 @@ const ProfilePage = (props) => {
         <div>
           {authorisationTimer ? (
             <CenterView middle={8} sides={2}>
-              <div style={{textAlign: "center"}}>
+              <div style={{ textAlign: "center" }}>
                 <Spinner animation="border" variant="primary" />
               </div>
             </CenterView>

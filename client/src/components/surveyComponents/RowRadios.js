@@ -8,13 +8,13 @@ const RowRadios = (props) => {
     new Array(props.optionList.length).fill(false)
   );
   const checkHandler = (e) => {
-    console.log(checked);
+    // console.log(checked);
     const value = parseInt(e.target.value);
-    console.log(value);
+    // console.log(value);
     let newChecked = new Array(props.optionList.length).fill(false);
     newChecked[value - 1] = true;
     setChecked(newChecked);
-    console.log(checked);
+    // console.log(checked);
     props.onChange(e);
   };
 
