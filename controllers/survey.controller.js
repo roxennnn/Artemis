@@ -54,8 +54,8 @@ export const submitSurveyAnswers = async (req, res) => {
         .send({ from: OWNER_ADDR, gas: GAS_LIMIT });
 
       // CHECK WHAT IS SAVED IN THE BLOCKCHAIN
-      let result2 = await workUrFreedomContract.methods.getUserData().call({ from: userAddr });
-      console.log(result2);
+      // let result2 = await workUrFreedomContract.methods.getUserData().call({ from: userAddr });
+      // console.log(result2);
 
       const updateResult = await User.findOneAndUpdate(
         { _id: userId },
@@ -71,8 +71,8 @@ export const submitSurveyAnswers = async (req, res) => {
         .send({ from: OWNER_ADDR, gas: GAS_LIMIT });
 
       // CHECK WHAT IS SAVED IN THE BLOCKCHAIN
-      let result2 = await workUrFreedomContract.methods.getUserData().call({ from: userAddr });
-      console.log(result2);
+      // let result2 = await workUrFreedomContract.methods.getUserData().call({ from: userAddr });
+      // console.log(result2);
 
       const updateResult = await User.findOneAndUpdate(
         { _id: userId },

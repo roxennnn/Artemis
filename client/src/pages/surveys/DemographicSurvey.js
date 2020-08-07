@@ -112,6 +112,27 @@ const DemographicSurvey = (props) => {
     };
   }, []);
 
+  const backButton = (
+    <div>
+      <a
+        // className="btn-radius fat-btn btn btn-warning btn-lg"
+        role="button"
+        onClick={() => {
+          props.history.push({
+            pathname: "/profile",
+            state: {
+              from: true,
+              to: 1,
+            },
+          });
+        }}
+        style={{ color: Colors.primary }}
+      >
+        {"<"}Back
+      </a>
+    </div>
+  );
+
   // Use as value list for the wedding age question --> the age must be less than the current one
   const [weddingAges, setWeddingAges] = useState(ages);
 
@@ -257,7 +278,11 @@ const DemographicSurvey = (props) => {
       maritalStatusValue === 3 ||
       maritalStatusValue === 4
     ) {
-      if (!weddingAge || parseInt(weddingAge) > parseInt(howOldAreYouValue || parseInt(weddingAge) === 1)) {
+      if (
+        !weddingAge ||
+        parseInt(weddingAge) >
+          parseInt(howOldAreYouValue || parseInt(weddingAge) === 1)
+      ) {
         setWeddingError(true);
         noErrors = false;
       } else {
@@ -318,14 +343,14 @@ const DemographicSurvey = (props) => {
 
       // post request
       try {
-        await SurveyService.submitSurvey('demographics', answers);
+        await SurveyService.submitSurvey("demographics", answers);
         // Go back to profile page
         props.history.push({
-          pathname: '/profile',
+          pathname: "/profile",
           state: {
-              from: true,
-              to: 1
-          }
+            from: true,
+            to: 1,
+          },
         });
       } catch (err) {
         console.log(err);
@@ -339,7 +364,7 @@ const DemographicSurvey = (props) => {
 
   return (
     <div>
-      <CenterView middle={8} sides={2}>
+      <CenterView middle={8} sides={2} left={backButton}>
         <div>
           <h1>Demographic survey</h1>
           <Dropdrown

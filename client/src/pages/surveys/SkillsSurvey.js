@@ -19,13 +19,12 @@ const t1 = [
 ];
 const t1Title = "1. Organising and planning work and activities";
 const t1Description =
-  "This section is related to organisational, administrative and logistical tasks. \n\nHow familiar are you with the following activities? Please think about your hobbies, house duties and past working experiences (if any). Rate as follows:\nBeginner = I have never done this activity and I don’t have any related knowledge.\nIntermediate = I have done this activity a few times and/or I have some basic related knowledge.\nCompetent = I have done this activity sometimes and I have good related knowledge.\nProficient = I often do this activity and I have a very good related knowledge.\n ";
+  "This section is related to organisational, administrative and logistical tasks. \n\nHow familiar are you with the following activities? Please think about your hobbies, house duties and past working experiences (if any). Rate as follows:\n\nBeginner = I have never done this activity and I don’t have any related knowledge.\nIntermediate = I have done this activity a few times and/or I have some basic related knowledge.\nCompetent = I have done this activity sometimes and I have good related knowledge.\nProficient = I often do this activity and I have a very good related knowledge.\n ";
 
 // - 2. General skills
 const t2 = [
   "",
-  "Perform cleaning",
-  "Activities (at home)",
+  "Perform cleaning activities (at home)",
   "Perform cleaning activities in an environment beyond home",
   "Perform basic first aid",
   "Acs as a leader",
@@ -35,7 +34,7 @@ const t2 = [
 ];
 const t2Title = "2. General skills";
 const t2Description =
-  "This section relates to general skills such as working in a team, acting as a leader but also some practical skills such as cleaning.\n\nHow familiar are you with the following activities? Please think about your hobbies, house duties and past working experiences (if any). Rate as follows:\nBeginner = I have never done this activity and I don’t have any related knowledge.\nIntermediate = I have done this activity a few times and/or I have some basic related knowledge.\nCompetent = I have done this activity sometimes and I have good related knowledge.\nProficient = I often do this activity and I have a very good related knowledge.\n ";
+  "This section relates to general skills such as working in a team, acting as a leader but also some practical skills such as cleaning.\n\nHow familiar are you with the following activities? Please think about your hobbies, house duties and past working experiences (if any). Rate as follows:\n\nBeginner = I have never done this activity and I don’t have any related knowledge.\nIntermediate = I have done this activity a few times and/or I have some basic related knowledge.\nCompetent = I have done this activity sometimes and I have good related knowledge.\nProficient = I often do this activity and I have a very good related knowledge.\n ";
 
 // - 3. Preparing and serving food and drinks
 const t3 = [
@@ -60,15 +59,14 @@ const t3 = [
 ];
 const t3Title = "3. Preparing and serving food and drinks";
 const t3Description =
-  "This section is related to food and drinks and relates to preparing, serving, and other aspects related to food and drink.\n\nHow familiar are you with the following activities? Please think about your hobbies, house duties and past working experiences (if any). Rate as follows:\nBeginner = I have never done this activity and I don’t have any related knowledge.\nIntermediate = I have done this activity a few times and/or I have some basic related knowledge.\nCompetent = I have done this activity sometimes and I have good related knowledge.\nProficient = I often do this activity and I have a very good related knowledge.\n ";
+  "This section is related to food and drinks and relates to preparing, serving, and other aspects related to food and drink.\n\nHow familiar are you with the following activities? Please think about your hobbies, house duties and past working experiences (if any). Rate as follows:\n\nBeginner = I have never done this activity and I don’t have any related knowledge.\nIntermediate = I have done this activity a few times and/or I have some basic related knowledge.\nCompetent = I have done this activity sometimes and I have good related knowledge.\nProficient = I often do this activity and I have a very good related knowledge.\n ";
 
 // - 4. Provide beauty care
 const t4 = [
   "",
   "Apply make-up",
   "Perform nail care treatments",
-  "Perform skin care",
-  "Treatments",
+  "Perform skin care treatments",
   "Remove body hair",
   "Give massages",
   "Wash and style hair",
@@ -77,7 +75,7 @@ const t4 = [
 ];
 const t4Title = "4. Provide beauty care";
 const t4Description =
-  "This section is related to beauty care, and includes skin care, cosmetics and hair care.\n\nHow familiar are you with the following activities? Please think about your hobbies, house duties and past working experiences (if any). Rate as follows:\nBeginner = I have never done this activity and I don’t have any related knowledge.\nIntermediate = I have done this activity a few times and/or I have some basic related knowledge.\nCompetent = I have done this activity sometimes and I have good related knowledge.\nProficient = I often do this activity and I have a very good related knowledge.\n ";
+  "This section is related to beauty care, and includes skin care, cosmetics and hair care.\n\nHow familiar are you with the following activities? Please think about your hobbies, house duties and past working experiences (if any). Rate as follows:\n\nBeginner = I have never done this activity and I don’t have any related knowledge.\nIntermediate = I have done this activity a few times and/or I have some basic related knowledge.\nCompetent = I have done this activity sometimes and I have good related knowledge.\nProficient = I often do this activity and I have a very good related knowledge.\n ";
 
 // - 5. Providing information and support to others
 const t5 = [
@@ -100,7 +98,7 @@ const t5 = [
 ];
 const t5Title = "5. Providing information and support to others";
 const t5Description =
-  "This section focuses on providing information to people, understanding others’ needs and maintaining good relations.\n\nHow familiar are you with the following activities? Please think about your hobbies, house duties and past working experiences (if any). Rate as follows:\nBeginner = I have never done this activity and I don’t have any related knowledge.\nIntermediate = I have done this activity a few times and/or I have some basic related knowledge.\nCompetent = I have done this activity sometimes and I have good related knowledge.\nProficient = I often do this activity and I have a very good related knowledge.\n ";
+  "This section focuses on providing information to people, understanding others’ needs and maintaining good relations.\n\nHow familiar are you with the following activities? Please think about your hobbies, house duties and past working experiences (if any). Rate as follows:\n\nBeginner = I have never done this activity and I don’t have any related knowledge.\nIntermediate = I have done this activity a few times and/or I have some basic related knowledge.\nCompetent = I have done this activity sometimes and I have good related knowledge.\nProficient = I often do this activity and I have a very good related knowledge.\n ";
 
 // - 6. Assist people with children, people with special needs and elderly
 const t6 = [
@@ -117,7 +115,7 @@ const t6 = [
 const t6Title =
   "6. Assist people with children, people with special needs and elderly";
 const t6Description =
-  "This section includes activities to help and support children, people with special needs and elderly.\n\nHow familiar are you with the following activities? Please think about your hobbies, house duties and past working experiences (if any). Rate as follows:\nBeginner = I have never done this activity and I don’t have any related knowledge.\nIntermediate = I have done this activity a few times and/or I have some basic related knowledge.\nCompetent = I have done this activity sometimes and I have good related knowledge.\nProficient = I often do this activity and I have a very good related knowledge.\n ";
+  "This section includes activities to help and support children, people with special needs and elderly.\n\nHow familiar are you with the following activities? Please think about your hobbies, house duties and past working experiences (if any). Rate as follows:\n\nBeginner = I have never done this activity and I don’t have any related knowledge.\nIntermediate = I have done this activity a few times and/or I have some basic related knowledge.\nCompetent = I have done this activity sometimes and I have good related knowledge.\nProficient = I often do this activity and I have a very good related knowledge.\n ";
 
 const SkillsSurvey = (props) => {
   // Change background color
@@ -128,6 +126,27 @@ const SkillsSurvey = (props) => {
       document.body.style = `background: rgb(255,255,255);`;
     };
   }, []);
+
+  const backButton = (
+    <div>
+      <a
+        // className="btn-radius fat-btn btn btn-warning btn-lg"
+        role="button"
+        onClick={() => {
+          props.history.push({
+            pathname: "/profile",
+            state: {
+              from: true,
+              to: 1,
+            },
+          });
+        }}
+        style={{ color: Colors.primary }}
+      >
+        {"<"}Back
+      </a>
+    </div>
+  );
 
   // QUESTIONS's STATE
 
@@ -269,14 +288,14 @@ const SkillsSurvey = (props) => {
 
       // post request
       try {
-        await SurveyService.submitSurvey('skills', answers);
+        await SurveyService.submitSurvey("skills", answers);
         // Go back to profile page
         props.history.push({
-          pathname: '/profile',
+          pathname: "/profile",
           state: {
-              from: true,
-              to: 1
-          }
+            from: true,
+            to: 1,
+          },
         });
       } catch (err) {
         console.log(err);
@@ -290,7 +309,7 @@ const SkillsSurvey = (props) => {
 
   return (
     <div>
-      <CenterView middle={10} sides={1}>
+      <CenterView middle={10} sides={1} left={backButton}>
         <div>
           <h1>Skills survey</h1>
         </div>

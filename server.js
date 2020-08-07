@@ -36,11 +36,15 @@ db.mongoose
   });
 
 
-// routes
+// Routes
 import auth_routes from "./routes/auth.routes.js";
-import survey_routes from "./routes/survey.routes.js";
 auth_routes(app);
+
+import survey_routes from "./routes/survey.routes.js";
 survey_routes(app);
+
+import matching_routes from "./routes/matching.routes.js";
+matching_routes(app);
 
 // This is used in order to make node.js completely host our project
 // @TOFIX

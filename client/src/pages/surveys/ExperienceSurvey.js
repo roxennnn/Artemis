@@ -165,6 +165,27 @@ const ExperienceSurvey = (props) => {
     return arr.includes(1);
   };
 
+  const backButton = (
+    <div>
+      <a
+        // className="btn-radius fat-btn btn btn-warning btn-lg"
+        role="button"
+        onClick={() => {
+          props.history.push({
+            pathname: "/profile",
+            state: {
+              from: true,
+              to: 1,
+            },
+          });
+        }}
+        style={{ color: Colors.primary }}
+      >
+        {"<"}Back
+      </a>
+    </div>
+  );
+
   // QUESTIONS' STATE
   const [q7Visibility, setQ7Visibility] = useState(false);
   const [q8Visibility, setQ8Visibility] = useState(false);
@@ -412,7 +433,7 @@ const ExperienceSurvey = (props) => {
 
   return (
     <div>
-      <CenterView middle={8} sides={2}>
+      <CenterView middle={8} sides={2} left={backButton}>
         <div>
           <h1>Survey about your experience</h1>
           <div>
