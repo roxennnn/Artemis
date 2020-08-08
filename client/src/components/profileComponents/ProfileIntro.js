@@ -76,7 +76,7 @@ const ProfileIntro = (props) => {
           Go to surveys -{">"}
         </a>
       </div>
-      <h2>Matchings:</h2>
+      <h3>Top matching: </h3>
     </div>
   );
 };

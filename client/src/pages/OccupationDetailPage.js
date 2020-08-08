@@ -61,7 +61,7 @@ const OccupationDetailPage = (props) => {
             <Spinner animation="border" variant="primary" />
           </div>
         ) : (
-          <div>
+          <div style={{fontSize: 20}}>
             {occupationDetail ? (
               <div>
                 <h2>{occupationDetail.title}</h2>
@@ -79,7 +79,7 @@ const OccupationDetailPage = (props) => {
                         marginTop: "2%",
                       }}
                     >
-                      <div style={{ width: "30%" }}>{name}</div>
+                      <div style={{ width: "50%" }}>{name}</div>
                       <ProgressBar
                         // text={`${props.occupation.score}`}
                         percentage={`${occupationDetail.category_scores[index]}%`}
@@ -91,9 +91,18 @@ const OccupationDetailPage = (props) => {
                   );
                 })}
                 <br />
-                <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
-                  <h4>Affinity:</h4>
-                  <div>{avgStringArray(occupationDetail.category_scores)} %</div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    fontSize: 24,
+                  }}
+                >
+                  <div style={{ fontWeight: "bold" }}>Affinity:</div>
+                  <div style={{ marginLeft: "2%" }}>
+                    {avgStringArray(occupationDetail.category_scores)} %
+                  </div>
                 </div>
               </div>
             ) : (

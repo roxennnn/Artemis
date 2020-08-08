@@ -203,3 +203,9 @@ span.logout-dropdown-item:hover {
 #login-dp .form-group {
   margin-bottom: 10px;
 }
+
+/* FOOTER */
+span.footer-link:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}

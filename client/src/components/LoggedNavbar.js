@@ -93,6 +93,21 @@ const LoggedNavbar = (props) => {
                   >
                     Job matchings
                   </span>
+                  <span
+                    className="dropdown-item profile-dropdown-item"
+                    style={styles.dropdownItem}
+                    onClick={() => {
+                      history.push({
+                        pathname: "/profile",
+                        state: {
+                          from: true,
+                          to: 3,
+                        },
+                      });
+                    }}
+                  >
+                    My skills
+                  </span>
 
                   <div className="dropdown-divider"></div>
                   <span

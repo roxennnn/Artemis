@@ -65,8 +65,13 @@ const ProfilePage = (props) => {
   useEffect(() => {
     setLoading(true);
     asyncQueryProfileData();
-    setLoading(false);
   }, []);
+
+  useEffect(() => {
+    if (currentUser) {
+      setLoading(false);
+    }
+  }, [currentUser]);
 
   // For debugging
   useEffect(() => {

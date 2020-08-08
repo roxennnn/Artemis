@@ -15,7 +15,7 @@ const SurveysCompleted = (props) => {
   return (
     <div style={{ ...styles.redBox, ...props.style }}>
       <div id="survey-progressbar">
-        <h2>Surveys completed:</h2>
+        <h3>Surveys completed:</h3>
         <div style={{ marginLeft: "5%", marginRight: "5%", marginTop: "2%" }}>
           <ProgressBar
             text={`${props.surveysDone}/3`}
