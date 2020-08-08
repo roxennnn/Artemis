@@ -204,6 +204,11 @@ const ProfilePage = (props) => {
                       value={2}
                       onClick={onClickActionListHandler}
                     />
+                    <ActionListItem
+                      title="My skills"
+                      value={3}
+                      onClick={onClickActionListHandler}
+                    />
                   </div>
                 </div>
 

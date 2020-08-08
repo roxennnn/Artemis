@@ -18,6 +18,7 @@ import LandingPage from "../pages/LandingPage";
 import DemographicSurvey from "../pages/surveys/DemographicSurvey";
 import ExperienceSurvey from "../pages/surveys/ExperienceSurvey";
 import SkillsSurvey from "../pages/surveys/SkillsSurvey";
+import OccupationDetailPage from "../pages/OccupationDetailPage";
 
 const SwitchComponent = (props) => {
   return (
@@ -38,6 +39,7 @@ const SwitchComponent = (props) => {
         <Route exact path="/profile/demographic-survey" component={DemographicSurvey} />
         <Route exact path="/profile/experience-survey" component={ExperienceSurvey} />
         <Route exact path="/profile/skills-survey" component={SkillsSurvey} />
+        <Route exact path="/profile/occupation-detail" component={OccupationDetailPage} />
       </Switch>
     </div>
   );

@@ -1,5 +1,16 @@
 import React from "react";
 
+/***************************************************************************
+ * PROPS:
+ * - color: the color of the bar
+ * - gradient: gradient color
+ * - percentage: percentage used by the bar
+ * - text: text to show in the colored part of the bar
+ * - outsideStyle: style of the outside div
+ * - insideStyle: style of the inside div
+ * - textStyle: style of the text
+ ***************************************************************************/
+
 const styles = {
   outside: {
     width: "100%",

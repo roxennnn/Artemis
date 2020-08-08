@@ -1,5 +1,8 @@
 import authJwt from "../middleware/authJwt.js";
-import {fetchMatchings} from "../controllers/matching.controller.js";
+import {
+  fetchMatchings,
+  fetchOccupationDetail,
+} from "../controllers/matching.controller.js";
 
 export default (app) => {
   app.use((req, res, next) => {
@@ -17,4 +20,12 @@ export default (app) => {
     ],
     fetchMatchings
   );
-}
+
+  app.get(
+    "/api/matching/occupation-detail/:oid",
+    [
+      authJwt.verifyToken, // only authorised users can perform this operation
+    ],
+    fetchOccupationDetail
+  );
+};

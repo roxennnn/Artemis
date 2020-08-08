@@ -5,7 +5,6 @@ const API_URL = "http://localhost:8080/api/matching/";
 
 class MatchingService {
   fetchMatchings = async () => {
-    console.log("CIAO");
     const header = authHeader();
 
     const response = await axios.get(
@@ -18,6 +17,20 @@ class MatchingService {
     console.log(response.data);
     return response.data;
   };
+
+  fetchOccupationDetail = async (oid) => {
+    const header = authHeader();
+
+    const response = await axios.get(
+      API_URL + `occupation-detail/${oid}`,
+      {
+        headers: header,
+      }
+    );
+    console.log(response.status);
+    console.log(response.data);
+    return response.data;
+  }
 }
 
 export default new MatchingService();
