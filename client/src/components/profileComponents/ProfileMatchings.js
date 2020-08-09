@@ -33,7 +33,7 @@ const ProfileMatchings = (props) => {
   };
 
   return (
-    <div>
+    <div style={{width: "100%"}}>
       {loading ? (
         <CenterView middle={8} sides={2}>
           <div style={{ textAlign: "center" }}>
@@ -41,7 +41,7 @@ const ProfileMatchings = (props) => {
           </div>
         </CenterView>
       ) : (
-        <div>
+        <div style={{width: "100%"}}>
           <h3>Job matchings</h3>
           <div style={{ whiteSpace: "pre-wrap", fontSize: 22 }}>
             {!showAll &&

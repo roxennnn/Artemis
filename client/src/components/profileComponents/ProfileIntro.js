@@ -36,10 +36,10 @@ const ProfileIntro = (props) => {
   }, [props.currentUser]);
 
   return (
-    <div>
+    <div style={{width: "100%"}}>
       <div style={styles.rowBox}>
         <div>
-          <div>Gain your independence by finding a job!</div>
+          <h3>Gain your independence by finding a job!</h3>
           <div>
             This platform will analyse your skills and match your profile with
             the best fitting jobs

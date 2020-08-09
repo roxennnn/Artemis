@@ -22,7 +22,7 @@ const ProfileSurveys = (props) => {
   }, [props.currentUser]);
 
   return (
-    <div>
+    <div style={{width: "100%"}}>
       <h3>Fill the surveys!</h3>
       <div style={{ fontSize: 22 }}>
         Here, you can find the three surveys that will help us create a match

@@ -188,6 +188,7 @@ export const fetchSkills = async (req, res) => {
   }
 
   scores.sort(compareSkills);
+
   res.status(200).send({ scores });
   return;
 };
@@ -195,20 +196,20 @@ export const fetchSkills = async (req, res) => {
 // Utilities
 
 const compareOccupations = (a, b) => {
-  if (a.score < b.score) {
+  if (parseFloat(a.score) < parseFloat(b.score)) {
     return 1;
   }
-  if (a.score > b.score) {
+  if (parseFloat(a.score) > parseFloat(b.score)) {
     return -1;
   }
   return 0;
 };
 
 const compareSkills = (a, b) => {
-  if (a.score < b.score) {
+  if (parseFloat(a.score) < parseFloat(b.score)) {
     return 1;
   }
-  if (a.score > b.score) {
+  if (parseFloat(a.score) > parseFloat(b.score)) {
     return -1;
   }
   return 0;

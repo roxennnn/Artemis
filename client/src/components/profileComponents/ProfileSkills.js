@@ -23,7 +23,7 @@ const ProfileSkills = (props) => {
   };
 
   return (
-    <div>
+    <div style={{width: "100%"}}>
       {loading ? (
         <CenterView middle={8} sides={2}>
           <div style={{ textAlign: "center" }}>
@@ -47,13 +47,13 @@ const ProfileSkills = (props) => {
                         marginTop: "2%",
                       }}
                     >
-                      <div style={{ width: "60%" }}>{skill.name}</div>
+                      <div style={{ width: "55%" }}>{skill.name}</div>
                       <ProgressBar
                         // text={`${props.occupation.score}`}
                         percentage={`${skill.score}%`}
                         color={Colors.primary}
                         gradient={Colors.gradient}
-                        outsideStyle={{ width: "40%", height: 20 }}
+                        outsideStyle={{ width: "30%", height: 20 }}
                       />
                     </div>
                   );

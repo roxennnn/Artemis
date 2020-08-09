@@ -26,7 +26,7 @@ const MatchingRow = (props) => {
         alignItems: "center",
         marginTop: "2%",
         paddingLeft: "2%",
-        fontSize: 22
+        fontSize: 24
         // borderStyle: "solid",
         // borderWidth: 2
       }}

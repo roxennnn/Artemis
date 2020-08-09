@@ -32,7 +32,7 @@ const styles = {
     borderRadius: 20
   },
   someInfo: {
-    width: "70%",
+    width: "90%",
     paddingLeft: "3%",
   },
   rowBox: {
@@ -199,17 +199,20 @@ const ProfilePage = (props) => {
                       title="Summary"
                       style={styles.firstListItem}
                       value={0}
+                      current={showValue === 0}
                       onClick={onClickActionListHandler}
                     />
                     <ActionListItem
                       title="Surveys"
                       value={1}
+                      current={showValue === 1}
                       onClick={onClickActionListHandler}
                     />
                     {currentUser.skills_done && (
                       <ActionListItem
                         title="Job matchings"
                         value={2}
+                        current={showValue === 2}
                         onClick={onClickActionListHandler}
                       />
                     )}
@@ -217,6 +220,7 @@ const ProfilePage = (props) => {
                       <ActionListItem
                         title="My skills"
                         value={3}
+                        current={showValue === 3}
                         onClick={onClickActionListHandler}
                       />
                     )}

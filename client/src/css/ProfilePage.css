@@ -19,6 +19,12 @@ div.action-list-item:hover {
   cursor: pointer;
 }
 
+div.current-action-list-item {
+  background: linear-gradient(rgba(0, 150, 250, 0.5), transparent);
+  background-color: #3b5998;
+  color: white;
+}
+
 
 /* #inside {
   background: linear-gradient(rgba(0,150,250,0.5),transparent)
