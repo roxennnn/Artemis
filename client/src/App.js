@@ -22,13 +22,15 @@ const App = (props) => {
   }, []);
 
   return (
-    <Router>
-      <div style={{width: "100%", height: "100%"}}>
-        <NavComponent currentUser={currentUser} />
-        <SwitchComponent />
-        <Footer />
-      </div>
-    </Router>
+    <div className="switch-content">
+      <Router>
+        <div style={{ width: "100%", height: "100%" }}>
+          <NavComponent currentUser={currentUser} />
+          <SwitchComponent />
+        </div>
+      </Router>
+      <Footer />
+    </div>
   );
 };
 

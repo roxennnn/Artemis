@@ -1,15 +1,22 @@
 #root {
-  width: "100%";
+  width: 100%;
+  /* Flexbox for sticky footer */
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 100vh;
 }
 
 body {
   /* background-color: #f3f6f8; */
   background-color: white;
   width: 100%;
-  height: 100%;
-  /* border-style: solid;
-  border-width: 5px;
-  border-color: red; */
+}
+
+div.switch-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1 !important;
 }
 
 label {
@@ -46,10 +53,10 @@ label {
 }
 
 .btn-radius {
-  width: 30%!important;
+  width: 30% !important;
   min-width: 200px;
   /* height: 40px; */
-  border-radius: 100px!important;
+  border-radius: 100px !important;
 }
 
 .center-col {
@@ -148,7 +155,7 @@ nav.primary {
   /* background-color: #3b5998; */
   /* background-color: #25318d; */
   /* opacity: 0.7; */
-  background: linear-gradient(rgba(0,150,250,0.3),transparent);
+  background: linear-gradient(rgba(0, 150, 250, 0.3), transparent);
   background-color: rgba(59, 89, 152, 0.8);
 }
 

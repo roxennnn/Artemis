@@ -22,7 +22,7 @@ import OccupationDetailPage from "../pages/OccupationDetailPage";
 
 const SwitchComponent = (props) => {
   return (
-    <div className="" style={{margin: "2%"}}>
+    <div style={{margin: "2%"}}>
       <Switch>
         <Route exact path={["/", "/home"]} component={LandingPage} />
         <Route exact path="/login" component={LoginPage} />
