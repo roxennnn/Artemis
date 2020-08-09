@@ -6,6 +6,8 @@ import Colors from "../constants/Colors.js";
 import LoginNavbar from "./LoginNavbar";
 import LoggedNavbar from "./LoggedNavbar";
 
+
+
 const NavComponent = (props) => {
   return (
     <nav
@@ -106,7 +108,7 @@ const NavComponent = (props) => {
           {props.currentUser ? (
             <LoggedNavbar
               history={props.history}
-              username={props.currentUser.username}
+              currentUser={props.currentUser}
             />
           ) : (
             <LoginNavbar history={props.history} />

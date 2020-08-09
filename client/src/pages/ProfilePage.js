@@ -3,6 +3,8 @@ import { Spinner } from "react-bootstrap";
 import Unauthorised from "../components/Unauthorised";
 
 import Colors from "../constants/Colors";
+import CenterView from "../components/CenterView";
+
 import SurveyService from "../services/survey.service";
 
 // Profile components
@@ -10,13 +12,13 @@ import ActionListItem from "../components/profileComponents/ActionListItem";
 import ProfileIntro from "../components/profileComponents/ProfileIntro";
 import ProfileSurveys from "../components/profileComponents/ProfileSurveys";
 import ProfileMatchings from "../components/profileComponents/ProfileMatchings";
+import ProfileSkills from "../components/profileComponents/ProfileSkills";
 
 import "../css/ProfilePage.css";
 
 // images
 import avatar from "../images/avatar.png";
 
-import CenterView from "../components/CenterView";
 
 const styles = {
   redBox: {
@@ -27,6 +29,7 @@ const styles = {
   userBox: {
     background: Colors.gradient,
     backgroundColor: Colors.primary,
+    borderRadius: 20
   },
   someInfo: {
     width: "70%",
@@ -74,9 +77,9 @@ const ProfilePage = (props) => {
   }, [currentUser]);
 
   // For debugging
-  useEffect(() => {
-    console.log(currentUser);
-  }, [currentUser]);
+  // useEffect(() => {
+  //   console.log(currentUser);
+  // }, [currentUser]);
 
   const [showValue, setShowValue] = useState(0);
   // 0: ProfileIntro
@@ -203,17 +206,20 @@ const ProfilePage = (props) => {
                       value={1}
                       onClick={onClickActionListHandler}
                     />
-                    {/* <ActionListItem title="Forum" /> */}
-                    <ActionListItem
-                      title="Job matchings"
-                      value={2}
-                      onClick={onClickActionListHandler}
-                    />
-                    <ActionListItem
-                      title="My skills"
-                      value={3}
-                      onClick={onClickActionListHandler}
-                    />
+                    {currentUser.skills_done && (
+                      <ActionListItem
+                        title="Job matchings"
+                        value={2}
+                        onClick={onClickActionListHandler}
+                      />
+                    )}
+                    {currentUser.skills_done && (
+                      <ActionListItem
+                        title="My skills"
+                        value={3}
+                        onClick={onClickActionListHandler}
+                      />
+                    )}
                   </div>
                 </div>
 
@@ -225,14 +231,17 @@ const ProfilePage = (props) => {
                   {showValue === 0 && (
                     <ProfileIntro
                       currentUser={currentUser}
-                      onClick={onGoToSurveys}
+                      onGoToSurveys={onGoToSurveys}
                     />
                   )}
                   {showValue === 1 && (
                     <ProfileSurveys currentUser={currentUser} />
                   )}
                   {showValue === 2 && (
-                    <ProfileMatchings userId={currentUser._id} />
+                    <ProfileMatchings />
+                  )}
+                  {showValue === 3 && (
+                    <ProfileSkills />
                   )}
                 </div>
               </div>

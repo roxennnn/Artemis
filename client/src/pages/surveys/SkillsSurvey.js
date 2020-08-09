@@ -381,7 +381,7 @@ const SkillsSurvey = (props) => {
             background: Colors.gradient,
             backgroundColor: Colors.primary,
             color: Colors.accent,
-            marginRight: "4%",
+            // marginRight: "4%",
           }}
           role="button"
           onClick={onSubmit}

@@ -31,7 +31,7 @@ const DoSurveyItem = (props) => {
             <span style={{ marginLeft: "5%" }}>{props.title}</span>
           </span>
         </a>
-        {/* <i className="far fa-redo-alt"></i> */}
+
         {props.done && (
           <a
             href={`profile/${props.href}`}

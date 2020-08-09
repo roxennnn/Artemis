@@ -23,8 +23,8 @@ const ProfileSurveys = (props) => {
 
   return (
     <div>
-      <h1>Fill the surveys!</h1>
-      <div>
+      <h3>Fill the surveys!</h3>
+      <div style={{ fontSize: 22 }}>
         Here, you can find the three surveys that will help us create a match
         with your ideal job. Fill all of them in and then see discover what your
         next steps are.
@@ -49,10 +49,7 @@ const ProfileSurveys = (props) => {
           timestamp={props.currentUser.experience_timestamp}
         />
       </div>
-      <SurveysCompleted
-        surveysDone={surveysDone}
-        style={{ marginBottom: "5%" }}
-      />
+      <SurveysCompleted surveysDone={surveysDone} />
     </div>
   );
 };

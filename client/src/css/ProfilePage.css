@@ -19,6 +19,7 @@ div.action-list-item:hover {
   cursor: pointer;
 }
 
+
 /* #inside {
   background: linear-gradient(rgba(0,150,250,0.5),transparent)
 }  */
@@ -49,10 +50,21 @@ div.action-list-item:hover {
   text-decoration: none;
 }
 
-.svg-inline--fa:hover {
+.svg-inline--fa:not(.surveys-arrow):hover {
   font-size: 120%;
   transition: 1ms;
 }
+
+.surveys-arrow {
+  font-size: 150%;
+}
+
+.surveys-arrow:hover {
+  cursor: pointer;
+  font-size: 160%;
+  transition: 1ms;
+}
+
 
 .btn-radius2 {
   width: 10% !important;

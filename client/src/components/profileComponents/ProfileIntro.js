@@ -57,26 +57,10 @@ const ProfileIntro = (props) => {
           <img src={laura} alt="" />
         </div>
       </div>
-      <SurveysCompleted surveysDone={surveysDone} />
-      <div
-        className="col"
-        style={{ display: "flex", justifyContent: "flex-end", padding: 10 }}
-      >
-        <a
-          className="btn-radius2 btn"
-          style={{
-            background: Colors.gradient,
-            backgroundColor: Colors.primary,
-            color: Colors.accent,
-            marginRight: "4%",
-          }}
-          role="button"
-          onClick={props.onClick}
-        >
-          Go to surveys -{">"}
-        </a>
-      </div>
-      <h3>Top matching: </h3>
+      <br />
+      <SurveysCompleted surveysDone={surveysDone} rightButton={props.onGoToSurveys} />
+      <br/>
+      <h4>Top matching:</h4>
     </div>
   );
 };

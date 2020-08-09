@@ -30,7 +30,21 @@ class MatchingService {
     console.log(response.status);
     console.log(response.data);
     return response.data;
-  }
+  };
+
+  fetchSkills = async () => {
+    const header = authHeader();
+
+    const response = await axios.get(
+      API_URL + "fetch-skills",
+      {
+        headers: header,
+      }
+    );
+    console.log(response.status);
+    console.log(response.data);
+    return response.data;
+  };
 }
 
 export default new MatchingService();

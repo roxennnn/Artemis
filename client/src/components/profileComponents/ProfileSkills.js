@@ -1,0 +1,72 @@
+import React, { useState, useEffect } from "react";
+import { Spinner } from "react-bootstrap";
+
+import MatchingService from "../../services/matching.service";
+
+import Colors from "../../constants/Colors";
+import CenterView from "../CenterView";
+import ProgressBar from "../ProgressBar";
+
+const ProfileSkills = (props) => {
+  const [loading, setLoading] = useState(false);
+  const [skills, setSkills] = useState();
+
+  useEffect(() => {
+    setLoading(true);
+    asyncFetchSkills();
+    setLoading(false);
+  }, []);
+
+  const asyncFetchSkills = async () => {
+    const skills = await MatchingService.fetchSkills();
+    setSkills(skills.scores);
+  };
+
+  return (
+    <div>
+      {loading ? (
+        <CenterView middle={8} sides={2}>
+          <div style={{ textAlign: "center" }}>
+            <Spinner animation="border" variant="primary" />
+          </div>
+        </CenterView>
+      ) : (
+        <div>
+          <h3>Skills</h3>
+          <div style={{ fontSize: 22 }}>
+            {skills ? (
+              <div>
+                {skills.map((skill, index) => {
+                  return (
+                    <div
+                      key={index}
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        marginTop: "2%",
+                      }}
+                    >
+                      <div style={{ width: "60%" }}>{skill.name}</div>
+                      <ProgressBar
+                        // text={`${props.occupation.score}`}
+                        percentage={`${skill.score}%`}
+                        color={Colors.primary}
+                        gradient={Colors.gradient}
+                        outsideStyle={{ width: "40%", height: 20 }}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div>An error has occured</div>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ProfileSkills;

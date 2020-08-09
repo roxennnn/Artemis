@@ -20,7 +20,7 @@ const ProfileMatchings = (props) => {
   }, []);
 
   const asyncFetchOccupations = async () => {
-    const matchings = await MatchingService.fetchMatchings(props.userId);
+    const matchings = await MatchingService.fetchMatchings();
     setOccupationMatchings(matchings.scoredOccupations);
   };
 

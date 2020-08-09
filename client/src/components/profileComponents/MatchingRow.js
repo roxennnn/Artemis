@@ -25,21 +25,28 @@ const MatchingRow = (props) => {
         flexDirection: "row",
         alignItems: "center",
         marginTop: "2%",
-
+        paddingLeft: "2%",
+        fontSize: 22
         // borderStyle: "solid",
         // borderWidth: 2
       }}
       onClick={onClickMatchingHandler}
     >
-      <div className="occupation-title" style={{ width: "30%", marginRight: "1%", padding: "2%" }}>{props.occupation.title}</div>
+      <div
+        className="occupation-title"
+        style={{ width: "30%", marginRight: "1%", padding: "2%" }}
+      >
+        {props.occupation.title}
+      </div>
       <ProgressBar
-        // text={`${props.occupation.score}`}
         percentage={`${props.occupation.score}%`}
         color={Colors.primary}
         gradient={Colors.gradient}
         outsideStyle={{ width: "50%", height: 30 }}
       />
-      <div style={{ width: "20%", textAlign: "center" }}>{props.occupation.score} %</div>
+      <div style={{ width: "20%", textAlign: "center" }}>
+        {props.occupation.score} %
+      </div>
     </div>
   );
 };

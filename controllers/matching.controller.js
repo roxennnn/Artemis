@@ -6,6 +6,69 @@ const Occupation = db.occupation;
 
 import { workUrFreedomContract } from "../server.js";
 
+const skillNames = [
+  "Organise basic activities",
+  "Perform administrative tasks ",
+  "Process payments",
+  "Handle money",
+  "Administer financial information",
+  "Perform cleaning activities (at home)",
+  "Perform cleaning activities in an environment beyond home",
+  "Perform basic first aid",
+  "Act as a leader",
+  "Work under pressure",
+  "Work in a team",
+  "Drive a car",
+  "Conduct basic food preparation",
+  "Cook meat and fish",
+  "Cook vegetables and dairy products",
+  "Cook pasta",
+  "Prepare deserts such as pastries",
+  "Prepare fish for cooking",
+  "Prepare sandwiches",
+  "Prepare drinks such as cocktails or speciality coffees",
+  "Present food in an appealing manner",
+  "Understand diets and nutitional properties of food",
+  "Keep a clean kitchen",
+  "Maintain cooking equipment",
+  "Operate cooking equipment",
+  "Greet guests",
+  "Serve food and drinks",
+  "Work with recipes",
+  "Store food safely",
+  "Apply make-up",
+  "Perform nail care treatments",
+  "Perform skin care treatments",
+  "Remove body hair",
+  "Give massages",
+  "Wash and style hair",
+  "Cut perm and colour hair",
+  "Treat minor problems with the hair or scalp",
+  "Provide information and give instructions",
+  "Write information in a clear way",
+  "Collect information",
+  "Understand and answer technical questions",
+  "Understand and follow guidelines",
+  "Assist people and give advices",
+  "Guide tourists or other visitors",
+  "Be familiar with the local culture",
+  "Assist guests during events",
+  "Plan and organise activities for guests",
+  "Manage groups of people",
+  "Assist people with mobility",
+  "Maintain good public relations",
+  "Interpret and respond adequately to people's emotions",
+  "Speak more than one language",
+  "Provide care and assistance to children",
+  "Assist children in learning",
+  "Provide school assistance",
+  "Help children with special learning difficulties",
+  "Help children to resolve personal psychological or social problems",
+  "Run domestic care activities",
+  "Assist people with disabilities",
+  "Assist elderly people",
+];
+
 export const fetchMatchings = async (req, res) => {
   const userId = mongoose.Types.ObjectId(req.userId);
   // console.log(userId);
@@ -38,7 +101,7 @@ export const fetchMatchings = async (req, res) => {
 
     const meanScore = score / categoriesNum;
     // const percentScore = meanScore * 100;
-    
+
     let scored = {};
     scored["score"] = meanScore.toFixed(2);
     scored["OID"] = occupation["OID"];
@@ -76,11 +139,11 @@ export const fetchOccupationDetail = async (req, res) => {
   }
 
   const categoryIds = occupation.categories;
-  
+
   let categoryScores = [];
   for (let c = 0; c < categoryIds.length; c++) {
     const cat = categoryIds[c];
-    categoryScores.push(((skillScores[cat] - 1) / 3 * 100).toFixed(2));
+    categoryScores.push((((skillScores[cat] - 1) / 3) * 100).toFixed(2));
   }
 
   // What to respond
@@ -104,9 +167,44 @@ export const fetchOccupationDetail = async (req, res) => {
   return;
 };
 
+export const fetchSkills = async (req, res) => {
+  const userId = mongoose.Types.ObjectId(req.userId);
+
+  const skillScores = await getSkillScores(userId);
+  if (skillScores.length === 0) {
+    res.status(404).send({ message: `Fetching skills data error: ${err}` });
+    return;
+  }
+
+  const scores = [];
+  if (skillScores.length !== skillNames.length) {
+    console.log("skill array lenghts are different...");
+    res.status(500).send({ message: "skill array lenghts are different..." });
+  }
+  for (let i = 0; i < skillScores.length; i++) {
+    let name = skillNames[i];
+    let score = (skillScores[i] - 1) / 3 * 100;
+    scores.push({ name: name, score: score.toFixed(2) });
+  }
+
+  scores.sort(compareSkills);
+  res.status(200).send({ scores });
+  return;
+};
+
 // Utilities
 
 const compareOccupations = (a, b) => {
+  if (a.score < b.score) {
+    return 1;
+  }
+  if (a.score > b.score) {
+    return -1;
+  }
+  return 0;
+};
+
+const compareSkills = (a, b) => {
   if (a.score < b.score) {
     return 1;
   }

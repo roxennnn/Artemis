@@ -2,6 +2,7 @@ import authJwt from "../middleware/authJwt.js";
 import {
   fetchMatchings,
   fetchOccupationDetail,
+  fetchSkills,
 } from "../controllers/matching.controller.js";
 
 export default (app) => {
@@ -27,5 +28,13 @@ export default (app) => {
       authJwt.verifyToken, // only authorised users can perform this operation
     ],
     fetchOccupationDetail
+  );
+
+  app.get(
+    "/api/matching/fetch-skills",
+    [
+      authJwt.verifyToken, // only authorised users can perform this operation
+    ],
+    fetchSkills
   );
 };

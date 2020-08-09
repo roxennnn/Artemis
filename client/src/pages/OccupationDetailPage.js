@@ -61,7 +61,7 @@ const OccupationDetailPage = (props) => {
             <Spinner animation="border" variant="primary" />
           </div>
         ) : (
-          <div style={{fontSize: 20}}>
+          <div style={{fontSize: 22}}>
             {occupationDetail ? (
               <div>
                 <h2>{occupationDetail.title}</h2>

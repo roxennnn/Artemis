@@ -8,7 +8,6 @@ sudo service mongod status
 
 echo "START truffle develop..."
 cd blockchain/
-truffle migrate --reset --network development
 truffle develop
 
 # truffle migrate --reset --network development
