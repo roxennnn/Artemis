@@ -192,9 +192,20 @@ span.logout-dropdown-item:hover {
   overflow: hidden;
   background-color: rgba(255, 255, 255, 0.9);
 }
+
 #login-dp .help-block {
   font-size: 12px;
 }
+
+.hover-underline:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.hover-opacity-button:hover {
+  opacity: 0.8;
+}
+
 #login-dp .bottom-login {
   /* min-width: 350px; */
   width: auto;
@@ -216,3 +227,13 @@ span.footer-link:hover {
   cursor: pointer;
   text-decoration: underline;
 }
+
+/* Language Selector */
+.language-selector:hover {
+  color: black !important;
+  cursor: pointer;
+}
+
+/* .language-current {
+  font-size: 20px;
+} */

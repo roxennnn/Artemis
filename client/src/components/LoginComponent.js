@@ -3,6 +3,7 @@ import { Form } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 
 import Colors from "../constants/Colors";
+import PrimaryButton from "./PrimaryButton";
 
 import AuthService from "../services/auth.service";
 
@@ -21,8 +22,7 @@ const LoginComponent = (props) => {
       await AuthService.login(username, pass);
       history.push("/profile");
       window.location.reload();
-      // props.history.push("/profile");
-      // reset inputs
+
       setUsernameValue("");
       setPassValue("");
     } catch (err) {
@@ -57,7 +57,10 @@ const LoginComponent = (props) => {
         <Form.Group controlId="formBasicPassword">
           <Form.Control
             type="password"
-            placeholder="Password"
+            placeholder={
+              props.strings.NavComponent &&
+              props.strings.NavComponent.LoginNavbar.password
+            }
             onChange={(pass) => setPassValue(pass.target.value)}
             value={passValue}
             onKeyPress={(event) => {
@@ -67,27 +70,17 @@ const LoginComponent = (props) => {
             }}
           />
         </Form.Group>
-        <div className="help-block text-right">
+        <div className="help-block text-right hover-underline">
           <a href="/todo" style={{ color: Colors.primary }}>
-            Forgot the password ?
+            {props.strings.NavComponent &&
+              props.strings.NavComponent.LoginNavbar.forgotPassword}
           </a>
         </div>
-        <div className="center-col col">
-          <a
-            className="btn-radius btn"
-            style={{
-              background: Colors.gradient,
-              backgroundColor: Colors.primary,
-              color: Colors.accent,
-              margin: 10,
-            }}
-            role="button"
-            // href="/home"
-            onClick={submitHandler}
-          >
-            Log In
-          </a>
-        </div>
+        <PrimaryButton
+          label="Log In"
+          buttonStyle={{ margin: 10 }}
+          onClick={submitHandler}
+        />
       </Form>
     </div>
   );

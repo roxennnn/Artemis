@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import Colors from "../constants/Colors.js";
@@ -6,9 +6,44 @@ import Colors from "../constants/Colors.js";
 import LoginNavbar from "./LoginNavbar";
 import LoggedNavbar from "./LoggedNavbar";
 
+// Multilingual
+import { LanguageContext } from "../languages/LanguageProvider";
 
+const styles = {
+  languages: {
+    color: Colors.accent,
+  },
+};
+
+const LanguageComponent = (props) => {
+  return (
+    <div
+      className={
+        props.current
+          ? "language-selector language-current"
+          : "language-selector"
+      }
+      style={{
+        ...props.style,
+        textDecoration: props.current ? "underline" : "",
+        // fontSize: props.current ? 20 : 18
+      }}
+      onClick={props.onClick}
+    >
+      {props.name}
+    </div>
+  );
+};
 
 const NavComponent = (props) => {
+  const { strings, language, updateLanguage } = useContext(LanguageContext);
+
+  // useEffect(() => {
+  //   if (strings.navComponent) {
+  //     console.log(strings.navComponent.loginNavbar);
+  //   }
+  // }, [strings]);
+
   return (
     <nav
       className="navbar navbar-expand-lg navbar-dark primary"
@@ -44,7 +79,38 @@ const NavComponent = (props) => {
 
       {/* Collapsing navbar */}
       <div className="collapse navbar-collapse" id="navbarTop">
-        <ul className="navbar-nav mr-auto">
+        <ul className="navbar-nav mr-auto" style={{ width: "70%" }}>
+          <li
+            className="nav-item"
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              marginLeft: "5%",
+              marginRight: "5%",
+            }}
+          >
+            <LanguageComponent
+              style={{ ...styles.languages, marginRight: "10%" }}
+              name="es"
+              onClick={(e) => {
+                updateLanguage(e.target.innerText);
+              }}
+              current={language === "es"}
+            />
+            <div style={{ ...styles.languages, fontSize: 28 }}>|</div>
+            <LanguageComponent
+              style={{
+                ...styles.languages,
+                marginLeft: "10%",
+              }}
+              name="en"
+              onClick={(e) => {
+                updateLanguage(e.target.innerText);
+              }}
+              current={language === "en"}
+            />
+          </li>
           <li className="nav-item dropdown">
             <a
               className="nav-link"
@@ -54,27 +120,32 @@ const NavComponent = (props) => {
               aria-haspopup="true"
               aria-expanded="false"
             >
-              Learn More
+              {strings.NavComponent && strings.NavComponent.LearnMore.learnMore}
             </a>
             <div
               className="dropdown-menu dropdown-menu-learnmore"
               aria-labelledby="navbarDropdown"
             >
               <a className="dropdown-item" href="/learn-more">
-                What is this website
+                {strings.NavComponent &&
+                  strings.NavComponent.LearnMore.whatIsThisWebsite}
               </a>
               <a className="dropdown-item" href="/learn-more">
-                How to use it
+                {strings.NavComponent &&
+                  strings.NavComponent.LearnMore.howToUseIt}
               </a>
               {/* <div className="dropdown-divider"></div> */}
               <a className="dropdown-item" href="/learn-more">
-                What and why of this database
+                {strings.NavComponent &&
+                  strings.NavComponent.LearnMore.whatAndWhyOfThisDatabase}
               </a>
               <a className="dropdown-item" href="/learn-more">
-                Use of blockchain
+                {strings.NavComponent &&
+                  strings.NavComponent.LearnMore.useOfBlockchain}
               </a>
               <a className="dropdown-item" href="/learn-more">
-                Technical documentation
+              {strings.NavComponent &&
+              strings.NavComponent.LearnMore.technicalDocumentation}
               </a>
             </div>
           </li>
@@ -93,26 +164,36 @@ const NavComponent = (props) => {
           </li>
           <li className="nav-item">
             <Link to={"/about"} className="nav-link">
-              Contact Us
+            {strings.NavComponent &&
+              strings.NavComponent.contactUs}
             </Link>
           </li>
-          {/* <li className="nav-item">
-            <Link to={"/profile"} className="nav-link">
-              TEMP USER
-            </Link>
-          </li> */}
         </ul>
       </div>
       <div className="collapse navbar-collapse" id="navbarTop">
-        <ul className="navbar-nav ml-auto">
-          {props.currentUser ? (
-            <LoggedNavbar
-              history={props.history}
-              currentUser={props.currentUser}
-            />
-          ) : (
-            <LoginNavbar history={props.history} />
-          )}
+        <ul
+          className="navbar-nav ml-auto"
+          style={{
+            // width: props.currentUser ? "12%" : "45%",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            // borderWidth: 2,
+            // borderStyle: "solid",
+          }}
+        >
+          <li>
+            {props.currentUser ? (
+              <LoggedNavbar
+                history={props.history}
+                currentUser={props.currentUser}
+                strings={strings}
+              />
+            ) : (
+              <LoginNavbar history={props.history} strings={strings} />
+            )}
+          </li>
         </ul>
       </div>
     </nav>

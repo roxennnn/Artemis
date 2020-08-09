@@ -59,12 +59,12 @@ const LoggedNavbar = (props) => {
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
-                  // style={{ borderStyle: "solid", borderWidth: 1 }}
+                  style={{ display: "flex", justifyContent: "flex-end", alignItems: "center" }}
                 >
-                  <span style={{ fontSize: 20 }}>{currentUser.username}</span>
+                  <span style={{ fontSize: 18 }}>{currentUser.username}</span>
                   <img // No percentages... @TOFIX for a responsive design
                     style={{
-                      width: 65,
+                      width: "15%",
                       marginLeft: 20,
                       borderStyle: "solid",
                       borderColor: "white",
