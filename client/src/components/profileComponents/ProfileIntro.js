@@ -58,9 +58,9 @@ const ProfileIntro = (props) => {
         </div>
       </div>
       <br />
-      <SurveysCompleted surveysDone={surveysDone} rightButton={props.onGoToSurveys} />
+      <SurveysCompleted surveysDone={surveysDone} rightButton={props.onGoToSurveys} strings={props.strings}/>
       <br/>
-      <h4>Top matching:</h4>
+      <h4>{props.strings.Profile && props.strings.Profile.ProfileIntro.topMatching}</h4>
     </div>
   );
 };

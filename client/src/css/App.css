@@ -53,7 +53,7 @@ label {
 }
 
 .btn-radius {
-  width: 30% !important;
+  width: 30%;
   min-width: 200px;
   /* height: 40px; */
   border-radius: 100px !important;

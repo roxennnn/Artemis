@@ -17,9 +17,12 @@ const styles = {
 };
 
 const ActionListItem = (props) => {
+  
   return (
     <div
-      className={props.current ? "current-action-list-item" : "action-list-item"}
+      className={
+        props.current ? "current-action-list-item" : "action-list-item"
+      }
       style={{ ...styles.actionListItem, ...props.style }}
       onClick={() => {
         props.onClick(props.value);

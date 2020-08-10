@@ -24,11 +24,31 @@ const CustomCountryDropdown = (props) => {
   const [currentCountry, setCurrentCountry] = useState(
     props.defaultMessageCountry
       ? props.defaultMessageCountry
-      : "Select a country"
+      : props.strings.Profile
+      ? props.strings.Profile.ProfileSurveys.DemographicsSurvey.selectCountry
+      : "Select"
   );
 
+  const { strings } = props;
+
+  useEffect(() => {
+    if (
+      currentCountry === "" ||
+      currentCountry === undefined ||
+      currentCountry === "Select"
+    ) {
+      setCurrentCountry(
+        props.strings.Profile &&
+          props.strings.Profile.ProfileSurveys.DemographicsSurvey.selectCountry
+      );
+    }
+  }, [strings]);
+
   const [currentRegion, setCurrentRegion] = useState(
-    props.defaultMessageRegion ? props.defaultMessageRegion : "Select a region"
+    props.defaultMessageRegion
+      ? props.defaultMessageRegion
+      : props.strings.Profile &&
+          props.strings.Profile.ProfileSurveys.DemographicsSurvey.selectARegion
   );
 
   const [regions, setRegions] = useState([]);
@@ -41,7 +61,9 @@ const CustomCountryDropdown = (props) => {
       setCurrentRegion(
         props.defaultMessageRegion
           ? props.defaultMessageRegion
-          : "Select a region"
+          : props.strings.Profile &&
+              props.strings.Profile.ProfileSurveys.DemographicsSurvey
+                .selectARegion
       );
       setRegions(tmp["regions"]);
     }
@@ -91,7 +113,7 @@ const CustomCountryDropdown = (props) => {
               {currentRegion}
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              {regions.map((value,index) => (
+              {regions.map((value, index) => (
                 <Dropdown.Item
                   eventKey={index}
                   href=""
@@ -115,7 +137,7 @@ const CustomCountryDropdown = (props) => {
             justifyContent: "flex-end",
           }}
         >
-          You must answer to this question!
+          {props.errorMessage}
         </div>
       )}
     </div>

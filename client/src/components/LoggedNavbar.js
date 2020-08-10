@@ -59,7 +59,11 @@ const LoggedNavbar = (props) => {
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
-                  style={{ display: "flex", justifyContent: "flex-end", alignItems: "center" }}
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    alignItems: "center",
+                  }}
                 >
                   <span style={{ fontSize: 18 }}>{currentUser.username}</span>
                   <img // No percentages... @TOFIX for a responsive design
@@ -94,7 +98,8 @@ const LoggedNavbar = (props) => {
                               // window.location.reload();
                             }}
                           >
-                            Profile
+                            {props.strings.ProfileListings &&
+                              props.strings.ProfileListings.profile}
                           </span>
                           <span
                             className="dropdown-item profile-dropdown-item"
@@ -109,7 +114,8 @@ const LoggedNavbar = (props) => {
                               });
                             }}
                           >
-                            Surveys
+                            {props.strings.ProfileListings &&
+                              props.strings.ProfileListings.surveys}
                           </span>
                           {currentUser.skills_done && (
                             <span
@@ -125,7 +131,8 @@ const LoggedNavbar = (props) => {
                                 });
                               }}
                             >
-                              Job matchings
+                              {props.strings.ProfileListings &&
+                              props.strings.ProfileListings.jobMatchings}
                             </span>
                           )}
                           {currentUser.skills_done && (
@@ -142,7 +149,8 @@ const LoggedNavbar = (props) => {
                                 });
                               }}
                             >
-                              My skills
+                              {props.strings.ProfileListings &&
+                              props.strings.ProfileListings.mySkills}
                             </span>
                           )}
 
@@ -154,7 +162,8 @@ const LoggedNavbar = (props) => {
                               history.push("/todo");
                             }}
                           >
-                            Settings
+                            {props.strings.ProfileListings &&
+                              props.strings.ProfileListings.settings}
                           </span>
                           <span
                             className="dropdown-item logout-dropdown-item"

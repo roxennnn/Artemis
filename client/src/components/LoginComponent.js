@@ -70,7 +70,7 @@ const LoginComponent = (props) => {
             }}
           />
         </Form.Group>
-        <div className="help-block text-right hover-underline">
+        <div className="help-block text-right hover-underline" style={{ color: Colors.primary }}>
           <a href="/todo" style={{ color: Colors.primary }}>
             {props.strings.NavComponent &&
               props.strings.NavComponent.LoginNavbar.forgotPassword}

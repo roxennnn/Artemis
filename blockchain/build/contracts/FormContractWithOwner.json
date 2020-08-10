@@ -5826,12 +5826,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xC86228f5E41b616b35bf14fCE78f5Fcf38346cA6",
-      "transactionHash": "0xd64f6e463ca491518d1a36434166388568bc1256dcb0656e0adf30dc629e62e5"
+      "address": "0x6771511094A5a5ed952240B83a775F94D777Bd95",
+      "transactionHash": "0x0de8395340b1c5b368a0c30132022ea896838ece44525e0b246087a90125ad90"
     }
   },
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-08-09T13:01:57.600Z",
+  "updatedAt": "2020-08-10T14:18:56.323Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

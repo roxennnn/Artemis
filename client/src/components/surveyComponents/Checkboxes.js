@@ -47,7 +47,7 @@ const Checkboxes = (props) => {
             justifyContent: "flex-end",
           }}
         >
-          You must answer to this question!
+          {props.errorMessage}
         </div>
       )}
     </div>

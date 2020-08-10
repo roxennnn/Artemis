@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import Colors from "../constants/Colors.js";
+// import logo from "../images/logo.svg";
 
 import LoginNavbar from "./LoginNavbar";
 import LoggedNavbar from "./LoggedNavbar";
@@ -60,9 +61,9 @@ const NavComponent = (props) => {
       >
         {/* <img src={logo} className="nav-logo" alt="logo" /> */}
         <div style={{ fontSize: 28 }}>Work Your Freedom</div>
-        <div style={{ fontSize: 18 }}>
+        {/* <div style={{ fontSize: 18 }}>
           Find the job that best fits your skills!
-        </div>
+        </div> */}
       </Link>
       {/* Collapsed toggler button */}
       <button
@@ -144,8 +145,8 @@ const NavComponent = (props) => {
                   strings.NavComponent.LearnMore.useOfBlockchain}
               </a>
               <a className="dropdown-item" href="/learn-more">
-              {strings.NavComponent &&
-              strings.NavComponent.LearnMore.technicalDocumentation}
+                {strings.NavComponent &&
+                  strings.NavComponent.LearnMore.technicalDocumentation}
               </a>
             </div>
           </li>
@@ -164,8 +165,7 @@ const NavComponent = (props) => {
           </li>
           <li className="nav-item">
             <Link to={"/about"} className="nav-link">
-            {strings.NavComponent &&
-              strings.NavComponent.contactUs}
+              {strings.NavComponent && strings.NavComponent.contactUs}
             </Link>
           </li>
         </ul>
@@ -173,15 +173,6 @@ const NavComponent = (props) => {
       <div className="collapse navbar-collapse" id="navbarTop">
         <ul
           className="navbar-nav ml-auto"
-          style={{
-            // width: props.currentUser ? "12%" : "45%",
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "flex-end",
-            // borderWidth: 2,
-            // borderStyle: "solid",
-          }}
         >
           <li>
             {props.currentUser ? (

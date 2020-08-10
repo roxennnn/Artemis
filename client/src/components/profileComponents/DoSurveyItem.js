@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 // images
 import survey from "../../images/survey.png";
@@ -8,7 +8,11 @@ import survey_done from "../../images/survey_done.png";
 import { faRedoAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import { LanguageContext } from "../../languages/LanguageProvider";
+
 const DoSurveyItem = (props) => {
+  const { strings } = useContext(LanguageContext);
+
   return (
     <div className="container" style={{ margin: 30 }}>
       <div
@@ -42,7 +46,10 @@ const DoSurveyItem = (props) => {
           </a>
         )}
         {props.done && (
-          <div style={{ marginLeft: "5%" }}>Taken at: {props.timestamp}</div>
+          <div style={{ marginLeft: "5%" }}>
+            {strings.Profile && strings.Profile.ProfileSurveys.takenAt}{" "}
+            {props.timestamp}
+          </div>
         )}
       </div>
     </div>

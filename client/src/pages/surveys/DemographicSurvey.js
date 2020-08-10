@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import CenterView from "../../components/CenterView";
 
 import Colors from "../../constants/Colors";
 import Countries from "../../constants/Countries";
 import { binarise } from "../../constants/Utilities";
+
+import PrimaryButton from "../../components/PrimaryButton";
+import BackButton from "../../components/BackButton";
 
 import Dropdrown from "../../components/surveyComponents/Dropdown";
 import CountryDropdown from "../../components/surveyComponents/CountryDropdown";
@@ -11,81 +14,12 @@ import Checkboxes from "../../components/surveyComponents/Checkboxes";
 import Radiobuttons from "../../components/surveyComponents/Radiobuttons";
 import SurveyService from "../../services/survey.service";
 
-// QUESTIONS' DATA
+import { LanguageContext } from "../../languages/LanguageProvider";
 
 // - How old are you
 let ageRange = [...Array(47).keys()].map((i) => {
   return { name: i + 18, value: i + 18 };
 });
-const ages = [
-  { name: "17 or younger", value: 17 },
-  ...ageRange,
-  { name: "65 or older", value: 65 },
-];
-
-// - Means of transport available
-const transportationList = [
-  { label: "Bike", value: 0 },
-  { label: "Car", value: 1 },
-  { label: "Bus/Tram", value: 2 },
-  { label: "Train", value: 3 },
-  { label: "Scooter/Motorbike", value: 4 },
-  { label: "Other", value: 5 },
-];
-
-// - What is your highest level of education?
-const educationsList = [
-  { label: "No formal education", value: 1 },
-  { label: "Primary education", value: 2 },
-  { label: "Secondary education", value: 3 },
-  { label: "University degree", value: 4 },
-  { label: "Post-graduate university degree", value: 5 },
-  { label: "Other", value: 6 },
-];
-
-// - What is your marital status?
-const maritalList = [
-  { label: "Single/Never married", value: 1 },
-  { label: "Married", value: 2 },
-  { label: "Divorced/Separated", value: 3 },
-  { label: "Widowed", value: 4 },
-  { label: "Living together/Cohabitation", value: 5 },
-  { label: "Other", value: 6 },
-];
-
-// - Who is the primary income earner of your household?
-const primaryIncomeList = [
-  { label: "Me", value: 1 },
-  { label: "My husband/partner", value: 2 },
-  { label: "One of my parents", value: 3 },
-  { label: "One of my children", value: 4 },
-  { label: "Other", value: 5 },
-];
-
-// - What do you mainly do for work?
-const mainlyWorkList = [
-  { label: "Working full-time for a regular salary", value: 1 },
-  { label: "Working part-time for a regular salary", value: 2 },
-  {
-    label:
-      "Working occasionally, irregular pay (whenever the work is available)",
-    value: 3,
-  },
-  {
-    label: "Working per season (e.g., only during the harvest season)",
-    value: 4,
-  },
-  { label: "Self-employed, working for yourself", value: 5 },
-  { label: "Not working but looking for a job", value: 6 },
-  {
-    label: "Housewife doing household chores and taking care of children",
-    value: 7,
-  },
-  { label: "Full-time student", value: 8 },
-  { label: "Not working because of retirement", value: 9 },
-  { label: "Not working because of sickness, disability, etc.", value: 10 },
-  { label: "Other", value: 11 },
-];
 
 // Styles
 const containerStyle = {
@@ -103,6 +37,256 @@ const containerStyle = {
 };
 
 const DemographicSurvey = (props) => {
+  const { strings } = useContext(LanguageContext);
+
+  // QUESTIONS' DATA
+
+  const ages = [
+    {
+      name:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.younger,
+      value: 17,
+    },
+    ...ageRange,
+    {
+      name:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.older,
+      value: 65,
+    },
+  ];
+
+  // - Means of transport available
+  const transportationList = [
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.transportation.bike,
+      value: 0,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.transportation.car,
+      value: 1,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.transportation.bus,
+      value: 2,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.transportation.train,
+      value: 3,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.transportation
+          .scooter,
+      value: 4,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.transportation.other,
+      value: 5,
+    },
+  ];
+
+  // - What is your highest level of education?
+  const educationsList = [
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.education
+          .noFormalEducation,
+      value: 1,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.education
+          .primaryEducation,
+      value: 2,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.education
+          .secondaryEducation,
+      value: 3,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.education
+          .universityDegree,
+      value: 4,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.education
+          .postGraduateUniversityDegree,
+      value: 5,
+    },
+    { label: "Other", value: 6 },
+  ];
+
+  // - What is your marital status?
+  const maritalList = [
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.marital.single,
+      value: 1,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.marital.married,
+      value: 2,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.marital.divorced,
+      value: 3,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.marital.widowed,
+      value: 4,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.marital.cohabitating,
+      value: 5,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.marital.other,
+      value: 6,
+    },
+  ];
+
+  // - Who is the primary income earner of your household?
+  const primaryIncomeList = [
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.primaryIncome.me,
+      value: 1,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.primaryIncome.partner,
+      value: 2,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.primaryIncome.parents,
+      value: 3,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.primaryIncome
+          .children,
+      value: 4,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.primaryIncome.other,
+      value: 5,
+    },
+  ];
+
+  // - What do you mainly do for work?
+  const mainlyWorkList = [
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.mainlyWork
+          .fullTimeRegularSalary,
+      value: 1,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.mainlyWork
+          .partTimeRegularSalary,
+      value: 2,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.mainlyWork
+          .occasionally,
+      value: 3,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.mainlyWork.perSeason,
+      value: 4,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.mainlyWork
+          .selfEmployed,
+      value: 5,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.mainlyWork.lookingFor,
+      value: 6,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.mainlyWork.housewife,
+      value: 7,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.mainlyWork.student,
+      value: 8,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.mainlyWork.retired,
+      value: 9,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.mainlyWork.disability,
+      value: 10,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.DemographicsSurvey.mainlyWork.other,
+      value: 11,
+    },
+  ];
+
   // Change background color
   useEffect(() => {
     document.body.style = `background: rgba(59,89,152,0.05);`;
@@ -112,37 +296,27 @@ const DemographicSurvey = (props) => {
     };
   }, []);
 
-  const backButton = (
-    <div>
-      <a
-        // className="btn-radius fat-btn btn btn-warning btn-lg"
-        role="button"
-        onClick={() => {
-          props.history.push({
-            pathname: "/profile",
-            state: {
-              from: true,
-              to: 1,
-            },
-          });
-        }}
-        style={{ color: Colors.primary }}
-      >
-        {"<"}Back
-      </a>
-    </div>
-  );
-
   // Use as value list for the wedding age question --> the age must be less than the current one
   const [weddingAges, setWeddingAges] = useState(ages);
+  // solve the strings language problem
+  useEffect(() => {
+    if (weddingAges.length === ages.length) {
+      setWeddingAges(ages);
+    } else {
+      let possibleAges = ages.filter((age) => {
+        return age.value <= howOldAreYouValue;
+      });
+      setWeddingAges(possibleAges); // @TOFIX --> should update the viewed wedding age
+    }
+  }, [strings]);
 
   // QUESTIONS
   // - How old are you?
   const [howOldAreYouValue, setHowOldAreYouValue] = useState();
   const [oldError, setOldError] = useState(false);
 
-  const howOldAreYouOnChangeHandler = (key, obj) => {
-    let possibleAges = weddingAges.filter((age) => {
+  const howOldAreYouOnChangeHandler = (key) => {
+    let possibleAges = ages.filter((age) => {
       return age.value <= key;
     });
     setWeddingAges(possibleAges); // @TOFIX --> should update the viewed wedding age
@@ -310,11 +484,6 @@ const DemographicSurvey = (props) => {
 
     // Final check:
     if (noErrors) {
-      // Debugging logs
-      // console.log(`BIRTHYEAR: ${parseInt(new Date().getFullYear()) - howOldAreYouValue}`);
-      // console.log(
-      //   `COUNTRY: ${parseInt(country) + 1}; REGION: ${parseInt(region) + 1}`
-      // );
       const transportationBinarised = binarise(transportationValues);
       // console.log(
       //   `TRANSPORTATION: ${transportationValues}; BINARISED: ${transportationBinarised}`
@@ -364,22 +533,55 @@ const DemographicSurvey = (props) => {
 
   return (
     <div>
-      <CenterView middle={8} sides={2} left={backButton}>
+      <CenterView
+        middle={8}
+        sides={2}
+        left={
+          <BackButton
+            onClick={() => {
+              props.history.push({
+                pathname: "/profile",
+                state: {
+                  from: true,
+                  to: 1,
+                },
+              });
+            }}
+            label={strings.back && strings.back}
+          />
+        }
+      >
         <div>
-          <h1>Demographic survey</h1>
+          <h3>
+            {strings.Profile &&
+              strings.Profile.ProfileSurveys.DemographicsSurvey.title}
+          </h3>
           <Dropdrown
             valueList={ages}
             value={howOldAreYouValue}
             onSelect={howOldAreYouOnChangeHandler}
-            title="How old are you?"
+            title={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.DemographicsSurvey.howOldAreYou
+            }
             style={containerStyle}
-            defaultMessage="Select your age"
+            defaultMessage={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.DemographicsSurvey.selectYourAge
+            }
             error={oldError}
+            errorMessage={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.youMustAnswerToThisQuestion
+            }
           />
         </div>
         <div>
           <CountryDropdown
-            title="Where are you from?"
+            title={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.DemographicsSurvey.whereAreYouFrom
+            }
             countries={Countries}
             country={country}
             onSelectCountry={onCountrySelectHandler}
@@ -387,35 +589,62 @@ const DemographicSurvey = (props) => {
             onSelectRegion={onRegionSelectHandler}
             style={containerStyle}
             error={countryError}
+            errorMessage={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.youMustAnswerToThisQuestion
+            }
+            strings={strings}
           />
         </div>
         <div>
           <Checkboxes
-            title="Means of transport available:"
+            title={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.DemographicsSurvey.transportation
+                .title
+            }
             optionList={transportationList}
             style={containerStyle}
             onChange={onTransporationChangeHanlder}
             error={transportationError}
+            errorMessage={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.youMustAnswerToThisQuestion
+            }
           />
         </div>
         <div>
           <Radiobuttons
-            title="What is your highest level of education?"
+            title={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.DemographicsSurvey.education.title
+            }
             optionList={educationsList}
             style={containerStyle}
             onChange={onEducationChangeHandler}
             value={educationValue}
             error={educationError}
+            errorMessage={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.youMustAnswerToThisQuestion
+            }
           />
         </div>
         <div>
           <Radiobuttons
-            title="What is your marital status?"
+            title={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.DemographicsSurvey.marital.title
+            }
             optionList={maritalList}
             style={containerStyle}
             onChange={onMaritalStatusChangeHandler}
             value={maritalStatusValue}
             error={maritalError}
+            errorMessage={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.youMustAnswerToThisQuestion
+            }
           />
         </div>
         {(maritalStatusValue === 2 ||
@@ -423,52 +652,70 @@ const DemographicSurvey = (props) => {
           maritalStatusValue === 4) && (
           <div>
             <Dropdrown
-              title="How old were you when you got married?"
+              title={
+                strings.Profile &&
+                strings.Profile.ProfileSurveys.DemographicsSurvey.weddingAge
+              }
               valueList={weddingAges}
               value={weddingAge}
               onSelect={onWeddingAgeChangeHandler}
               style={containerStyle}
-              defaultMessage={"Select the age"}
+              defaultMessage={
+                strings.Profile &&
+                strings.Profile.ProfileSurveys.DemographicsSurvey.selectTheAge
+              }
               error={weddingError}
+              errorMessage={
+                strings.Profile &&
+                strings.Profile.ProfileSurveys.youMustAnswerToThisQuestion
+              }
             />
           </div>
         )}
         <div>
           <Radiobuttons
-            title="Who is the primary income earner of your household?"
+            title={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.DemographicsSurvey.primaryIncome
+                .title
+            }
             optionList={primaryIncomeList}
             style={containerStyle}
             onChange={onPrimaryIncomeChangeHandler}
             value={primaryIncomeValue}
             error={primaryIncomeError}
+            errorMessage={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.youMustAnswerToThisQuestion
+            }
           />
         </div>
         <div>
           <Radiobuttons
-            title="What do you mainly do for work?"
+            title={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.DemographicsSurvey.mainlyWork.title
+            }
             optionList={mainlyWorkList}
             style={containerStyle}
             onChange={onMainlyWorkChangeHandler}
             value={mainlyWorkValue}
             error={mainlyWorkError}
+            errorMessage={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.youMustAnswerToThisQuestion
+            }
           />
         </div>
       </CenterView>
-      <div className="col center-col">
-        <a
-          className="btn-radius2 btn"
-          style={{
-            background: Colors.gradient,
-            backgroundColor: Colors.primary,
-            color: Colors.accent,
-            // marginRight: "4%",
-          }}
-          role="button"
-          onClick={onSubmit}
-        >
-          Submit
-        </a>
-      </div>
+      <PrimaryButton
+        label={
+          strings.Profile &&
+          strings.Profile.ProfileSurveys.DemographicsSurvey.submit
+        }
+        onClick={onSubmit}
+        buttonStyle={{ width: "10%" }}
+      />
     </div>
   );
 };

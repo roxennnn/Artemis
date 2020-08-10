@@ -25,7 +25,7 @@ const TableQuestions = (props) => {
       class={props.error ? "error-box" : "to-hover"}
       style={{ ...containerStyle.container, padding: "2%", marginLeft: "2%" }}
     >
-      <div style={{fontWeight: "bold"}}>{props.title}</div>
+      <div style={{ fontWeight: "bold" }}>{props.title}</div>
       <div class="description">{props.description}</div>
       {props.optionList.map((value, index) => {
         return (
@@ -52,7 +52,7 @@ const TableQuestions = (props) => {
             justifyContent: "flex-end",
           }}
         >
-          You must answer to this question!
+          {props.errorMessage}
         </div>
       )}
     </div>

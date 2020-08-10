@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Spinner } from "react-bootstrap";
 import Unauthorised from "../components/Unauthorised";
 
@@ -15,6 +15,9 @@ import ProfileMatchings from "../components/profileComponents/ProfileMatchings";
 import ProfileSkills from "../components/profileComponents/ProfileSkills";
 
 import "../css/ProfilePage.css";
+
+// Multilingual
+import { LanguageContext } from "../languages/LanguageProvider";
 
 // images
 import avatar from "../images/avatar.png";
@@ -56,6 +59,8 @@ const styles = {
 };
 
 const ProfilePage = (props) => {
+  const { strings } = useContext(LanguageContext);
+
   const [currentUser, setCurrentUser] = useState(); // data of logged user
   const [loading, setLoading] = useState(false);
 
@@ -76,15 +81,12 @@ const ProfilePage = (props) => {
     }
   }, [currentUser]);
 
-  // For debugging
-  // useEffect(() => {
-  //   console.log(currentUser);
-  // }, [currentUser]);
 
   const [showValue, setShowValue] = useState(0);
   // 0: ProfileIntro
   // 1: ProfileSurveys
   // 2: ProfileMatchings
+  // 3: ProfileSkills
 
   useEffect(() => {
     if (props.location.state && props.location.state.from) {
@@ -133,7 +135,6 @@ const ProfilePage = (props) => {
                       ...styles.userBox,
                       ...styles.redBox,
                       display: "flex",
-                      // justifyContent: "center",
                       alignItems: "center",
                       flexDirection: "column",
                       padding: "3%",
@@ -181,7 +182,7 @@ const ProfilePage = (props) => {
                         fontSize: 22,
                       }}
                     >
-                      Manage Profile
+                      {strings.Profile && strings.Profile.manageProfile}
                     </button>
                   </div>
 
@@ -196,21 +197,21 @@ const ProfilePage = (props) => {
                     }}
                   >
                     <ActionListItem
-                      title="Summary"
+                      title={strings.ProfileListings && strings.ProfileListings.summary}
                       style={styles.firstListItem}
                       value={0}
                       current={showValue === 0}
                       onClick={onClickActionListHandler}
                     />
                     <ActionListItem
-                      title="Surveys"
+                      title={strings.ProfileListings && strings.ProfileListings.surveys}
                       value={1}
                       current={showValue === 1}
                       onClick={onClickActionListHandler}
                     />
                     {currentUser.skills_done && (
                       <ActionListItem
-                        title="Job matchings"
+                        title={strings.ProfileListings && strings.ProfileListings.jobMatchings}
                         value={2}
                         current={showValue === 2}
                         onClick={onClickActionListHandler}
@@ -218,7 +219,7 @@ const ProfilePage = (props) => {
                     )}
                     {currentUser.skills_done && (
                       <ActionListItem
-                        title="My skills"
+                        title={strings.ProfileListings && strings.ProfileListings.mySkills}
                         value={3}
                         current={showValue === 3}
                         onClick={onClickActionListHandler}
@@ -236,10 +237,11 @@ const ProfilePage = (props) => {
                     <ProfileIntro
                       currentUser={currentUser}
                       onGoToSurveys={onGoToSurveys}
+                      strings={strings}
                     />
                   )}
                   {showValue === 1 && (
-                    <ProfileSurveys currentUser={currentUser} />
+                    <ProfileSurveys currentUser={currentUser} strings={strings} />
                   )}
                   {showValue === 2 && (
                     <ProfileMatchings />

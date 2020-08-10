@@ -72,13 +72,6 @@ div.current-action-list-item {
 }
 
 
-.btn-radius2 {
-  width: 10% !important;
-  min-width: 200px;
-  /* height: 40px; */
-  border-radius: 100px!important;
-}
-
 
 img.profile-page-avatar:hover {
   border-width: 2px;

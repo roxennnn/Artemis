@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Container } from "react-bootstrap";
 
 import CenterView from "../components/CenterView";
 import CitizenSignUp from "../components/CitizenSignUp";
-import OrganizationSignUp from "../components/OrganizationSignUp";
+import OrganisationSignUp from "../components/OrganisationSignUp";
 import PrimaryButton from "../components/PrimaryButton";
-
 import Colors from "../constants/Colors";
 
-import "../css/SignupPage.css";
+import { LanguageContext } from "../languages/LanguageProvider";
 
-// FORMS : https://v4-alpha.getbootstrap.com/components/forms/#textual-inputs
+import "../css/SignupPage.css";
+import BackButton from "../components/BackButton";
 
 const styles = {
   buttons: {
@@ -20,36 +20,32 @@ const styles = {
 };
 
 const SignupPage = (props) => {
+  const { strings } = useContext(LanguageContext);
   const [userType, setUserType] = useState("None");
-
-  const backButton = (
-    <div>
-      <a
-        // className="btn-radius fat-btn btn btn-warning btn-lg"
-        role="button"
-        onClick={() => {
-          setUserType("None");
-        }}
-        style={{ color: Colors.primary }}
-      >
-        {"<"}Back
-      </a>
-    </div>
-  );
 
   return (
     <div style={{ margin: 50 }}>
       <CenterView
-        left={userType !== "None" ? backButton : null}
+        left={
+          userType !== "None" ? (
+            <BackButton
+              onClick={() => {
+                setUserType("None");
+              }}
+              label={strings.back && strings.back}
+            />
+          ) : null
+        }
         middle={8}
         sides={2}
       >
         {userType === "None" && (
           <Container>
-            <h1>Sign Up</h1>
-            <h2>I am a...</h2>
+            <h3>{strings.SignupPage && strings.SignupPage.registerForFree}</h3>
+            <br />
+            <h4>{strings.SignupPage && strings.SignupPage.areYouA}</h4>
             <PrimaryButton
-              label="Citizen"
+              label={strings.SignupPage && strings.SignupPage.citizen}
               style={{ marginTop: 30 }}
               buttonStyle={styles.buttons}
               onClick={() => {
@@ -57,7 +53,7 @@ const SignupPage = (props) => {
               }}
             />
             <PrimaryButton
-              label="Organisation"
+              label={strings.SignupPage && strings.SignupPage.organisation}
               style={{ marginTop: 30 }}
               buttonStyle={styles.buttons}
               onClick={() => {
@@ -66,9 +62,11 @@ const SignupPage = (props) => {
             />
           </Container>
         )}
-        {userType === "Citizen" && <CitizenSignUp history={props.history} />}
+        {userType === "Citizen" && (
+          <CitizenSignUp history={props.history} strings={strings} />
+        )}
         {userType === "Organisation" && (
-          <OrganizationSignUp history={props.history} />
+          <OrganisationSignUp history={props.history} strings={strings} />
         )}
       </CenterView>
     </div>

@@ -21,7 +21,7 @@ const SurveysCompleted = (props) => {
         id="survey-progressbar"
         style={{ display: "flex", flexDirection: "row", alignItems: "center"}}
       >
-        <h4 style={{ width: "20%" }}>Surveys completed:</h4>
+        <h4 style={{ width: "20%" }}>{props.strings.Profile && props.strings.Profile.surveysCompleted}</h4>
         <div
           style={{
             marginLeft: "2%",
@@ -59,7 +59,7 @@ const SurveysCompleted = (props) => {
         </div>
         {props.rightButton && (
           <div onClick={props.rightButton}>
-            <FontAwesomeIcon className="surveys-arrow" icon={faArrowCircleRight} color="#3b5998" title="Go to surveys" />
+            <FontAwesomeIcon className="surveys-arrow" icon={faArrowCircleRight} color="#3b5998" title={props.strings.Profile && props.strings.Profile.ProfileIntro.goToSurveys} />
           </div>
         )}
       </div>

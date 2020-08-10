@@ -1,139 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import CenterView from "../../components/CenterView";
 
-import Colors from "../../constants/Colors";
 import { binarise } from "../../constants/Utilities";
 
+import PrimaryButton from "../../components/PrimaryButton";
+import BackButton from "../../components/BackButton";
 import Checkboxes from "../../components/surveyComponents/Checkboxes";
 import SurveyService from "../../services/survey.service";
 
-// QUESTIONS' DATA
-
-// - I would like to ask you to tell me whether at any time in your life, any husband, partner or ex-partner has done any of the following things:
-const q1List = [
-  { label: "Deny your access to financial resources", value: 0 },
-  { label: "Deny your access to property and durable goods", value: 1 },
-  {
-    label:
-      "Deliberately not comply with economic responsibilities, such as alimony or financial support for the family, exposing you to poverty and hardship",
-    value: 2,
-  },
-  { label: "Deny your access a job and education", value: 3 },
-];
-
-// - I would like to ask you to tell me whether at any time in your life, any husband, partner or ex-partner has done any of the following things:
-const q2List = [
-  { label: "Insulted you or made you feel bad about yourself", value: 0 },
-  { label: "Belittled or humiliated you in front of other people", value: 1 },
-  {
-    label:
-      "Done something on purpose to scare or intimidate you (for example, by the way he looks at you, yells, or destroys things)",
-    value: 2,
-  },
-  { label: "Threatened to harm you or someone important to you", value: 3 },
-  { label: "Threatened to take away your children", value: 4 },
-];
-
-// - Now I am going to ask you about situations that happen to some women. Please tell me whether the following statements apply to your relationship with your (last) husband (partner):
-const q3List = [
-  {
-    label:
-      "Your husband (partner) gets jealous or mad if you talk(ed) with another man",
-    value: 0,
-  },
-  { label: "He frequently accuses you of being unfaithful", value: 1 },
-  {
-    label: "He prevents you from visiting or receiving visits by your friends",
-    value: 2,
-  },
-  { label: "He tries to limit your visits/contact with your family", value: 3 },
-  { label: "He insists on knowing where you go (went) at all times", value: 4 },
-  { label: "He does not trust you with money", value: 5 },
-];
-
-// - Sometimes husbands/partners get upset by the things that their wives do. In your opinion, is it justified for your husband/partner to beat you in the following situations:
-const q4List = [
-  { label: "You leave the house without telling him", value: 0 },
-  { label: "You neglect the children", value: 1 },
-  { label: "You argue with him", value: 2 },
-  {
-    label: "You don’t want/refuse to have sexual intercourse with him",
-    value: 3,
-  },
-  { label: "You burn the food", value: 4 },
-];
-
-// - I would like to ask you if at any time in your life your husband/life partner or any other partner with whom you were married or in a relationship with has ever done any of the following things:
-const q5List = [
-  {
-    label: "Slapped you or threw something at you that could hurt you",
-    value: 0,
-  },
-  { label: "Pushed you, shoved you or pulled your hair", value: 1 },
-  {
-    label: "Hit you with his fist or with something else that could hurt you",
-    value: 2,
-  },
-  { label: "Kicked you, dragged you or beat you up", value: 3 },
-  { label: "Tried to choke or burn you on purpose", value: 4 },
-  {
-    label: "Threatened to use a gun, knife, or another weapon against you",
-    value: 5,
-  },
-];
-
-// - Would like you to tell me whether at any time in your life your husband/life partner or any other partner that you were married to or lived with has done any of the following things:
-const q6List = [
-  {
-    label:
-      "You feel forced because of fear (of your partner) to have unwanted sexual intercourse",
-    value: 0,
-  },
-  {
-    label:
-      "He used force to make you have sexual intercourse when you did not want to or make you perform sex acts that you did not approve of",
-    value: 1,
-  },
-];
-
-// - Please tell me whether any of the following things happened to you as a result of something that your partner (husband) did:
-const q7List = [
-  { label: "You had bruises and pain", value: 0 },
-  {
-    label:
-      "You had serious injuries to your eyes, sprains, dislocations, or burns",
-    value: 1,
-  },
-  {
-    label: "You had deep wounds, broken teeth, or any other serious injury",
-    value: 2,
-  },
-];
-
-// - What particular situations make/made him violent? Any other situation?
-const q8List = [
-  { label: "No particular reason (for pleasure)", value: 0 },
-  { label: "When he is drunk or under the influence of drugs", value: 1 },
-  { label: "Problems with money", value: 2 },
-  { label: "Problems with his work", value: 3 },
-  { label: "When he is unemployed", value: 4 },
-  { label: "When there is no food in the house", value: 5 },
-  { label: "Problems with your  family or his", value: 6 },
-  { label: "When you are pregnant", value: 7 },
-  { label: "He is jealous", value: 8 },
-  { label: "You refuse to have sex", value: 9 },
-  { label: "You disobey", value: 10 },
-  { label: "You complain", value: 11 },
-];
-
-// - When this (these) person (people) assaulted you during the past year, to whom did you go for help?
-const q9List = [
-  { label: "Family", value: 0 },
-  { label: "Friends", value: 1 },
-  { label: "Police", value: 2 },
-  { label: "Telephone help lines", value: 3 },
-  { label: "Shelters", value: 4 },
-];
+import { LanguageContext } from "../../languages/LanguageProvider";
 
 // Styles
 const containerStyle = {
@@ -151,6 +26,8 @@ const containerStyle = {
 };
 
 const ExperienceSurvey = (props) => {
+  const { strings } = useContext(LanguageContext);
+
   // Change background color
   useEffect(() => {
     document.body.style = `background: rgba(59,89,152,0.05);`;
@@ -165,26 +42,331 @@ const ExperienceSurvey = (props) => {
     return arr.includes(1);
   };
 
-  const backButton = (
-    <div>
-      <a
-        // className="btn-radius fat-btn btn btn-warning btn-lg"
-        role="button"
-        onClick={() => {
-          props.history.push({
-            pathname: "/profile",
-            state: {
-              from: true,
-              to: 1,
-            },
-          });
-        }}
-        style={{ color: Colors.primary }}
-      >
-        {"<"}Back
-      </a>
-    </div>
-  );
+  // QUESTIONS' DATA
+
+  // - I would like to ask you to tell me whether at any time in your life, any husband, partner or ex-partner has done any of the following things:
+  const q1List = [
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q1.first,
+      value: 0,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q1.second,
+      value: 1,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q1.third,
+      value: 2,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q1.fourth,
+      value: 3,
+    },
+  ];
+
+  // - I would like to ask you to tell me whether at any time in your life, any husband, partner or ex-partner has done any of the following things:
+  const q2List = [
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q2.first,
+      value: 0,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q2.second,
+      value: 1,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q2.third,
+      value: 2,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q2.fourth,
+      value: 3,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q2.fifth,
+      value: 4,
+    },
+  ];
+
+  // - Now I am going to ask you about situations that happen to some women. Please tell me whether the following statements apply to your relationship with your (last) husband (partner):
+  const q3List = [
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q3.first,
+      value: 0,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q3.second,
+      value: 1,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q3.third,
+      value: 2,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q3.fourth,
+      value: 3,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q3.fifth,
+      value: 4,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q3.sixth,
+      value: 5,
+    },
+  ];
+
+  // - Sometimes husbands/partners get upset by the things that their wives do. In your opinion, is it justified for your husband/partner to beat you in the following situations:
+  const q4List = [
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q4.first,
+      value: 0,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q4.second,
+      value: 1,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q4.third,
+      value: 2,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q4.fourth,
+      value: 3,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q4.fifth,
+      value: 4,
+    },
+  ];
+
+  // - I would like to ask you if at any time in your life your husband/life partner or any other partner with whom you were married or in a relationship with has ever done any of the following things:
+  const q5List = [
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q5.first,
+      value: 0,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q5.second,
+      value: 1,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q5.third,
+      value: 2,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q5.fourth,
+      value: 3,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q5.fifth,
+      value: 4,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q5.sixth,
+      value: 5,
+    },
+  ];
+
+  // - Would like you to tell me whether at any time in your life your husband/life partner or any other partner that you were married to or lived with has done any of the following things:
+  const q6List = [
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q6.first,
+      value: 0,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q6.second,
+      value: 1,
+    },
+  ];
+
+  // - Please tell me whether any of the following things happened to you as a result of something that your partner (husband) did:
+  const q7List = [
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q7.first,
+      value: 0,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q7.second,
+      value: 1,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q7.third,
+      value: 2,
+    },
+  ];
+
+  // - What particular situations make/made him violent? Any other situation?
+  const q8List = [
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q8.first,
+      value: 0,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q8.second,
+      value: 1,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q8.third,
+      value: 2,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q8.fourth,
+      value: 3,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q8.fifth,
+      value: 4,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q8.sixth,
+      value: 5,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q8.seventh,
+      value: 6,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q8.eighth,
+      value: 7,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q8.ninth,
+      value: 8,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q8.tenth,
+      value: 9,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q8.eleventh,
+      value: 10,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q8.twelveth,
+      value: 11,
+    },
+  ];
+
+  // - When this (these) person (people) assaulted you during the past year, to whom did you go for help?
+  const q9List = [
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q9.first,
+      value: 0,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q9.second,
+      value: 1,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q9.third,
+      value: 2,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q9.fourth,
+      value: 3,
+    },
+    {
+      label:
+        strings.Profile &&
+        strings.Profile.ProfileSurveys.ExperienceSurvey.q9.fifth,
+      value: 4,
+    },
+  ];
 
   // QUESTIONS' STATE
   const [q7Visibility, setQ7Visibility] = useState(false);
@@ -411,7 +593,7 @@ const ExperienceSurvey = (props) => {
       q8Binarised,
       q9Binarised,
     ];
-    
+
     // Debugging logs
     // console.log(answers);
 
@@ -433,21 +615,40 @@ const ExperienceSurvey = (props) => {
 
   return (
     <div>
-      <CenterView middle={8} sides={2} left={backButton}>
+      <CenterView
+        middle={8}
+        sides={2}
+        left={
+          <BackButton
+            onClick={() => {
+              props.history.push({
+                pathname: "/profile",
+                state: {
+                  from: true,
+                  to: 1,
+                },
+              });
+            }}
+            label={strings.back && strings.back}
+          />
+        }
+      >
         <div>
-          <h1>Survey about your experience</h1>
+          <h3>
+            {strings.Profile &&
+              strings.Profile.ProfileSurveys.ExperienceSurvey.title}
+          </h3>
           <div>
-            When two people marry or live together, they usually share both good
-            and bad moments. I would like to ask you some questions about your
-            current and past relationships and how your husband/partner treats
-            (or treated) you. I would like to assure you that your answers will
-            be kept secret and that you do not have to answer any questions that
-            you do not want to.
+            {strings.Profile &&
+              strings.Profile.ProfileSurveys.ExperienceSurvey.introduction}
           </div>
         </div>
         <div>
           <Checkboxes
-            title="I would like to ask you to tell me whether at any time in your life, any husband, partner or ex-partner has done any of the following things:"
+            title={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.ExperienceSurvey.q1.title
+            }
             optionList={q1List}
             style={containerStyle}
             onChange={onQ1ChangeHandler}
@@ -455,7 +656,10 @@ const ExperienceSurvey = (props) => {
         </div>
         <div>
           <Checkboxes
-            title="I would like to ask you to tell me whether at any time in your life, any husband, partner or ex-partner has done any of the following things:"
+            title={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.ExperienceSurvey.q2.title
+            }
             optionList={q2List}
             style={containerStyle}
             onChange={onQ2ChangeHandler}
@@ -463,7 +667,10 @@ const ExperienceSurvey = (props) => {
         </div>
         <div>
           <Checkboxes
-            title="Now I am going to ask you about situations that happen to some women. Please tell me whether the following statements apply to your relationship with your (last) husband (partner):"
+            title={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.ExperienceSurvey.q3.title
+            }
             optionList={q3List}
             style={containerStyle}
             onChange={onQ3ChangeHandler}
@@ -471,7 +678,10 @@ const ExperienceSurvey = (props) => {
         </div>
         <div>
           <Checkboxes
-            title="Sometimes husbands/partners get upset by the things that their wives do. In your opinion, is it justified for your husband/partner to beat you in the following situations:"
+            title={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.ExperienceSurvey.q4.title
+            }
             optionList={q4List}
             style={containerStyle}
             onChange={onQ4ChangeHandler}
@@ -479,7 +689,10 @@ const ExperienceSurvey = (props) => {
         </div>
         <div>
           <Checkboxes
-            title="I would like to ask you if at any time in your life your husband/life partner or any other partner with whom you were married or in a relationship with has ever done any of the following things:"
+            title={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.ExperienceSurvey.q5.title
+            }
             optionList={q5List}
             style={containerStyle}
             onChange={onQ5ChangeHandler}
@@ -487,7 +700,10 @@ const ExperienceSurvey = (props) => {
         </div>
         <div>
           <Checkboxes
-            title="Would like you to tell me whether at any time in your life your husband/life partner or any other partner that you were married to or lived with has done any of the following things:"
+            title={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.ExperienceSurvey.q6.title
+            }
             optionList={q6List}
             style={containerStyle}
             onChange={onQ6ChangeHandler}
@@ -496,7 +712,10 @@ const ExperienceSurvey = (props) => {
         {q7Visibility && (
           <div>
             <Checkboxes
-              title="Please tell me whether any of the following things happened to you as a result of something that your partner (husband) did:"
+              title={
+                strings.Profile &&
+                strings.Profile.ProfileSurveys.ExperienceSurvey.q7.title
+              }
               optionList={q7List}
               style={containerStyle}
               onChange={onQ7ChangeHandler}
@@ -507,7 +726,10 @@ const ExperienceSurvey = (props) => {
           <div>
             <div>
               <Checkboxes
-                title="What particular situations make/made him violent? Any other situation?"
+                title={
+                  strings.Profile &&
+                  strings.Profile.ProfileSurveys.ExperienceSurvey.q8.title
+                }
                 optionList={q8List}
                 style={containerStyle}
                 onChange={onQ8ChangeHandler}
@@ -515,7 +737,10 @@ const ExperienceSurvey = (props) => {
             </div>
             <div>
               <Checkboxes
-                title="When this (these) person (people) assaulted you during the past year, to whom did you go for help?"
+                title={
+                  strings.Profile &&
+                  strings.Profile.ProfileSurveys.ExperienceSurvey.q9.title
+                }
                 optionList={q9List}
                 style={containerStyle}
                 onChange={onQ9ChangeHandler}
@@ -524,21 +749,14 @@ const ExperienceSurvey = (props) => {
           </div>
         )}
       </CenterView>
-      <div className="col center-col">
-        <a
-          className="btn-radius2 btn"
-          style={{
-            background: Colors.gradient,
-            backgroundColor: Colors.primary,
-            color: Colors.accent,
-            // marginRight: "4%",
-          }}
-          role="button"
-          onClick={onSubmit}
-        >
-          Submit
-        </a>
-      </div>
+      <PrimaryButton
+        label={
+          strings.Profile &&
+          strings.Profile.ProfileSurveys.ExperienceSurvey.submit
+        }
+        onClick={onSubmit}
+        buttonStyle={{ width: "10%" }}
+      />
     </div>
   );
 };

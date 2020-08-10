@@ -4,7 +4,7 @@ import { Checkbox } from "@material-ui/core";
 
 import AuthService from "../services/auth.service";
 
-import Colors from "../constants/Colors";
+import PrimaryButton from "../components/PrimaryButton";
 import { validateEmail } from "../constants/Utilities";
 
 const CitizenSignUp = (props) => {
@@ -113,7 +113,10 @@ const CitizenSignUp = (props) => {
 
   return (
     <Form noValidate>
-      <h1>Citizen Sign Up</h1>
+      <h2>
+        {props.strings.SignupPage &&
+          props.strings.SignupPage.CitizenSignUp.citizenSignUp}
+      </h2>
       <Form.Group controlId="formUsername">
         <Form.Label>Username</Form.Label>
         <Form.Control
@@ -126,13 +129,19 @@ const CitizenSignUp = (props) => {
           value={username}
           isInvalid={usernameInvalid}
           type="text"
-          placeholder="Enter your username"
+          placeholder={
+            props.strings.SignupPage &&
+            props.strings.SignupPage.CitizenSignUp.enterYourUsername
+          }
           required
         />
       </Form.Group>
 
       <Form.Group controlId="formEmail">
-        <Form.Label>Email address</Form.Label>
+        <Form.Label>
+          {props.strings.SignupPage &&
+            props.strings.SignupPage.CitizenSignUp.emailAddress}
+        </Form.Label>
         <Form.Control
           onChange={(email) => setEmail(email.target.value)}
           onKeyPress={(event) => {
@@ -143,16 +152,23 @@ const CitizenSignUp = (props) => {
           value={email}
           isInvalid={emailInvalid}
           type="email"
-          placeholder="Enter your email address"
+          placeholder={
+            props.strings.SignupPage &&
+            props.strings.SignupPage.CitizenSignUp.enterYourEmailAddress
+          }
           required
         />
         <Form.Control.Feedback type="invalid">
-          Not a valid email address.
+          {props.strings.SignupPage &&
+            props.strings.SignupPage.CitizenSignUp.invalidEmail}
         </Form.Control.Feedback>
       </Form.Group>
 
       <Form.Group controlId="formConfirmEmail">
-        <Form.Label>Confirm email address</Form.Label>
+        <Form.Label>
+          {props.strings.SignupPage &&
+            props.strings.SignupPage.CitizenSignUp.confirmEmailAddress}
+        </Form.Label>
         <Form.Control
           onChange={(email) => setConfirmEmail(email.target.value)}
           onKeyPress={(event) => {
@@ -163,16 +179,23 @@ const CitizenSignUp = (props) => {
           value={confirmEmail}
           isInvalid={confirmEmailInvalid}
           type="email"
-          placeholder="Re-enter your email address"
+          placeholder={
+            props.strings.SignupPage &&
+            props.strings.SignupPage.CitizenSignUp.reEnterYourEmailAddress
+          }
           required
         />
         <Form.Control.Feedback type="invalid">
-          Email addresses do not match.
+          {props.strings.SignupPage &&
+            props.strings.SignupPage.CitizenSignUp.emailsDontMatch}
         </Form.Control.Feedback>
       </Form.Group>
 
       <Form.Group controlId="formPassword">
-        <Form.Label>Password</Form.Label>
+        <Form.Label>
+          {props.strings.SignupPage &&
+            props.strings.SignupPage.CitizenSignUp.password}
+        </Form.Label>
         <Form.Control
           onChange={(pass) => setPassword(pass.target.value)}
           onKeyPress={(event) => {
@@ -183,16 +206,23 @@ const CitizenSignUp = (props) => {
           value={password}
           isInvalid={passwordInvalid}
           type="password"
-          placeholder="Password"
+          placeholder={
+            props.strings.SignupPage &&
+            props.strings.SignupPage.CitizenSignUp.password
+          }
           required
         />
         <Form.Control.Feedback type="invalid">
-          The password should be at least 8 characters long.
+          {props.strings.SignupPage &&
+            props.strings.SignupPage.CitizenSignUp.passwordLength}
         </Form.Control.Feedback>
       </Form.Group>
 
       <Form.Group controlId="formControlPassword">
-        <Form.Label>Confirm Password</Form.Label>
+        <Form.Label>
+          {props.strings.SignupPage &&
+            props.strings.SignupPage.CitizenSignUp.confirmPassword}
+        </Form.Label>
         <Form.Control
           onChange={(pass) => setConfirmPassword(pass.target.value)}
           onKeyPress={(event) => {
@@ -203,16 +233,21 @@ const CitizenSignUp = (props) => {
           value={confirmPassword}
           isInvalid={confirmPasswordInvalid}
           type="password"
-          placeholder="Confirm password"
+          placeholder={
+            props.strings.SignupPage &&
+            props.strings.SignupPage.CitizenSignUp.confirmPassword
+          }
           required
         />
         <Form.Control.Feedback type="invalid">
-          Passwords do not match.
+          {props.strings.SignupPage &&
+            props.strings.SignupPage.CitizenSignUp.passwordsDontMatch}
         </Form.Control.Feedback>
       </Form.Group>
 
       <Form.Text>
-        We'll never share your personal informations with anyone else.
+        {props.strings.SignupPage &&
+          props.strings.SignupPage.CitizenSignUp.neverShare}
       </Form.Text>
 
       <br />
@@ -220,13 +255,26 @@ const CitizenSignUp = (props) => {
       <Form.Group controlId="formTermsAndConditions">
         <div style={{ display: "flex", flexDirection: "row" }}>
           <Checkbox
-            classes={termsAndConditionsInvalid ? {root: "error-checkbox"} : {}}
+            classes={
+              termsAndConditionsInvalid ? { root: "error-checkbox" } : {}
+            }
             color="primary"
             checked={termsAndConditions}
             onChange={() => setTermsAndConditions(!termsAndConditions)}
           />
           <Form.Label>
-            Agree to <a href="">terms</a> and <a href="">conditions</a>
+            {props.strings.SignupPage &&
+              props.strings.SignupPage.CitizenSignUp.agreeTo}{" "}
+            <a href="">
+              {props.strings.SignupPage &&
+                props.strings.SignupPage.CitizenSignUp.terms}
+            </a>{" "}
+            {props.strings.SignupPage &&
+              props.strings.SignupPage.CitizenSignUp.and}{" "}
+            <a href="">
+              {props.strings.SignupPage &&
+                props.strings.SignupPage.CitizenSignUp.conditions}
+            </a>
           </Form.Label>
         </div>
         {termsAndConditionsInvalid && (
@@ -239,27 +287,20 @@ const CitizenSignUp = (props) => {
               color: "#dc3545",
             }}
           >
-            You must agree before submitting.
+            {props.strings.SignupPage &&
+              props.strings.SignupPage.CitizenSignUp.youMustAgree}
           </div>
         )}
       </Form.Group>
 
-      <div className="center-col col">
-        <a
-          className="btn-radius btn"
-          role="button"
-          style={{
-            background: Colors.gradient,
-            backgroundColor: Colors.primary,
-            color: Colors.accent,
-            margin: 10,
-          }}
-          // href="/home"
-          onClick={submitHandler}
-        >
-          Sign Up
-        </a>
-      </div>
+      <PrimaryButton
+        label={
+          props.strings.SignupPage &&
+          props.strings.SignupPage.CitizenSignUp.register
+        }
+        buttonStyle={{ margin: 10 }}
+        onClick={submitHandler}
+      />
     </Form>
   );
 };

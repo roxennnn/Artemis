@@ -5,7 +5,7 @@ import AuthService from "../services/auth.service";
 
 import Colors from "../constants/Colors";
 
-const OrganizationSignUp = (props) => {
+const OrganisationSignUp = (props) => {
   const [organization, setOrganization] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -127,4 +127,4 @@ const OrganizationSignUp = (props) => {
   );
 };
 
-export default OrganizationSignUp;
+export default OrganisationSignUp;

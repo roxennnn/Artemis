@@ -1,123 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import CenterView from "../../components/CenterView";
 
-import Colors from "../../constants/Colors";
+import PrimaryButton from "../../components/PrimaryButton";
+import BackButton from "../../components/BackButton";
+
 import SurveyService from "../../services/survey.service";
 
 import TableQuestions from "../../components/surveyComponents/TableQuestions";
 
-// QUESTIONS' DATA
-
-// - 1. Organising and planning work and activities
-const t1 = [
-  "",
-  "Organise basic activities",
-  "Perform administrative tasks",
-  "Process payments",
-  "Handle money",
-  "Administer financial information",
-];
-const t1Title = "1. Organising and planning work and activities";
-const t1Description =
-  "This section is related to organisational, administrative and logistical tasks. \n\nHow familiar are you with the following activities? Please think about your hobbies, house duties and past working experiences (if any). Rate as follows:\n\nBeginner = I have never done this activity and I don’t have any related knowledge.\nIntermediate = I have done this activity a few times and/or I have some basic related knowledge.\nCompetent = I have done this activity sometimes and I have good related knowledge.\nProficient = I often do this activity and I have a very good related knowledge.\n ";
-
-// - 2. General skills
-const t2 = [
-  "",
-  "Perform cleaning activities (at home)",
-  "Perform cleaning activities in an environment beyond home",
-  "Perform basic first aid",
-  "Acs as a leader",
-  "Work under pressure",
-  "Work in a team",
-  "Drive a car",
-];
-const t2Title = "2. General skills";
-const t2Description =
-  "This section relates to general skills such as working in a team, acting as a leader but also some practical skills such as cleaning.\n\nHow familiar are you with the following activities? Please think about your hobbies, house duties and past working experiences (if any). Rate as follows:\n\nBeginner = I have never done this activity and I don’t have any related knowledge.\nIntermediate = I have done this activity a few times and/or I have some basic related knowledge.\nCompetent = I have done this activity sometimes and I have good related knowledge.\nProficient = I often do this activity and I have a very good related knowledge.\n ";
-
-// - 3. Preparing and serving food and drinks
-const t3 = [
-  "",
-  "Conduct basic food preparation",
-  "Cook meat and fish",
-  "Cook vegetables and dairy products",
-  "Cook pasta",
-  "Prepare desserts such as pastries",
-  "Prepare fish for cooking",
-  "Prepare sandwiches",
-  "Prepare drinks such as cocktails or speciality coffees",
-  "Present food in an appealing manner",
-  "Understand diets and nutritional properties of food",
-  "Keep a clean kitchen",
-  "Maintain cooking equipment",
-  "Operate cooking equipment",
-  "Greet guests",
-  "Serve food and drinks",
-  "Work with recipes",
-  "Store food safely",
-];
-const t3Title = "3. Preparing and serving food and drinks";
-const t3Description =
-  "This section is related to food and drinks and relates to preparing, serving, and other aspects related to food and drink.\n\nHow familiar are you with the following activities? Please think about your hobbies, house duties and past working experiences (if any). Rate as follows:\n\nBeginner = I have never done this activity and I don’t have any related knowledge.\nIntermediate = I have done this activity a few times and/or I have some basic related knowledge.\nCompetent = I have done this activity sometimes and I have good related knowledge.\nProficient = I often do this activity and I have a very good related knowledge.\n ";
-
-// - 4. Provide beauty care
-const t4 = [
-  "",
-  "Apply make-up",
-  "Perform nail care treatments",
-  "Perform skin care treatments",
-  "Remove body hair",
-  "Give massages",
-  "Wash and style hair",
-  "Cur, perm and colour hair",
-  "Treat minor problems with the hair or scalp",
-];
-const t4Title = "4. Provide beauty care";
-const t4Description =
-  "This section is related to beauty care, and includes skin care, cosmetics and hair care.\n\nHow familiar are you with the following activities? Please think about your hobbies, house duties and past working experiences (if any). Rate as follows:\n\nBeginner = I have never done this activity and I don’t have any related knowledge.\nIntermediate = I have done this activity a few times and/or I have some basic related knowledge.\nCompetent = I have done this activity sometimes and I have good related knowledge.\nProficient = I often do this activity and I have a very good related knowledge.\n ";
-
-// - 5. Providing information and support to others
-const t5 = [
-  "",
-  "Provide information and give instructions",
-  "Write information in a clear way",
-  "Collect information",
-  "Understand and answer technical questions",
-  "Understand and follow guidelines",
-  "Assist people and give advice",
-  "Guide tourists or other visitors",
-  "Be familiar with the local culture",
-  "Assist guests during events",
-  "Plan and organise activities for guests",
-  "Manage groups of people",
-  "Assist people with mobility",
-  "Maintain good public relations",
-  "Interpret and respond adequately to people's emotions",
-  "Speak more than one language",
-];
-const t5Title = "5. Providing information and support to others";
-const t5Description =
-  "This section focuses on providing information to people, understanding others’ needs and maintaining good relations.\n\nHow familiar are you with the following activities? Please think about your hobbies, house duties and past working experiences (if any). Rate as follows:\n\nBeginner = I have never done this activity and I don’t have any related knowledge.\nIntermediate = I have done this activity a few times and/or I have some basic related knowledge.\nCompetent = I have done this activity sometimes and I have good related knowledge.\nProficient = I often do this activity and I have a very good related knowledge.\n ";
-
-// - 6. Assist people with children, people with special needs and elderly
-const t6 = [
-  "",
-  "Provide general care and assistance to children",
-  "Assist children in learning",
-  "Provide school assistance",
-  "Help children with special learning difficulties",
-  "Help children to resolve personal, psychological, or social problems",
-  "Run domestic care activities",
-  "Assist people with disabilities",
-  "Assist elderly people",
-];
-const t6Title =
-  "6. Assist people with children, people with special needs and elderly";
-const t6Description =
-  "This section includes activities to help and support children, people with special needs and elderly.\n\nHow familiar are you with the following activities? Please think about your hobbies, house duties and past working experiences (if any). Rate as follows:\n\nBeginner = I have never done this activity and I don’t have any related knowledge.\nIntermediate = I have done this activity a few times and/or I have some basic related knowledge.\nCompetent = I have done this activity sometimes and I have good related knowledge.\nProficient = I often do this activity and I have a very good related knowledge.\n ";
+import { LanguageContext } from "../../languages/LanguageProvider";
 
 const SkillsSurvey = (props) => {
+  const { strings } = useContext(LanguageContext);
+
   // Change background color
   useEffect(() => {
     document.body.style = `background: rgba(59,89,152,0.05);`;
@@ -127,26 +22,109 @@ const SkillsSurvey = (props) => {
     };
   }, []);
 
-  const backButton = (
-    <div>
-      <a
-        // className="btn-radius fat-btn btn btn-warning btn-lg"
-        role="button"
-        onClick={() => {
-          props.history.push({
-            pathname: "/profile",
-            state: {
-              from: true,
-              to: 1,
-            },
-          });
-        }}
-        style={{ color: Colors.primary }}
-      >
-        {"<"}Back
-      </a>
-    </div>
-  );
+  // QUESTIONS' DATA
+
+  // - 1. Organising and planning work and activities
+  const t1 = strings.Profile
+    ? [
+        "",
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[0],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[1],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[2],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[3],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[4],
+      ]
+    : [""];
+
+  // - 2. General skills
+  const t2 = strings.Profile
+    ? [
+        "",
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[5],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[6],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[7],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[8],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[9],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[10],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[11],
+      ]
+    : [""];
+
+  // - 3. Preparing and serving food and drinks
+  const t3 = strings.Profile
+    ? [
+        "",
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[12],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[13],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[14],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[15],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[16],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[17],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[18],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[19],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[20],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[21],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[22],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[23],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[24],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[25],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[26],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[27],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[28],
+      ]
+    : [""];
+
+  // - 4. Provide beauty care
+  const t4 = strings.Profile
+    ? [
+        "",
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[29],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[30],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[31],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[32],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[33],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[34],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[35],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[36],
+      ]
+    : [""];
+
+  // - 5. Providing information and support to others
+  const t5 = strings.Profile
+    ? [
+        "",
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[37],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[38],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[39],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[40],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[41],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[42],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[43],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[44],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[45],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[46],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[47],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[48],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[49],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[50],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[51],
+      ]
+    : [""];
+
+  // - 6. Assist people with children, people with special needs and elderly
+  const t6 = strings.Profile
+    ? [
+        "",
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[52],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[53],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[54],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[55],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[56],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[57],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[58],
+        strings.Profile.ProfileSurveys.SkillsSurvey.categories[59],
+      ]
+    : [""];
 
   // QUESTIONS's STATE
 
@@ -215,6 +193,16 @@ const SkillsSurvey = (props) => {
     tmp[index] = parseInt(e.target.value);
     setT6Value(tmp);
   };
+
+  // To fix empty arrays error
+  useEffect(() => {
+    setT1Value(new Array(t1.length - 1).fill(0));
+    setT2Value(new Array(t2.length - 1).fill(0));
+    setT3Value(new Array(t3.length - 1).fill(0));
+    setT4Value(new Array(t4.length - 1).fill(0));
+    setT5Value(new Array(t5.length - 1).fill(0));
+    setT6Value(new Array(t6.length - 1).fill(0));
+  }, [strings]);
 
   // SUBMIT button
   const onSubmit = async () => {
@@ -309,86 +297,159 @@ const SkillsSurvey = (props) => {
 
   return (
     <div>
-      <CenterView middle={10} sides={1} left={backButton}>
+      <CenterView
+        middle={10}
+        sides={1}
+        left={
+          <BackButton
+            onClick={() => {
+              props.history.push({
+                pathname: "/profile",
+                state: {
+                  from: true,
+                  to: 1,
+                },
+              });
+            }}
+            label={strings.back && strings.back}
+          />
+        }
+      >
         <div>
-          <h1>Skills survey</h1>
+          <h3>
+            {strings.Profile &&
+              strings.Profile.ProfileSurveys.SkillsSurvey.title}
+          </h3>
         </div>
         <div>
           <TableQuestions
-            title={t1Title}
-            description={t1Description}
+            title={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.SkillsSurvey.t1.title
+            }
+            description={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.SkillsSurvey.t1.description
+            }
             optionList={t1}
             value={t1Value}
             onChange={t1Handler}
             error={t1Error}
+            errorMessage={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.youMustAnswerToThisQuestion
+            }
           />
         </div>
         <div>
           <TableQuestions
-            title={t2Title}
-            description={t2Description}
+            title={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.SkillsSurvey.t2.title
+            }
+            description={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.SkillsSurvey.t2.description
+            }
             optionList={t2}
             value={t2Value}
             onChange={t2Handler}
             error={t2Error}
+            errorMessage={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.youMustAnswerToThisQuestion
+            }
           />
         </div>
         <div>
           <TableQuestions
-            title={t3Title}
-            description={t3Description}
+            title={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.SkillsSurvey.t3.title
+            }
+            description={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.SkillsSurvey.t3.description
+            }
             optionList={t3}
             value={t3Value}
             onChange={t3Handler}
             error={t3Error}
+            errorMessage={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.youMustAnswerToThisQuestion
+            }
           />
         </div>
         <div>
           <TableQuestions
-            title={t4Title}
-            description={t4Description}
+            title={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.SkillsSurvey.t4.title
+            }
+            description={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.SkillsSurvey.t4.description
+            }
             optionList={t4}
             value={t4Value}
             onChange={t4Handler}
             error={t4Error}
+            errorMessage={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.youMustAnswerToThisQuestion
+            }
           />
         </div>
         <div>
           <TableQuestions
-            title={t5Title}
-            description={t5Description}
+            title={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.SkillsSurvey.t5.title
+            }
+            description={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.SkillsSurvey.t5.description
+            }
             optionList={t5}
             value={t5Value}
             onChange={t5Handler}
             error={t5Error}
+            errorMessage={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.youMustAnswerToThisQuestion
+            }
           />
         </div>
         <div>
           <TableQuestions
-            title={t6Title}
-            description={t6Description}
+            title={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.SkillsSurvey.t6.title
+            }
+            description={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.SkillsSurvey.t6.description
+            }
             optionList={t6}
             value={t6Value}
             onChange={t6Handler}
             error={t6Error}
+            errorMessage={
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.youMustAnswerToThisQuestion
+            }
           />
         </div>
       </CenterView>
-      <div className="col center-col">
-        <a
-          className="btn-radius2 btn"
-          style={{
-            background: Colors.gradient,
-            backgroundColor: Colors.primary,
-            color: Colors.accent,
-            // marginRight: "4%",
-          }}
-          role="button"
-          onClick={onSubmit}
-        >
-          Submit
-        </a>
-      </div>
+      <PrimaryButton
+        label={
+          strings.Profile &&
+          strings.Profile.ProfileSurveys.ExperienceSurvey.submit
+        }
+        onClick={onSubmit}
+        buttonStyle={{ width: "10%" }}
+      />
     </div>
   );
 };

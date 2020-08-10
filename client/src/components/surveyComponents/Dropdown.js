@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Dropdown } from "react-bootstrap";
 
 import Colors from "../../constants/Colors";
@@ -17,8 +17,20 @@ import "../../css/surveyComponents/Dropdown.css";
 
 const CustomDropdown = (props) => {
   const [current, setCurrent] = useState(
-    props.defaultMessage ? props.defaultMessage : "select an option"
+    props.defaultMessage ? props.defaultMessage : "Select an option"
   );
+
+  const { defaultMessage } = props;
+
+  useEffect(() => {
+    if (
+      current === "" ||
+      current === undefined ||
+      current === "Select an option"
+    ) {
+      setCurrent(props.defaultMessage && defaultMessage);
+    }
+  }, [defaultMessage]);
 
   return (
     <div
@@ -71,7 +83,7 @@ const CustomDropdown = (props) => {
             justifyContent: "flex-end",
           }}
         >
-          You must answer to this question!
+          {props.errorMessage}
         </div>
       )}
     </div>
