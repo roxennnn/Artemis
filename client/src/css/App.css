@@ -131,6 +131,7 @@ nav.primary {
     display: block;
   }
 }
+/* :not(div.dropdown-flags) */
 
 @media screen and (max-width: 990px) {
   .dropdown-menu-learnmore {
@@ -149,6 +150,19 @@ nav.primary {
     background: none;
     color: #000 !important;
   }
+}
+
+div.flag-dropdown-item:hover {
+  background: none;
+  cursor: pointer;
+}
+
+div.flag-dropdown-label {
+  color: white;
+}
+
+div.flag-dropdown-item:hover div.flag-dropdown-label {
+  color: black;
 }
 
 .dropdown-menu-learnmore {

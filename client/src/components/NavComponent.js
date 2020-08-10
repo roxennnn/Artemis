@@ -1,5 +1,6 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import ReactCountryFlag from "react-country-flag";
 
 import Colors from "../constants/Colors.js";
 // import logo from "../images/logo.svg";
@@ -16,28 +17,41 @@ const styles = {
   },
 };
 
+// const LanguageComponent = (props) => {
+//   return (
+//     <div
+//       className={
+//         props.current
+//           ? "language-selector language-current"
+//           : "language-selector"
+//       }
+//       style={{
+//         ...props.style,
+//         textDecoration: props.current ? "underline" : "",
+//         // fontSize: props.current ? 20 : 18
+//       }}
+//       onClick={props.onClick}
+//     >
+//       {props.name}
+//     </div>
+//   );
+// };
+
 const LanguageComponent = (props) => {
   return (
     <div
-      className={
-        props.current
-          ? "language-selector language-current"
-          : "language-selector"
-      }
-      style={{
-        ...props.style,
-        textDecoration: props.current ? "underline" : "",
-        // fontSize: props.current ? 20 : 18
-      }}
+      className="dropdown-item flag-dropdown-item"
       onClick={props.onClick}
+      style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
     >
-      {props.name}
+      <ReactCountryFlag countryCode={props.countryCode} />
+      <div className="flag-dropdown-label" style={{marginLeft: "10%"}}>{props.label}</div>
     </div>
   );
 };
-
 const NavComponent = (props) => {
   const { strings, language, updateLanguage } = useContext(LanguageContext);
+  const [currentFlag, setCurrentFlag] = useState("ES");
 
   // useEffect(() => {
   //   if (strings.navComponent) {
@@ -82,7 +96,7 @@ const NavComponent = (props) => {
       <div className="collapse navbar-collapse" id="navbarTop">
         <ul className="navbar-nav mr-auto" style={{ width: "70%" }}>
           <li
-            className="nav-item"
+            className="nav-item dropdown"
             style={{
               display: "flex",
               flexDirection: "row",
@@ -91,26 +105,44 @@ const NavComponent = (props) => {
               marginRight: "5%",
             }}
           >
-            <LanguageComponent
-              style={{ ...styles.languages, marginRight: "10%" }}
-              name="es"
-              onClick={(e) => {
-                updateLanguage(e.target.innerText);
-              }}
-              current={language === "es"}
-            />
-            <div style={{ ...styles.languages, fontSize: 28 }}>|</div>
-            <LanguageComponent
-              style={{
-                ...styles.languages,
-                marginLeft: "10%",
-              }}
-              name="en"
-              onClick={(e) => {
-                updateLanguage(e.target.innerText);
-              }}
-              current={language === "en"}
-            />
+            <button
+              style={{ background: "None", border: "None" }}
+              class="dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <ReactCountryFlag countryCode={currentFlag} />
+            </button>
+            {/* </a> */}
+            <div className="dropdown-menu dropdown-menu-learnmore dropdown-flags">
+              <LanguageComponent
+                countryCode="ES"
+                label="Español"
+                onClick={() => {
+                  setCurrentFlag("ES");
+                  updateLanguage("es");
+                }}
+              />
+              <LanguageComponent
+                countryCode="PT"
+                label="Português"
+                onClick={() => {
+                  setCurrentFlag("PT");
+                  updateLanguage("pt");
+                }}
+              />
+              <LanguageComponent
+                countryCode="GB"
+                label="English"
+                onClick={() => {
+                  setCurrentFlag("GB");
+                  updateLanguage("en");
+                }}
+              />
+            </div>
           </li>
           <li className="nav-item dropdown">
             <a
@@ -171,9 +203,7 @@ const NavComponent = (props) => {
         </ul>
       </div>
       <div className="collapse navbar-collapse" id="navbarTop">
-        <ul
-          className="navbar-nav ml-auto"
-        >
+        <ul className="navbar-nav ml-auto">
           <li>
             {props.currentUser ? (
               <LoggedNavbar

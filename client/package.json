@@ -11,6 +11,8 @@
     "faker": "4.1.0",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
+    "react-country-flag": "^2.3.0",
+    "react-custom-flag-select": "^2.5.0",
     "react-dom": "^16.13.1",
     "react-flag-icon-css": "^1.0.25",
     "react-ionicons": "^3.1.4",
