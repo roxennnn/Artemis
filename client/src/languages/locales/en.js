@@ -157,7 +157,7 @@ export default {
           "Prepare sandwiches",
           "Prepare drinks such as cocktails or speciality coffees",
           "Present food in an appealing manner",
-          "Understand diets and nutitional properties of food",
+          "Understand diets and nutritional properties of food",
           "Keep a clean kitchen",
           "Maintain cooking equipment",
           "Operate cooking equipment",
@@ -197,6 +197,10 @@ export default {
           "Assist people with disabilities",
           "Assist elderly people",
         ],
+        beginner: "Beginner",
+        intermediate: "Intermediate",
+        competent: "Competent",
+        proficient: "Proficient",
         t1: {
           title: "1. Organising and planning work and activities",
           description:

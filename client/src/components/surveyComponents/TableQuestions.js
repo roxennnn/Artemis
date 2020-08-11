@@ -6,7 +6,6 @@ import "../../css/surveyComponents/TableQuestions.css";
 
 // Possible values
 const rowOptions = [1, 2, 3, 4];
-const columns = ["Beginner", "Intermediate", "Competent", "Proficient"];
 
 // Styles
 const containerStyle = {
@@ -20,6 +19,15 @@ const containerStyle = {
 };
 
 const TableQuestions = (props) => {
+  let columns;
+  if (props.language === "en") {
+    columns = ["Beginner", "Intermediate", "Competent", "Proficient"];
+  } else if (props.language === "es") {
+    columns = ["Principiante", "Intermedia", "Competente", "Experta"];
+  } else if (props.language === "pt") {
+    columns = ["Principiante", "Intermediária", "Competente", "Especialista"];
+  }
+
   return (
     <div
       class={props.error ? "error-box" : "to-hover"}
@@ -61,30 +69,3 @@ const TableQuestions = (props) => {
 
 export default TableQuestions;
 
-// {props.optionList.map((value, index) => {
-//   return (
-//     <div
-//       style={{
-//         width: "100%",
-//         display: "flex",
-//         flexDirection: "row",
-//         justifyContent: "center",
-//         alignItems: "center",
-//       }}
-//       class={index === 0 ? "" : "no-label"}
-//     >
-//       <span style={{ width: "30%" }}>{value}</span>
-//       <RowRadios
-//         optionList={rowOptions}
-//         style={{
-//           ...containerStyle,
-//           display: "flex",
-//           justifyContent: "center",
-//           width: "70%",
-//         }}
-//         value={props.value}
-//         onChange={props.onChange}
-//       />
-//     </div>
-//   );
-// })}

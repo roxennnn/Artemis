@@ -127,11 +127,11 @@ nav.primary {
 }
 
 @media screen and (min-width: 990px) {
-  .dropdown:hover .dropdown-menu {
+  .dropdown:hover .dropdown-menu:not(.dropdown-flags) {
     display: block;
   }
+
 }
-/* :not(div.dropdown-flags) */
 
 @media screen and (max-width: 990px) {
   .dropdown-menu-learnmore {

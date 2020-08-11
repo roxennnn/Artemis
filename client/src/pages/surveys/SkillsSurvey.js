@@ -11,7 +11,7 @@ import TableQuestions from "../../components/surveyComponents/TableQuestions";
 import { LanguageContext } from "../../languages/LanguageProvider";
 
 const SkillsSurvey = (props) => {
-  const { strings } = useContext(LanguageContext);
+  const { strings, language } = useContext(LanguageContext);
 
   // Change background color
   useEffect(() => {
@@ -339,6 +339,7 @@ const SkillsSurvey = (props) => {
               strings.Profile &&
               strings.Profile.ProfileSurveys.youMustAnswerToThisQuestion
             }
+            language={language}
           />
         </div>
         <div>
@@ -359,6 +360,7 @@ const SkillsSurvey = (props) => {
               strings.Profile &&
               strings.Profile.ProfileSurveys.youMustAnswerToThisQuestion
             }
+            language={language}
           />
         </div>
         <div>
@@ -379,6 +381,7 @@ const SkillsSurvey = (props) => {
               strings.Profile &&
               strings.Profile.ProfileSurveys.youMustAnswerToThisQuestion
             }
+            language={language}
           />
         </div>
         <div>
@@ -399,6 +402,7 @@ const SkillsSurvey = (props) => {
               strings.Profile &&
               strings.Profile.ProfileSurveys.youMustAnswerToThisQuestion
             }
+            language={language}
           />
         </div>
         <div>
@@ -419,6 +423,7 @@ const SkillsSurvey = (props) => {
               strings.Profile &&
               strings.Profile.ProfileSurveys.youMustAnswerToThisQuestion
             }
+            language={language}
           />
         </div>
         <div>
@@ -439,6 +444,7 @@ const SkillsSurvey = (props) => {
               strings.Profile &&
               strings.Profile.ProfileSurveys.youMustAnswerToThisQuestion
             }
+            language={language}
           />
         </div>
       </CenterView>
