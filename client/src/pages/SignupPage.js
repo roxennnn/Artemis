@@ -5,7 +5,6 @@ import CenterView from "../components/CenterView";
 import CitizenSignUp from "../components/CitizenSignUp";
 import OrganisationSignUp from "../components/OrganisationSignUp";
 import PrimaryButton from "../components/PrimaryButton";
-import Colors from "../constants/Colors";
 
 import { LanguageContext } from "../languages/LanguageProvider";
 

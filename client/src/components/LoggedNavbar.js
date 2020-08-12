@@ -132,7 +132,7 @@ const LoggedNavbar = (props) => {
                               }}
                             >
                               {props.strings.ProfileListings &&
-                              props.strings.ProfileListings.jobMatchings}
+                                props.strings.ProfileListings.jobMatchings}
                             </span>
                           )}
                           {currentUser.skills_done && (
@@ -150,7 +150,7 @@ const LoggedNavbar = (props) => {
                               }}
                             >
                               {props.strings.ProfileListings &&
-                              props.strings.ProfileListings.mySkills}
+                                props.strings.ProfileListings.mySkills}
                             </span>
                           )}
 
@@ -170,6 +170,7 @@ const LoggedNavbar = (props) => {
                             style={{ ...styles.dropdownItem, color: "#dc3545" }}
                             onClick={() => {
                               AuthService.logout();
+                              localStorage.setItem("language", props.language);
                               history.push("/");
                               window.location.reload();
                             }}

@@ -20,6 +20,7 @@ const LoginComponent = (props) => {
     // make login POST request
     try {
       await AuthService.login(username, pass);
+      localStorage.setItem("language", props.language);
       history.push("/profile");
       window.location.reload();
 

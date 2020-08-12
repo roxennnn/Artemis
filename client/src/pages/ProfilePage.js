@@ -59,7 +59,7 @@ const styles = {
 };
 
 const ProfilePage = (props) => {
-  const { strings } = useContext(LanguageContext);
+  const { strings, language, updateLanguage } = useContext(LanguageContext);
 
   const [currentUser, setCurrentUser] = useState(); // data of logged user
   const [loading, setLoading] = useState(false);
@@ -81,6 +81,14 @@ const ProfilePage = (props) => {
     }
   }, [currentUser]);
 
+  const fetchLanguage = async () => {
+    const lang = await localStorage.getItem('language');
+    updateLanguage(lang);
+  };
+
+  useEffect(() => {
+    fetchLanguage();
+  }, []);
 
   const [showValue, setShowValue] = useState(0);
   // 0: ProfileIntro
@@ -247,7 +255,7 @@ const ProfilePage = (props) => {
                     <ProfileMatchings />
                   )}
                   {showValue === 3 && (
-                    <ProfileSkills />
+                    <ProfileSkills language={language}/>
                   )}
                 </div>
               </div>

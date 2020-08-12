@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ReactCountryFlag from "react-country-flag";
 
@@ -17,26 +17,6 @@ const styles = {
   },
 };
 
-// const LanguageComponent = (props) => {
-//   return (
-//     <div
-//       className={
-//         props.current
-//           ? "language-selector language-current"
-//           : "language-selector"
-//       }
-//       style={{
-//         ...props.style,
-//         textDecoration: props.current ? "underline" : "",
-//         // fontSize: props.current ? 20 : 18
-//       }}
-//       onClick={props.onClick}
-//     >
-//       {props.name}
-//     </div>
-//   );
-// };
-
 const LanguageComponent = (props) => {
   return (
     <div
@@ -45,7 +25,9 @@ const LanguageComponent = (props) => {
       style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
     >
       <ReactCountryFlag countryCode={props.countryCode} />
-      <div className="flag-dropdown-label" style={{marginLeft: "10%"}}>{props.label}</div>
+      <div className="flag-dropdown-label" style={{ marginLeft: "10%" }}>
+        {props.label}
+      </div>
     </div>
   );
 };
@@ -53,11 +35,23 @@ const NavComponent = (props) => {
   const { strings, language, updateLanguage } = useContext(LanguageContext);
   const [currentFlag, setCurrentFlag] = useState("ES");
 
-  // useEffect(() => {
-  //   if (strings.navComponent) {
-  //     console.log(strings.navComponent.loginNavbar);
-  //   }
-  // }, [strings]);
+  const fetchLanguage = async () => {
+    const lang = await localStorage.getItem("language");
+    if (lang) {
+      updateLanguage(lang);
+      if (lang === "en") {
+        setCurrentFlag("GB");
+      } else if (lang === "es") {
+        setCurrentFlag("ES");
+      } else if (lang === "pt") {
+        setCurrentFlag("PT");
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchLanguage();
+  }, []);
 
   return (
     <nav
@@ -210,9 +204,14 @@ const NavComponent = (props) => {
                 history={props.history}
                 currentUser={props.currentUser}
                 strings={strings}
+                language={language}
               />
             ) : (
-              <LoginNavbar history={props.history} strings={strings} />
+              <LoginNavbar
+                history={props.history}
+                strings={strings}
+                language={language}
+              />
             )}
           </li>
         </ul>

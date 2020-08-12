@@ -31,7 +31,7 @@ export default (app) => {
   );
 
   app.get(
-    "/api/matching/fetch-skills",
+    "/api/matching/fetch-skills/:lang",
     [
       authJwt.verifyToken, // only authorised users can perform this operation
     ],

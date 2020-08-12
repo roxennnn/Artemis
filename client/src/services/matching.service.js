@@ -32,11 +32,11 @@ class MatchingService {
     return response.data;
   };
 
-  fetchSkills = async () => {
+  fetchSkills = async (lang) => {
     const header = authHeader();
 
     const response = await axios.get(
-      API_URL + "fetch-skills",
+      API_URL + `fetch-skills/${lang}`,
       {
         headers: header,
       }

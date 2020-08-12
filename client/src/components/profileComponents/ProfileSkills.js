@@ -11,19 +11,21 @@ const ProfileSkills = (props) => {
   const [loading, setLoading] = useState(false);
   const [skills, setSkills] = useState();
 
+  const { language } = props;
+
   useEffect(() => {
     setLoading(true);
     asyncFetchSkills();
     setLoading(false);
-  }, []);
+  }, [language]);
 
   const asyncFetchSkills = async () => {
-    const skills = await MatchingService.fetchSkills();
+    const skills = await MatchingService.fetchSkills(language);
     setSkills(skills.scores);
   };
 
   return (
-    <div style={{width: "100%"}}>
+    <div style={{ width: "100%" }}>
       {loading ? (
         <CenterView middle={8} sides={2}>
           <div style={{ textAlign: "center" }}>
@@ -49,7 +51,6 @@ const ProfileSkills = (props) => {
                     >
                       <div style={{ width: "55%" }}>{skill.name}</div>
                       <ProgressBar
-                        // text={`${props.occupation.score}`}
                         percentage={`${skill.score}%`}
                         color={Colors.primary}
                         gradient={Colors.gradient}

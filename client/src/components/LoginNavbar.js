@@ -25,7 +25,7 @@ const LoginNavbar = (props) => {
           <li>
             <div className="row">
               <div className="col-xl">
-                <LoginComponent strings={props.strings} />
+                <LoginComponent strings={props.strings} language={props.language} />
                 <div className="bottom-login text-center">
                   {props.strings.NavComponent &&
                     props.strings.NavComponent.LoginNavbar.newHere}{" "}

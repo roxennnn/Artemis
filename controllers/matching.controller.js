@@ -6,7 +6,69 @@ const Occupation = db.occupation;
 
 import { workUrFreedomContract } from "../server.js";
 
-const skillNames = [
+const es_categories =[
+  "Organizar actividades básicas",
+  "Realizar tareas administrativas",
+  "Procesar pagos",
+  "Manejar dinero",
+  "Administrar información financiera",
+  "Realizar actividades de limpieza (en casa)",
+  "Realizar actividades de limpieza en un entorno fuera del hogar",
+  "Realizar primeros auxilios básicos",
+  "Actuar como líder",
+  "Trabajar bajo presión",
+  "Trabajar en un equipo",
+  "Andar en coche",
+  "Realizar la preparación básica de alimentos",
+  "Cocine carne y pescado",
+  "Cocine verduras y productos lácteos",
+  "Cocine pasta",
+  "Preparar postres como pasteles",
+  "Preparar pescado para cocinar",
+  "Preparar sándwiches",
+  "Prepare bebidas como cócteles o cafés especiales",
+  "Presenta la comida de una manera atractiva",
+  "Comprender las dietas y las propiedades nutricionales de los alimentos",
+  "Mantener una cocina limpia",
+  "Mantener el equipo de cocina",
+  "Operar equipo de cocina",
+  "Saludar a las invitadas",
+  "Sirve comida y bebida",
+  "Trabajar con recetas",
+  "Almacene los alimentos de forma segura",
+  "Aplicar el maquillaje",
+  "Realizar tratamientos de cuidado de uñas",
+  "Realizar tratamientos de cuidado de la piel",
+  "Eliminar el vello corporal",
+  "Dar masajes",
+  "Lavar y peinar el cabello",
+  "Cortar el cabello permanente y teñido",
+  "Tratar problemas menores con el cabello o el cuero cabelludo",
+  "Brindar información y dar instrucciones",
+  "Escribe información de forma clara",
+  "Recopilar información",
+  "Comprender y responder preguntas técnicas",
+  "Comprender y seguir las pautas",
+  "Ayudar a las personas y dar consejos",
+  "Guiar a turistas u otros visitantes",
+  "Estar familiarizada con la cultura local",
+  "Ayudar a los invitados durante los eventos",
+  "Planificar y organizar actividades para invitados",
+  "Gestionar grupos de personas",
+  "Ayudar a las personas con movilidad",
+  "Mantener buenas relaciones públicas",
+  "Interpretar y responder adecuadamente a las emociones de las personas",
+  "Habla más de un idioma",
+  "Brindar atención y asistencia a los niños",
+  "Ayudar a los niños a aprender",
+  "Proporcionar asistencia escolar",
+  "Ayudar a los niños con dificultades especiales de aprendizaje",
+  "Ayudar a los niños a resolver problemas personales psicológicos o sociales",
+  "Ejecutar actividades de cuidado doméstico",
+  "Ayudar a las personas con discapacidad",
+  "Ayudar a las personas mayores",
+];
+const en_categories = [
   "Organise basic activities",
   "Perform administrative tasks ",
   "Process payments",
@@ -67,6 +129,68 @@ const skillNames = [
   "Run domestic care activities",
   "Assist people with disabilities",
   "Assist elderly people",
+];
+const pt_categories = [
+  "Organizar atividades básicas",
+  "Executar tarefas administrativas",
+  "Processar pagamentos",
+  "Mausear dinheiro",
+  "Administrar informações financeiras",
+  "Realizar atividades de limpeza (em casa)",
+  "Realize atividades de limpeza em um ambiente fora de casa",
+  "Realizar primeiros socorros básicos",
+  "Aja como um líder",
+  "Trabalhar sob pressão",
+  "Trabalhar em equipe",
+  "Dirigir um carro",
+  "Conduzir a preparação de alimentos básicos",
+  "Cozinhe carne e peixe",
+  "Cozinhe vegetais e laticínios",
+  "Cozinhar macarrão",
+  "Prepare sobremesas como pastéis",
+  "Prepare peixes para cozinhar",
+  "Preparar sanduíches",
+  "Prepare bebidas como coquetéis ou cafés especiais",
+  "Apresente a comida de maneira atraente",
+  "Compreenda as dietas e as propriedades nutricionais dos alimentos",
+  "Mantenha uma cozinha limpa",
+  "Manter equipamentos de cozinha",
+  "Operar equipamentos de cozinha",
+  "Cumprimentar convidados",
+  "Sirva comidas e bebidas",
+  "Trabalhe com receitas",
+  "Armazene alimentos com segurança",
+  "Aplicar maquiagem",
+  "Faça tratamentos para as unhas",
+  "Realizar tratamentos de cuidados com a pele",
+  "Remover pelos do corpo",
+  "Dar massagens",
+  "Lave e penteie o cabelo",
+  "Corte permanente e pinte o cabelo",
+  "Trate pequenos problemas com o cabelo ou couro cabeludo",
+  "Fornece informações e dá instruções",
+  "Escreva as informações de forma clara",
+  "Coletar informação",
+  "Entenda e responda a perguntas técnicas",
+  "Entenda e siga as diretrizes",
+  "Auxiliar as pessoas e dar conselhos",
+  "Guia de turistas ou outros visitantes",
+  "Familiarize-se com a cultura local",
+  "Auxiliar os convidados durante os eventos",
+  "Planejar e organizar atividades para os hóspedes",
+  "Gerenciar grupos de pessoas",
+  "Auxiliar as pessoas com mobilidade",
+  "Manter boas relações públicas",
+  "Interprete e responda adequadamente às emoções das pessoas",
+  "Fala mais de um idioma",
+  "Prestar cuidados e assistência a crianças",
+  "Ajude as crianças a aprender",
+  "Fornece assistência escolar",
+  "Ajude crianças com dificuldades especiais de aprendizagem",
+  "Ajude as crianças a resolver problemas psicológicos ou sociais pessoais",
+  "Executar atividades domésticas",
+  "Assistir pessoas com deficiência",
+  "Assistir idosos",
 ];
 
 export const fetchMatchings = async (req, res) => {
@@ -169,6 +293,16 @@ export const fetchOccupationDetail = async (req, res) => {
 
 export const fetchSkills = async (req, res) => {
   const userId = mongoose.Types.ObjectId(req.userId);
+  const language = req.params.lang;
+
+  let categories;
+  if (language === "en") {
+    categories = en_categories;
+  } else if (language === "es") {
+    categories = es_categories;
+  } else if (language === "pt") {
+    categories = pt_categories;
+  }
 
   const skillScores = await getSkillScores(userId);
   if (skillScores.length === 0) {
@@ -177,13 +311,13 @@ export const fetchSkills = async (req, res) => {
   }
 
   const scores = [];
-  if (skillScores.length !== skillNames.length) {
+  if (skillScores.length !== categories.length) {
     console.log("skill array lenghts are different...");
     res.status(500).send({ message: "skill array lenghts are different..." });
   }
   for (let i = 0; i < skillScores.length; i++) {
-    let name = skillNames[i];
-    let score = (skillScores[i] - 1) / 3 * 100;
+    let name = categories[i];
+    let score = ((skillScores[i] - 1) / 3) * 100;
     scores.push({ name: name, score: score.toFixed(2) });
   }
 

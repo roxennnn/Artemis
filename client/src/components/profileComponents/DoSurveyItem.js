@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
 
 // images
 import survey from "../../images/survey.png";
@@ -11,7 +12,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { LanguageContext } from "../../languages/LanguageProvider";
 
 const DoSurveyItem = (props) => {
+  const history = useHistory();
   const { strings } = useContext(LanguageContext);
+
+  const onClickHandler = () => {
+    history.push(`profile/${props.href}`);
+  };
 
   return (
     <div className="container" style={{ margin: 30 }}>
@@ -19,10 +25,11 @@ const DoSurveyItem = (props) => {
         className="row margin-children  delete-a-style"
         style={{ display: "flex", alignItems: "center", padding: "1%" }}
       >
-        <a
+        <div
           className={props.done ? "" : "hover-border"}
-          href={props.done ? undefined : `profile/${props.href}`}
-          style={props.done ? { width: "30%", padding: 13 } : { width: "30%" }}
+          onClick={props.done ? undefined : onClickHandler}
+          // href={props.done ? undefined : `profile/${props.href}`}
+          style={props.done ? { width: "30%", padding: 13 } : { width: "30%", cursor: "pointer" }}
         >
           <span>
             <img
@@ -34,16 +41,17 @@ const DoSurveyItem = (props) => {
             />
             <span style={{ marginLeft: "5%" }}>{props.title}</span>
           </span>
-        </a>
+        </div>
 
         {props.done && (
-          <a
-            href={`profile/${props.href}`}
-            style={{ width: "3%" }}
+          <div
+            // href={`profile/${props.href}`}
+            onClick={onClickHandler}
+            style={{ width: "3%", cursor: "pointer" }}
             title="Redo the survey"
           >
             <FontAwesomeIcon icon={faRedoAlt} color="#3b5998" />
-          </a>
+          </div>
         )}
         {props.done && (
           <div style={{ marginLeft: "5%" }}>
