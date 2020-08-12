@@ -196,6 +196,7 @@ const pt_categories = [
 export const fetchMatchings = async (req, res) => {
   const userId = mongoose.Types.ObjectId(req.userId);
   // console.log(userId);
+  const language = req.params.lang;
 
   const skillScores = await getSkillScores(userId);
   if (skillScores.length === 0) {
@@ -203,7 +204,7 @@ export const fetchMatchings = async (req, res) => {
     return;
   }
 
-  const occupations = await getOccupationList();
+  const occupations = await getOccupationList(language);
   if (occupations.length === 0) {
     res
       .status(404)
@@ -248,13 +249,15 @@ export const fetchMatchings = async (req, res) => {
 
 export const fetchOccupationDetail = async (req, res) => {
   const userId = mongoose.Types.ObjectId(req.userId);
+  const language = req.params.lang;
+
   const skillScores = await getSkillScores(userId);
   if (skillScores.length === 0) {
     res.status(404).send({ message: `Fetching skills data error: ${err}` });
     return;
   }
 
-  const occupation = await getOccupationDetail(req.params.oid);
+  const occupation = await getOccupationDetail(req.params.oid, language);
   if (!occupation) {
     res
       .status(404)
@@ -369,20 +372,20 @@ const getSkillScores = async (userId) => {
   return scores;
 };
 
-const getOccupationList = async () => {
+const getOccupationList = async (language) => {
   let occupations = [];
   try {
-    occupations = await Occupation.find().exec();
+    occupations = await Occupation.find({language: language}).exec();
   } catch (err) {
     console.log(`ERROR: ${err}`);
   }
   return occupations;
 };
 
-const getOccupationDetail = async (oid) => {
+const getOccupationDetail = async (oid, language) => {
   let occupation;
   try {
-    occupation = await Occupation.findOne({ OID: oid }).exec();
+    occupation = await Occupation.findOne({ OID: oid, language: language }).exec();
   } catch (err) {
     console.log(`ERROR: ${err}`);
   }

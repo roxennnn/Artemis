@@ -24,7 +24,7 @@ const LanguageComponent = (props) => {
       onClick={props.onClick}
       style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
     >
-      <ReactCountryFlag countryCode={props.countryCode} />
+      <ReactCountryFlag svg countryCode={props.countryCode} />
       <div className="flag-dropdown-label" style={{ marginLeft: "10%" }}>
         {props.label}
       </div>

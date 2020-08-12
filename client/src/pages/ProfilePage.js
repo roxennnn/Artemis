@@ -22,7 +22,6 @@ import { LanguageContext } from "../languages/LanguageProvider";
 // images
 import avatar from "../images/avatar.png";
 
-
 const styles = {
   redBox: {
     borderWidth: 4,
@@ -32,7 +31,7 @@ const styles = {
   userBox: {
     background: Colors.gradient,
     backgroundColor: Colors.primary,
-    borderRadius: 20
+    borderRadius: 20,
   },
   someInfo: {
     width: "90%",
@@ -82,7 +81,7 @@ const ProfilePage = (props) => {
   }, [currentUser]);
 
   const fetchLanguage = async () => {
-    const lang = await localStorage.getItem('language');
+    const lang = await localStorage.getItem("language");
     updateLanguage(lang);
   };
 
@@ -124,7 +123,7 @@ const ProfilePage = (props) => {
         </CenterView>
       ) : (
         <div>
-          {currentUser ? (
+          {currentUser && (
             <div
               className="my-container"
               style={{ width: "100%", height: "100%", ...styles.redBox }}
@@ -205,21 +204,30 @@ const ProfilePage = (props) => {
                     }}
                   >
                     <ActionListItem
-                      title={strings.ProfileListings && strings.ProfileListings.summary}
+                      title={
+                        strings.ProfileListings &&
+                        strings.ProfileListings.summary
+                      }
                       style={styles.firstListItem}
                       value={0}
                       current={showValue === 0}
                       onClick={onClickActionListHandler}
                     />
                     <ActionListItem
-                      title={strings.ProfileListings && strings.ProfileListings.surveys}
+                      title={
+                        strings.ProfileListings &&
+                        strings.ProfileListings.surveys
+                      }
                       value={1}
                       current={showValue === 1}
                       onClick={onClickActionListHandler}
                     />
                     {currentUser.skills_done && (
                       <ActionListItem
-                        title={strings.ProfileListings && strings.ProfileListings.jobMatchings}
+                        title={
+                          strings.ProfileListings &&
+                          strings.ProfileListings.jobMatchings
+                        }
                         value={2}
                         current={showValue === 2}
                         onClick={onClickActionListHandler}
@@ -227,7 +235,10 @@ const ProfilePage = (props) => {
                     )}
                     {currentUser.skills_done && (
                       <ActionListItem
-                        title={strings.ProfileListings && strings.ProfileListings.mySkills}
+                        title={
+                          strings.ProfileListings &&
+                          strings.ProfileListings.mySkills
+                        }
                         value={3}
                         current={showValue === 3}
                         onClick={onClickActionListHandler}
@@ -249,19 +260,18 @@ const ProfilePage = (props) => {
                     />
                   )}
                   {showValue === 1 && (
-                    <ProfileSurveys currentUser={currentUser} strings={strings} />
+                    <ProfileSurveys
+                      currentUser={currentUser}
+                      strings={strings}
+                    />
                   )}
                   {showValue === 2 && (
-                    <ProfileMatchings />
+                    <ProfileMatchings language={language} strings={strings} />
                   )}
-                  {showValue === 3 && (
-                    <ProfileSkills language={language}/>
-                  )}
+                  {showValue === 3 && <ProfileSkills language={language} />}
                 </div>
               </div>
             </div>
-          ) : (
-            <Unauthorised />
           )}
         </div>
       )}

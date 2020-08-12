@@ -23,6 +23,10 @@ const Occupation = model(
     category_names: {
       type: Array,
       required: true
+    },
+    lang: {
+      type: String,
+      required: true
     }
   }),
   "occupation"

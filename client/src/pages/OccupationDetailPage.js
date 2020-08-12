@@ -1,46 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Spinner } from "react-bootstrap";
 
 import Colors from "../constants/Colors";
+import BackButton from "../components/BackButton";
 import CenterView from "../components/CenterView";
 import ProgressBar from "../components/ProgressBar";
 import MatchingService from "../services/matching.service";
 
+import { LanguageContext } from "../languages/LanguageProvider";
+
 const OccupationDetailPage = (props) => {
+  const { strings, language } = useContext(LanguageContext);
+
   const [loading, setLoading] = useState(false);
   const [occupationDetail, setOccupationDetail] = useState();
 
   const asyncFetchOccupationDetail = async () => {
     let oid = props.location.state.oid;
-    const occ = await MatchingService.fetchOccupationDetail(oid);
+    const occ = await MatchingService.fetchOccupationDetail(language, oid);
     setOccupationDetail(occ.details);
   };
 
   useEffect(() => {
     setLoading(true);
     asyncFetchOccupationDetail();
-  }, []);
+  }, [language]);
 
   useEffect(() => {
     if (occupationDetail) {
       setLoading(false);
     }
   }, [occupationDetail]);
-
-  const backButton = (
-    <div>
-      <a
-        // className="btn-radius fat-btn btn btn-warning btn-lg"
-        role="button"
-        onClick={() => {
-          props.history.goBack();
-        }}
-        style={{ color: Colors.primary }}
-      >
-        {"<"}Back
-      </a>
-    </div>
-  );
 
   const avgStringArray = (arr) => {
     let avg = 0;
@@ -55,19 +45,42 @@ const OccupationDetailPage = (props) => {
 
   return (
     <div>
-      <CenterView middle={10} sides={1} left={backButton}>
+      <CenterView
+        middle={10}
+        sides={1}
+        left={
+          <BackButton
+            onClick={() => {
+              localStorage.setItem("language", language);
+              // props.history.goBack();
+              props.history.push({
+                pathname: "/profile",
+                state: {
+                  from: true,
+                  to: 2,
+                },
+              });
+            }}
+            label={strings.back && strings.back}
+          />
+        }
+      >
         {loading ? (
           <div style={{ textAlign: "center" }}>
             <Spinner animation="border" variant="primary" />
           </div>
         ) : (
-          <div style={{fontSize: 22}}>
+          <div style={{ fontSize: 22 }}>
             {occupationDetail ? (
               <div>
                 <h2>{occupationDetail.title}</h2>
                 <div>{occupationDetail.description}</div>
                 <br />
-                <h3>Required skills</h3>
+                <h3>
+                  {strings.Profile &&
+                    strings.Profile.ProfileMatchings.OccupationDetails
+                      .requiredSkills}
+                </h3>
                 {occupationDetail.category_names.map((name, index) => {
                   return (
                     <div
@@ -81,7 +94,6 @@ const OccupationDetailPage = (props) => {
                     >
                       <div style={{ width: "50%" }}>{name}</div>
                       <ProgressBar
-                        // text={`${props.occupation.score}`}
                         percentage={`${occupationDetail.category_scores[index]}%`}
                         color={Colors.primary}
                         gradient={Colors.gradient}
@@ -99,14 +111,20 @@ const OccupationDetailPage = (props) => {
                     fontSize: 24,
                   }}
                 >
-                  <div style={{ fontWeight: "bold" }}>Affinity:</div>
+                  <div style={{ fontWeight: "bold" }}>
+                    {strings.Profile &&
+                      strings.Profile.ProfileMatchings.OccupationDetails
+                        .affinity}
+                  </div>
                   <div style={{ marginLeft: "2%" }}>
                     {avgStringArray(occupationDetail.category_scores)} %
                   </div>
                 </div>
               </div>
             ) : (
-              <div>An error has occured</div>
+              <div>
+                {strings.anErrorHasOccurred && strings.anErrorHasOccurred}
+              </div>
             )}
           </div>
         )}

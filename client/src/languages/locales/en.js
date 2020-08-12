@@ -2,6 +2,7 @@ import en_categories from "./categories/en_categories";
 
 export default {
   back: "Back",
+  anErrorHasOccurred: "An error has occured",
   NavComponent: {
     LoginNavbar: {
       loginQuestion: "Already have an account?",
@@ -58,7 +59,6 @@ export default {
   },
   Profile: {
     manageProfile: "Manage Profile",
-    anErrorHasOccurred: "An error has occured",
     surveysCompleted: "Surveys completed:",
     ProfileIntro: {
       goToSurveys: "Go to surveys",
@@ -275,7 +275,15 @@ export default {
         },
       },
     },
-    ProfileMatchings: {},
+    ProfileMatchings: {
+      title: "Job matchings",
+      showLess: "Show Less",
+      showAll: "Show All",
+      OccupationDetails: {
+        requiredSkills: "Required skills",
+        affinity: "Affinity"
+      }
+    },
     ProfileSkills: {},
   },
 };

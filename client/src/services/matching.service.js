@@ -4,11 +4,11 @@ import authHeader from "./auth-header";
 const API_URL = "http://localhost:8080/api/matching/";
 
 class MatchingService {
-  fetchMatchings = async () => {
+  fetchMatchings = async (lang) => {
     const header = authHeader();
 
     const response = await axios.get(
-      API_URL + "fetch-matchings",
+      API_URL + `fetch-matchings/${lang}`,
       {
         headers: header,
       }
@@ -18,11 +18,11 @@ class MatchingService {
     return response.data;
   };
 
-  fetchOccupationDetail = async (oid) => {
+  fetchOccupationDetail = async (lang, oid) => {
     const header = authHeader();
 
     const response = await axios.get(
-      API_URL + `occupation-detail/${oid}`,
+      API_URL + `occupation-detail/${lang}/${oid}`,
       {
         headers: header,
       }

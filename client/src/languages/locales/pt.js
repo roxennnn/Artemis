@@ -2,6 +2,7 @@ import pt_categories from "./categories/pt_categories.js";
 
 export default {
   back: "Volte",
+  anErrorHasOccurred: "Ocorreu um erro",
   NavComponent: {
     LoginNavbar: {
       loginQuestion: "Já tem uma conta?",
@@ -58,7 +59,6 @@ export default {
   },
   Profile: {
     manageProfile: "Gerenciar Perfil",
-    anErrorHasOccurred: "Ocorreu um erro",
     surveysCompleted: "Pesquisas concluídas:",
     ProfileIntro: {
       goToSurveys: "Ir para pesquisas",
@@ -275,7 +275,15 @@ export default {
         },
       },
     },
-    ProfileMatchings: {},
+    ProfileMatchings: {
+      title: "Correspondência de trabalho",
+      showLess: "Mostre Menos",
+      showAll: "Mostre Tudo",
+      OccupationDetails: {
+        requiredSkills: "Habilidades necessárias",
+        affinity: "Afinidade"
+      }
+    },
     ProfileSkills: {},
   },
 };
