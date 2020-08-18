@@ -71,7 +71,8 @@ div.current-action-list-item {
 }
 
 img.profile-page-avatar:hover {
-  border-width: 2px;
+  border-width: 5px !important;
+  padding: 1px !important;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2) !important;
   transition: 0.2s !important;
 }

@@ -156,8 +156,9 @@ const NewProfilePage = (props) => {
                         width: "38%",
                         marginTop: "10%",
                         borderStyle: "solid",
-                        borderColor: `${Colors.primary} ${Colors.primary} white ${Colors.primary}`,
-                        borderWidth: 10,
+                        borderColor: `${Colors.primary} ${Colors.primary} ${Colors.primary} ${Colors.primary}`,
+                        borderWidth: 8,
+                        borderBottomStyle: "dotted",
                         padding: 3,
                         cursor: "pointer",
                       }}
