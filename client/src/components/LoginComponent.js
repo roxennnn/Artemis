@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
 
 import Colors from "../constants/Colors";
 import PrimaryButton from "./PrimaryButton";
@@ -8,8 +7,6 @@ import PrimaryButton from "./PrimaryButton";
 import AuthService from "../services/auth.service";
 
 const LoginComponent = (props) => {
-  const history = useHistory();
-
   const [usernameValue, setUsernameValue] = useState("");
   const [passValue, setPassValue] = useState("");
 
@@ -21,7 +18,7 @@ const LoginComponent = (props) => {
     try {
       await AuthService.login(username, pass);
       localStorage.setItem("language", props.language);
-      history.push("/profile");
+      props.history.push("/profile");
       window.location.reload();
 
       setUsernameValue("");

@@ -14,12 +14,12 @@ export default {
     LearnMore: {
       learnMore: "Aprende más",
       whatIsThisWebsite: "¿Qué es este sitio web?",
-      howToUseIt: "¿Cómo usarlo?",
+      howToUseIt: "Cómo utilizar nuestro sitio web",
       whatAndWhyOfThisDatabase: "¿Qué y por qué de esta base de datos?",
       useOfBlockchain: "Uso de blockchain",
       technicalDocumentation: "Documentación técnica",
     },
-    contactUs: "Contacta con nosotras",
+    contactUs: "Contáctenos",
   },
   SignupPage: {
     registerForFree: "¡Registrate gratis!",

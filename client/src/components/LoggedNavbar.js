@@ -7,7 +7,7 @@ import SurveyService from "../services/survey.service";
 
 import CenterView from "../components/CenterView";
 
-import avatar from "../images/avatar.png";
+import avatar2 from "../images/avatar2.png";
 
 const styles = {
   dropdownItem: {
@@ -68,7 +68,7 @@ const LoggedNavbar = (props) => {
                   <span style={{ fontSize: 18 }}>{currentUser.username}</span>
                   <img // No percentages... @TOFIX for a responsive design
                     style={{
-                      width: "15%",
+                      width: "8%",
                       marginLeft: 20,
                       borderStyle: "solid",
                       borderColor: "white",
@@ -76,7 +76,7 @@ const LoggedNavbar = (props) => {
                     }}
                     className="rounded-pill nav-avatar"
                     alt=""
-                    src={avatar}
+                    src={avatar2}
                   />
                 </a>
                 <ul className="dropdown-menu dropdown-menu-right">

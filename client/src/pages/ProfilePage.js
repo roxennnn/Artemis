@@ -21,6 +21,7 @@ import { LanguageContext } from "../languages/LanguageProvider";
 
 // images
 import avatar from "../images/avatar.png";
+import avatar2 from "../images/avatar2.png";
 
 const styles = {
   redBox: {
@@ -114,7 +115,7 @@ const ProfilePage = (props) => {
   };
 
   return (
-    <div>
+    <div style={{ margin: "2%" }}>
       {loading ? (
         <CenterView middle={8} sides={2}>
           <div style={{ textAlign: "center" }}>
@@ -160,7 +161,7 @@ const ProfilePage = (props) => {
                       }}
                       className="rounded-pill profile-page-avatar"
                       alt=""
-                      src={avatar}
+                      src={avatar2}
                       // src="https://bootdey.com/img/Content/avatar/avatar9.png"
                     />
                     <div

@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import ReactCountryFlag from "react-country-flag";
 
@@ -34,6 +35,7 @@ const LanguageComponent = (props) => {
 const NavComponent = (props) => {
   const { strings, language, updateLanguage } = useContext(LanguageContext);
   const [currentFlag, setCurrentFlag] = useState("ES");
+  const history = useHistory();
 
   const fetchLanguage = async () => {
     const lang = await localStorage.getItem("language");
@@ -52,6 +54,13 @@ const NavComponent = (props) => {
   useEffect(() => {
     fetchLanguage();
   }, []);
+
+  const learnMoreClickHandler = (e) => {
+    // console.log(e.target.id);
+    localStorage.setItem("language", language);
+    history.push(e.target.id);
+    // window.location.reload();
+  };
 
   return (
     <nav
@@ -153,27 +162,52 @@ const NavComponent = (props) => {
               className="dropdown-menu dropdown-menu-learnmore"
               aria-labelledby="navbarDropdown"
             >
-              <a className="dropdown-item" href="/learn-more">
+              <div
+                className="dropdown-item"
+                onClick={learnMoreClickHandler}
+                style={{ cursor: "pointer" }}
+                id="/learn-more"
+              >
                 {strings.NavComponent &&
                   strings.NavComponent.LearnMore.whatIsThisWebsite}
-              </a>
-              <a className="dropdown-item" href="/learn-more">
+              </div>
+              <div
+                className="dropdown-item"
+                onClick={learnMoreClickHandler}
+                style={{ cursor: "pointer" }}
+                id="/learn-more/how-to-use-it"
+              >
                 {strings.NavComponent &&
                   strings.NavComponent.LearnMore.howToUseIt}
-              </a>
+              </div>
               {/* <div className="dropdown-divider"></div> */}
-              <a className="dropdown-item" href="/learn-more">
+              <div
+                className="dropdown-item"
+                onClick={learnMoreClickHandler}
+                style={{ cursor: "pointer" }}
+                id="/learn-more"
+              >
                 {strings.NavComponent &&
                   strings.NavComponent.LearnMore.whatAndWhyOfThisDatabase}
-              </a>
-              <a className="dropdown-item" href="/learn-more">
+              </div>
+              <div
+                className="dropdown-item"
+                onClick={learnMoreClickHandler}
+                style={{ cursor: "pointer" }}
+                id="/learn-more"
+              >
                 {strings.NavComponent &&
                   strings.NavComponent.LearnMore.useOfBlockchain}
-              </a>
-              <a className="dropdown-item" href="/learn-more">
+              </div>
+              <div
+                className="dropdown-item"
+                onClick={learnMoreClickHandler}
+                style={{ cursor: "pointer" }}
+                id="/learn-more"
+              >
                 {strings.NavComponent &&
                   strings.NavComponent.LearnMore.technicalDocumentation}
-              </a>
+              </div>
             </div>
           </li>
 

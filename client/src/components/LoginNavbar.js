@@ -1,9 +1,11 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 import LoginComponent from "./LoginComponent";
 import Colors from "../constants/Colors";
 
 const LoginNavbar = (props) => {
+  const history = useHistory();
   return (
     <div>
       <li className="nav-item dropdown">
@@ -25,16 +27,29 @@ const LoginNavbar = (props) => {
           <li>
             <div className="row">
               <div className="col-xl">
-                <LoginComponent strings={props.strings} language={props.language} />
+                <LoginComponent
+                  strings={props.strings}
+                  language={props.language}
+                  history={history}
+                />
                 <div className="bottom-login text-center">
                   {props.strings.NavComponent &&
                     props.strings.NavComponent.LoginNavbar.newHere}{" "}
-                  <a href="/signup">
-                    <b style={{ color: Colors.primary }} className="hover-underline">
+                  <span
+                    onClick={() => {
+                      localStorage.setItem("language", props.language);
+                      history.push("/signup");
+                      // window.location.reload();
+                    }}
+                  >
+                    <b
+                      style={{ color: Colors.primary }}
+                      className="hover-underline"
+                    >
                       {props.strings.NavComponent &&
                         props.strings.NavComponent.LoginNavbar.joinUs}
                     </b>
-                  </a>
+                  </span>
                 </div>
               </div>
             </div>

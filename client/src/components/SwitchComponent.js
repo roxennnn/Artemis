@@ -5,7 +5,6 @@ import { Switch, Route } from "react-router-dom";
 import SignupPage from "../pages/SignupPage";
 import LoginPage from "../pages/LoginPage";
 import AboutPage from "../pages/AboutPage";
-import LearnMorePage from "../pages/LearnMorePage";
 import ProfilePage from "../pages/ProfilePage";
 import FaqPage from "../pages/FaqPage";
 import ConsultDatabasePage from "../pages/ConsultDatabasePage";
@@ -20,15 +19,22 @@ import ExperienceSurvey from "../pages/surveys/ExperienceSurvey";
 import SkillsSurvey from "../pages/surveys/SkillsSurvey";
 import OccupationDetailPage from "../pages/OccupationDetailPage";
 
+// Learn More
+import LearnMorePage from "../pages/LearnMorePage";
+import HowToUseItPage from "../pages/learnMore/HowToUseItPage";
+import NewProfilePage from "../pages/NewProfilePage";
+
 const SwitchComponent = (props) => {
   return (
-    <div style={{margin: "2%"}}>
+    <div>
       <Switch>
         <Route exact path={["/", "/home"]} component={LandingPage} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/signup" component={SignupPage} />
-        <Route exact path="/profile" component={ProfilePage} />
+        {/* <Route exact path="/profile" component={ProfilePage} /> */}
+        <Route exact path="/profile" component={NewProfilePage} />
         <Route exact path="/learn-more" component={LearnMorePage} />
+        <Route exact path="/learn-more/how-to-use-it" component={HowToUseItPage} />
         <Route exact path="/faq" component={FaqPage} />
         <Route exact path="/about" component={AboutPage} />
         <Route exact path="/forum" component={ForumPage} />

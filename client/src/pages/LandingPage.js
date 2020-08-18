@@ -1,8 +1,17 @@
-import React from 'react';
+import React from "react";
+import home1 from "../images/en/Home1.png";
 
-const LandingPage = props => {
+const LandingPage = (props) => {
   return (
-    <div>TODO - LANDING PAGE</div>
+    <div>
+      <img
+        style={{
+          width: "100%",
+        }}
+        alt=""
+        src={home1}
+      />
+    </div>
   );
 };
 

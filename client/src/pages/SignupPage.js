@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Container } from "react-bootstrap";
 
 import CenterView from "../components/CenterView";
@@ -19,8 +19,17 @@ const styles = {
 };
 
 const SignupPage = (props) => {
-  const { strings } = useContext(LanguageContext);
+  const { strings, updateLanguage } = useContext(LanguageContext);
   const [userType, setUserType] = useState("None");
+
+  const fetchLanguage = async () => {
+    const lang = await localStorage.getItem("language");
+    updateLanguage(lang);
+  };
+
+  useEffect(() => {
+    fetchLanguage();
+  }, []);
 
   return (
     <div style={{ margin: 50 }}>

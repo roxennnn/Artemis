@@ -44,7 +44,7 @@ const OccupationDetailPage = (props) => {
   };
 
   return (
-    <div>
+    <div style={{margin: "2%"}}>
       <CenterView
         middle={10}
         sides={1}

@@ -14,7 +14,7 @@ export default {
     LearnMore: {
       learnMore: "Saber mais",
       whatIsThisWebsite: "Que site é este?",
-      howToUseIt: "Como usá-lo?",
+      howToUseIt: "Como usar nosso site",
       whatAndWhyOfThisDatabase: "O que e por que esse banco de dados?",
       useOfBlockchain: "Uso de blockchain",
       technicalDocumentation: "Documentação técnica",
