@@ -1,5 +1,5 @@
 import authJwt from "../middleware/authJwt.js";
-import { submitSurveyAnswers, queryProfileData  } from "../controllers/survey.controller.js";
+import { submitSurveyAnswers, queryProfileData, resetSurveyData  } from "../controllers/survey.controller.js";
 
 export default (app) => {
   app.use((req, res, next) => {
@@ -10,6 +10,7 @@ export default (app) => {
     next();
   });
 
+  // Query
   app.get(
     "/api/survey/vars",
     [
@@ -18,6 +19,32 @@ export default (app) => {
     queryProfileData
   );
 
+  // Reset
+  app.get(
+    "/api/survey/reset-demographic-survey",
+    [
+      authJwt.verifyToken, // only authorised users can perform this operation
+    ],
+    resetSurveyData
+  );
+
+  app.get(
+    "/api/survey/reset-skills-survey",
+    [
+      authJwt.verifyToken, // only authorised users can perform this operation
+    ],
+    resetSurveyData
+  );
+
+  app.get(
+    "/api/survey/reset-experience-survey",
+    [
+      authJwt.verifyToken, // only authorised users can perform this operation
+    ],
+    resetSurveyData
+  );
+
+  // POST answers
   app.post(
     "/api/survey/demographics",
     [

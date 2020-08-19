@@ -2,6 +2,20 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
 
+import {
+  faBriefcase,
+  faCog,
+  faTools,
+  faUtensils,
+  faUser,
+  faDice,
+  faHammer,
+  faGraduationCap,
+  faComment,
+  faSignOutAlt,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import AuthService from "../services/auth.service";
 import SurveyService from "../services/survey.service";
 
@@ -14,6 +28,11 @@ const styles = {
     color: "black",
     textAlign: "left",
     fontSize: 20,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    // justifyContent: "space-evenly",
+    width: "100%"
   },
 };
 
@@ -98,8 +117,16 @@ const LoggedNavbar = (props) => {
                               // window.location.reload();
                             }}
                           >
-                            {props.strings.ProfileListings &&
-                              props.strings.ProfileListings.profile}
+                            <div style={{ width: "25%" }}>
+                              <FontAwesomeIcon
+                                icon={faUser}
+                                style={{ fontSize: 25 }}
+                              />
+                            </div>
+                            <div style={{width: "70%", marginRight: "5%"}}>
+                              {props.strings.ProfileListings &&
+                                props.strings.ProfileListings.profile}
+                            </div>
                           </span>
                           <span
                             className="dropdown-item profile-dropdown-item"
@@ -114,8 +141,13 @@ const LoggedNavbar = (props) => {
                               });
                             }}
                           >
-                            {props.strings.ProfileListings &&
-                              props.strings.ProfileListings.surveys}
+                            <div style={{ width: "25%" }}>
+                              <FontAwesomeIcon
+                                icon={faComment}
+                                style={{ fontSize: 25 }}
+                              />
+                            </div>
+                            <div style={{width: "70%", marginRight: "5%"}}>Messages</div>
                           </span>
                           {currentUser.skills_done && (
                             <span
@@ -131,8 +163,13 @@ const LoggedNavbar = (props) => {
                                 });
                               }}
                             >
-                              {props.strings.ProfileListings &&
-                                props.strings.ProfileListings.jobMatchings}
+                              <div style={{ width: "25%" }}>
+                                <FontAwesomeIcon
+                                  icon={faBriefcase}
+                                  style={{ fontSize: 25 }}
+                                />
+                              </div>
+                              <div style={{width: "70%", marginRight: "5%"}}>Occupations</div>
                             </span>
                           )}
                           {currentUser.skills_done && (
@@ -149,8 +186,13 @@ const LoggedNavbar = (props) => {
                                 });
                               }}
                             >
-                              {props.strings.ProfileListings &&
-                                props.strings.ProfileListings.mySkills}
+                              <div style={{ width: "25%" }}>
+                                <FontAwesomeIcon
+                                  icon={faGraduationCap}
+                                  style={{ fontSize: 25 }}
+                                />
+                              </div>
+                              <div style={{width: "70%", marginRight: "5%"}}>Skills</div>
                             </span>
                           )}
 
@@ -159,11 +201,25 @@ const LoggedNavbar = (props) => {
                             className="dropdown-item profile-dropdown-item"
                             style={styles.dropdownItem}
                             onClick={() => {
-                              history.push("/todo");
+                              history.push({
+                                pathname: "/profile",
+                                state: {
+                                  from: true,
+                                  to: 4,
+                                },
+                              });
                             }}
                           >
-                            {props.strings.ProfileListings &&
-                              props.strings.ProfileListings.settings}
+                            <div style={{ width: "25%" }}>
+                              <FontAwesomeIcon
+                                icon={faCog}
+                                style={{ fontSize: 25 }}
+                              />
+                            </div>
+                            <div style={{width: "70%", marginRight: "5%"}}>
+                              {props.strings.ProfileListings &&
+                                props.strings.ProfileListings.settings}
+                            </div>
                           </span>
                           <span
                             className="dropdown-item logout-dropdown-item"
@@ -175,7 +231,13 @@ const LoggedNavbar = (props) => {
                               window.location.reload();
                             }}
                           >
-                            Logout
+                            <div style={{ width: "25%" }}>
+                              <FontAwesomeIcon
+                                icon={faSignOutAlt}
+                                style={{ fontSize: 25 }}
+                              />
+                            </div>
+                            <div style={{width: "70%", marginRight: "5%"}}>Logout</div>
                           </span>
                         </div>
                       </div>

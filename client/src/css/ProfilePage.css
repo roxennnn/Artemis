@@ -55,11 +55,6 @@ div.current-action-list-item {
   text-decoration: none;
 }
 
-.svg-inline--fa:not(.surveys-arrow):hover {
-  font-size: 120%;
-  transition: 1ms;
-}
-
 .surveys-arrow {
   font-size: 150%;
 }
@@ -77,13 +72,13 @@ img.profile-page-avatar:hover {
   transition: 0.2s !important;
 }
 
-.icon-box:hover {
+.icon-box:not(.icon-box-disabled):hover {
   background: linear-gradient(rgba(0, 150, 250, 0.5), transparent);
   background-color: #3b5998;
   cursor: pointer;
 }
 
-.icon-box:hover div {
+.icon-box:not(.icon-box-disabled):hover div {
   color: white;
 }
 
@@ -91,7 +86,7 @@ img.profile-page-avatar:hover {
   color: rgb(68, 66, 66);
 }
 
-.icon-box:hover .icon-hover {
+.icon-box:not(.icon-box-disabled):hover .icon-hover {
   color: white !important;
 }
 
@@ -103,4 +98,22 @@ img.profile-page-avatar:hover {
 
 .icon-box-active .icon-hover {
   color: white !important;
+}
+
+.icon-box-disabled {
+  opacity: 0.4 !important;
+}
+
+.survey-card-active {
+  opacity: 1 !important;
+}
+
+.btn-radius-disabled {
+  cursor: not-allowed !important;
+}
+
+.survey-card-active:hover .survey-card-title {
+  /* border-width: 2px !important; */
+  width: 90%;
+  text-align: center;
 }

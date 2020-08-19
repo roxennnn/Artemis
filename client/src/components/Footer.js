@@ -42,18 +42,21 @@ const Footer = (props) => {
           }}
         >
           <FontAwesomeIcon
+            className="footer-icon"
             icon={faFacebookF}
             title="Facebook"
             style={{ cursor: "pointer" }}
             size="lg"
           />
           <FontAwesomeIcon
+            className="footer-icon"
             icon={faTwitter}
             title="Twitter"
             style={{ marginLeft: "5%", cursor: "pointer" }}
             size="lg"
           />
           <FontAwesomeIcon
+            className="footer-icon"
             icon={faInstagram}
             title="Instagram"
             style={{ marginLeft: "5%", cursor: "pointer" }}

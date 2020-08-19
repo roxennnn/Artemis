@@ -1,4 +1,4 @@
-export const getCurrentDatetimeLong = () => {
+export const getCurrentDatetimeLongLong = () => {
   let objToday = new Date(),
     weekday = new Array(
       "Sunday",
@@ -71,15 +71,40 @@ export const getCurrentDatetimeLong = () => {
 
 export const getCurrentDatetime = () => {
   let objToday = new Date(),
-    weekday = new Array(
-      "Sun",
-      "Mon",
-      "Tue",
-      "Wed",
-      "Thu",
-      "Fri",
-      "Sat"
-    ),
+    domEnder = (function () {
+      var a = objToday;
+      if (/1/.test(parseInt((a + "").charAt(0)))) return "th";
+      a = parseInt((a + "").charAt(1));
+      return 1 == a ? "st" : 2 == a ? "nd" : 3 == a ? "rd" : "th";
+    })(),
+    dayOfMonth =
+      objToday.getDate() < 10 ? "0" + objToday.getDate() : objToday.getDate(),
+    curMonth = objToday.getMonth(),
+    curYear = objToday.getFullYear(),
+    curHour =
+      objToday.getHours() < 10
+        ? "0" + objToday.getHours()
+        : objToday.getHours(),
+    curMinute =
+      objToday.getMinutes() < 10
+        ? "0" + objToday.getMinutes()
+        : objToday.getMinutes();
+  let today =
+    curHour +
+    ":" +
+    curMinute +
+    " " +
+    dayOfMonth +
+    "/" +
+    curMonth +
+    "/" +
+    curYear;
+  return today;
+};
+
+export const getCurrentDatetimeLong = () => {
+  let objToday = new Date(),
+    weekday = new Array("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"),
     dayOfWeek = weekday[objToday.getDay()],
     domEnder = (function () {
       var a = objToday;

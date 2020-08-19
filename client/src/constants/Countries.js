@@ -1852,7 +1852,7 @@ export default [
     ],
   },
   {
-    name: "Venezuela, Bolivarian Republic of",
+    name: "Venezuela",
     value: 26,
     countryShortCode: "VE",
     regions: [

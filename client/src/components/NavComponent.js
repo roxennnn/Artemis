@@ -64,8 +64,11 @@ const NavComponent = (props) => {
 
   return (
     <nav
-      className="navbar navbar-expand-lg navbar-dark primary"
-      style={{ background: Colors.gradient }}
+      className="navbar sticky-top navbar-expand-lg navbar-dark primary"
+      style={{
+        background: Colors.gradient,
+        boxShadow: "0 4px 8px 0 rgba(0, 150, 250, 0.3)",
+      }}
     >
       <Link
         to={"/"}

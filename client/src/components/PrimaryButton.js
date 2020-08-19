@@ -12,12 +12,18 @@ const PrimaryButton = (props) => {
       }
       style={props.style}
     >
-      <a
+      <div
         className={
-          props.buttonClassName
+          props.disabled
+            ? props.buttonClassName
+              ? "btn-radius btn btn-radius-disabled " +
+                props.buttonClassName
+              : "btn-radius btn btn-radius-disabled"
+            : props.buttonClassName
             ? "btn-radius btn hover-opacity-button " + props.buttonClassName
             : "btn-radius btn hover-opacity-button"
         }
+
         style={{
           background: Colors.gradient,
           backgroundColor: Colors.primary,
@@ -25,10 +31,10 @@ const PrimaryButton = (props) => {
           ...props.buttonStyle,
         }}
         role="button"
-        onClick={props.onClick}
+        onClick={props.disabled ? "" : props.onClick}
       >
         {props.label}
-      </a>
+      </div>
     </div>
   );
 };

@@ -242,6 +242,12 @@ span.footer-link:hover {
   text-decoration: underline;
 }
 
+
+.footer-icon:hover {
+  font-size: 120%;
+  transition: 1ms;
+}
+
 /* Language Selector */
 .language-selector:hover {
   color: black !important;

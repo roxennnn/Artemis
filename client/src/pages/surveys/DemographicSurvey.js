@@ -532,7 +532,7 @@ const DemographicSurvey = (props) => {
   };
 
   return (
-    <div>
+    <div style={{ margin: "2%" }}>
       <CenterView
         middle={8}
         sides={2}

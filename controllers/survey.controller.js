@@ -11,8 +11,8 @@ const GAS_LIMIT = 5550000; // I DON'T KNOW HOW TO SET THIS VALUE!
 
 export const submitSurveyAnswers = async (req, res) => {
   // Debugging logs
-  console.log(req.body);
-  console.log(req.path);
+  // console.log(req.body);
+  // console.log(req.path);
 
   // Useful variables
   const survey = req.path.split("/api/survey/")[1];
@@ -22,7 +22,7 @@ export const submitSurveyAnswers = async (req, res) => {
   let userAddr;
 
   // Debugging logs
-  console.log(userId);
+  // console.log(userId);
 
   try {
     // Query mongoDB: get the corresponding Ethereum address
@@ -88,7 +88,9 @@ export const submitSurveyAnswers = async (req, res) => {
         .send({ from: OWNER_ADDR, gas: GAS_LIMIT });
 
       // CHECK WHAT IS SAVED IN THE BLOCKCHAIN
-      let result2 = await workUrFreedomContract.methods.getUserData().call({ from: userAddr });
+      let result2 = await workUrFreedomContract.methods
+        .getUserData()
+        .call({ from: userAddr });
       console.log(result2);
 
       const updateResult = await User.findOneAndUpdate(
@@ -128,15 +130,80 @@ export const queryProfileData = async (req, res) => {
         experience_timestamp: 1,
         skills_done: 1,
         skills_timestamp: 1,
+        eth_address: 1,
       }
     ).exec();
 
-    // console.log(user);
+    if (user.demographics_done) {
+      let demo = await workUrFreedomContract.methods
+        .getDemographicsData()
+        .call({ from: user.eth_address });
+
+      const returnUser = {
+        username: user.username,
+        demographics_done: user.demographics_done,
+        demographics_timestamp: user.demographics_timestamp,
+        experience_done: user.experience_done,
+        experience_timestamp: user.experience_timestamp,
+        skills_done: user.skills_done,
+        skills_timestamp: user.skills_timestamp,
+        location: [demo[1], demo[2]],
+      };
+      user = returnUser;
+    }
+
+    // user.location = [demo[1], demo[2]];
+    user.eth_address = "nope";
+
     res.status(200).send({ user });
     return;
   } catch (err) {
     console.log(err);
     res.status(500).send({ message: err });
     return;
+  }
+};
+
+export const resetSurveyData = async (req, res) => {
+  const userId = mongoose.Types.ObjectId(req.userId);
+  const survey = req.path.split("/api/survey/reset-")[1].split("-survey")[0];
+
+  console.log(survey);
+  // console.log("HEY");
+
+  if (survey === "demographic") {
+    User.update(
+      { _id: userId },
+      { $set: { demographics_done: false } },
+      function (err) {
+        if (err) {
+          console.log(`Reset error: ${err}.`);
+          return res.send(500, { error: err });
+        }
+        return res.send(200, "Succesfully resetted.");
+      }
+    );
+  } else if (survey === "skills") {
+    User.update({ _id: userId }, { $set: { skills_done: false } }, function (
+      err
+    ) {
+      if (err) {
+        console.log(`Reset error: ${err}.`);
+        return res.send(500, { error: err });
+      }
+      return res.send(200, "Succesfully resetted.");
+    });
+  } else if (survey === "experience") {
+    User.update(
+      { _id: userId },
+      { $set: { experience_done: false } },
+      function (err) {
+        if (err) {
+          console.log(`Reset error: ${err}.`);
+          return res.send(500, { error: err });
+        }
+        return res.send(200, "Succesfully resetted.");
+      }
+    );
   }
 };

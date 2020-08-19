@@ -34,6 +34,19 @@ class SurveyService {
     // console.log(response.data);
     return response.data;
   };
+
+  resetSurvey = async (href) => {
+    const header = authHeader();
+    const response = await axios.get(
+      API_URL + `reset-${href}`,
+      {
+        headers: header
+      }
+    );
+    // console.log(href);
+    // console.log(response.status);
+    return response.status;
+  };
 }
 
 export default new SurveyService();
