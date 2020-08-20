@@ -19,7 +19,11 @@ const Footer = (props) => {
         flexShrink: 0,
       }}
     >
-      <hr />
+      <hr
+        style={{
+          marginTop: 0,
+        }}
+      />
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div
           class="container"
@@ -47,6 +51,7 @@ const Footer = (props) => {
             title="Facebook"
             style={{ cursor: "pointer" }}
             size="lg"
+            color={Colors.primary}
           />
           <FontAwesomeIcon
             className="footer-icon"
@@ -54,6 +59,7 @@ const Footer = (props) => {
             title="Twitter"
             style={{ marginLeft: "5%", cursor: "pointer" }}
             size="lg"
+            color={Colors.primary}
           />
           <FontAwesomeIcon
             className="footer-icon"
@@ -61,6 +67,7 @@ const Footer = (props) => {
             title="Instagram"
             style={{ marginLeft: "5%", cursor: "pointer" }}
             size="lg"
+            color={Colors.primary}
           />
         </div>
       </div>

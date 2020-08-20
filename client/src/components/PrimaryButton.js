@@ -10,6 +10,7 @@ const PrimaryButton = (props) => {
           ? "center-col col " + props.divClassName
           : "center-col col"
       }
+      title={props.title}
       style={props.style}
     >
       <div

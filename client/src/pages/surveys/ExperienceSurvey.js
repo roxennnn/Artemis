@@ -605,7 +605,7 @@ const ExperienceSurvey = (props) => {
         pathname: "/profile",
         state: {
           from: true,
-          to: 1,
+          to: 0,
         },
       });
     } catch (err) {
@@ -625,7 +625,7 @@ const ExperienceSurvey = (props) => {
                 pathname: "/profile",
                 state: {
                   from: true,
-                  to: 1,
+                  to: 0,
                 },
               });
             }}

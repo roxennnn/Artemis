@@ -38,6 +38,7 @@ const containerStyle = {
 
 const DemographicSurvey = (props) => {
   const { strings } = useContext(LanguageContext);
+  const [submitError, setSubmitError] = useState(false);
 
   // QUESTIONS' DATA
 
@@ -398,6 +399,8 @@ const DemographicSurvey = (props) => {
 
   // SUBMIT button
   const onSubmit = async () => {
+    setSubmitError(false);
+
     // Check if values are set
     let noErrors = true;
 
@@ -518,7 +521,7 @@ const DemographicSurvey = (props) => {
           pathname: "/profile",
           state: {
             from: true,
-            to: 1,
+            to: 0,
           },
         });
       } catch (err) {
@@ -527,6 +530,7 @@ const DemographicSurvey = (props) => {
     } else {
       // red border
       // actually don't need to do anything
+      setSubmitError(true);
       console.log("SOme errors found");
     }
   };
@@ -543,7 +547,7 @@ const DemographicSurvey = (props) => {
                 pathname: "/profile",
                 state: {
                   from: true,
-                  to: 1,
+                  to: 0,
                 },
               });
             }}
@@ -556,6 +560,10 @@ const DemographicSurvey = (props) => {
             {strings.Profile &&
               strings.Profile.ProfileSurveys.DemographicsSurvey.title}
           </h3>
+          <div>
+            {strings.Profile &&
+              strings.Profile.ProfileSurveys.DemographicsSurvey.introduction}
+          </div>
           <Dropdrown
             valueList={ages}
             value={howOldAreYouValue}
@@ -708,6 +716,14 @@ const DemographicSurvey = (props) => {
           />
         </div>
       </CenterView>
+      {submitError && (
+        <div style={{ color: "red", textAlign: "center", fontSize: 16, marginTop: "0.5%", marginBottom: "0.5%" }}>
+          {
+              strings.Profile &&
+              strings.Profile.ProfileSurveys.youMustAnswerToAllTheQuestions
+            }
+        </div>
+      )}
       <PrimaryButton
         label={
           strings.Profile &&

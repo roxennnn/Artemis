@@ -36,12 +36,22 @@ const LoginComponent = (props) => {
   };
 
   return (
-    <div className="col-md-12">
+    <div className={props.show ? "" : "col-md-12"}>
       <Form>
         <Form.Group controlId="formUsername">
+          <div>
+            {props.show && (
+              <Form.Label style={{ fontSize: 22 }}>Username</Form.Label>
+            )}
+          </div>
           <Form.Control
             type="text"
-            placeholder="Username"
+            placeholder={
+              props.show
+                ? props.strings.SignupPage &&
+                  props.strings.SignupPage.enterYourUsername
+                : "Username"
+            }
             onChange={(username) => setUsernameValue(username.target.value)}
             value={usernameValue}
             onKeyPress={(event) => {
@@ -53,6 +63,13 @@ const LoginComponent = (props) => {
         </Form.Group>
 
         <Form.Group controlId="formBasicPassword">
+          <div>
+            {props.show && (
+              <Form.Label style={{ fontSize: 22 }}>
+                {props.strings.SignupPage && props.strings.SignupPage.password}
+              </Form.Label>
+            )}
+          </div>
           <Form.Control
             type="password"
             placeholder={
@@ -68,7 +85,10 @@ const LoginComponent = (props) => {
             }}
           />
         </Form.Group>
-        <div className="help-block text-right hover-underline" style={{ color: Colors.primary }}>
+        <div
+          className="help-block text-right hover-underline"
+          style={{ color: Colors.primary }}
+        >
           <a href="/todo" style={{ color: Colors.primary }}>
             {props.strings.NavComponent &&
               props.strings.NavComponent.LoginNavbar.forgotPassword}

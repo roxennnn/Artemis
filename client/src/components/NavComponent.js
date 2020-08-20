@@ -67,7 +67,7 @@ const NavComponent = (props) => {
       className="navbar sticky-top navbar-expand-lg navbar-dark primary"
       style={{
         background: Colors.gradient,
-        boxShadow: "0 4px 8px 0 rgba(0, 150, 250, 0.3)",
+        boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
       }}
     >
       <Link
@@ -112,7 +112,7 @@ const NavComponent = (props) => {
             }}
           >
             <button
-              style={{ background: "None", border: "None" }}
+              style={{ background: "None", border: "None", display: "flex", alignItems: "center", outline: "none" }}
               class="dropdown-toggle"
               type="button"
               id="dropdownMenuButton"

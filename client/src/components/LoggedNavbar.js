@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
 
+import Colors from "../constants/Colors";
+
 import {
   faBriefcase,
   faCog,
@@ -32,7 +34,7 @@ const styles = {
     flexDirection: "row",
     alignItems: "center",
     // justifyContent: "space-evenly",
-    width: "100%"
+    width: "100%",
   },
 };
 
@@ -98,7 +100,10 @@ const LoggedNavbar = (props) => {
                     src={avatar2}
                   />
                 </a>
-                <ul className="dropdown-menu dropdown-menu-right">
+                <ul
+                  className="dropdown-menu dropdown-menu-right"
+                  style={{ backgroundColor: Colors.primary, opacity: 0.9 }}
+                >
                   <li>
                     <div className="row">
                       <div className="col-xl">
@@ -119,11 +124,12 @@ const LoggedNavbar = (props) => {
                           >
                             <div style={{ width: "25%" }}>
                               <FontAwesomeIcon
+                                className="profile-dropdown-icon"
                                 icon={faUser}
                                 style={{ fontSize: 25 }}
                               />
                             </div>
-                            <div style={{width: "70%", marginRight: "5%"}}>
+                            <div style={{ width: "70%", marginRight: "5%" }}>
                               {props.strings.ProfileListings &&
                                 props.strings.ProfileListings.profile}
                             </div>
@@ -143,11 +149,15 @@ const LoggedNavbar = (props) => {
                           >
                             <div style={{ width: "25%" }}>
                               <FontAwesomeIcon
+                                className="profile-dropdown-icon"
                                 icon={faComment}
                                 style={{ fontSize: 25 }}
                               />
                             </div>
-                            <div style={{width: "70%", marginRight: "5%"}}>Messages</div>
+                            <div style={{ width: "70%", marginRight: "5%" }}>
+                            {props.strings.ProfileListings &&
+                                props.strings.ProfileListings.messages}
+                            </div>
                           </span>
                           {currentUser.skills_done && (
                             <span
@@ -165,11 +175,15 @@ const LoggedNavbar = (props) => {
                             >
                               <div style={{ width: "25%" }}>
                                 <FontAwesomeIcon
+                                  className="profile-dropdown-icon"
                                   icon={faBriefcase}
                                   style={{ fontSize: 25 }}
                                 />
                               </div>
-                              <div style={{width: "70%", marginRight: "5%"}}>Occupations</div>
+                              <div style={{ width: "70%", marginRight: "5%" }}>
+                              {props.strings.ProfileListings &&
+                                props.strings.ProfileListings.occupations}
+                              </div>
                             </span>
                           )}
                           {currentUser.skills_done && (
@@ -188,11 +202,15 @@ const LoggedNavbar = (props) => {
                             >
                               <div style={{ width: "25%" }}>
                                 <FontAwesomeIcon
+                                  className="profile-dropdown-icon"
                                   icon={faGraduationCap}
                                   style={{ fontSize: 25 }}
                                 />
                               </div>
-                              <div style={{width: "70%", marginRight: "5%"}}>Skills</div>
+                              <div style={{ width: "70%", marginRight: "5%" }}>
+                              {props.strings.ProfileListings &&
+                                props.strings.ProfileListings.skills}
+                              </div>
                             </span>
                           )}
 
@@ -212,11 +230,12 @@ const LoggedNavbar = (props) => {
                           >
                             <div style={{ width: "25%" }}>
                               <FontAwesomeIcon
+                                className="profile-dropdown-icon"
                                 icon={faCog}
                                 style={{ fontSize: 25 }}
                               />
                             </div>
-                            <div style={{width: "70%", marginRight: "5%"}}>
+                            <div style={{ width: "70%", marginRight: "5%" }}>
                               {props.strings.ProfileListings &&
                                 props.strings.ProfileListings.settings}
                             </div>
@@ -237,7 +256,9 @@ const LoggedNavbar = (props) => {
                                 style={{ fontSize: 25 }}
                               />
                             </div>
-                            <div style={{width: "70%", marginRight: "5%"}}>Logout</div>
+                            <div style={{ width: "70%", marginRight: "5%" }}>
+                              Logout
+                            </div>
                           </span>
                         </div>
                       </div>

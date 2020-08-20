@@ -1,7 +1,6 @@
 import React from "react";
 
 import SurveyCard from "./SurveyCard";
-import profileBanner from "../../images/en/profileBanner.png";
 
 // showValue = 0
 const ProfileInfo = (props) => {
@@ -9,8 +8,9 @@ const ProfileInfo = (props) => {
     <div>
       <img
         alt=""
-        src={profileBanner}
+        src={require(`../../images/${props.language}/Profile/profileBanner.png`)}
         style={{
+          width: "100%",
           borderRadius: 10,
           marginBottom: "5%",
           boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.3)",
@@ -23,15 +23,19 @@ const ProfileInfo = (props) => {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "center",
-          // textAlign: "center",
-          // borderStyle: "dotted",
-          // borderColor: "red",
         }}
       >
         <SurveyCard
-          title="Demographic Survey"
+          strings={props.strings}
+          title={
+            props.strings.Profile &&
+            props.strings.Profile.ProfileSurveys.DemographicsSurvey.title
+          }
           active={true}
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          description={
+            props.strings.Profile &&
+            props.strings.Profile.ProfileSurveys.DemographicsSurvey.description
+          }
           href="demographic-survey"
           done={props.currentUser.demographics_done}
           timestamp={props.currentUser.demographics_timestamp}
@@ -39,12 +43,19 @@ const ProfileInfo = (props) => {
           cardStyle={{ marginLeft: "1.5%" }}
         />
         <SurveyCard
-          title="Skills Survey"
+          strings={props.strings}
+          title={
+            props.strings.Profile &&
+            props.strings.Profile.ProfileSurveys.SkillsSurvey.title
+          }
           active={
             props.currentUser.demographics_done ||
             props.currentUser.experience_done
           }
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          description={
+            props.strings.Profile &&
+            props.strings.Profile.ProfileSurveys.SkillsSurvey.description
+          }
           href="skills-survey"
           done={props.currentUser.skills_done}
           timestamp={props.currentUser.skills_timestamp}
@@ -52,13 +63,20 @@ const ProfileInfo = (props) => {
           cardStyle={{ marginLeft: "3%", marginRight: "3%" }}
         />
         <SurveyCard
-          title="Your Experience Survey"
+          strings={props.strings}
+          title={
+            props.strings.Profile &&
+            props.strings.Profile.ProfileSurveys.ExperienceSurvey.title
+          }
           active={
             (props.currentUser.demographics_done &&
               props.currentUser.skills_done) ||
             props.currentUser.experience_done
           }
-          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          description={
+            props.strings.Profile &&
+            props.strings.Profile.ProfileSurveys.ExperienceSurvey.description
+          }
           href="experience-survey"
           done={props.currentUser.experience_done}
           timestamp={props.currentUser.experience_timestamp}

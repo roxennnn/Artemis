@@ -1,68 +1,94 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Spinner } from "react-bootstrap";
-import Unauthorised from "../components/Unauthorised";
 
-import Colors from "../constants/Colors";
 import CenterView from "../components/CenterView";
 
-import SurveyService from "../services/survey.service";
-
-// Profile components
-import ActionListItem from "../components/profileComponents/ActionListItem";
-import ProfileIntro from "../components/profileComponents/ProfileIntro";
-import ProfileSurveys from "../components/profileComponents/ProfileSurveys";
+import ProfileInfo from "../components/profileComponents/ProfileInfo";
 import ProfileMatchings from "../components/profileComponents/ProfileMatchings";
 import ProfileSkills from "../components/profileComponents/ProfileSkills";
 
-import "../css/ProfilePage.css";
+import Colors from "../constants/Colors";
+import Countries from "../constants/Countries";
 
-// Multilingual
+import {
+  faMapMarkerAlt,
+  faBriefcase,
+  faCog,
+  faTools,
+  faUtensils,
+  faUser,
+  faDice,
+  faHammer,
+  faGraduationCap,
+  faComment,
+  faSignOutAlt,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import SurveyService from "../services/survey.service";
+import AuthService from "../services/auth.service";
+
 import { LanguageContext } from "../languages/LanguageProvider";
 
-// images
-import avatar from "../images/avatar.png";
 import avatar2 from "../images/avatar2.png";
 
+import "../css/ProfilePage.css";
+
 const styles = {
-  redBox: {
-    borderWidth: 4,
-    borderColor: "red",
-    // borderStyle: "solid",
-  },
-  userBox: {
-    background: Colors.gradient,
-    backgroundColor: Colors.primary,
-    borderRadius: 20,
-  },
   someInfo: {
-    width: "90%",
+    width: "72%",
     paddingLeft: "3%",
-  },
-  rowBox: {
-    display: "flex",
-    flexDirection: "row",
-  },
-  actionListItem: {
-    borderColor: Colors.primary,
-    borderBottomoWidth: 1,
-    borderBottomStyle: "solid",
-    paddingTop: "1.5%",
-    paddingBottom: "1.5%",
-  },
-  firstListItem: {
-    borderTopWidth: 3,
-    borderTopStyle: "solid",
-  },
-  actionListText: {
-    marginLeft: "3%",
   },
 };
 
-const ProfilePage = (props) => {
-  const { strings, language, updateLanguage } = useContext(LanguageContext);
+const IconBox = (props) => {
+  return (
+    <div
+      className={
+        props.title === "Logout"
+          ? "icon-box-logout"
+          : props.disabled
+          ? "icon-box icon-box-disabled"
+          : props.active
+          ? "icon-box icon-box-active"
+          : "icon-box"
+      }
+      style={{
+        // borderStyle: "solid",
+        // borderWidth: 1,
+        borderColor: Colors.primary,
+        borderRadius: 10,
+        padding: 30,
+        margin: 5,
+        // height: 100,
 
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        ...props.style,
+      }}
+      onClick={props.disabled ? "" : props.onClick}
+    >
+      <FontAwesomeIcon
+        icon={props.icon}
+        className="icon-hover"
+        style={{ fontSize: 28 }}
+      />
+      <div style={{ textAlign: "center" }}>{props.title}</div>
+    </div>
+  );
+};
+
+// TODO
+// - Add sort buttons in occupations and skills
+
+const ProfilePage = (props) => {
+  const { strings, language } = useContext(LanguageContext);
+
+  const [showValue, setShowValue] = useState(0);
   const [currentUser, setCurrentUser] = useState(); // data of logged user
   const [loading, setLoading] = useState(false);
+  const [location, setLocation] = useState();
 
   const asyncQueryProfileData = async () => {
     const user = await SurveyService.queryProfileData();
@@ -78,41 +104,52 @@ const ProfilePage = (props) => {
   useEffect(() => {
     if (currentUser) {
       setLoading(false);
+      if (currentUser.location) {
+        const country = Countries[currentUser.location[0] - 1];
+        setLocation(
+          `${country.name}, ${
+            country.regions[currentUser.location[1] - 1].name
+          }`
+        );
+      }
     }
   }, [currentUser]);
 
-  const fetchLanguage = async () => {
-    const lang = await localStorage.getItem("language");
-    updateLanguage(lang);
-  };
-
+  // Handle done surveys
+  const [completionBorder, setCompletionBorder] = useState(
+    `white white ${Colors.primary} white`
+  );
   useEffect(() => {
-    fetchLanguage();
-  }, []);
-
-  const [showValue, setShowValue] = useState(0);
-  // 0: ProfileIntro
-  // 1: ProfileSurveys
-  // 2: ProfileMatchings
-  // 3: ProfileSkills
+    if (currentUser) {
+      let counter = 0;
+      if (currentUser.demographics_done) {
+        counter++;
+      }
+      if (currentUser.experience_done) {
+        counter++;
+      }
+      if (currentUser.skills_done) {
+        counter++;
+      }
+      if (counter === 1) {
+        setCompletionBorder(`white white ${Colors.primary} ${Colors.primary}`);
+      } else if (counter === 2) {
+        setCompletionBorder(
+          `${Colors.primary} white ${Colors.primary} ${Colors.primary}`
+        );
+      } else if (counter === 3) {
+        setCompletionBorder(
+          `${Colors.primary} ${Colors.primary} ${Colors.primary} ${Colors.primary}`
+        );
+      }
+    }
+  }, [currentUser]);
 
   useEffect(() => {
     if (props.location.state && props.location.state.from) {
       setShowValue(props.location.state.to);
     }
   }, [props.location.state]); // remove the dependecy??
-
-  const onClickActionListHandler = (value) => {
-    setShowValue(value);
-  };
-
-  const onGoToSurveys = () => {
-    setShowValue(1);
-  };
-
-  const onGoToMatchings = () => {
-    setShowValue(2);
-  };
 
   return (
     <div style={{ margin: "2%" }}>
@@ -125,151 +162,200 @@ const ProfilePage = (props) => {
       ) : (
         <div>
           {currentUser && (
-            <div
-              className="my-container"
-              style={{ width: "100%", height: "100%", ...styles.redBox }}
-            >
+            <div className="my-container" style={{ width: "100%" }}>
               <div
                 className="my-row"
-                style={{ display: "flex", flexDirection: "row" }}
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                }}
               >
                 <div
                   id="left-box"
-                  style={{ width: "25%", height: "100%", ...styles.redBox }}
+                  style={{
+                    width: "25%",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
                 >
                   <div
-                    className="user-box"
                     style={{
-                      ...styles.userBox,
-                      ...styles.redBox,
                       display: "flex",
                       alignItems: "center",
                       flexDirection: "column",
-                      padding: "3%",
-                      margin: "2%",
-                      width: "95%",
-                      height: "20%",
+                      width: "90%",
+                      height: 680,
+
+                      borderStyle: "solid",
+                      borderColor: "#ccc",
+                      borderWidth: 1,
+                      borderRadius: 10,
+                      boxShadow: "0 8px 16px 0 rgba(59, 89, 152, 0.2)",
                     }}
                   >
                     <img
                       style={{
                         width: "38%",
-                        marginBottom: "5%",
-                        marginTop: "3%",
+                        marginTop: "6%",
+                        // borderStyle: "initial",
                         borderStyle: "solid",
-                        borderColor: "white",
+                        borderColor: completionBorder,
+                        borderWidth: 8,
+                        // borderBottomWidth: 6,
+                        borderBottomStyle: "dotted",
+                        padding: 3,
+                        cursor: "pointer",
                       }}
                       className="rounded-pill profile-page-avatar"
                       alt=""
+                      title={strings.Profile && strings.Profile.changeAvatar}
                       src={avatar2}
                       // src="https://bootdey.com/img/Content/avatar/avatar9.png"
                     />
-                    <div
-                      style={{
-                        color: Colors.accent,
-                        fontSize: 28,
-                        marginBottom: "3%",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      {currentUser ? currentUser.username : ""}
+                    <div style={{ fontSize: 24, marginTop: "2%" }}>
+                      <b>{currentUser ? currentUser.username : ""}</b>
                     </div>
-                    <button
-                      type="button"
-                      className="btn btn-outline-light"
-                      onClick={() => {
-                        props.history.push("/todo");
-                      }}
+                    {location && (
+                      <div style={{ textAlign: "center" }}>
+                        <FontAwesomeIcon
+                          icon={faMapMarkerAlt}
+                          color={Colors.primary}
+                        />
+                        <span style={{ marginLeft: 5 }}>{location}</span>
+                        <br />
+                      </div>
+                    )}
+                    <hr
                       style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        marginTop: "10%",
-                        marginBottom: "2%",
-                        fontSize: 22,
+                        width: "90%",
+                        marginLeft: "5%",
+                        marginRight: "5%",
                       }}
-                    >
-                      {strings.Profile && strings.Profile.manageProfile}
-                    </button>
-                  </div>
-
-                  <div
-                    id="actions-list"
-                    style={{
-                      width: "95%",
-                      ...styles.redBox,
-                      fontSize: 22,
-                      margin: "2%",
-                      marginTop: "15%",
-                    }}
-                  >
-                    <ActionListItem
-                      title={
-                        strings.ProfileListings &&
-                        strings.ProfileListings.summary
-                      }
-                      style={styles.firstListItem}
-                      value={0}
-                      current={showValue === 0}
-                      onClick={onClickActionListHandler}
                     />
-                    <ActionListItem
-                      title={
-                        strings.ProfileListings &&
-                        strings.ProfileListings.surveys
-                      }
-                      value={1}
-                      current={showValue === 1}
-                      onClick={onClickActionListHandler}
-                    />
-                    {currentUser.skills_done && (
-                      <ActionListItem
-                        title={
-                          strings.ProfileListings &&
-                          strings.ProfileListings.jobMatchings
-                        }
-                        value={2}
-                        current={showValue === 2}
-                        onClick={onClickActionListHandler}
-                      />
-                    )}
-                    {currentUser.skills_done && (
-                      <ActionListItem
-                        title={
-                          strings.ProfileListings &&
-                          strings.ProfileListings.mySkills
-                        }
-                        value={3}
-                        current={showValue === 3}
-                        onClick={onClickActionListHandler}
-                      />
-                    )}
+                    <div>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          // justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        <IconBox
+                          title={
+                            strings.ProfileListings &&
+                            strings.ProfileListings.profile
+                          }
+                          icon={faUser}
+                          style={{ width: 130, marginRight: 15 }}
+                          active={showValue === 0}
+                          onClick={() => {
+                            setShowValue(0);
+                          }}
+                        />
+                        <IconBox
+                          title={
+                            strings.ProfileListings &&
+                            strings.ProfileListings.messages
+                          }
+                          icon={faComment}
+                          style={{ width: 130, marginLeft: 15 }}
+                          active={showValue === 1}
+                          onClick={() => {
+                            setShowValue(1);
+                          }}
+                        />
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          // justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        <IconBox
+                          title={
+                            strings.ProfileListings &&
+                            strings.ProfileListings.occupations
+                          }
+                          icon={faBriefcase}
+                          style={{ width: 130, marginRight: 15 }}
+                          disabled={!currentUser.skills_done}
+                          active={showValue === 2}
+                          onClick={() => {
+                            setShowValue(2);
+                          }}
+                        />
+                        <IconBox
+                          title={
+                            strings.ProfileListings &&
+                            strings.ProfileListings.skills
+                          }
+                          icon={faGraduationCap}
+                          style={{ width: 130, marginLeft: 15 }}
+                          disabled={!currentUser.skills_done}
+                          active={showValue === 3}
+                          onClick={() => {
+                            setShowValue(3);
+                          }}
+                        />
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          // justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        <IconBox
+                          title={
+                            strings.ProfileListings &&
+                            strings.ProfileListings.settings
+                          }
+                          icon={faCog}
+                          style={{ width: 130, marginRight: 15 }}
+                          active={showValue === 4}
+                          onClick={() => {
+                            setShowValue(4);
+                          }}
+                        />
+                        <IconBox
+                          title="Logout"
+                          icon={faSignOutAlt}
+                          style={{ width: 130, marginLeft: 15 }}
+                          onClick={() => {
+                            AuthService.logout();
+                            localStorage.setItem("language", language);
+                            props.history.push("/");
+                            window.location.reload();
+                          }}
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
-
+                {/* left-box */}
                 <div
                   id="right-box"
                   className="some-info"
-                  style={{ ...styles.redBox, ...styles.someInfo }}
+                  style={{ ...styles.someInfo }}
                 >
                   {showValue === 0 && (
-                    <ProfileIntro
+                    <ProfileInfo
+                      history={props.history}
                       currentUser={currentUser}
-                      onGoToSurveys={onGoToSurveys}
-                      strings={strings}
-                    />
-                  )}
-                  {showValue === 1 && (
-                    <ProfileSurveys
-                      currentUser={currentUser}
+                      language={language}
                       strings={strings}
                     />
                   )}
                   {showValue === 2 && (
                     <ProfileMatchings language={language} strings={strings} />
                   )}
-                  {showValue === 3 && <ProfileSkills language={language} />}
+                  {showValue === 3 && (
+                    <ProfileSkills language={language} strings={strings} />
+                  )}
                 </div>
               </div>
             </div>

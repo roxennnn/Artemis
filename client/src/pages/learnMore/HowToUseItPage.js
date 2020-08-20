@@ -1,36 +1,37 @@
-import React from "react";
+import React, { useContext } from "react";
 
-import infographic1 from "../../images/en/howtouse_citizen.png";
-import infographic2 from "../../images/en/howtouse_organisation.png";
 import Colors from "../../constants/Colors";
 
+import { LanguageContext } from "../../languages/LanguageProvider";
+
 const HowToUseItPage = (props) => {
+  const { language } = useContext(LanguageContext);
   return (
-    <div style={{ width: "100%", backgroundColor: Colors.infographics2 }}>
+    <div style={{ width: "100%", backgroundColor: Colors.learnMoreInfographics }}>
       <div
         style={{
           width: "90%",
           marginLeft: "5%",
           marginRight: "5%",
-          paddingTop: "3%"
+          paddingTop: "3%",
         }}
       >
-        {/* <div style={{ height: 100 }}></div> */}
         <img
+          id="woman"
           style={{
             width: "100%",
             marginBottom: "8%",
           }}
           alt=""
-          src={infographic1}
+          src={require(`../../images/${language}/LearnMore/howtouseit_citizen.png`)}
         />
-        {/* <div style={{backgroundColor: Colors.infographics, height: 100}}></div> */}
         <img
+          id="organisation"
           style={{
             width: "100%",
           }}
           alt=""
-          src={infographic2}
+          src={require(`../../images/${language}/LearnMore/howtouseit_organisation.png`)}
         />
         <div style={{ height: 100 }}></div>
       </div>

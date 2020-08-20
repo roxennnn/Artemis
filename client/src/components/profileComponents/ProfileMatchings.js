@@ -7,8 +7,9 @@ import CenterView from "../CenterView";
 import MatchingRow from "./MatchingRow";
 import PrimaryButton from "../PrimaryButton";
 
+import Colors from "../../constants/Colors";
+
 import laura from "../../images/laura.png";
-import occupationBanner from "../../images/en/occupationBanner.png";
 
 //showValue = 2
 const ProfileMatchings = (props) => {
@@ -47,15 +48,22 @@ const ProfileMatchings = (props) => {
         </CenterView>
       ) : (
         <div style={{ width: "100%" }}>
-          <img
-            alt=""
-            src={occupationBanner}
-            style={{
-              borderRadius: 10,
-              marginBottom: "1%",
-              boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.3)",
-            }}
-          />
+          <div style={{
+            backgroundColor: Colors.profileBannerInfographics,
+            width: "100%",
+            borderRadius: 10,
+            marginBottom: "1%",
+            boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.3)",
+            paddingBottom: "1%",
+          }}>
+            <img
+              alt=""
+              src={require(`../../images/${language}/Profile/occupationsBanner.png`)}
+              style={{
+                width: "100%",
+              }}
+            />
+          </div>
           <div style={{ width: "100%", display: "flex", flexDirection: "row" }}>
             <div id="left-box" style={{ width: showAll ? "50%" : "65%" }}>
               {occupationMatchings && (
@@ -99,7 +107,7 @@ const ProfileMatchings = (props) => {
                       })}
                     </div>
                   ) : (
-                    <img src={laura} alt="" />
+                    <img src={laura} alt="" style={{ width: "100%" }} />
                   )}
                 </div>
               )}

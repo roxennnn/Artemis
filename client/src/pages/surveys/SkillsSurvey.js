@@ -12,6 +12,7 @@ import { LanguageContext } from "../../languages/LanguageProvider";
 
 const SkillsSurvey = (props) => {
   const { strings, language } = useContext(LanguageContext);
+  const [submitError, setSubmitError] = useState(false);
 
   // Change background color
   useEffect(() => {
@@ -206,6 +207,8 @@ const SkillsSurvey = (props) => {
 
   // SUBMIT button
   const onSubmit = async () => {
+    setSubmitError(false);
+
     // Check if values are set
     let noErrors = true;
 
@@ -282,13 +285,14 @@ const SkillsSurvey = (props) => {
           pathname: "/profile",
           state: {
             from: true,
-            to: 1,
+            to: 0,
           },
         });
       } catch (err) {
         console.log(err);
       }
     } else {
+      setSubmitError(true);
       // red border
       // actually don't need to do anything
       console.log("Some errors found");
@@ -307,7 +311,7 @@ const SkillsSurvey = (props) => {
                 pathname: "/profile",
                 state: {
                   from: true,
-                  to: 1,
+                  to: 0,
                 },
               });
             }}
@@ -320,6 +324,10 @@ const SkillsSurvey = (props) => {
             {strings.Profile &&
               strings.Profile.ProfileSurveys.SkillsSurvey.title}
           </h3>
+          <div>
+            {strings.Profile &&
+              strings.Profile.ProfileSurveys.SkillsSurvey.introduction}
+          </div>
         </div>
         <div>
           <TableQuestions
@@ -448,6 +456,19 @@ const SkillsSurvey = (props) => {
           />
         </div>
       </CenterView>
+      {submitError && (
+        <div
+          style={{
+            color: "red",
+            textAlign: "center",
+            fontSize: 16,
+            marginTop: "0.5%",
+            marginBottom: "0.5%",
+          }}
+        >
+          You must answer to all the questions!
+        </div>
+      )}
       <PrimaryButton
         label={
           strings.Profile &&

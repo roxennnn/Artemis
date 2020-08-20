@@ -21,56 +21,68 @@ export default {
     },
     contactUs: "Contáctenos",
   },
+  LandingPage: {
+    learnMore: "Aprende más",
+  },
   SignupPage: {
     registerForFree: "¡Registrate gratis!",
     areYouA: "Eres una ...?",
     citizen: "Ciudadana",
     organisation: "Organización",
-    CitizenSignUp: {
-      citizenSignUp: "Registro ciudadana",
-      enterYourUsername: "Entra tu username",
-      emailAddress: "Dirección de correo",
-      enterYourEmailAddress: "Entra tu dirección de correo",
-      invalidEmail: "La dirección de correo no es válida.",
-      confirmEmailAddress: "Confirmar el correo",
-      reEnterYourEmailAddress: "Vuelva a introducir su dirección de correo",
-      emailsDontMatch: "Las direcciones de correo no coinciden.",
-      password: "Contraseña",
-      passwordLength: "La contraseña debe tener al menos 8 caracteres.",
-      confirmPassword: "Confirmar contraseña",
-      passwordsDontMatch: "Las contraseñas no coinciden.",
-      neverShare: "Nunca compartiremos su información personal con nadie más.",
-      agreeTo: "Acepta los",
-      terms: "términos",
-      and: "y",
-      conditions: "condiciones",
-      youMustAgree: "Debes estar de acuerdo antes de enviar.",
-      register: "Registrarse",
-    },
+    notAWoman: "¿No eres una mujer?",
+    notAnOrganisation: "¿No es una organización?",
+    signupQuestion: "¿Aún no tienes una cuenta? ¡Registrate gratis!",
+    citizenSignUp: "Registro de mujer",
+    organisationSignUp: "Registro de la organización",
+    organisationName: "Nombre de la organización",
+    enterOrganisationName: "Ingrese el nombre de la organización",
+    enterYourUsername: "Entra tu username",
+    emailAddress: "Dirección de correo",
+    enterYourEmailAddress: "Entra tu dirección de correo",
+    invalidEmail: "La dirección de correo no es válida.",
+    confirmEmailAddress: "Confirmar el correo",
+    reEnterYourEmailAddress: "Vuelva a introducir su dirección de correo",
+    emailsDontMatch: "Las direcciones de correo no coinciden.",
+    password: "Contraseña",
+    passwordLength: "La contraseña debe tener al menos 8 caracteres.",
+    confirmPassword: "Confirmar contraseña",
+    passwordsDontMatch: "Las contraseñas no coinciden.",
+    neverShare: "Nunca compartiremos su información personal con nadie más.",
+    agreeTo: "Acepta los",
+    terms: "términos",
+    and: "y",
+    conditions: "condiciones",
+    youMustAgree: "Debes estar de acuerdo antes de enviar.",
+    register: "Registrarse",
   },
   ProfileListings: {
     profile: "Perfil",
-    surveys: "Encuestas",
-    jobMatchings: "Emparejamientos de trabajo",
-    mySkills: "Mis habilidades",
-    settings: "Configuraciones",
-    summary: "Resumen",
+    messages: "Mensajes",
+    occupations: "Ocupaciones",
+    skills: "Habilidades",
+    settings: "Ajustes",
   },
   Profile: {
     manageProfile: "Administrar perfil",
     surveysCompleted: "Encuestas completadas:",
+    changeAvatar: "Cambiar avatar",
     ProfileIntro: {
       goToSurveys: "Ir a encuestas",
       topMatching: "Coincidencia superior:",
     },
     ProfileSurveys: {
-      demographics: "Demografía",
-      yourSkills: "Tus habilidades",
-      yourExperience: "Tu experiencia",
-      takenAt: "Realizada en",
+      takeSurvey: "Realizar encuesta",
+      resetAnswers: "Restablecer respuestas",
+      retakeSurvey: "Volver a realizar la encuesta",
+      lastAccess: "Ultimo acceso:",
       youMustAnswerToThisQuestion: "¡Debes responder a esta pregunta!",
+      youMustAnswerToAllTheQuestions: "¡Debes responder a todas las preguntas!",
       DemographicsSurvey: {
         title: "Encuesta demográfica",
+        description:
+          "Compartir con nosotros parte de su información personal nos ayudará a crear su perfil y conocerlo mejor.",
+        introduction:
+          "Al completar esta sección, nos ayudará a crear su perfil y comprender sus antecedentes. Esto es muy importante porque contribuirá aún más a encontrar el trabajo adecuado para usted, adecuado para su edad, horario de ubicación, etc. Su información se mantiene confidencial.",
         howOldAreYou: "¿Cuantos años tienes?",
         selectYourAge: "Seleccione su edad",
         younger: "17 años o menos",
@@ -118,8 +130,10 @@ export default {
         },
         mainlyWork: {
           title: "¿Qué haces principalmente por trabajo?",
-          fullTimeRegularSalary: "Trabajar a tiempo completo por un salario regular",
-          partTimeRegularSalary: "Trabajar a tiempo parcial por un salario regular",
+          fullTimeRegularSalary:
+            "Trabajar a tiempo completo por un salario regular",
+          partTimeRegularSalary:
+            "Trabajar a tiempo parcial por un salario regular",
           occasionally:
             "Trabajar ocasionalmente, salario irregular (siempre que el trabajo esté disponible)",
           perSeason:
@@ -136,6 +150,10 @@ export default {
       },
       SkillsSurvey: {
         title: "Encuesta de habilidades",
+        description:
+          "¡Muéstranos lo que puedes hacer! Responda algunas preguntas sencillas para ver qué carrera es la mejor para usted.",
+        introduction:
+          "Esta sección contiene preguntas que nos darán información sobre las habilidades y habilidades que tiene y que pueden emplearse en el mercado laboral. Tómese su tiempo y léalos atentamente, una vez que complete esto, podrá ver sus posibles trayectorias profesionales, mientras más precisas sean sus respuestas, mejores resultados obtendrá. Su información se mantiene confidencial.",
         categories: es_categories,
         beginner: "Principiante",
         intermediate: "Intermedia",
@@ -175,6 +193,8 @@ export default {
       },
       ExperienceSurvey: {
         title: "Sobre tu experiencia",
+        description:
+          "Informarnos sobre su relación puede ayudarnos a comprender si trabajar les ayuda a usted y a otras mujeres a estar seguras.",
         submit: "Enviar",
         introduction:
           "Cuando dos personas se casan o viven juntas, por lo general comparten buenos y malos momentos. Me gustaría hacerle algunas preguntas sobre sus relaciones actuales y pasadas y cómo su esposo / pareja la trata (o la trata). Me gustaría asegurarle que sus respuestas se mantendrán en secreto y que no tendrá que responder ninguna pregunta que no desee.",
@@ -194,7 +214,8 @@ export default {
           second: "Te menospreció o te humilló frente a otras personas",
           third:
             "Hizo algo a propósito para asustarlo o intimidarlo (por ejemplo, por la forma en que lo mira, grita o destruye cosas)",
-          fourth: "Amenazado con hacerle daño a usted oa alguien importante para usted",
+          fourth:
+            "Amenazado con hacerle daño a usted oa alguien importante para usted",
           fifth: "Amenazada con llevar a tus hijos",
         },
         q3: {
@@ -203,8 +224,7 @@ export default {
           first:
             "Tu esposo (pareja) se pone celoso o enojado si hablas (ed) con otro hombre",
           second: "Con frecuencia te acusa de infiel",
-          third:
-            "Te impide visitar o recibir visitas de tus amigos",
+          third: "Te impide visitar o recibir visitas de tus amigos",
           fourth: "Intenta limitar sus visitas / contacto con su familia",
           fifth: "Insiste en saber a donde vas en todo momento",
           sixth: "No te confía el dinero",
@@ -223,8 +243,7 @@ export default {
             "Me gustaría preguntarle si en algún momento de su vida su esposo / compañero de vida o cualquier otro compañero con quien estuvo casado o en una relación ha hecho alguna de las siguientes cosas:",
           first: "Te abofeteó o te arrojó algo que podría lastimarte",
           second: "Te empujó, te empujó o te tiró del pelo",
-          third:
-            "Te golpeó con el puño o con algo más que pudiera lastimarte",
+          third: "Te golpeó con el puño o con algo más que pudiera lastimarte",
           fourth: "Te pateó, te arrastró o te golpeó",
           fifth: "Intenté asfixiarte o quemarte a propósito",
           sixth:
@@ -280,8 +299,8 @@ export default {
       showAll: "Mostrar Todo",
       OccupationDetails: {
         requiredSkills: "Habilidades requeridas",
-        affinity: "Afinidad"
-      }
+        affinity: "Afinidad",
+      },
     },
     ProfileSkills: {},
   },

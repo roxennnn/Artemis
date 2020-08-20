@@ -1,10 +1,6 @@
-/* .red-box {
-  border-style: solid;
-  border-width: 5px !important;
-  border-color: red !important;
-} */
 .btn-outline-light:hover {
-  color: #3b5998 !important;
+  /* color: #3b5998 !important; */
+  color: #3c286d !important;
 }
 
 div.some-info > div {
@@ -13,21 +9,19 @@ div.some-info > div {
 }
 
 div.action-list-item:hover {
-  background: linear-gradient(rgba(0, 150, 250, 0.5), transparent);
-  background-color: #3b5998;
+  /* background: linear-gradient(rgba(0, 150, 250, 0.5), transparent); */
+  /* background-color: #3b5998; */
+  background-color: #3c286d;
   color: white;
   cursor: pointer;
 }
 
 div.current-action-list-item {
-  background: linear-gradient(rgba(0, 150, 250, 0.5), transparent);
-  background-color: #3b5998;
+  /* background: linear-gradient(rgba(0, 150, 250, 0.5), transparent); */
+  /* background-color: #3b5998; */
+  background-color: #3c286d;
   color: white;
 }
-
-/* #inside {
-  background: linear-gradient(rgba(0,150,250,0.5),transparent)
-}  */
 
 .hover-border {
   border-style: solid;
@@ -38,8 +32,9 @@ div.current-action-list-item {
 }
 
 .hover-border:hover {
-  border-color: #3b5998;
-  box-shadow: 0 4px 8px 0 rgba(59, 89, 152, 0.2);
+  /* border-color: #3b5998; */
+  border-color: #3c286d;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.2s;
 }
 
@@ -73,8 +68,9 @@ img.profile-page-avatar:hover {
 }
 
 .icon-box:not(.icon-box-disabled):hover {
-  background: linear-gradient(rgba(0, 150, 250, 0.5), transparent);
-  background-color: #3b5998;
+  /* background: linear-gradient(rgba(0, 150, 250, 0.5), transparent); */
+  /* background-color: #3b5998; */
+  background-color: #3c286d;
   cursor: pointer;
 }
 
@@ -82,18 +78,32 @@ img.profile-page-avatar:hover {
   color: white;
 }
 
+.icon-box:not(.icon-box-disabled):hover .icon-hover {
+  color: white !important;
+}
+
 .icon-hover {
   color: rgb(68, 66, 66);
 }
 
-.icon-box:not(.icon-box-disabled):hover .icon-hover {
+.icon-box-logout:hover {
+  background-color: #bb1b2b;
+  cursor: pointer;
+}
+
+.icon-box-logout:hover div {
+  color: white;
+}
+
+.icon-box-logout:hover .icon-hover {
   color: white !important;
 }
 
 .icon-box-active {
   color: white !important;
-  background: linear-gradient(rgba(0, 150, 250, 0.5), transparent);
-  background-color: #3b5998;
+  /* background: linear-gradient(rgba(0, 150, 250, 0.5), transparent); */
+  /* background-color: #3b5998; */
+  background-color: #3c286d;
 }
 
 .icon-box-active .icon-hover {
@@ -113,7 +123,8 @@ img.profile-page-avatar:hover {
 }
 
 .survey-card-active:hover .survey-card-title {
-  /* border-width: 2px !important; */
+  border-width: 2px !important;
+  margin:-1px;
   width: 90%;
   text-align: center;
 }

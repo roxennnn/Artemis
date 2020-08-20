@@ -9,7 +9,6 @@ import PrimaryButton from "../PrimaryButton";
 import ProgressBar from "../ProgressBar";
 
 import image from "../../images/woman.png";
-import skillBanner from "../../images/en/skillBanner.png";
 
 const SkillRow = (props) => {
   return (
@@ -84,15 +83,24 @@ const ProfileSkills = (props) => {
         </CenterView>
       ) : (
         <div style={{ width: "100%" }}>
-          <img
-            alt=""
-            src={skillBanner}
+          <div
             style={{
+              backgroundColor: Colors.profileBannerInfographics,
+              width: "100%",
               borderRadius: 10,
               marginBottom: "1%",
               boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.3)",
+              paddingBottom: "1%",
             }}
-          />
+          >
+            <img
+              alt=""
+              src={require(`../../images/${language}/Profile/skillsBanner.png`)}
+              style={{
+                width: "100%",
+              }}
+            />
+          </div>
           <div style={{ width: "100%", display: "flex", flexDirection: "row" }}>
             <div id="left-box" style={{ width: showAll ? "50%" : "65%" }}>
               {skills && (
@@ -136,7 +144,7 @@ const ProfileSkills = (props) => {
                       })}
                     </div>
                   ) : (
-                    <img src={image} alt="" />
+                    <img src={image} alt="" style={{ width: "100%" }} />
                   )}
                 </div>
               )}

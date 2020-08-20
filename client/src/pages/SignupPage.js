@@ -5,11 +5,13 @@ import CenterView from "../components/CenterView";
 import CitizenSignUp from "../components/CitizenSignUp";
 import OrganisationSignUp from "../components/OrganisationSignUp";
 import PrimaryButton from "../components/PrimaryButton";
+import Colors from "../constants/Colors";
 
 import { LanguageContext } from "../languages/LanguageProvider";
 
 import "../css/SignupPage.css";
 import BackButton from "../components/BackButton";
+import LoginComponent from "../components/LoginComponent";
 
 const styles = {
   buttons: {
@@ -19,7 +21,7 @@ const styles = {
 };
 
 const SignupPage = (props) => {
-  const { strings, updateLanguage } = useContext(LanguageContext);
+  const { strings, language, updateLanguage } = useContext(LanguageContext);
   const [userType, setUserType] = useState("None");
 
   const fetchLanguage = async () => {
@@ -32,7 +34,7 @@ const SignupPage = (props) => {
   }, []);
 
   return (
-    <div style={{ margin: 50 }}>
+    <div style={{ margin: "3%" }}>
       <CenterView
         left={
           userType !== "None" ? (
@@ -40,7 +42,13 @@ const SignupPage = (props) => {
               onClick={() => {
                 setUserType("None");
               }}
-              label={strings.back && strings.back}
+              label={
+                userType === "Citizen"
+                  ? strings.SignupPage && strings.SignupPage.notAWoman
+                  : userType === "Organisation"
+                  ? strings.SignupPage && strings.SignupPage.notAnOrganisation
+                  : strings.back && strings.back
+              }
             />
           ) : null
         }
@@ -71,10 +79,43 @@ const SignupPage = (props) => {
           </Container>
         )}
         {userType === "Citizen" && (
-          <CitizenSignUp history={props.history} strings={strings} />
+          <CitizenSignUp
+            history={props.history}
+            strings={strings}
+            onChangeUserType={setUserType}
+          />
         )}
         {userType === "Organisation" && (
-          <OrganisationSignUp history={props.history} strings={strings} />
+          <OrganisationSignUp
+            history={props.history}
+            strings={strings}
+            onChangeUserType={setUserType}
+          />
+        )}
+        {userType.split("-")[0] === "Login" && (
+          <div>
+            <h3>Login</h3>
+            <LoginComponent
+              history={props.history}
+              strings={strings}
+              show={true}
+              language={language}
+            />
+            <div
+              className="hover-underline"
+              style={{
+                textAlign: "center",
+                marginTop: "2%",
+                color: Colors.primary,
+                fontSize: 20,
+              }}
+              onClick={() => {
+                setUserType(userType.split("-")[1]);
+              }}
+            >
+              {strings.SignupPage && strings.SignupPage.signupQuestion}{" "}
+            </div>
+          </div>
         )}
       </CenterView>
     </div>

@@ -32,7 +32,7 @@ const SurveyCard = (props) => {
 
         padding: 20,
         opacity: 0.5,
-        ...props.cardStyle
+        ...props.cardStyle,
       }}
     >
       <div
@@ -65,9 +65,12 @@ const SurveyCard = (props) => {
                 <FontAwesomeIcon
                   icon={faTrash}
                   className="survey-card-icon"
-                  title="Reset answers"
                   style={{ color: Colors.accent, fontSize: 22 }}
                 />
+              }
+              title={
+                props.strings.Profile &&
+                props.strings.Profile.ProfileSurveys.resetAnswers
               }
               onClick={async () => {
                 const status = await SurveyService.resetSurvey(props.href);
@@ -89,9 +92,12 @@ const SurveyCard = (props) => {
                 <FontAwesomeIcon
                   icon={faRedoAlt}
                   className="survey-card-icon"
-                  title="Retake survey"
                   style={{ color: Colors.accent, fontSize: 22 }}
                 />
+              }
+              title={
+                props.strings.Profile &&
+                props.strings.Profile.ProfileSurveys.retakeSurvey
               }
               onClick={onClickHandler}
               buttonStyle={{
@@ -103,15 +109,20 @@ const SurveyCard = (props) => {
             />
           </div>
           <div style={{ fontSize: 20, marginTop: "2%", textAlign: "center" }}>
-            Last access: {props.timestamp}
+            {props.strings.Profile &&
+              props.strings.Profile.ProfileSurveys.lastAccess}{" "}
+            {props.timestamp}
           </div>
         </div>
       ) : (
         <PrimaryButton
-          label="Take Survey"
+          label={
+            props.strings.Profile &&
+            props.strings.Profile.ProfileSurveys.takeSurvey
+          }
           onClick={onClickHandler}
           disabled={!props.active}
-          buttonStyle={{fontSize: 20}}
+          buttonStyle={{ fontSize: 20 }}
         />
       )}
     </div>

@@ -19,39 +19,6 @@ div.switch-content {
   flex: 1 !important;
 }
 
-label {
-  display: block;
-  margin-top: 10px;
-}
-
-.card-container.card {
-  max-width: 350px !important;
-  padding: 40px 40px;
-}
-
-.card {
-  background-color: #f7f7f7;
-  padding: 20px 25px 30px;
-  margin: 0 auto 25px;
-  margin-top: 50px;
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
-  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-}
-
-.profile-img-card {
-  width: 96px;
-  height: 96px;
-  margin: 0 auto 10px;
-  display: block;
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-}
-
 .btn-radius {
   width: 30%;
   min-width: 200px;
@@ -93,8 +60,8 @@ label {
 }
 
 nav.primary {
-  background-color: #3b5998 !important;
-  /* background-color: #25318d !important; */
+  /* background-color: #3b5998 !important; */
+  background-color: #3c286d !important;
   color: "#FFFFFF" !important;
 }
 
@@ -104,9 +71,10 @@ nav.primary {
 }
 
 .nav-link:hover {
-  color: #000 !important;
+  color: #ec9fa4 !important;
 }
 
+/* LoginNavbar.js */
 .nav-text {
   color: rgb(200, 200, 200) !important;
 }
@@ -122,15 +90,15 @@ nav.primary {
   text-decoration: none;
 }
 
-.dropdown .btn:active {
+/* ? */
+/* .dropdown .btn:active {
   color: #000;
-}
+} */
 
 @media screen and (min-width: 990px) {
   .dropdown:hover .dropdown-menu:not(.dropdown-flags) {
     display: block;
   }
-
 }
 
 @media screen and (max-width: 990px) {
@@ -139,7 +107,8 @@ nav.primary {
   }
 
   .dropdown-menu.dropdown-item div {
-    color: #3b5998 !important;
+    /* color: #3b5998 !important; */
+    color: #3c286d !important;
   }
 
   a.btn {
@@ -148,7 +117,7 @@ nav.primary {
 
   .dropdown-menu div.dropdown-item:hover {
     background: none;
-    color: #000 !important;
+    color: #ec9fa4 !important;
   }
 }
 
@@ -162,30 +131,50 @@ div.flag-dropdown-label {
 }
 
 div.flag-dropdown-item:hover div.flag-dropdown-label {
-  color: black;
+  color: #ec9fa4;
 }
 
 .dropdown-menu-learnmore {
   /* background-color: #3b5998; */
   /* background-color: #25318d; */
   /* opacity: 0.7; */
-  background: linear-gradient(rgba(0, 150, 250, 0.3), transparent);
-  background-color: rgba(59, 89, 152, 0.8);
+  /* background: linear-gradient(rgba(0, 150, 250, 0.3), transparent); */
+  /* background-color: rgba(59, 89, 152, 0.8); */
+  background-color: #3c286d;
+  opacity: 0.8;
 }
 
 .dropdown-menu div.dropdown-item:hover {
   background: none;
-  color: #000;
+  color: #ec9fa4;
+}
+
+.profile-dropdown-item div {
+  color: white;
+}
+
+.profile-dropdown-item:hover div {
+  color: #ec9fa4 !important;
+}
+
+.profile-dropdown-icon {
+  color: white;
+}
+
+.profile-dropdown-item:hover .profile-dropdown-icon {
+  color: #ec9fa4 !important;
 }
 
 .profile-dropdown-item:hover {
-  color: #3b5998 !important;
+  /* color: #3b5998 !important; */
+  color: #ec9fa4 !important;
+  background-color: rgb(85, 64, 138, 0.4);
   cursor: pointer;
 }
 
 a.profile-nav-link:hover * {
-  border-color: black !important;
-  color: black !important;
+  border-color: #ec9fa4 !important;
+  color: #ec9fa4 !important;
 }
 
 a.profile-nav-link:hover img {
@@ -195,7 +184,8 @@ a.profile-nav-link:hover img {
 
 span.logout-dropdown-item:hover {
   color: red !important;
-  background-color: white !important;
+  background-color: rgba(220, 53, 69, 0.2) !important;
+  /* opacity: 1 !important; */
   cursor: pointer;
 }
 
@@ -242,7 +232,6 @@ span.footer-link:hover {
   text-decoration: underline;
 }
 
-
 .footer-icon:hover {
   font-size: 120%;
   transition: 1ms;
@@ -252,4 +241,23 @@ span.footer-link:hover {
 .language-selector:hover {
   color: black !important;
   cursor: pointer;
+}
+
+.dropdown-toggle::after {
+  color: white !important;
+  text-align: center;
+}
+
+/* Spinner */
+div.text-primary {
+  color: #3c286d !important;
+}
+
+/* Sign-up pages */
+.error-checkbox {
+  color: #dc3545 !important;
+}
+
+div.form-group input.form-control {
+  font-size: 18px !important;
 }
