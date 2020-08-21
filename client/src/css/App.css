@@ -4,11 +4,14 @@
   display: flex !important;
   flex-direction: column !important;
   min-height: 100vh;
+  --primary-color: #3c286d;
+  --accent-color: white;
+  --pink-accent-color: #ec9fa4;
 }
 
 body {
   /* background-color: #f3f6f8; */
-  background-color: white;
+  background-color: var(--accent-color);
   width: 100%;
 }
 
@@ -61,17 +64,17 @@ div.switch-content {
 
 nav.primary {
   /* background-color: #3b5998 !important; */
-  background-color: #3c286d !important;
-  color: "#FFFFFF" !important;
+  background-color: var(--primary-color) !important;
+  color: var(--accent-color) !important;
 }
 
 .nav-link {
-  color: white !important;
+  color: var(--accent-color) !important;
   font-size: 18px;
 }
 
 .nav-link:hover {
-  color: #ec9fa4 !important;
+  color: var(--pink-accent-color) !important;
 }
 
 /* LoginNavbar.js */
@@ -86,7 +89,7 @@ nav.primary {
 /* Dropdown */
 
 .dropdown .dropdown-menu:not(.dropdown-menu-right) div {
-  color: #fff;
+  color: var(--accent-color);
   text-decoration: none;
 }
 
@@ -103,21 +106,23 @@ nav.primary {
 
 @media screen and (max-width: 990px) {
   .dropdown-menu-learnmore {
-    background-color: rgba(255, 255, 255, 0.9) !important;
+    /* background-color: rgba(255, 255, 255, 0.9) !important; */
+    background-color: var(--accent-color) !important;
+    opacity: 0.9 !important;
   }
 
   .dropdown-menu.dropdown-item div {
     /* color: #3b5998 !important; */
-    color: #3c286d !important;
+    color: var(--primary-color) !important;
   }
 
   a.btn {
-    color: white !important;
+    color: var(--accent-color) !important;
   }
 
   .dropdown-menu div.dropdown-item:hover {
     background: none;
-    color: #ec9fa4 !important;
+    color: var(--pink-accent-color) !important;
   }
 }
 
@@ -127,11 +132,11 @@ div.flag-dropdown-item:hover {
 }
 
 div.flag-dropdown-label {
-  color: white;
+  color: var(--accent-color);
 }
 
 div.flag-dropdown-item:hover div.flag-dropdown-label {
-  color: #ec9fa4;
+  color: var(--pink-accent-color);
 }
 
 .dropdown-menu-learnmore {
@@ -140,41 +145,43 @@ div.flag-dropdown-item:hover div.flag-dropdown-label {
   /* opacity: 0.7; */
   /* background: linear-gradient(rgba(0, 150, 250, 0.3), transparent); */
   /* background-color: rgba(59, 89, 152, 0.8); */
-  background-color: #3c286d;
+  background-color: var(--primary-color);
   opacity: 0.8;
 }
 
 .dropdown-menu div.dropdown-item:hover {
   background: none;
-  color: #ec9fa4;
+  color: var(--pink-accent-color);
 }
 
 .profile-dropdown-item div {
-  color: white;
+  color: var(--accent-color);
 }
 
 .profile-dropdown-item:hover div {
-  color: #ec9fa4 !important;
+  color: var(--pink-accent-color) !important;
 }
 
 .profile-dropdown-icon {
-  color: white;
+  color: var(--accent-color);
 }
 
 .profile-dropdown-item:hover .profile-dropdown-icon {
-  color: #ec9fa4 !important;
+  color: var(--pink-accent-color) !important;
 }
 
 .profile-dropdown-item:hover {
   /* color: #3b5998 !important; */
-  color: #ec9fa4 !important;
-  background-color: rgb(85, 64, 138, 0.4);
+  color: var(--pink-accent-color) !important;
+  /* background-color: rgb(85, 64, 138, 0.4); */
+  background-color: var(--primary-color);
+  opacity: 0.4;
   cursor: pointer;
 }
 
 a.profile-nav-link:hover * {
-  border-color: #ec9fa4 !important;
-  color: #ec9fa4 !important;
+  border-color: var(--pink-accent-color) !important;
+  color: var(--pink-accent-color) !important;
 }
 
 a.profile-nav-link:hover img {
@@ -194,7 +201,9 @@ span.logout-dropdown-item:hover {
   min-width: 350px;
   padding: 14px 14px 0;
   overflow: hidden;
-  background-color: rgba(255, 255, 255, 0.9);
+  /* background-color: rgba(255, 255, 255, 0.9); */
+  background-color: var(--accent-color);
+  opacity: 0.9;
 }
 
 #login-dp .help-block {
@@ -214,7 +223,9 @@ span.logout-dropdown-item:hover {
   /* min-width: 350px; */
   width: auto;
   display: block;
-  background-color: rgba(255, 255, 255, 0.8);
+  /* background-color: rgba(255, 255, 255, 0.8); */
+  background-color: var(--accent-color);
+  opacity: 0.8;
   border-top: 1px solid #ddd;
   clear: both;
   padding: 14px;
@@ -244,13 +255,13 @@ span.footer-link:hover {
 }
 
 .dropdown-toggle::after {
-  color: white !important;
+  color: var(--accent-color) !important;
   text-align: center;
 }
 
 /* Spinner */
 div.text-primary {
-  color: #3c286d !important;
+  color: var(--primary-color) !important;
 }
 
 /* Sign-up pages */

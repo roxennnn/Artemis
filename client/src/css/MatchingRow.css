@@ -5,8 +5,3 @@ div.occupation-row:hover {
   box-shadow: 0 4px 8px 4px rgba(0, 0, 0, 0.2) !important;
   transition: 0.2s !important;
 }
-
-/* div.occupation-row:hover div.occupation-title {
-  color: blue;
-  text-decoration: underline;
-} */

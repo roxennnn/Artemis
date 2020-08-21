@@ -1,6 +1,6 @@
 .btn-outline-light:hover {
   /* color: #3b5998 !important; */
-  color: #3c286d !important;
+  color: var(--primary-color) !important;
 }
 
 div.some-info > div {
@@ -11,29 +11,29 @@ div.some-info > div {
 div.action-list-item:hover {
   /* background: linear-gradient(rgba(0, 150, 250, 0.5), transparent); */
   /* background-color: #3b5998; */
-  background-color: #3c286d;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--accent-color);
   cursor: pointer;
 }
 
 div.current-action-list-item {
   /* background: linear-gradient(rgba(0, 150, 250, 0.5), transparent); */
   /* background-color: #3b5998; */
-  background-color: #3c286d;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--accent-color);
 }
 
 .hover-border {
   border-style: solid;
   border-radius: 20px;
-  border-color: white;
+  border-color: var(--accent-color);
   cursor: pointer;
   padding: 10px;
 }
 
 .hover-border:hover {
   /* border-color: #3b5998; */
-  border-color: #3c286d;
+  border-color: var(--primary-color);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.2s;
 }
@@ -70,16 +70,16 @@ img.profile-page-avatar:hover {
 .icon-box:not(.icon-box-disabled):hover {
   /* background: linear-gradient(rgba(0, 150, 250, 0.5), transparent); */
   /* background-color: #3b5998; */
-  background-color: #3c286d;
+  background-color: var(--primary-color);
   cursor: pointer;
 }
 
 .icon-box:not(.icon-box-disabled):hover div {
-  color: white;
+  color: var(--accent-color);
 }
 
 .icon-box:not(.icon-box-disabled):hover .icon-hover {
-  color: white !important;
+  color: var(--accent-color) !important;
 }
 
 .icon-hover {
@@ -92,22 +92,22 @@ img.profile-page-avatar:hover {
 }
 
 .icon-box-logout:hover div {
-  color: white;
+  color: var(--accent-color);
 }
 
 .icon-box-logout:hover .icon-hover {
-  color: white !important;
+  color: var(--accent-color) !important;
 }
 
 .icon-box-active {
-  color: white !important;
+  color: var(--accent-color) !important;
   /* background: linear-gradient(rgba(0, 150, 250, 0.5), transparent); */
   /* background-color: #3b5998; */
-  background-color: #3c286d;
+  background-color: var(--primary-color);
 }
 
 .icon-box-active .icon-hover {
-  color: white !important;
+  color: var(--accent-color) !important;
 }
 
 .icon-box-disabled {

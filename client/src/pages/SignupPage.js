@@ -9,7 +9,6 @@ import Colors from "../constants/Colors";
 
 import { LanguageContext } from "../languages/LanguageProvider";
 
-import "../css/SignupPage.css";
 import BackButton from "../components/BackButton";
 import LoginComponent from "../components/LoginComponent";
 

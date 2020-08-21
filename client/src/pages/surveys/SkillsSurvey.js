@@ -130,7 +130,7 @@ const SkillsSurvey = (props) => {
   // QUESTIONS's STATE
 
   // - 1.
-  const [t1Value, setT1Value] = useState(new Array(t1.length - 1).fill(0));
+  const [t1Value, setT1Value] = useState([]);
   const [t1Error, setT1Error] = useState(false);
 
   const t1Handler = (e) => {
@@ -141,7 +141,7 @@ const SkillsSurvey = (props) => {
   };
 
   // - 2.
-  const [t2Value, setT2Value] = useState(new Array(t2.length - 1).fill(0));
+  const [t2Value, setT2Value] = useState([]);
   const [t2Error, setT2Error] = useState(false);
 
   const t2Handler = (e) => {
@@ -152,7 +152,7 @@ const SkillsSurvey = (props) => {
   };
 
   // - 3.
-  const [t3Value, setT3Value] = useState(new Array(t3.length - 1).fill(0));
+  const [t3Value, setT3Value] = useState([]);
   const [t3Error, setT3Error] = useState(false);
 
   const t3Handler = (e) => {
@@ -163,7 +163,7 @@ const SkillsSurvey = (props) => {
   };
 
   // - 4.
-  const [t4Value, setT4Value] = useState(new Array(t4.length - 1).fill(0));
+  const [t4Value, setT4Value] = useState([]);
   const [t4Error, setT4Error] = useState(false);
 
   const t4Handler = (e) => {
@@ -174,7 +174,7 @@ const SkillsSurvey = (props) => {
   };
 
   // - 5.
-  const [t5Value, setT5Value] = useState(new Array(t5.length - 1).fill(0));
+  const [t5Value, setT5Value] = useState([]);
   const [t5Error, setT5Error] = useState(false);
 
   const t5Handler = (e) => {
@@ -185,7 +185,7 @@ const SkillsSurvey = (props) => {
   };
 
   // - 6.
-  const [t6Value, setT6Value] = useState(new Array(t6.length - 1).fill(0));
+  const [t6Value, setT6Value] = useState([]);
   const [t6Error, setT6Error] = useState(false);
 
   const t6Handler = (e) => {
@@ -197,12 +197,14 @@ const SkillsSurvey = (props) => {
 
   // To fix empty arrays error
   useEffect(() => {
-    setT1Value(new Array(t1.length - 1).fill(0));
-    setT2Value(new Array(t2.length - 1).fill(0));
-    setT3Value(new Array(t3.length - 1).fill(0));
-    setT4Value(new Array(t4.length - 1).fill(0));
-    setT5Value(new Array(t5.length - 1).fill(0));
-    setT6Value(new Array(t6.length - 1).fill(0));
+    if (t1Value.length < 1) {
+      setT1Value(new Array(t1.length - 1).fill(0));
+      setT2Value(new Array(t2.length - 1).fill(0));
+      setT3Value(new Array(t3.length - 1).fill(0));
+      setT4Value(new Array(t4.length - 1).fill(0));
+      setT5Value(new Array(t5.length - 1).fill(0));
+      setT6Value(new Array(t6.length - 1).fill(0));
+    }
   }, [strings]);
 
   // SUBMIT button
@@ -466,7 +468,8 @@ const SkillsSurvey = (props) => {
             marginBottom: "0.5%",
           }}
         >
-          You must answer to all the questions!
+          {strings.Profile &&
+            strings.Profile.ProfileSurveys.youMustAnswerToAllTheQuestions}
         </div>
       )}
       <PrimaryButton
