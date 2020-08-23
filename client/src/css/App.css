@@ -272,3 +272,10 @@ div.text-primary {
 div.form-group input.form-control {
   font-size: 18px !important;
 }
+
+/* Landing Page buttons */
+img.infographic-buttons:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2) !important;
+  transition: 0.2s !important;
+  cursor: pointer;
+}

@@ -12,12 +12,6 @@ import LoggedNavbar from "./LoggedNavbar";
 // Multilingual
 import { LanguageContext } from "../languages/LanguageProvider";
 
-const styles = {
-  languages: {
-    color: Colors.accent,
-  },
-};
-
 const LanguageComponent = (props) => {
   return (
     <div
@@ -80,7 +74,7 @@ const NavComponent = (props) => {
         }}
       >
         {/* <img src={logo} className="nav-logo" alt="logo" /> */}
-        <div style={{ fontSize: 28 }}>Work Your Freedom</div>
+        <div style={{ fontSize: 28 }}>A R T E M I S</div>
         {/* <div style={{ fontSize: 18 }}>
           Find the job that best fits your skills!
         </div> */}
@@ -112,7 +106,13 @@ const NavComponent = (props) => {
             }}
           >
             <button
-              style={{ background: "None", border: "None", display: "flex", alignItems: "center", outline: "none" }}
+              style={{
+                background: "None",
+                border: "None",
+                display: "flex",
+                alignItems: "center",
+                outline: "none",
+              }}
               class="dropdown-toggle"
               type="button"
               id="dropdownMenuButton"
@@ -214,7 +214,7 @@ const NavComponent = (props) => {
             </div>
           </li>
 
-          {props.currentUser && (
+          {props.currentUser && !props.currentUser.organisation && (
             <li className="nav-item">
               <Link to={"/forum"} className="nav-link">
                 Forum

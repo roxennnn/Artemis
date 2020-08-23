@@ -147,7 +147,7 @@ export const queryProfileData = async (req, res) => {
         experience_timestamp: user.experience_timestamp,
         skills_done: user.skills_done,
         skills_timestamp: user.skills_timestamp,
-        location: [demo[1], demo[2]],
+        geoPosition: [demo[1], demo[2]],
       };
       user = returnUser;
     }

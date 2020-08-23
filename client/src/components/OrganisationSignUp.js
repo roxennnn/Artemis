@@ -92,7 +92,8 @@ const OrganisationSignUp = (props) => {
 
     if (noErrors) {
       try {
-        await AuthService.registerCitizen(usernameValue, emailValue, pass);
+        const response = await AuthService.registerOrganisation(usernameValue, emailValue, pass);
+        console.log(response);
         props.history.push("/home");
         window.location.reload();
         // props.history.push("/profile");
@@ -291,7 +292,7 @@ const OrganisationSignUp = (props) => {
         onClick={submitHandler}
       />
 
-<div
+      <div
         className="hover-underline"
         style={{
           textAlign: "center",

@@ -14,11 +14,11 @@ import {
   faMapMarkerAlt,
   faBriefcase,
   faCog,
-  faTools,
-  faUtensils,
+  // faTools,
+  // faUtensils,
   faUser,
-  faDice,
-  faHammer,
+  // faDice,
+  // faHammer,
   faGraduationCap,
   faComment,
   faSignOutAlt,
@@ -88,7 +88,7 @@ const ProfilePage = (props) => {
   const [showValue, setShowValue] = useState(0);
   const [currentUser, setCurrentUser] = useState(); // data of logged user
   const [loading, setLoading] = useState(false);
-  const [location, setLocation] = useState();
+  const [geoPosition, setGeoPosition] = useState();
 
   const asyncQueryProfileData = async () => {
     const user = await SurveyService.queryProfileData();
@@ -104,11 +104,11 @@ const ProfilePage = (props) => {
   useEffect(() => {
     if (currentUser) {
       setLoading(false);
-      if (currentUser.location) {
-        const country = Countries[currentUser.location[0] - 1];
-        setLocation(
+      if (currentUser.geoPosition) {
+        const country = Countries[currentUser.geoPosition[0] - 1];
+        setGeoPosition(
           `${country.name}, ${
-            country.regions[currentUser.location[1] - 1].name
+            country.regions[currentUser.geoPosition[1] - 1].name
           }`
         );
       }
@@ -145,11 +145,12 @@ const ProfilePage = (props) => {
     }
   }, [currentUser]);
 
+  const { location } = props;
   useEffect(() => {
-    if (props.location.state && props.location.state.from) {
-      setShowValue(props.location.state.to);
+    if (location.state && location.state.from) {
+      setShowValue(location.state.to);
     }
-  }, [props.location.state]); // remove the dependecy??
+  }, [location.state]); 
 
   return (
     <div style={{ margin: "2%" }}>
@@ -215,13 +216,13 @@ const ProfilePage = (props) => {
                     <div style={{ fontSize: 24, marginTop: "2%" }}>
                       <b>{currentUser ? currentUser.username : ""}</b>
                     </div>
-                    {location && (
+                    {geoPosition && (
                       <div style={{ textAlign: "center" }}>
                         <FontAwesomeIcon
                           icon={faMapMarkerAlt}
                           color={Colors.primary}
                         />
-                        <span style={{ marginLeft: 5 }}>{location}</span>
+                        <span style={{ marginLeft: 5 }}>{geoPosition}</span>
                         <br />
                       </div>
                     )}

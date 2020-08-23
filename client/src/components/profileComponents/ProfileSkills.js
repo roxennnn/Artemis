@@ -8,7 +8,7 @@ import CenterView from "../CenterView";
 import PrimaryButton from "../PrimaryButton";
 import ProgressBar from "../ProgressBar";
 
-import image from "../../images/woman.png";
+import image from "../../images/women/woman1.png";
 
 const SkillRow = (props) => {
   return (

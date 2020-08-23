@@ -42,6 +42,10 @@ const CustomCountryDropdown = (props) => {
           props.strings.Profile.ProfileSurveys.DemographicsSurvey.selectCountry
       );
     }
+    setCurrentCountry(
+      props.strings.Profile &&
+        props.strings.Profile.ProfileSurveys.DemographicsSurvey.selectCountry
+    );
   }, [strings]);
 
   const [currentRegion, setCurrentRegion] = useState(

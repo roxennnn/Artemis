@@ -30,6 +30,7 @@ const LandingPage = (props) => {
         <img
           style={{
             width: "100%",
+            paddingRight: 5,
           }}
           alt=""
           src={require(`../images/${language}/Home/homeBanner.png`)}
@@ -38,22 +39,93 @@ const LandingPage = (props) => {
 
       <div>
         {!currentUser && (
-          <img
-            style={{
-              width: "100%",
-              paddingTop: "3%",
-            }}
-            alt=""
-            src={require(`../images/en/Home/homeRegister.png`)}
-          />
+          <div>
+            <img
+              style={{
+                width: "100%",
+                paddingTop: "3%",
+              }}
+              alt=""
+              src={require(`../images/${language}/Home/registrationBanner.png`)}
+            />
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-around",
+                marginRight: "10%",
+                marginLeft: "12%",
+              }}
+            >
+              <div
+                onClick={() => {
+                  localStorage.setItem("language", language);
+                  props.history.push({
+                    pathname: "/signup",
+                    state: {
+                      from: true,
+                      to: "Woman",
+                    },
+                  });
+                }}
+              >
+                <img
+                  className="infographic-buttons"
+                  style={{
+                    width: 600,
+                    height: 130,
+                    marginTop: "6.8%",
+                    // marginLeft: "14",
+                  }}
+                  alt=""
+                  src={require(`../images/${language}/Home/womanButton.png`)}
+                />
+              </div>
+              <div
+                onClick={() => {
+                  localStorage.setItem("language", language);
+                  props.history.push({
+                    pathname: "/signup",
+                    state: {
+                      from: true,
+                      to: "Organisation",
+                    },
+                  });
+                }}
+              >
+                <img
+                  className="infographic-buttons"
+                  style={{
+                    width: 600,
+                    height: 130,
+                    marginTop: "6.8%",
+                    // marginRight: "120%",
+                  }}
+                  alt=""
+                  src={require(`../images/${language}/Home/organisationButton.png`)}
+                />
+              </div>
+            </div>
+            <img
+              style={{
+                width: "100%",
+                paddingTop: "3%",
+                paddingRight: 5,
+              }}
+              alt=""
+              src={require(`../images/${language}/Home/registrationFooter.png`)}
+            />
+          </div>
         )}
       </div>
       <img
         style={{
           width: "100%",
+          // paddingLeft: 1
         }}
         alt=""
-        src={require(`../images/en/Home/homeLearnMore1.png`)}
+        src={require(`../images/${language}/Home/homeLearnMore1.png`)}
       />
       <div
         style={{
@@ -75,7 +147,7 @@ const LandingPage = (props) => {
             width: "100%",
           }}
           alt=""
-          src={require(`../images/en/Home/homeLearnMore2.png`)}
+          src={require(`../images/${language}/Home/homeLearnMore2.png`)}
         />
         <PrimaryButton
           label={strings.LandingPage && strings.LandingPage.learnMore}

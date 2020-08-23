@@ -304,4 +304,19 @@ export default {
     },
     ProfileSkills: {},
   },
+  Organisation: {
+    allCountries: "Todos los países",
+    Languages: {
+      all: "Todos los idiomas",
+      spanish: "Español",
+      portuguese: "Portugués",
+      english: "Inglés",
+    },
+    chooseLanguage: "Elige lengua",
+    chooseCountry: "Elige país",
+    chooseSurvey: "Elija encuesta",
+    allSurveys: "Todas las encuestas",
+    readOnline: "leer en línea",
+    downloadDataset: "Descargar conjunto de datos",
+  },
 };

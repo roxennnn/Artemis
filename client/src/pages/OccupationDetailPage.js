@@ -44,7 +44,7 @@ const OccupationDetailPage = (props) => {
   };
 
   return (
-    <div style={{margin: "2%"}}>
+    <div style={{ margin: "2%" }}>
       <CenterView
         middle={10}
         sides={1}
@@ -63,6 +63,19 @@ const OccupationDetailPage = (props) => {
             }}
             label={strings.back && strings.back}
           />
+        }
+        right={
+          <div>
+            <img
+              alt=""
+              src={require(`../images/women/woman4.png`)}
+              style={{
+                margin: "30%",
+                width: "650%",
+                // height: 400,
+              }}
+            />
+          </div>
         }
       >
         {loading ? (

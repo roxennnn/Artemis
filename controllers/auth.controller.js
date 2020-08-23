@@ -3,6 +3,7 @@ import Wallet from "ethereumjs-wallet";
 import { secret } from "../config/auth.config.js";
 import db from "../models/index.js";
 const User = db.user;
+const Organisation = db.organisation;
 
 import jsonwebtoken from "jsonwebtoken";
 const { sign } = jsonwebtoken;
@@ -46,30 +47,30 @@ const OWNER_ADDR = addresses[0];
 ////////////////////////////////////////////////////////////////
 
 // NOT USED...
-export const signup = (req, res) => {
-  console.log(req.body);
-  z;
-  const user = new User({
-    username: req.body.username,
-    email: req.body.email,
-    password: hashSync(req.body.password, 8),
-  });
+// export const signup = (req, res) => {
+//   console.log(req.body);
+//   z;
+//   const user = new User({
+//     username: req.body.username,
+//     email: req.body.email,
+//     password: hashSync(req.body.password, 8),
+//   });
 
-  user.save((err, user) => {
-    if (err) {
-      res.status(500).send({ message: err });
-      return;
-    }
-  });
-};
+//   user.save((err, user) => {
+//     if (err) {
+//       res.status(500).send({ message: err });
+//       return;
+//     }
+//   });
+// };
 
 // Add smartcontract communication
-export const signupCitizen = (req, res) => {
+export const signupWoman = (req, res) => {
   // not the best approach for production --> @TOFIX
 
   // Generate a public(address)-private key pair
-  let addressData = Wallet.default.generate();   // RIGHT APPROACH
-  
+  let addressData = Wallet.default.generate(); // RIGHT APPROACH
+
   // // USING TRUFFLE ADDRESSES
   // if (crazyId >= 10) {
   //   process.exit();
@@ -80,7 +81,8 @@ export const signupCitizen = (req, res) => {
   // crazyId++;
   // console.log(`CRAZYID: ${crazyId}`);
 
-  const user = new User({ // survey data are not stored, defult values used
+  const user = new User({
+    // survey data are not stored, defult values used
     username: req.body.username,
     email: hashSync(req.body.email, 8),
     password: hashSync(req.body.password, 8),
@@ -100,56 +102,19 @@ export const signupCitizen = (req, res) => {
   });
 };
 
-// import { formContractWithOwner, web3 } from "../server.js";
-
-// TO BE @FIXED 
-export const signupOrganization = async (req, res) => {
-  // not the best approach for production --> @TOFIX
-
+export const signupOrganisation = async (req, res) => {
   // Generate a public(address)-private key pair
   // let addressData = Wallet.default.generate();   // RIGHT APPROACH
-  
-  // USING TRUFFLE ADDRESSES
-  if (crazyId >= 10) {
-    process.exit();
-  }
-  // Kind of random generated address (?)
-  const address = addresses[crazyId];
-  const priv_key = priv_keys[crazyId];
-  crazyId++;
-  console.log(crazyId);
+  let address = OWNER_ADDR; // bad approach, just for the video demo --> in the future, add "organisation addresses list" in the smart contract
 
-  const user = new User({ // survey data are not stored, defult values used
-    organization: req.body.organization,
-    email: req.body.email,
+  const organisation = new Organisation({
+    organisationName: req.body.organisationName,
+    email: hashSync(req.body.email, 8),
     password: hashSync(req.body.password, 8),
-    // eth_address: addressData.getAddressString(), // used when random generated
-    // priv_key: addressData.getPrivateKeyString(), // used when random generated
-    eth_address: address,                           // used only now, for pre-set addresses
-    priv_key: priv_key,                             // used only now, for pre-set addresses
+    eth_address: address,
   });
 
-  // SUPER USEFUL BLOCKCHAIN STUFF
-
-  // let result;
-  // try {
-  //   result = await formContractWithOwner.methods
-  //     .addNewUser(req.body.organization, req.body.email, address)
-  //     // .send({from: accounts[0]})
-  //     // .send({ from: addressData.getAddressString() })
-  //     .send({ from: OWNER_ADDR, gas: 6721975 });
-
-  //   console.log(`Result1: ${result}`);
-
-  //   let result2 = await formContractWithOwner.methods.getUserData().call({ from: address });
-
-  //   console.log(`Result2: ${result2}`);
-  // } catch (err) {
-  //   console.log(`THIS IS THE ERROR: ${err}`);
-  // }
-
-
-  user.save((err, user) => {
+  organisation.save((err, organisation) => {
     if (err) {
       console.log(err);
       res.status(500).send({ message: err });
@@ -161,29 +126,56 @@ export const signupOrganization = async (req, res) => {
 };
 
 export const signin = (req, res) => {
-  // console.log(req.body.email);
-  // const hashedEmail = hashSync(req.body.email, 8);
-  // console.log(hashedEmail);
   User.findOne({
     username: req.body.username,
-  })
-    // .populate("roles", "-__v") // like SQL joins --> but we don't have Roles anymore
-    .exec((err, user) => {
-      if (err) {
-        res.status(500).send({ message: err });
-        return;
-      }
+  }).exec((err, user) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
+    }
 
-      if (!user) {
-        console.log("USER NOT FOUND");
-        return res.status(404).send({ message: "User Not found." });
-      }
+    if (!user) {
+      Organisation.findOne({
+        organisationName: req.body.username,
+      }).exec((err, organisation) => {
+        if (err) {
+          res.status(500).send({ message: err });
+          return;
+        }
 
+        if (!organisation) {
+          console.log("USER NOT FOUND");
+          return res.status(404).send({ message: "User Not found." });
+        }
+
+        var passwordIsValid = compareSync(
+          req.body.password,
+          organisation.password
+        );
+
+        if (!passwordIsValid) {
+          return res.status(401).send({
+            message: "Invalid Password!",
+          });
+        }
+
+        var token = sign({ id: organisation.id }, secret, {
+          expiresIn: 86400, // 24 hours
+        });
+
+        return res.status(200).send({
+          accessToken: token,
+          username: organisation.organisationName, // needed to show it when the user is logged
+          organisation: true,
+        });
+      });
+      // console.log("USER NOT FOUND");
+      // return res.status(404).send({ message: "User Not found." });
+    } else {
       var passwordIsValid = compareSync(req.body.password, user.password);
 
       if (!passwordIsValid) {
         return res.status(401).send({
-          accessToken: null,
           message: "Invalid Password!",
         });
       }
@@ -192,30 +184,10 @@ export const signin = (req, res) => {
         expiresIn: 86400, // 24 hours
       });
 
-      // send data
-      // res.status(200).send({
-      //   id: user._id,
-      //   email: user.email,
-      //   address: user.eth_address,
-      //   priv_key: user.priv_key,
-      //   accessToken: token,
-      // });
-
-      // OR: keep all the user data in the DB approach: access it only when needed, using the ID
-      // data to be returned when the user signs in... thus, returning the username (for the profile) and the survey information would be useful
-      res.status(200).send({
-        // id: user._id, // can be easily retrieved from the token
+      return res.status(200).send({
         accessToken: token,
-
-        // Other information which may be useful
-        username: user.username,  // needed to show it when the user is logged
-        // useful information for the user survey page --> user the other service instead
-        // demographicsDone: user.demographics_done,
-        // demographicsTimestamp: user.demographics_timestamp,
-        // skillsDone: user.skills_done,
-        // skillsTimestamp: user.skills_timestamp,
-        // experienceDone: user.experience_done,
-        // experienceTimestamp: user.experience_timestamp,
+        username: user.username, // needed to show it when the user is logged
       });
-    });
+    }
+  });
 };

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 
 import Colors from "../../constants/Colors";
@@ -18,15 +18,15 @@ const MatchingRow = (props) => {
     });
   };
 
-  const handleLongTitle = (title) => {
-    const tmp = title.substring(0, 21).split(" ");
-    let newTitle = "";
-    for (let i = 0; i < tmp.length - 1; i++) {
-      newTitle += tmp[i] + " ";
-    }
-    newTitle = newTitle.trim() + "...";
-    return newTitle;
-  };
+  // const handleLongTitle = (title) => {
+  //   const tmp = title.substring(0, 21).split(" ");
+  //   let newTitle = "";
+  //   for (let i = 0; i < tmp.length - 1; i++) {
+  //     newTitle += tmp[i] + " ";
+  //   }
+  //   newTitle = newTitle.trim() + "...";
+  //   return newTitle;
+  // };
 
   return (
     <div

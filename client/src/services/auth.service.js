@@ -19,29 +19,21 @@ class AuthService {
     localStorage.removeItem("user");
   }
 
-  registerCitizen = (username, email, password) => {
-    return axios.post(API_URL + "signup/citizen", {
+  registerWoman = (username, email, password) => {
+    return axios.post(API_URL + "signup/woman", {
       username,
       email,
       password
     });
   }
 
-  registerOrganization = (organization, email, password) => {
-    return axios.post(API_URL + "signup/organization", {
-      organization,
+  registerOrganisation = (organisationName, email, password) => {
+    return axios.post(API_URL + "signup/organisation", {
+      organisationName,
       email,
       password
     });
   }
-
-  // register = (username, email, password) => {
-  //   return axios.post(API_URL + "signup", {
-  //     username,
-  //     email,
-  //     password
-  //   });
-  // }
 
   getCurrentUser = () => {
     return JSON.parse(localStorage.getItem('user'));;

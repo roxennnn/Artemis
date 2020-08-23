@@ -4,8 +4,6 @@ const { model, Schema } = mongoose;
 const User = model(
   "User",
   new Schema({
-    organization: String,   // How to handle organizations? Maybe, a different object
-
     // Necessary for end-user
     username: {
       type: String,

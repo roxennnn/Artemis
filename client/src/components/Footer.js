@@ -1,5 +1,4 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 
 import Colors from "../constants/Colors";
 
@@ -10,8 +9,6 @@ import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Footer = (props) => {
-  const history = useHistory();
-
   return (
     <div
       class="footer"
@@ -34,7 +31,7 @@ const Footer = (props) => {
             marginLeft: "10%",
           }}
         >
-          <small>Copyright &copy; WorkUrFreedom</small>
+          <small>Copyright &copy; A R T E M I S</small>
         </div>
         <div
           class="container"

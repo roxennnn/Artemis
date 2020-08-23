@@ -1,10 +1,11 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 
+import AuthService from "./auth.service";
+
 const API_URL = "http://localhost:8080/api/survey/";
 
 class SurveyService {
-
   submitSurvey = async (surveyTag, arr) => {
     const header = authHeader();
 
@@ -14,7 +15,7 @@ class SurveyService {
         arr,
       },
       {
-        headers: header
+        headers: header,
       }
     );
 
@@ -24,25 +25,24 @@ class SurveyService {
   };
 
   queryProfileData = async () => {
-    const header = authHeader();
-    const response = await axios.get(
-      API_URL + "vars",
-      {
-        headers: header
-      }
-    );
-    // console.log(response.data);
-    return response.data;
+    const currentUser = AuthService.getCurrentUser();
+    if (currentUser.organisation) {
+      return { user: currentUser };
+    } else {
+      const header = authHeader();
+      const response = await axios.get(API_URL + "vars", {
+        headers: header,
+      });
+      // console.log(response.data);
+      return response.data;
+    }
   };
 
   resetSurvey = async (href) => {
     const header = authHeader();
-    const response = await axios.get(
-      API_URL + `reset-${href}`,
-      {
-        headers: header
-      }
-    );
+    const response = await axios.get(API_URL + `reset-${href}`, {
+      headers: header,
+    });
     // console.log(href);
     // console.log(response.status);
     return response.status;

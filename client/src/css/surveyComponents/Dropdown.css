@@ -17,3 +17,7 @@ div.select-dropdown .dropdown-menu {
   height: 15em !important;
   overflow: scroll !important;
 }
+
+div.organisation-dropdowns div.select-dropdown .dropdown-menu {
+  height: 10em !important;
+}

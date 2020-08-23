@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import CenterView from "../../components/CenterView";
 
-import Colors from "../../constants/Colors";
 import Countries from "../../constants/Countries";
 import { binarise } from "../../constants/Utilities";
 
 import PrimaryButton from "../../components/PrimaryButton";
 import BackButton from "../../components/BackButton";
 
-import Dropdrown from "../../components/surveyComponents/Dropdown";
+import Dropdown from "../../components/surveyComponents/Dropdown";
 import CountryDropdown from "../../components/surveyComponents/CountryDropdown";
 import Checkboxes from "../../components/surveyComponents/Checkboxes";
 import Radiobuttons from "../../components/surveyComponents/Radiobuttons";
@@ -564,7 +563,7 @@ const DemographicSurvey = (props) => {
             {strings.Profile &&
               strings.Profile.ProfileSurveys.DemographicsSurvey.introduction}
           </div>
-          <Dropdrown
+          <Dropdown
             valueList={ages}
             value={howOldAreYouValue}
             onSelect={howOldAreYouOnChangeHandler}
@@ -659,7 +658,7 @@ const DemographicSurvey = (props) => {
           maritalStatusValue === 3 ||
           maritalStatusValue === 4) && (
           <div>
-            <Dropdrown
+            <Dropdown
               title={
                 strings.Profile &&
                 strings.Profile.ProfileSurveys.DemographicsSurvey.weddingAge

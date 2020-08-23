@@ -6,6 +6,7 @@ import LoginPage from "../pages/LoginPage";
 import ProfilePage from "../pages/ProfilePage";
 import TodoPage from "../pages/TodoPage";
 import LandingPage from "../pages/LandingPage";
+import OrganisationPage from "../pages/OrganisationPage";
 
 // Surveys
 import DemographicSurvey from "../pages/surveys/DemographicSurvey";
@@ -26,6 +27,7 @@ const SwitchComponent = (props) => {
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/signup" component={SignupPage} />
         <Route exact path="/profile" component={ProfilePage} />
+        <Route exact path="/organisation" component={OrganisationPage} />
         <Route exact path="/learn-more" component={LearnMorePage} />
         <Route exact path="/learn-more/how-to-use-it" component={HowToUseItPage} />
         <Route exact path="/faq" component={TodoPage} />

@@ -149,7 +149,7 @@ export default {
       SkillsSurvey: {
         title: "Skills survey",
         description:
-          "Show us what you are able to! Answer some simple questions to identify which career is the best for you.",
+          "Show us what you are able to do! Answer some simple questions to identify which career is the best for you.",
         introduction:
           "This section contains questions that will give us information about the skills and abilities that you have and that can be employed in the labour market. Please take your time and read themcarefully, once you complete this, you'll be albe to see your possible career paths, the more accurate your answers, the better results you will obtain. Your information is kept confidetial.",
         categories: en_categories,
@@ -302,5 +302,20 @@ export default {
       },
     },
     ProfileSkills: {},
+  },
+  Organisation: {
+    allCountries: "All countries",
+    Languages: {
+      all: "All languages",
+      spanish: "Spanish",
+      portuguese: "Portuguese",
+      english: "English",
+    },
+    chooseLanguage: "Choose language",
+    chooseCountry: "Choose country",
+    chooseSurvey: "Choose survey",
+    allSurveys: "All surveys",
+    readOnline: "Read Online",
+    downloadDataset: "Download Dataset"
   },
 };

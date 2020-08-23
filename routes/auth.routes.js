@@ -1,5 +1,9 @@
 import verifySignUp from "../middleware/verifySignUp.js";
-import { signupOrganization, signupCitizen, signin } from "../controllers/auth.controller.js";
+import {
+  signupOrganisation,
+  signupWoman,
+  signin,
+} from "../controllers/auth.controller.js";
 
 export default (app) => {
   app.use((req, res, next) => {
@@ -13,20 +17,16 @@ export default (app) => {
   // I WOULD HAVE PREFERRED USING PARAMS .... (IT DID NOT WORK) -> in the paths
 
   app.post(
-    "/api/auth/signup/organization",
-    [
-      verifySignUp.checkDuplicateUser,
-    ],
-    signupOrganization
+    "/api/auth/signup/organisation",
+    [verifySignUp.checkDuplicateOrganisation],
+    signupOrganisation
   );
 
   app.post(
-    "/api/auth/signup/citizen",
-    [
-      verifySignUp.checkDuplicateUser,
-    ],
-    signupCitizen
+    "/api/auth/signup/woman",
+    [verifySignUp.checkDuplicateUser],
+    signupWoman
   );
 
   app.post("/api/auth/signin", signin);
-}
+};

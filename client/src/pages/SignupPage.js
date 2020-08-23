@@ -1,10 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Container } from "react-bootstrap";
 
 import CenterView from "../components/CenterView";
-import CitizenSignUp from "../components/CitizenSignUp";
+import WomanSignUp from "../components/WomanSignUp";
 import OrganisationSignUp from "../components/OrganisationSignUp";
-import PrimaryButton from "../components/PrimaryButton";
 import Colors from "../constants/Colors";
 
 import { LanguageContext } from "../languages/LanguageProvider";
@@ -32,91 +30,173 @@ const SignupPage = (props) => {
     fetchLanguage();
   }, []);
 
+  const { location } = props;
+  useEffect(() => {
+    if (location.state && location.state.from) {
+      setUserType(location.state.to);
+    }
+  }, [location.state]); 
+
   return (
-    <div style={{ margin: "3%" }}>
-      <CenterView
-        left={
-          userType !== "None" ? (
-            <BackButton
-              onClick={() => {
-                setUserType("None");
-              }}
-              label={
-                userType === "Citizen"
-                  ? strings.SignupPage && strings.SignupPage.notAWoman
-                  : userType === "Organisation"
-                  ? strings.SignupPage && strings.SignupPage.notAnOrganisation
-                  : strings.back && strings.back
-              }
-            />
-          ) : null
-        }
-        middle={8}
-        sides={2}
-      >
-        {userType === "None" && (
-          <Container>
-            <h3>{strings.SignupPage && strings.SignupPage.registerForFree}</h3>
-            <br />
-            <h4>{strings.SignupPage && strings.SignupPage.areYouA}</h4>
-            <PrimaryButton
-              label={strings.SignupPage && strings.SignupPage.citizen}
-              style={{ marginTop: 30 }}
-              buttonStyle={styles.buttons}
-              onClick={() => {
-                setUserType("Citizen");
-              }}
-            />
-            <PrimaryButton
-              label={strings.SignupPage && strings.SignupPage.organisation}
-              style={{ marginTop: 30 }}
-              buttonStyle={styles.buttons}
-              onClick={() => {
-                setUserType("Organisation");
-              }}
-            />
-          </Container>
-        )}
-        {userType === "Citizen" && (
-          <CitizenSignUp
-            history={props.history}
-            strings={strings}
-            onChangeUserType={setUserType}
-          />
-        )}
-        {userType === "Organisation" && (
-          <OrganisationSignUp
-            history={props.history}
-            strings={strings}
-            onChangeUserType={setUserType}
-          />
-        )}
-        {userType.split("-")[0] === "Login" && (
+    <div>
+      {userType === "None" ? (
+        <div style={{ backgroundColor: Colors.landingPageInfographics }}>
           <div>
-            <h3>Login</h3>
-            <LoginComponent
-              history={props.history}
-              strings={strings}
-              show={true}
-              language={language}
+            <img
+              style={{
+                width: "100%",
+                paddingTop: "3%",
+              }}
+              alt=""
+              src={require(`../images/${language}/Home/registrationBanner.png`)}
             />
             <div
-              className="hover-underline"
               style={{
-                textAlign: "center",
-                marginTop: "2%",
-                color: Colors.primary,
-                fontSize: 20,
-              }}
-              onClick={() => {
-                setUserType(userType.split("-")[1]);
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-around",
+                marginRight: "10%",
+                marginLeft: "12%"
               }}
             >
-              {strings.SignupPage && strings.SignupPage.signupQuestion}{" "}
+              <div
+                onClick={() => {
+                  setUserType("Woman");
+                }}
+              >
+                <img
+                  className="infographic-buttons"
+                  style={{
+                    width: 600,
+                    height: 130,
+                    marginTop: "6.8%",
+                    // marginLeft: "10%",
+                  }}
+                  alt=""
+                  src={require(`../images/${language}/Home/womanButton.png`)}
+                />
+              </div>
+              <div
+                onClick={() => {
+                  setUserType("Organisation");
+                }}
+              >
+                <img
+                  className="infographic-buttons"
+                  style={{
+                    width: 600,
+                    height: 130,
+                    marginTop: "6.8%",
+                    // marginRight: "10%",
+                  }}
+                  alt=""
+                  src={require(`../images/${language}/Home/organisationButton.png`)}
+                />
+              </div>
             </div>
+            <img
+              style={{
+                width: "100%",
+                paddingTop: "3%",
+              }}
+              alt=""
+              src={require(`../images/${language}/Home/registrationFooter.png`)}
+            />
           </div>
-        )}
-      </CenterView>
+        </div>
+      ) : (
+        <div style={{margin: "3%"}}>
+          <CenterView
+            left={
+              userType !== "None" ? (
+                <BackButton
+                  onClick={() => {
+                    setUserType("None");
+                  }}
+                  label={
+                    userType === "Woman"
+                      ? strings.SignupPage && strings.SignupPage.notAWoman
+                      : userType === "Organisation"
+                      ? strings.SignupPage &&
+                        strings.SignupPage.notAnOrganisation
+                      : strings.back && strings.back
+                  }
+                />
+              ) : null
+            }
+            right={
+              <div>
+                {(userType === "Woman" || userType === "Login-Woman") && (
+                  <img
+                    alt=""
+                    src={require(`../images/women/woman3.png`)}
+                    style={{
+                      marginTop: "15%",
+                      width: "300%",
+                      // height: 400,
+                    }}
+                  />
+                )}
+                {(userType === "Organisation" ||
+                  userType === "Login-Organisation") && (
+                  <img
+                    alt=""
+                    src={require(`../images/women/woman5.png`)}
+                    style={{
+                      marginTop: "15%",
+                      width: "300%",
+                      // height: 400,
+                    }}
+                  />
+                )}
+              </div>
+            }
+            middle={8}
+            sides={2}
+          >
+            {userType === "Woman" && (
+              <WomanSignUp
+                history={props.history}
+                strings={strings}
+                onChangeUserType={setUserType}
+              />
+            )}
+            {userType === "Organisation" && (
+              <OrganisationSignUp
+                history={props.history}
+                strings={strings}
+                onChangeUserType={setUserType}
+              />
+            )}
+            {userType.split("-")[0] === "Login" && (
+              <div>
+                <h3>Login</h3>
+                <LoginComponent
+                  history={props.history}
+                  strings={strings}
+                  show={true}
+                  language={language}
+                />
+                <div
+                  className="hover-underline"
+                  style={{
+                    textAlign: "center",
+                    marginTop: "2%",
+                    color: Colors.primary,
+                    fontSize: 20,
+                  }}
+                  onClick={() => {
+                    setUserType(userType.split("-")[1]);
+                  }}
+                >
+                  {strings.SignupPage && strings.SignupPage.signupQuestion}{" "}
+                </div>
+              </div>
+            )}
+          </CenterView>
+        </div>
+      )}
     </div>
   );
 };

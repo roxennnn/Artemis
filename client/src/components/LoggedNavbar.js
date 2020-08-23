@@ -7,11 +7,11 @@ import Colors from "../constants/Colors";
 import {
   faBriefcase,
   faCog,
-  faTools,
-  faUtensils,
+  // faTools,
+  // faUtensils,
   faUser,
-  faDice,
-  faHammer,
+  // faDice,
+  // faHammer,
   faGraduationCap,
   faComment,
   faSignOutAlt,
@@ -87,18 +87,20 @@ const LoggedNavbar = (props) => {
                   }}
                 >
                   <span style={{ fontSize: 18 }}>{currentUser.username}</span>
-                  <img // No percentages... @TOFIX for a responsive design
-                    style={{
-                      width: "8%",
-                      marginLeft: 20,
-                      borderStyle: "solid",
-                      borderColor: "white",
-                      borderWidth: 1,
-                    }}
-                    className="rounded-pill nav-avatar"
-                    alt=""
-                    src={avatar2}
-                  />
+                  {!currentUser.organisation && (
+                    <img // No percentages... @TOFIX for a responsive design
+                      style={{
+                        width: "8%",
+                        marginLeft: 20,
+                        borderStyle: "solid",
+                        borderColor: "white",
+                        borderWidth: 1,
+                      }}
+                      className="rounded-pill nav-avatar"
+                      alt=""
+                      src={avatar2}
+                    />
+                  )}
                 </a>
                 <ul
                   className="dropdown-menu dropdown-menu-right"
@@ -134,84 +136,94 @@ const LoggedNavbar = (props) => {
                                 props.strings.ProfileListings.profile}
                             </div>
                           </span>
-                          <span
-                            className="dropdown-item profile-dropdown-item"
-                            style={styles.dropdownItem}
-                            onClick={() => {
-                              history.push({
-                                pathname: "/profile",
-                                state: {
-                                  from: true,
-                                  to: 1,
-                                },
-                              });
-                            }}
-                          >
-                            <div style={{ width: "25%" }}>
-                              <FontAwesomeIcon
-                                className="profile-dropdown-icon"
-                                icon={faComment}
-                                style={{ fontSize: 25 }}
-                              />
+                          {!currentUser.organisation && (
+                            <div>
+                              <span
+                                className="dropdown-item profile-dropdown-item"
+                                style={styles.dropdownItem}
+                                onClick={() => {
+                                  history.push({
+                                    pathname: "/profile",
+                                    state: {
+                                      from: true,
+                                      to: 1,
+                                    },
+                                  });
+                                }}
+                              >
+                                <div style={{ width: "25%" }}>
+                                  <FontAwesomeIcon
+                                    className="profile-dropdown-icon"
+                                    icon={faComment}
+                                    style={{ fontSize: 25 }}
+                                  />
+                                </div>
+                                <div
+                                  style={{ width: "70%", marginRight: "5%" }}
+                                >
+                                  {props.strings.ProfileListings &&
+                                    props.strings.ProfileListings.messages}
+                                </div>
+                              </span>
+                              {currentUser.skills_done && (
+                                <span
+                                  className="dropdown-item profile-dropdown-item"
+                                  style={styles.dropdownItem}
+                                  onClick={() => {
+                                    history.push({
+                                      pathname: "/profile",
+                                      state: {
+                                        from: true,
+                                        to: 2,
+                                      },
+                                    });
+                                  }}
+                                >
+                                  <div style={{ width: "25%" }}>
+                                    <FontAwesomeIcon
+                                      className="profile-dropdown-icon"
+                                      icon={faBriefcase}
+                                      style={{ fontSize: 25 }}
+                                    />
+                                  </div>
+                                  <div
+                                    style={{ width: "70%", marginRight: "5%" }}
+                                  >
+                                    {props.strings.ProfileListings &&
+                                      props.strings.ProfileListings.occupations}
+                                  </div>
+                                </span>
+                              )}
+                              {currentUser.skills_done && (
+                                <span
+                                  className="dropdown-item profile-dropdown-item"
+                                  style={styles.dropdownItem}
+                                  onClick={() => {
+                                    history.push({
+                                      pathname: "/profile",
+                                      state: {
+                                        from: true,
+                                        to: 3,
+                                      },
+                                    });
+                                  }}
+                                >
+                                  <div style={{ width: "25%" }}>
+                                    <FontAwesomeIcon
+                                      className="profile-dropdown-icon"
+                                      icon={faGraduationCap}
+                                      style={{ fontSize: 25 }}
+                                    />
+                                  </div>
+                                  <div
+                                    style={{ width: "70%", marginRight: "5%" }}
+                                  >
+                                    {props.strings.ProfileListings &&
+                                      props.strings.ProfileListings.skills}
+                                  </div>
+                                </span>
+                              )}
                             </div>
-                            <div style={{ width: "70%", marginRight: "5%" }}>
-                            {props.strings.ProfileListings &&
-                                props.strings.ProfileListings.messages}
-                            </div>
-                          </span>
-                          {currentUser.skills_done && (
-                            <span
-                              className="dropdown-item profile-dropdown-item"
-                              style={styles.dropdownItem}
-                              onClick={() => {
-                                history.push({
-                                  pathname: "/profile",
-                                  state: {
-                                    from: true,
-                                    to: 2,
-                                  },
-                                });
-                              }}
-                            >
-                              <div style={{ width: "25%" }}>
-                                <FontAwesomeIcon
-                                  className="profile-dropdown-icon"
-                                  icon={faBriefcase}
-                                  style={{ fontSize: 25 }}
-                                />
-                              </div>
-                              <div style={{ width: "70%", marginRight: "5%" }}>
-                              {props.strings.ProfileListings &&
-                                props.strings.ProfileListings.occupations}
-                              </div>
-                            </span>
-                          )}
-                          {currentUser.skills_done && (
-                            <span
-                              className="dropdown-item profile-dropdown-item"
-                              style={styles.dropdownItem}
-                              onClick={() => {
-                                history.push({
-                                  pathname: "/profile",
-                                  state: {
-                                    from: true,
-                                    to: 3,
-                                  },
-                                });
-                              }}
-                            >
-                              <div style={{ width: "25%" }}>
-                                <FontAwesomeIcon
-                                  className="profile-dropdown-icon"
-                                  icon={faGraduationCap}
-                                  style={{ fontSize: 25 }}
-                                />
-                              </div>
-                              <div style={{ width: "70%", marginRight: "5%" }}>
-                              {props.strings.ProfileListings &&
-                                props.strings.ProfileListings.skills}
-                              </div>
-                            </span>
                           )}
 
                           <div className="dropdown-divider"></div>

@@ -16,9 +16,14 @@ const LoginComponent = (props) => {
 
     // make login POST request
     try {
-      await AuthService.login(username, pass);
+      const response = await AuthService.login(username, pass);
       localStorage.setItem("language", props.language);
-      props.history.push("/profile");
+      if (response.organisation) {
+        props.history.push("/organisation");
+      } else {
+        props.history.push("/profile");
+      }
+
       window.location.reload();
 
       setUsernameValue("");

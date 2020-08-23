@@ -23,6 +23,7 @@ const CustomDropdown = (props) => {
   const { defaultMessage } = props;
 
   useEffect(() => {
+    console.log(props.defaultMessage);
     if (
       current === "" ||
       current === undefined ||
@@ -30,6 +31,7 @@ const CustomDropdown = (props) => {
     ) {
       setCurrent(props.defaultMessage && defaultMessage);
     }
+    setCurrent(props.defaultMessage && defaultMessage);
   }, [defaultMessage]);
 
   return (

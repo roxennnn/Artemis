@@ -8,7 +8,7 @@ import PrimaryButton from "../components/PrimaryButton";
 import Colors from "../constants/Colors";
 import { validateEmail } from "../constants/Utilities";
 
-const CitizenSignUp = (props) => {
+const WomanSignUp = (props) => {
   const [username, setUsername] = useState("");
   const [usernameInvalid, setUsernameInvalid] = useState(false);
 
@@ -92,7 +92,7 @@ const CitizenSignUp = (props) => {
 
     if (noErrors) {
       try {
-        await AuthService.registerCitizen(usernameValue, emailValue, pass);
+        await AuthService.registerWoman(usernameValue, emailValue, pass);
         props.history.push("/home");
         window.location.reload();
         // props.history.push("/profile");
@@ -300,7 +300,7 @@ const CitizenSignUp = (props) => {
           fontSize: 20,
         }}
         onClick={() => {
-          props.onChangeUserType("Login-Citizen");
+          props.onChangeUserType("Login-Woman");
         }}
       >
         {props.strings.NavComponent &&
@@ -311,4 +311,4 @@ const CitizenSignUp = (props) => {
   );
 };
 
-export default CitizenSignUp;
+export default WomanSignUp;

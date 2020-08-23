@@ -9,7 +9,8 @@ import PrimaryButton from "../PrimaryButton";
 
 import Colors from "../../constants/Colors";
 
-import laura from "../../images/laura.png";
+// import woman from "../../images/women/woman0.png";
+import woman from "../../images/women/woman2.png";
 
 //showValue = 2
 const ProfileMatchings = (props) => {
@@ -107,7 +108,7 @@ const ProfileMatchings = (props) => {
                       })}
                     </div>
                   ) : (
-                    <img src={laura} alt="" style={{ width: "100%" }} />
+                    <img src={woman} alt="" style={{ width: "100%" }} />
                   )}
                 </div>
               )}
