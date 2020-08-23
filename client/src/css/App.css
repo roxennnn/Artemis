@@ -274,6 +274,13 @@ div.form-group input.form-control {
 }
 
 /* Landing Page buttons */
+img.infographic-buttons {
+  border-style: solid;
+  border-color: var(--accent-color);
+  border-width: 8px;
+  border-radius: 90px;
+}
+
 img.infographic-buttons:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2) !important;
   transition: 0.2s !important;

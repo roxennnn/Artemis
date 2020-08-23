@@ -17,7 +17,7 @@ const containerStyle = {
     width: "32%",
     textAlign: "center",
     padding: "2%",
-    margin: "2%",
+    // margin: "2%",
     // borderRadius: 20,
     // shadow: 100,
     background: "white",
