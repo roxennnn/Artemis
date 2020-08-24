@@ -129,7 +129,7 @@ const OrganisationPage = (props) => {
         }
       >
         {loading ? (
-          <div style={{ textAlign: "center" }}>
+          <div style={{ textAlign: "center", margin: "2%" }}>
             <Spinner animation="border" variant="primary" />
           </div>
         ) : (

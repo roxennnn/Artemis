@@ -31,7 +31,7 @@ const Footer = (props) => {
             marginLeft: "10%",
           }}
         >
-          <small>Copyright &copy; A R T E M I S</small>
+          <small>Copyright &copy; Artemis</small>
         </div>
         <div
           class="container"

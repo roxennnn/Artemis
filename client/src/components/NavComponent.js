@@ -9,6 +9,8 @@ import Colors from "../constants/Colors.js";
 import LoginNavbar from "./LoginNavbar";
 import LoggedNavbar from "./LoggedNavbar";
 
+import logo from "../images/logos/logo5.png";
+
 // Multilingual
 import { LanguageContext } from "../languages/LanguageProvider";
 
@@ -26,28 +28,32 @@ const LanguageComponent = (props) => {
     </div>
   );
 };
+
 const NavComponent = (props) => {
   const { strings, language, updateLanguage } = useContext(LanguageContext);
-  const [currentFlag, setCurrentFlag] = useState("ES");
+  const [currentFlag, setCurrentFlag] = useState();
   const history = useHistory();
 
-  const fetchLanguage = async () => {
-    const lang = await localStorage.getItem("language");
+  const fetchLanguage = () => {
+    const lang = localStorage.getItem("language");
     if (lang) {
       updateLanguage(lang);
-      if (lang === "en") {
-        setCurrentFlag("GB");
-      } else if (lang === "es") {
-        setCurrentFlag("ES");
-      } else if (lang === "pt") {
-        setCurrentFlag("PT");
-      }
     }
   };
 
   useEffect(() => {
     fetchLanguage();
   }, []);
+
+  useEffect(() => {
+    if (language === "en") {
+      setCurrentFlag("GB");
+    } else if (language === "es") {
+      setCurrentFlag("ES");
+    } else if (language === "pt") {
+      setCurrentFlag("PT");
+    }
+  }, [language]);
 
   const learnMoreClickHandler = (e) => {
     // console.log(e.target.id);
@@ -62,22 +68,16 @@ const NavComponent = (props) => {
       style={{
         background: Colors.gradient,
         boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
+        display: "flex",
+        alignItems: "center",
       }}
     >
-      <Link
-        to={"/"}
-        className="navbar-brand"
-        style={{
-          alignItems: "center",
-          justifyContent: "center",
-          marginLeft: 5,
-        }}
-      >
+      <Link to={"/"} className="navbar-brand">
         {/* <img src={logo} className="nav-logo" alt="logo" /> */}
-        <div style={{ fontSize: 28 }}>A R T E M I S</div>
-        {/* <div style={{ fontSize: 18 }}>
-          Find the job that best fits your skills!
-        </div> */}
+        {/* <div style={{ fontSize: 28 }}>A R T E M I S</div> */}
+        <div style={{ width: "8.5%", padding: "0.5%" }}>
+          <img alt="" src={logo} style={{ width: "100%" }} />
+        </div>
       </Link>
       {/* Collapsed toggler button */}
       <button
@@ -93,7 +93,11 @@ const NavComponent = (props) => {
       </button>
 
       {/* Collapsing navbar */}
-      <div className="collapse navbar-collapse" id="navbarTop">
+      <div
+        className="collapse navbar-collapse"
+        id="navbarTop"
+        style={{ marginLeft: -1420 }}
+      >
         <ul className="navbar-nav mr-auto" style={{ width: "70%" }}>
           <li
             className="nav-item dropdown"
@@ -130,6 +134,7 @@ const NavComponent = (props) => {
                 onClick={() => {
                   setCurrentFlag("ES");
                   updateLanguage("es");
+                  localStorage.setItem('language', 'es');
                 }}
               />
               <LanguageComponent
@@ -138,6 +143,7 @@ const NavComponent = (props) => {
                 onClick={() => {
                   setCurrentFlag("PT");
                   updateLanguage("pt");
+                  localStorage.setItem('language', 'pt');
                 }}
               />
               <LanguageComponent
@@ -146,6 +152,7 @@ const NavComponent = (props) => {
                 onClick={() => {
                   setCurrentFlag("GB");
                   updateLanguage("en");
+                  localStorage.setItem('language', 'en');
                 }}
               />
             </div>

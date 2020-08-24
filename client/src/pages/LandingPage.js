@@ -8,13 +8,17 @@ import PrimaryButton from "../components/PrimaryButton";
 import { LanguageContext } from "../languages/LanguageProvider";
 
 const LandingPage = (props) => {
-  const { strings, language } = useContext(LanguageContext);
+  const { strings, language, updateLanguage } = useContext(LanguageContext);
   const [currentUser, setCurrentUser] = useState();
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
     if (user) {
       setCurrentUser(user);
+    }
+    const lang = localStorage.getItem('language');
+    if (lang) {
+      updateLanguage(lang);
     }
   }, []);
 
@@ -156,7 +160,8 @@ const LandingPage = (props) => {
             display: "flex",
             justifyContent: "flex-end",
             position: "absolute",
-            bottom: currentUser ? -1340 : -1390,
+            // bottom: currentUser ? -1320 : -1400,
+            bottom: currentUser ? -1320 : -1360,
             left: -574,
             zIndex: 100,
           }}

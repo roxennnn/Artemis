@@ -1,7 +1,7 @@
 export default {
   // primary: "#3b5998",
-  primary: "#3c286d", // Purple
-  // primary: "#FF5A5F", Airbnb
+  primary: "#3c286d", // FIREFOX
+  // primary: "#31376c", // CHROME
   accent: '#FFFFFF',
   supportPink: "#ec9fa4",
   landingPageInfographics: "#fceadc",

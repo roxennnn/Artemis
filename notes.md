@@ -10,6 +10,8 @@ GAS COSTS 4 OPs: https://docs.google.com/spreadsheets/d/1n6mRqkBz3iWcOlRem_mO09G
 * Add validation of the fields
 * send back data on type of user --> profile page
 
+**TO FIX THE CHANGING PAGE BUG:**
+Just set a "location" parameter.
 
 # Useful Layout links:
 * https://www.bootdey.com/snippets/view/500-internal-server-error-page

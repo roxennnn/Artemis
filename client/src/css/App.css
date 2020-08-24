@@ -4,7 +4,8 @@
   display: flex !important;
   flex-direction: column !important;
   min-height: 100vh;
-  --primary-color: #3c286d;
+  --primary-color: #3c286d; /* FIREFOX */
+  /* --primary-color: #31376c; CHROME*/
   --accent-color: white;
   --pink-accent-color: #ec9fa4;
 }

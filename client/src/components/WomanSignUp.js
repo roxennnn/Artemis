@@ -94,7 +94,7 @@ const WomanSignUp = (props) => {
       try {
         await AuthService.registerWoman(usernameValue, emailValue, pass);
         props.history.push("/home");
-        window.location.reload();
+        // window.location.reload();
         // props.history.push("/profile");
       } catch (err) {
         // here we should handle duplicate usernames or emails

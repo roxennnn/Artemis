@@ -83,7 +83,7 @@ const IconBox = (props) => {
 // - Add sort buttons in occupations and skills
 
 const ProfilePage = (props) => {
-  const { strings, language } = useContext(LanguageContext);
+  const { strings, language, updateLanguage } = useContext(LanguageContext);
 
   const [showValue, setShowValue] = useState(0);
   const [currentUser, setCurrentUser] = useState(); // data of logged user
@@ -99,6 +99,10 @@ const ProfilePage = (props) => {
   useEffect(() => {
     setLoading(true);
     asyncQueryProfileData();
+    // const lang = localStorage.getItem('language');
+    // if (lang) {
+    //   updateLanguage(lang);
+    // }
   }, []);
 
   useEffect(() => {

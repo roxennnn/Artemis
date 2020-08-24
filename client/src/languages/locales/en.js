@@ -190,7 +190,7 @@ export default {
         },
       },
       ExperienceSurvey: {
-        title: "About your experience",
+        title: "Domestic survey",
         description:
           "Telling us about your relationship can help us understand whether working is helping you and other women to be safe.",
         submit: "Submit",

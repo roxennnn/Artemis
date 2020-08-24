@@ -193,7 +193,7 @@ export default {
         },
       },
       ExperienceSurvey: {
-        title: "Sobre sua experiência",
+        title: "Pesquisa doméstica",
         description:
           "Contar-nos sobre seu relacionamento pode nos ajudar a entender se trabalhar está ajudando você a estar seguro.",
         submit: "Enviar",
@@ -318,6 +318,6 @@ export default {
     chooseSurvey: "Escolha a pesquisa",
     allSurveys: "Todas as pesquisas",
     readOnline: "Leia online",
-    downloadDataset: "Baixar conjunto de dados",
+    downloadDataset: "Baixar",
   },
 };

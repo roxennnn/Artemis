@@ -192,7 +192,7 @@ export default {
         },
       },
       ExperienceSurvey: {
-        title: "Sobre tu experiencia",
+        title: "Encuesta domestica",
         description:
           "Informarnos sobre su relación puede ayudarnos a comprender si trabajar les ayuda a usted y a otras mujeres a estar seguras.",
         submit: "Enviar",
@@ -317,6 +317,6 @@ export default {
     chooseSurvey: "Elija encuesta",
     allSurveys: "Todas las encuestas",
     readOnline: "leer en línea",
-    downloadDataset: "Descargar conjunto de datos",
+    downloadDataset: "Descargar",
   },
 };
