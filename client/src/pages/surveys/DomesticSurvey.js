@@ -599,7 +599,7 @@ const Domestic = (props) => {
 
     // post request
     try {
-      await SurveyService.submitSurvey("experience", answers);
+      await SurveyService.submitSurvey("domestic", answers);
       // Go back to profile page
       props.history.push({
         pathname: "/profile",

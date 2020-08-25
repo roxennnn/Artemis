@@ -4,7 +4,7 @@ import db from "../models/index.js";
 const User = db.user;
 const Occupation = db.occupation;
 
-import { workUrFreedomContract } from "../server.js";
+import { artemisContract } from "../server.js";
 
 const es_categories =[
   "Organizar actividades básicas",
@@ -363,7 +363,7 @@ const getSkillScores = async (userId) => {
     const userAddr = user["eth_address"];
     // console.log(userAddr);
 
-    scores = await workUrFreedomContract.methods
+    scores = await artemisContract.methods
       .getSkillsData()
       .call({ from: userAddr });
   } catch (err) {

@@ -69,18 +69,18 @@ app.listen(PORT, () => {
 import Web3 from 'web3';
 
 import fs from "fs";
-let rawdata = fs.readFileSync("./blockchain/build/contracts/WorkUrFreedomContract.json");
-let WorkUrFreedomContract = JSON.parse(rawdata);
+let rawdata = fs.readFileSync("./blockchain/build/contracts/ArtemisContract.json");
+let ArtemisContract = JSON.parse(rawdata);
 
-// console.log(WorkUrFreedomContract.address);
+// console.log(ArtemisContract.address);
 
 // Export these components so that other files can use them
 export const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:9545"));
 
-const deploymentKey = Object.keys(WorkUrFreedomContract.networks)[0];
-export const workUrFreedomContract = new web3.eth.Contract(
-  WorkUrFreedomContract.abi, 
-  WorkUrFreedomContract
+const deploymentKey = Object.keys(ArtemisContract.networks)[0];
+export const artemisContract = new web3.eth.Contract(
+  ArtemisContract.abi, 
+  ArtemisContract
     .networks[deploymentKey]
     .address
 );

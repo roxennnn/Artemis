@@ -4,7 +4,7 @@ _Here goes the description_
 
 _Here, embed the video_
 
-## How to install and run
+## Run the development environment
 
 * Dependencies (node, react, mongodb, truffle, ...)
 * npm install, import exported db, ...

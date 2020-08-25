@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { workUrFreedomContract } from "../server.js";
+import { artemisContract } from "../server.js";
 import { getCurrentDatetime } from "../models/utilities.js";
 
 import db from "../models/index.js";
@@ -49,12 +49,12 @@ export const submitSurveyAnswers = async (req, res) => {
 
   try {
     if (survey === "demographics") {
-      const result = await workUrFreedomContract.methods
+      const result = await artemisContract.methods
         .addDemographicsAnwsers(userAddr, answers)
         .send({ from: OWNER_ADDR, gas: GAS_LIMIT });
 
       // CHECK WHAT IS SAVED IN THE BLOCKCHAIN
-      // let result2 = await workUrFreedomContract.methods.getUserData().call({ from: userAddr });
+      // let result2 = await artemisContract.methods.getUserData().call({ from: userAddr });
       // console.log(result2);
 
       const updateResult = await User.findOneAndUpdate(
@@ -66,12 +66,12 @@ export const submitSurveyAnswers = async (req, res) => {
       // console.log(result);
       // console.log(updateResult);
     } else if (survey === "domestic") {
-      const result = await workUrFreedomContract.methods
+      const result = await artemisContract.methods
         .addExperienceAnwsers(userAddr, answers)
         .send({ from: OWNER_ADDR, gas: GAS_LIMIT });
 
       // CHECK WHAT IS SAVED IN THE BLOCKCHAIN
-      // let result2 = await workUrFreedomContract.methods.getUserData().call({ from: userAddr });
+      // let result2 = await artemisContract.methods.getUserData().call({ from: userAddr });
       // console.log(result2);
 
       const updateResult = await User.findOneAndUpdate(
@@ -83,12 +83,12 @@ export const submitSurveyAnswers = async (req, res) => {
       // console.log(result);
       // console.log(updateResult);
     } else if (survey === "skills") {
-      const result = await workUrFreedomContract.methods
+      const result = await artemisContract.methods
         .addSkillsAnwsers(userAddr, answers)
         .send({ from: OWNER_ADDR, gas: GAS_LIMIT });
 
       // CHECK WHAT IS SAVED IN THE BLOCKCHAIN
-      let result2 = await workUrFreedomContract.methods
+      let result2 = await artemisContract.methods
         .getUserData()
         .call({ from: userAddr });
       console.log(result2);
@@ -135,7 +135,7 @@ export const queryProfileData = async (req, res) => {
     ).exec();
 
     if (user.demographics_done) {
-      let demo = await workUrFreedomContract.methods
+      let demo = await artemisContract.methods
         .getDemographicsData()
         .call({ from: user.eth_address });
 
