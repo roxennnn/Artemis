@@ -59,5 +59,3 @@ Finally, on a new terminal run the following command to start both the back-end 
 ```
 
 ## About us
-
-## License
