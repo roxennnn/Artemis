@@ -1,5 +1,5 @@
 <!-- # A R T E M I S -->
-![Artemis](./client/src/images/logos/logo2.png)
+![Artemis](./client/src/images/logos/logo6.png)
 
 _Here goes the description_
 

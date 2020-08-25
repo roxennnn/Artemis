@@ -38,5 +38,6 @@ blockchain/build/*
 notes.md
 client/yarn.lock
 manageSkills/
+start_services.sh
 
 
