@@ -6,7 +6,7 @@ pragma experimental ABIEncoderV2;
 // Solidity triggers a require-type of exception:
 // - when you call require with arguments that result in false.
 
-contract WorkUrFreedomContract {
+contract ArtemisContract {
 
     address private owner = 0x55958fADDF67d6051FE7F5F9bfF015531C09d4eD; // in Truffle
     // address private owner = 0x849f9Bd5869E436688F3BaeAbB552B548aC091b2; // in Remix

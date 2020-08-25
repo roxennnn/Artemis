@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
 
 import Colors from "../constants/Colors";
@@ -40,19 +40,25 @@ const styles = {
 
 const LoggedNavbar = (props) => {
   const history = useHistory();
+  const location = useLocation();
   const [currentUser, setCurrentUser] = useState(); // data of logged user
   const [loading, setLoading] = useState(false);
 
+  const [skillsDone, setSkillsDone] = useState();
+
   const asyncQueryProfileData = async () => {
     const user = await SurveyService.queryProfileData();
-    if (user) {
+    if (user && user.user) {
       setCurrentUser(user.user);
+      setSkillsDone(user.user.skills_done);
     }
   };
-  useEffect(() => {
+  useEffect(() => { // @TOFIX
     setLoading(true);
-    asyncQueryProfileData();
-  }, []);
+    if (location.pathname === "/profile") {
+      asyncQueryProfileData();
+    }
+  }, [location.pathname]);
 
   useEffect(() => {
     if (currentUser) {
@@ -121,7 +127,6 @@ const LoggedNavbar = (props) => {
                                   to: 0,
                                 },
                               });
-                              // window.location.reload();
                             }}
                           >
                             <div style={{ width: "25%" }}>
@@ -165,7 +170,7 @@ const LoggedNavbar = (props) => {
                                     props.strings.ProfileListings.messages}
                                 </div>
                               </span>
-                              {currentUser.skills_done && (
+                              {skillsDone && (
                                 <span
                                   className="dropdown-item profile-dropdown-item"
                                   style={styles.dropdownItem}
@@ -194,7 +199,7 @@ const LoggedNavbar = (props) => {
                                   </div>
                                 </span>
                               )}
-                              {currentUser.skills_done && (
+                              {skillsDone && (
                                 <span
                                   className="dropdown-item profile-dropdown-item"
                                   style={styles.dropdownItem}
@@ -258,8 +263,11 @@ const LoggedNavbar = (props) => {
                             onClick={() => {
                               AuthService.logout();
                               localStorage.setItem("language", props.language);
-                              history.push("/");
-                              window.location.reload();
+                              if (location.pathname === "/") {
+                                history.push("/home");
+                              } else {
+                                history.push("/");
+                              }
                             }}
                           >
                             <div style={{ width: "25%" }}>

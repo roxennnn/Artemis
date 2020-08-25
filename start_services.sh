@@ -10,4 +10,5 @@ echo "START truffle develop..."
 cd blockchain/
 truffle develop
 
-# truffle migrate --reset --network development
+# truffle migrate --reset --network development --> compile the smartcontract
+# mongorestore --> to save the 'artemis_db' into mongodb

@@ -34,6 +34,9 @@ const SignupPage = (props) => {
   useEffect(() => {
     if (location.state && location.state.from) {
       setUserType(location.state.to);
+      if (location.state.lang) {
+        updateLanguage(location.state.lang);
+      }
     }
   }, [location.state]); 
 
@@ -159,6 +162,7 @@ const SignupPage = (props) => {
               <WomanSignUp
                 history={props.history}
                 strings={strings}
+                language={language}
                 onChangeUserType={setUserType}
               />
             )}
@@ -166,6 +170,7 @@ const SignupPage = (props) => {
               <OrganisationSignUp
                 history={props.history}
                 strings={strings}
+                language={language}
                 onChangeUserType={setUserType}
               />
             )}

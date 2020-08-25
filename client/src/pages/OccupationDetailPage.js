@@ -10,7 +10,7 @@ import MatchingService from "../services/matching.service";
 import { LanguageContext } from "../languages/LanguageProvider";
 
 const OccupationDetailPage = (props) => {
-  const { strings, language } = useContext(LanguageContext);
+  const { strings, language, updateLanguage } = useContext(LanguageContext);
 
   const [loading, setLoading] = useState(false);
   const [occupationDetail, setOccupationDetail] = useState();
@@ -31,6 +31,13 @@ const OccupationDetailPage = (props) => {
       setLoading(false);
     }
   }, [occupationDetail]);
+
+  const { location } = props;
+  useEffect(() => {
+    if (location.state && location.state.lang) {
+      updateLanguage(location.state.lang);
+    }
+  }, [location.state]); 
 
   const avgStringArray = (arr) => {
     let avg = 0;

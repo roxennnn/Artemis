@@ -95,8 +95,6 @@ const OrganisationSignUp = (props) => {
         const response = await AuthService.registerOrganisation(usernameValue, emailValue, pass);
         console.log(response);
         props.history.push("/home");
-        window.location.reload();
-        // props.history.push("/profile");
       } catch (err) {
         // here we should handle duplicate usernames or emails
         console.log(`ERROR: ${err}`);

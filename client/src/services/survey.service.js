@@ -43,8 +43,6 @@ class SurveyService {
     const response = await axios.get(API_URL + `reset-${href}`, {
       headers: header,
     });
-    // console.log(href);
-    // console.log(response.status);
     return response.status;
   };
 }

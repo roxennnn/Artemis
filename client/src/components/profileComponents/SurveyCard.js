@@ -76,7 +76,8 @@ const SurveyCard = (props) => {
                 const status = await SurveyService.resetSurvey(props.href);
                 // console.log(status);
                 if (status === 200) {
-                  window.location.reload();
+                  // window.location.reload();
+                  props.setDoneFalse(props.href);
                 }
               }}
               // style={{borderStyle: "solid", borderColor: "red", width: "20%"}}

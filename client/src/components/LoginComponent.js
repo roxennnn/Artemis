@@ -9,10 +9,13 @@ import AuthService from "../services/auth.service";
 const LoginComponent = (props) => {
   const [usernameValue, setUsernameValue] = useState("");
   const [passValue, setPassValue] = useState("");
+  const [loginErrorMessage, setLoginErrorMessage] = useState();
 
   const submitHandler = async () => {
     const username = usernameValue;
     const pass = passValue;
+
+    setLoginErrorMessage();
 
     // make login POST request
     try {
@@ -24,19 +27,16 @@ const LoginComponent = (props) => {
         props.history.push("/profile");
       }
 
-      window.location.reload();
-
       setUsernameValue("");
       setPassValue("");
     } catch (err) {
-      console.log(err);
       // THE FOLLOWING CAN BE USED FOR THE ERROR MESSAGE....
-      // const resMessage =
-      //   (error.response &&
-      //     error.response.data &&
-      //     error.response.data.message) ||
-      //   error.message ||
-      //   error.toString();
+      const resMessage =
+        (err.response && err.response.data && err.response.data.message) ||
+        err.message ||
+        err.toString();
+
+      setLoginErrorMessage(resMessage);
     }
   };
 
@@ -99,6 +99,9 @@ const LoginComponent = (props) => {
               props.strings.NavComponent.LoginNavbar.forgotPassword}
           </a>
         </div>
+        {loginErrorMessage && (
+          <div style={{ color: "red", textAlign: "center" }}>{loginErrorMessage}</div>
+        )}
         <PrimaryButton
           label="Log In"
           buttonStyle={{ margin: 10 }}

@@ -25,7 +25,7 @@ const containerStyle = {
   },
 };
 
-const ExperienceSurvey = (props) => {
+const Domestic = (props) => {
   const { strings } = useContext(LanguageContext);
 
   // Change background color
@@ -761,4 +761,4 @@ const ExperienceSurvey = (props) => {
   );
 };
 
-export default ExperienceSurvey;
+export default Domestic;

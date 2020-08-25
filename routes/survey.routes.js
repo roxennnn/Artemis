@@ -37,7 +37,7 @@ export default (app) => {
   );
 
   app.get(
-    "/api/survey/reset-experience-survey",
+    "/api/survey/reset-domestic-survey",
     [
       authJwt.verifyToken, // only authorised users can perform this operation
     ],
@@ -54,7 +54,7 @@ export default (app) => {
   );
 
   app.post(
-    "/api/survey/experience",
+    "/api/survey/domestic",
     [
       authJwt.verifyToken, // only authorised users can perform this operation
     ],

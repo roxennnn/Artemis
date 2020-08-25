@@ -26,7 +26,7 @@ const containerStyle = {
 };
 
 const OrganisationPage = (props) => {
-  const { strings, language } = useContext(LanguageContext);
+  const { strings, language, updateLanguage } = useContext(LanguageContext);
 
   const [currentUser, setCurrentUser] = useState(); // data of logged user
   const [loading, setLoading] = useState(false);
@@ -108,6 +108,13 @@ const OrganisationPage = (props) => {
       setLoading(false);
     }
   }, []);
+
+  const { location } = props;
+  useEffect(() => {
+    if (location.state && location.state.lang) {
+      updateLanguage(location.state.lang);
+    }
+  }, [location.state]); 
 
   return (
     <div style={{}}>

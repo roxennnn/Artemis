@@ -39,7 +39,6 @@ const LoginNavbar = (props) => {
                     onClick={() => {
                       localStorage.setItem("language", props.language);
                       history.push("/signup");
-                      // window.location.reload();
                     }}
                   >
                     <b

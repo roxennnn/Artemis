@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"work_ur_freedom_db.occupation_es"}],"uuid":"4475ec65de3940b0996e7104a0488625"}

@@ -153,6 +153,9 @@ const ProfilePage = (props) => {
   useEffect(() => {
     if (location.state && location.state.from) {
       setShowValue(location.state.to);
+      if (location.state.lang) {
+        updateLanguage(location.state.lang);
+      }
     }
   }, [location.state]); 
 
@@ -333,8 +336,13 @@ const ProfilePage = (props) => {
                           onClick={() => {
                             AuthService.logout();
                             localStorage.setItem("language", language);
-                            props.history.push("/");
-                            window.location.reload();
+                            // props.history.push("/");
+                            props.history.push({
+                              pathname: "/",
+                              state: {
+                                lang: props.language
+                              },
+                            });
                           }}
                         />
                       </div>

@@ -65,7 +65,7 @@ export const submitSurveyAnswers = async (req, res) => {
       // Debugging logs
       // console.log(result);
       // console.log(updateResult);
-    } else if (survey === "experience") {
+    } else if (survey === "domestic") {
       const result = await workUrFreedomContract.methods
         .addExperienceAnwsers(userAddr, answers)
         .send({ from: OWNER_ADDR, gas: GAS_LIMIT });
@@ -193,7 +193,7 @@ export const resetSurveyData = async (req, res) => {
       }
       return res.send(200, "Succesfully resetted.");
     });
-  } else if (survey === "experience") {
+  } else if (survey === "domestic") {
     User.update(
       { _id: userId },
       { $set: { experience_done: false } },

@@ -1,10 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import ReactCountryFlag from "react-country-flag";
 
 import Colors from "../constants/Colors.js";
-// import logo from "../images/logo.svg";
+import AuthService from "../services/auth.service";
 
 import LoginNavbar from "./LoginNavbar";
 import LoggedNavbar from "./LoggedNavbar";
@@ -33,6 +33,13 @@ const NavComponent = (props) => {
   const { strings, language, updateLanguage } = useContext(LanguageContext);
   const [currentFlag, setCurrentFlag] = useState();
   const history = useHistory();
+  const [currentUser, setCurrentUser] = useState();
+
+  const location = useLocation();
+  useEffect(() => {
+    const user = AuthService.getCurrentUser();
+    setCurrentUser(user);
+  }, [location.pathname]);
 
   const fetchLanguage = () => {
     const lang = localStorage.getItem("language");
@@ -59,7 +66,6 @@ const NavComponent = (props) => {
     // console.log(e.target.id);
     localStorage.setItem("language", language);
     history.push(e.target.id);
-    // window.location.reload();
   };
 
   return (
@@ -134,7 +140,7 @@ const NavComponent = (props) => {
                 onClick={() => {
                   setCurrentFlag("ES");
                   updateLanguage("es");
-                  localStorage.setItem('language', 'es');
+                  localStorage.setItem("language", "es");
                 }}
               />
               <LanguageComponent
@@ -143,7 +149,7 @@ const NavComponent = (props) => {
                 onClick={() => {
                   setCurrentFlag("PT");
                   updateLanguage("pt");
-                  localStorage.setItem('language', 'pt');
+                  localStorage.setItem("language", "pt");
                 }}
               />
               <LanguageComponent
@@ -152,7 +158,7 @@ const NavComponent = (props) => {
                 onClick={() => {
                   setCurrentFlag("GB");
                   updateLanguage("en");
-                  localStorage.setItem('language', 'en');
+                  localStorage.setItem("language", "en");
                 }}
               />
             </div>
@@ -221,7 +227,7 @@ const NavComponent = (props) => {
             </div>
           </li>
 
-          {props.currentUser && !props.currentUser.organisation && (
+          {currentUser && !currentUser.organisation && (
             <li className="nav-item">
               <Link to={"/forum"} className="nav-link">
                 Forum
@@ -243,10 +249,10 @@ const NavComponent = (props) => {
       <div className="collapse navbar-collapse" id="navbarTop">
         <ul className="navbar-nav ml-auto">
           <li>
-            {props.currentUser ? (
+            {currentUser ? (
               <LoggedNavbar
                 history={props.history}
-                currentUser={props.currentUser}
+                currentUser={currentUser}
                 strings={strings}
                 language={language}
               />

@@ -11,12 +11,19 @@ const LandingPage = (props) => {
   const { strings, language, updateLanguage } = useContext(LanguageContext);
   const [currentUser, setCurrentUser] = useState();
 
+  const { location } = props;
+  useEffect(() => {
+    if (location.state && location.state.lang) {
+      updateLanguage(location.state.lang);
+    }
+  }, [location.state]);
+
   useEffect(() => {
     const user = AuthService.getCurrentUser();
     if (user) {
       setCurrentUser(user);
     }
-    const lang = localStorage.getItem('language');
+    const lang = localStorage.getItem("language");
     if (lang) {
       updateLanguage(lang);
     }
