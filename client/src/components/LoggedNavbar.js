@@ -53,12 +53,14 @@ const LoggedNavbar = (props) => {
       setSkillsDone(user.user.skills_done);
     }
   };
-  useEffect(() => { // @TOFIX
+  useEffect(() => { // @TOFIX: it does not update the dropdown menu when the skills survey is done unless a page refresh is done
     setLoading(true);
-    // if (location.pathname === "/profile") {
+    if (location.pathname === "/profile") {
       asyncQueryProfileData();
-    // }
-  }, []);
+    } else {
+      setLoading(false);
+    }
+  }, [location.pathname]);
 
   useEffect(() => {
     if (currentUser) {
