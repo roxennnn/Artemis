@@ -1,5 +1,5 @@
 <!-- # A R T E M I S -->
-![](./client/src/images/logos/logo8.png)
+![](./client/src/images/logos/logo9.png)
 
 _Here goes the description_
 
