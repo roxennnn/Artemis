@@ -35,7 +35,7 @@ blockchain/constants*
 blockchain/build/*
 
 # custom
-node.md
+notes.md
 client/yarn.lock
 
 
