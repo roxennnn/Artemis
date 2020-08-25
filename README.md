@@ -2,7 +2,9 @@
 
 _Here goes the description_
 
-_Here, embed the video_
+_Here, embed the video and/or screenshots_
+
+_Also, talk about some techincal choices_
 
 ## Setup for the development environment
 
