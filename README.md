@@ -1,8 +1,9 @@
-# A R T E M I S
+<!-- # A R T E M I S -->
+![Artemis](./client/src/images/logos/logo2.png)
 
 _Here goes the description_
 
-_Here, embed the video and/or screenshots_
+_Here, embed/link to the video and/or screenshots_
 
 _Also, talk about some techincal choices_
 
