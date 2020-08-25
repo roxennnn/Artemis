@@ -1,5 +1,5 @@
-const WorkUrFreedomContract = artifacts.require("WorkUrFreedomContract");
+const ArtemisContract = artifacts.require("ArtemisContract");
 
 module.exports = function(deployer) {
-  deployer.deploy(WorkUrFreedomContract);
+  deployer.deploy(ArtemisContract);
 };
