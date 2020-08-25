@@ -58,7 +58,7 @@ const LoggedNavbar = (props) => {
     if (location.pathname === "/profile") {
       asyncQueryProfileData();
     } else {
-      setLoading(false);
+      setLoading(false);  // it should work now
     }
   }, [location.pathname]);
 
