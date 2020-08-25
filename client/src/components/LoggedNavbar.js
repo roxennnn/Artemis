@@ -55,10 +55,10 @@ const LoggedNavbar = (props) => {
   };
   useEffect(() => { // @TOFIX
     setLoading(true);
-    if (location.pathname === "/profile") {
+    // if (location.pathname === "/profile") {
       asyncQueryProfileData();
-    }
-  }, [location.pathname]);
+    // }
+  }, []);
 
   useEffect(() => {
     if (currentUser) {

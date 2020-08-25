@@ -262,7 +262,7 @@ span.footer-link:hover {
 
 /* Spinner */
 div.text-primary {
-  color: var(--primary-color) !important;
+  color: var(--accent-color) !important;
 }
 
 /* Sign-up pages */
