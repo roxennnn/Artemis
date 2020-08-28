@@ -1,7 +1,6 @@
-<!-- # A R T E M I S -->
 ![](./client/src/images/logos/logoX.png)
 
-Artemis is an online platform that helps uneducated or poorly educated women find a job that matches their skills. The website uses ESCO (European Classification of Skills Knowledge and Occupations, available [here](https://ec.europa.eu/esco/portal/home)) to create a match between the women’s skills and the most suitable occupations they can apply for in the formal labour market.
+**Artemis** is an online platform that helps uneducated or poorly educated women find a job that matches their skills. The website uses ESCO (European Classification of Skills Knowledge and Occupations, available [here](https://ec.europa.eu/esco/portal/home)) to create a match between the women’s skills and the most suitable occupations they can apply for in the formal labour market.
 
 The purpose of this platform is to fight domestic violence against women in Latin America and the Caribbean through two mechanisms:
 1. Facilitate women’s employment in the formal market, so that they can have access to a stable income that gives them the possibility to exit a violent relationship, without fearing for their children’s and their own economic sustenance. 
@@ -9,12 +8,13 @@ The purpose of this platform is to fight domestic violence against women in Lati
 
 The web application has two main sections, one for the women and one for the organisations. In the first section every woman can fill in three surveys: demographic, skills, and domestic situation experienced. The information collected from the skills survey is then elaborated and through the use of ESCO the profile of the woman is matched with the 5 jobs that fit her the most, according to the skills she has. The information is anonymously stored in Ethereum using the Blockchain technology to ensure the privacy and safety of the respondents. Once they have completed the surveys, the users can visualise their skills profiles and the occupations they have been matched with.
 The second section is designed for the organisations to download the datasets containing the information collected through the women’s survey. The data is completely anonymous, and it is impossible to associate it with the respondents.
-The website is in three languages (English, Spanish, and Portuguese) and is completely free.
+
+Currently, the web application is in three languages (Spanish, English, and Portuguese) and it is completely free.
 
 _Here, embed/link to the video and/or screenshots_
 
 
-## Setup for the development environment
+## Development environment setup
 
 In order to run the development environment, the following are needed:
   * [Node.js](https://nodejs.org/en/)
@@ -63,5 +63,3 @@ Finally, on a new terminal run the following command to start both the back-end 
 ```bash
   npm run dev
 ```
-
-## About us
