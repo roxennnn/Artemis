@@ -2,7 +2,7 @@
 
 **Artemis** is an online platform that helps uneducated or poorly educated women find a job that matches their skills. The website uses ESCO (European Classification of Skills Knowledge and Occupations, available [here](https://ec.europa.eu/esco/portal/home)) to create a match between the women’s skills and the most suitable occupations they can apply for in the formal labour market.
 
-The purpose of this platform is to fight domestic violence against women in Latin America and the Caribbean through two mechanisms:
+_The purpose of this platform is to fight domestic violence against women in Latin America and the Caribbean_ through two mechanisms:
 1. Facilitate women’s employment in the formal market, so that they can have access to a stable income that gives them the possibility to exit a violent relationship, without fearing for their children’s and their own economic sustenance. 
 2. Provide real data on domestic violence and employment to organisations, policymakers and researchers involved in the issue. This allows evidence-based policies and projects to approach the problem from a systemic perspective.
 
