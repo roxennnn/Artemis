@@ -15,7 +15,7 @@ Currently, the web application is in three languages (Spanish, English, and Port
 
 <div style="text-align: center;">
  <a href="http://www.youtube.com/watch?v=UznF15Q91OY">
-  <image src="http://img.youtube.com/vi/UznF15Q91OY/0.jpg" />
+  <image src="artemisthumbnail.png" />
  </a>
 </div>
 
