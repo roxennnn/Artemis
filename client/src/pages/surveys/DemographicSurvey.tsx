@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import CenterView from '../../components/CenterView';
 
 import Countries from '../../constants/Countries';
@@ -13,7 +13,8 @@ import Checkboxes from '../../components/surveyComponents/Checkboxes';
 import Radiobuttons from '../../components/surveyComponents/Radiobuttons';
 import SurveyService from '../../services/survey.service';
 
-import { LanguageContext } from '../../languages/LanguageProvider';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/reducers/root.reducer';
 
 // - How old are you
 const ageRange = [...Array(47).keys()].map((i) => {
@@ -36,7 +37,7 @@ const containerStyle = {
 };
 
 const DemographicSurvey = (props: FixMeLater) => {
-  const { strings } = useContext(LanguageContext);
+  const strings = useSelector((state: RootState) => state.language.strings);
   const [submitError, setSubmitError] = useState(false);
 
   // QUESTIONS' DATA

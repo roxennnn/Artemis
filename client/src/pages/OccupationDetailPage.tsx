@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Spinner } from 'react-bootstrap';
 
 import Colors from '../constants/Colors';
@@ -7,11 +7,16 @@ import CenterView from '../components/CenterView';
 import ProgressBar from '../components/ProgressBar';
 import MatchingService from '../services/matching.service';
 
-import { LanguageContext } from '../languages/LanguageProvider';
 import { FixMeLater } from '../constants/Utilities';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store/reducers/root.reducer';
+import { setLanguage } from '../store/actions/language.action';
 
 const OccupationDetailPage = (props: FixMeLater) => {
-  const { strings, language, updateLanguage } = useContext(LanguageContext);
+  const { strings, language } = useSelector(
+    (state: RootState) => state.language
+  );
+  const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
   const [occupationDetail, setOccupationDetail] = useState<FixMeLater>();
@@ -33,12 +38,13 @@ const OccupationDetailPage = (props: FixMeLater) => {
     }
   }, [occupationDetail]);
 
-  const { location } = props;
-  useEffect(() => {
-    if (location.state && location.state.lang) {
-      updateLanguage(location.state.lang);
-    }
-  }, [location.state]);
+  // const { location } = props;
+  // useEffect(() => {
+  //   if (location.state && location.state.lang) {
+  //     // updateLanguage(location.state.lang);
+  //     dispatch(setLanguage(location.state.lang));
+  //   }
+  // }, [location.state, dispatch]);
 
   const avgStringArray = (arr: FixMeLater) => {
     let avg = 0;
@@ -102,27 +108,29 @@ const OccupationDetailPage = (props: FixMeLater) => {
                     strings.Profile.ProfileMatchings.OccupationDetails
                       .requiredSkills}
                 </h3>
-                {occupationDetail.category_names.map((name: FixMeLater, index: number) => {
-                  return (
-                    <div
-                      key={index}
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        marginTop: '2%',
-                      }}
-                    >
-                      <div style={{ width: '50%' }}>{name}</div>
-                      <ProgressBar
-                        percentage={`${occupationDetail.category_scores[index]}%`}
-                        color={Colors.primary}
-                        gradient={Colors.gradient}
-                        outsideStyle={{ width: '50%', height: 20 }}
-                      />
-                    </div>
-                  );
-                })}
+                {occupationDetail.category_names.map(
+                  (name: FixMeLater, index: number) => {
+                    return (
+                      <div
+                        key={index}
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          marginTop: '2%',
+                        }}
+                      >
+                        <div style={{ width: '50%' }}>{name}</div>
+                        <ProgressBar
+                          percentage={`${occupationDetail.category_scores[index]}%`}
+                          color={Colors.primary}
+                          gradient={Colors.gradient}
+                          outsideStyle={{ width: '50%', height: 20 }}
+                        />
+                      </div>
+                    );
+                  }
+                )}
                 <br />
                 <div
                   style={{

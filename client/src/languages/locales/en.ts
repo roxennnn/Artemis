@@ -47,7 +47,7 @@ export default {
     passwordLength: 'The password should be at least 8 characters long.',
     confirmPassword: 'Confirm password',
     passwordsDontMatch: 'Passwords do not match.',
-    neverShare: "We'll never share your personal information with anyone else.",
+    neverShare: 'We\'ll never share your personal information with anyone else.',
     agreeTo: 'Agree to',
     terms: 'terms',
     and: 'and',
@@ -151,7 +151,7 @@ export default {
         description:
           'Show us what you are able to do! Answer some simple questions to identify which career is the best for you.',
         introduction:
-          "This section contains questions that will give us information about the skills and abilities that you have and that can be employed in the labour market. Please take your time and read themcarefully, once you complete this, you'll be albe to see your possible career paths, the more accurate your answers, the better results you will obtain. Your information is kept confidetial.",
+          'This section contains questions that will give us information about the skills and abilities that you have and that can be employed in the labour market. Please take your time and read themcarefully, once you complete this, you\'ll be albe to see your possible career paths, the more accurate your answers, the better results you will obtain. Your information is kept confidetial.',
         categories: enCategories,
         beginner: 'Beginner',
         intermediate: 'Intermediate',

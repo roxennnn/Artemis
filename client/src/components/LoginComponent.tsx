@@ -6,11 +6,17 @@ import PrimaryButton from './PrimaryButton';
 
 import AuthService from '../services/auth.service';
 import { FixMeLater } from '../constants/Utilities';
+import { signIn } from '../store/actions/authentication.action';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store/reducers/root.reducer';
 
 const LoginComponent = (props: FixMeLater) => {
   const [usernameValue, setUsernameValue] = useState('');
   const [passValue, setPassValue] = useState('');
   const [loginErrorMessage, setLoginErrorMessage] = useState();
+
+  const { organisation } = useSelector((state: RootState) => state.authentication);
+  const dispatch = useDispatch();
 
   const submitHandler = async () => {
     const username = usernameValue;
@@ -20,9 +26,10 @@ const LoginComponent = (props: FixMeLater) => {
 
     // make login POST request
     try {
-      const response = await AuthService.login(username, pass);
-      localStorage.setItem('language', props.language);
-      if (response.organisation) {
+      // const response = await AuthService.login(username, pass);
+      // localStorage.setItem('language', props.language);
+      dispatch(signIn(username, pass));
+      if (organisation) {
         props.history.push('/organisation');
       } else {
         props.history.push('/profile');

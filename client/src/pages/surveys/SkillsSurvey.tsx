@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import CenterView from '../../components/CenterView';
 
 import PrimaryButton from '../../components/PrimaryButton';
@@ -8,11 +8,13 @@ import SurveyService from '../../services/survey.service';
 
 import TableQuestions from '../../components/surveyComponents/TableQuestions';
 
-import { LanguageContext } from '../../languages/LanguageProvider';
 import { FixMeLater } from '../../constants/Utilities';
+import { RootState } from '../../store/reducers/root.reducer';
+import { useSelector } from 'react-redux';
 
 const SkillsSurvey = (props: FixMeLater) => {
-  const { strings, language } = useContext(LanguageContext);
+  const {strings, language} = useSelector((state: RootState) => state.language);
+
   const [submitError, setSubmitError] = useState(false);
 
   // Change background color

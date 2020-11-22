@@ -1,11 +1,10 @@
 // To be fixed
 
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import ReactCountryFlag from 'react-country-flag';
 
-import Colors from '../constants/Colors.ts';
+import Colors from '../constants/Colors';
 import AuthService from '../services/auth.service';
 
 import LoginNavbar from './LoginNavbar';
@@ -13,29 +12,23 @@ import LoggedNavbar from './LoggedNavbar';
 
 import logo from '../images/logo.png';
 
-// Multilingual
-import { LanguageContext } from '../languages/LanguageProvider';
+import { useDispatch, useSelector } from 'react-redux';
+import { FixMeLater } from '../constants/Utilities';
+import { RootState } from '../store/reducers/root.reducer';
+import { setLanguage } from '../store/actions/language.action';
+import { Language } from '../model/language.model';
+import LanguageComponent from './language.component';
+import CountryFlagComponent from './countryflag.component';
 
-const LanguageComponent = (props) => {
-  return (
-    <div
-      className="dropdown-item flag-dropdown-item"
-      onClick={props.onClick}
-      style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
-    >
-      <ReactCountryFlag svg countryCode={props.countryCode} />
-      <div className="flag-dropdown-label" style={{ marginLeft: '10%' }}>
-        {props.label}
-      </div>
-    </div>
+const NavComponent = (props: FixMeLater) => {
+  const { strings, language } = useSelector(
+    (state: RootState) => state.language
   );
-};
+  const dispatch = useDispatch();
 
-const NavComponent = (props) => {
-  const { strings, language, updateLanguage } = useContext(LanguageContext);
-  const [currentFlag, setCurrentFlag] = useState();
+  const [currentFlag, setCurrentFlag] = useState<FixMeLater>('GB');
   const history = useHistory();
-  const [currentUser, setCurrentUser] = useState();
+  const [currentUser, setCurrentUser] = useState<FixMeLater>();
 
   const location = useLocation();
   useEffect(() => {
@@ -46,7 +39,8 @@ const NavComponent = (props) => {
   const fetchLanguage = () => {
     const lang = localStorage.getItem('language');
     if (lang) {
-      updateLanguage(lang);
+      // updateLanguage(lang);
+      dispatch(setLanguage(lang as Language));
     }
   };
 
@@ -55,16 +49,16 @@ const NavComponent = (props) => {
   }, []);
 
   useEffect(() => {
-    if (language === 'en') {
+    if (language === Language.EN) {
       setCurrentFlag('GB');
-    } else if (language === 'es') {
+    } else if (language === Language.ES) {
       setCurrentFlag('ES');
-    } else if (language === 'pt') {
+    } else if (language === Language.PT) {
       setCurrentFlag('PT');
     }
   }, [language]);
 
-  const learnMoreClickHandler = (e) => {
+  const learnMoreClickHandler = (e: FixMeLater) => {
     // console.log(e.target.id);
     localStorage.setItem('language', language);
     history.push(e.target.id);
@@ -81,8 +75,6 @@ const NavComponent = (props) => {
       }}
     >
       <Link to={'/'} className="navbar-brand">
-        {/* <img src={logo} className="nav-logo" alt="logo" /> */}
-        {/* <div style={{ fontSize: 28 }}>A R T E M I S</div> */}
         <div style={{ width: '8.5%', padding: '0.5%' }}>
           <img alt="" src={logo} style={{ width: '100%' }} />
         </div>
@@ -125,24 +117,24 @@ const NavComponent = (props) => {
                 alignItems: 'center',
                 outline: 'none',
               }}
-              class="dropdown-toggle"
+              className="dropdown-toggle"
               type="button"
               id="dropdownMenuButton"
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <ReactCountryFlag countryCode={currentFlag} />
+              <CountryFlagComponent countryCode={currentFlag} />
             </button>
-            {/* </a> */}
             <div className="dropdown-menu dropdown-menu-learnmore dropdown-flags">
               <LanguageComponent
                 countryCode="ES"
                 label="Español"
                 onClick={() => {
                   setCurrentFlag('ES');
-                  updateLanguage('es');
-                  localStorage.setItem('language', 'es');
+                  // updateLanguage('es');
+                  dispatch(setLanguage(Language.ES));
+                  localStorage.setItem('language', 'es');  // FixMeLater
                 }}
               />
               <LanguageComponent
@@ -150,8 +142,9 @@ const NavComponent = (props) => {
                 label="Português"
                 onClick={() => {
                   setCurrentFlag('PT');
-                  updateLanguage('pt');
-                  localStorage.setItem('language', 'pt');
+                  // updateLanguage('pt');
+                  dispatch(setLanguage(Language.PT));
+                  localStorage.setItem('language', 'pt'); // FixMeLater
                 }}
               />
               <LanguageComponent
@@ -159,8 +152,9 @@ const NavComponent = (props) => {
                 label="English"
                 onClick={() => {
                   setCurrentFlag('GB');
-                  updateLanguage('en');
-                  localStorage.setItem('language', 'en');
+                  // updateLanguage('en');
+                  dispatch(setLanguage(Language.EN));
+                  localStorage.setItem('language', 'en'); // FixMeLater
                 }}
               />
             </div>
@@ -254,7 +248,6 @@ const NavComponent = (props) => {
             {currentUser ? (
               <LoggedNavbar
                 history={props.history}
-                currentUser={currentUser}
                 strings={strings}
                 language={language}
               />

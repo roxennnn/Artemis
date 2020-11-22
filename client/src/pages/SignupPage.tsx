@@ -5,34 +5,41 @@ import WomanSignUp from '../components/WomanSignUp';
 import OrganisationSignUp from '../components/OrganisationSignUp';
 import Colors from '../constants/Colors';
 
-import { LanguageContext } from '../languages/LanguageProvider';
-
 import BackButton from '../components/BackButton';
 import LoginComponent from '../components/LoginComponent';
 import { FixMeLater } from '../constants/Utilities';
+import { RootState } from '../store/reducers/root.reducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLanguage } from '../store/actions/language.action';
+import { Language } from '../model/language.model';
 
 const SignupPage = (props: FixMeLater) => {
-  const { strings, language, updateLanguage } = useContext(LanguageContext);
+  // const { strings, language, updateLanguage } = useContext(LanguageContext);
+  const { strings, language } = useSelector(
+    (state: RootState) => state.language
+  );
+  const dispatch = useDispatch();
   const [userType, setUserType] = useState('None');
 
-  const fetchLanguage = async () => {
-    const lang = await localStorage.getItem('language');
-    updateLanguage(lang);
+  const fetchLanguage = () => {
+    const lang = localStorage.getItem('language');
+    // dispatch(setLanguage(lang as Language));
+    // updateLanguage(lang);
   };
 
   useEffect(() => {
     fetchLanguage();
-  }, [fetchLanguage]);
+  }, []);
 
   const { location } = props;
   useEffect(() => {
     if (location.state && location.state.from) {
       setUserType(location.state.to);
-      if (location.state.lang) {
-        updateLanguage(location.state.lang);
-      }
+      // if (location.state.lang) {
+      //   updateLanguage(location.state.lang);
+      // }
     }
-  }, [location.state, updateLanguage]);
+  }, [location.state]);
 
   return (
     <div>

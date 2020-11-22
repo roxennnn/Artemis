@@ -1,34 +1,42 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import AuthService from '../services/auth.service';
 
 import Colors from '../constants/Colors';
 import PrimaryButton from '../components/PrimaryButton';
 
-import { LanguageContext } from '../languages/LanguageProvider';
 import { FixMeLater } from '../constants/Utilities';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store/reducers/root.reducer';
+import { setLanguage } from '../store/actions/language.action';
+import { Language } from '../model/language.model';
 
 const LandingPage = (props: FixMeLater) => {
-  const { strings, language, updateLanguage } = useContext(LanguageContext);
+  const dispatch = useDispatch();
+  const { strings, language } = useSelector(
+    (state: RootState) => state.language
+  );
   const [currentUser, setCurrentUser] = useState();
 
-  const { location } = props;
-  useEffect(() => {
-    if (location.state && location.state.lang) {
-      updateLanguage(location.state.lang);
-    }
-  }, [location.state, updateLanguage]);
+  // const { location } = props;
+  // useEffect(() => {
+  //   if (location.state && location.state.lang) {
+  //     // updateLanguage(location.state.lang);
+  //     dispatch(setLanguage(location.state.lang));
+  //   }
+  // }, [location.state, dispatch]);
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
     if (user) {
       setCurrentUser(user);
     }
-    const lang = localStorage.getItem('language');
-    if (lang) {
-      updateLanguage(lang);
-    }
-  }, [updateLanguage]);
+    // const lang = localStorage.getItem('language');
+    // if (lang) {
+    //   // updateLanguage(lang);
+    //   dispatch(setLanguage(lang as Language));
+    // }
+  }, []);
 
   const learnMoreClickHandler = (e: FixMeLater) => {
     localStorage.setItem('language', language);

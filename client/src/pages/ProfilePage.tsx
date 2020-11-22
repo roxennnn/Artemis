@@ -28,12 +28,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SurveyService from '../services/survey.service';
 import AuthService from '../services/auth.service';
 
-import { LanguageContext } from '../languages/LanguageProvider';
-
 import avatar2 from '../images/avatar2.png';
 
 import '../css/ProfilePage.css';
 import { FixMeLater } from '../constants/Utilities';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store/reducers/root.reducer';
+import { setLanguage } from '../store/actions/language.action';
 
 const styles = {
   someInfo: {
@@ -84,18 +85,23 @@ const IconBox = (props: FixMeLater) => {
 // - Add sort buttons in occupations and skills
 
 const ProfilePage = (props: FixMeLater) => {
-  const { strings, language, updateLanguage } = useContext(LanguageContext);
+  // const { strings, language, updateLanguage } = useContext(LanguageContext);
+  const { strings, language } = useSelector(
+    (state: RootState) => state.language
+  );
+  const dispatch = useDispatch();
 
   const [showValue, setShowValue] = useState(0);
-  const [currentUser, setCurrentUser] = useState<FixMeLater>(); // data of logged user
+  // const [currentUser, setCurrentUser] = useState<FixMeLater>(); // data of logged user
+  const { username } = useSelector((state: RootState) => state.authentication);
   const [loading, setLoading] = useState(false);
   const [geoPosition, setGeoPosition] = useState<FixMeLater>();
 
   const asyncQueryProfileData = async () => {
-    const user = await SurveyService.queryProfileData();
-    if (user) {
-      setCurrentUser(user.user);
-    }
+    // const user = await SurveyService.queryProfileData();
+    // if (user) {
+    //   setCurrentUser(user.user);
+    // }
   };
   useEffect(() => {
     setLoading(true);
@@ -154,11 +160,12 @@ const ProfilePage = (props: FixMeLater) => {
   useEffect(() => {
     if (location.state && location.state.from) {
       setShowValue(location.state.to);
-      if (location.state.lang) {
-        updateLanguage(location.state.lang);
-      }
+      // if (location.state.lang) {
+      //   // updateLanguage(location.state.lang);
+      //   dispatch(setLanguage(location.state.lang));
+      // }
     }
-  }, [location.state, updateLanguage]);
+  }, [location.state]);
 
   return (
     <div style={{ margin: '2%' }}>

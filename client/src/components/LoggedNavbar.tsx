@@ -25,6 +25,8 @@ import CenterView from '../components/CenterView';
 
 import avatar2 from '../images/avatar2.png';
 import { FixMeLater } from '../constants/Utilities';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/reducers/root.reducer';
 
 const styles = {
   dropdownItem: {
@@ -43,7 +45,10 @@ const LoggedNavbar = (props: FixMeLater) => {
   const history = useHistory();
   const location = useLocation();
   const [currentUser, setCurrentUser] = useState<FixMeLater>(); // data of logged user
-  const [loading, setLoading] = useState(false);
+  const { username, loading, organisation } = useSelector(
+    (state: RootState) => state.authentication
+  );
+  // const [loading, setLoading] = useState(false);
 
   const [skillsDone, setSkillsDone] = useState();
 
@@ -56,19 +61,20 @@ const LoggedNavbar = (props: FixMeLater) => {
   };
   useEffect(() => {
     // @TOFIX: it does not update the dropdown menu when the skills survey is done unless a page refresh is done
-    setLoading(true);
+    // setLoading(true);
     if (location.pathname === '/profile') {
       asyncQueryProfileData();
-    } else {
-      setLoading(false); // it should work now
     }
+    // else {
+    //   setLoading(false); // it should work now
+    // }
   }, [location.pathname]);
 
-  useEffect(() => {
-    if (currentUser) {
-      setLoading(false);
-    }
-  }, [currentUser]);
+  // useEffect(() => {
+  //   if (currentUser) {
+  //     setLoading(false);
+  //   }
+  // }, [currentUser]);
 
   return (
     <div>
@@ -80,7 +86,7 @@ const LoggedNavbar = (props: FixMeLater) => {
         </CenterView>
       ) : (
         <div>
-          {currentUser && (
+          {username && (
             <div>
               <li className="nav-item dropdown">
                 <a
@@ -96,8 +102,8 @@ const LoggedNavbar = (props: FixMeLater) => {
                     alignItems: 'center',
                   }}
                 >
-                  <span style={{ fontSize: 18 }}>{currentUser.username}</span>
-                  {!currentUser.organisation && (
+                  <span style={{ fontSize: 18 }}>{username}</span>
+                  {!organisation && (
                     <img // No percentages... @TOFIX for a responsive design
                       style={{
                         width: '8%',
@@ -145,7 +151,7 @@ const LoggedNavbar = (props: FixMeLater) => {
                                 props.strings.ProfileListings.profile}
                             </div>
                           </span>
-                          {!currentUser.organisation && (
+                          {!organisation && (
                             <div>
                               <span
                                 className="dropdown-item profile-dropdown-item"

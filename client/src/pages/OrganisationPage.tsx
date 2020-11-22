@@ -1,14 +1,14 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Spinner } from 'react-bootstrap';
 
 import CenterView from '../components/CenterView';
 import PrimaryButton from '../components/PrimaryButton';
 import Dropdrown from '../components/surveyComponents/Dropdown';
 
-import { LanguageContext } from '../languages/LanguageProvider';
-
 import Countries from '../constants/Countries';
 import { FixMeLater } from '../constants/Utilities';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store/reducers/root.reducer';
 
 const containerStyle = {
   container: {
@@ -27,10 +27,15 @@ const containerStyle = {
 };
 
 const OrganisationPage = (props: FixMeLater) => {
-  const { strings, language, updateLanguage } = useContext(LanguageContext);
+  const { strings, language } = useSelector(
+    (state: RootState) => state.language
+  );
+  const dispatch = useDispatch();
 
-  const [currentUser, setCurrentUser] = useState<FixMeLater>(); // data of logged user
-  const [loading, setLoading] = useState(false);
+  // const [currentUser, setCurrentUser] = useState<FixMeLater>(); // data of logged user
+  // const [loading, setLoading] = useState(false);
+
+  const {username, loading} = useSelector((state: RootState) => state.authentication);
 
   // Selector values
   const [dataLanguage, setDataLanguage] = useState();
@@ -101,21 +106,22 @@ const OrganisationPage = (props: FixMeLater) => {
     },
   ];
 
-  useEffect(() => {
-    setLoading(true);
-    const user = localStorage.getItem('user');
-    if (user) {
-      setCurrentUser(user);
-      setLoading(false);
-    }
-  }, []);
+  // useEffect(() => {
+  //   setLoading(true);
+  //   const user = localStorage.getItem('user');
+  //   if (user) {
+  //     setCurrentUser(user);
+  //     setLoading(false);
+  //   }
+  // }, []);
 
-  const { location } = props;
-  useEffect(() => {
-    if (location.state && location.state.lang) {
-      updateLanguage(location.state.lang);
-    }
-  }, [location.state]);
+  // const { location } = props;
+  // useEffect(() => {
+  //   if (location.state && location.state.lang) {
+  //     // updateLanguage(location.state.lang);
+  //     dispatch(setLanguage(location.state.lang));
+  //   }
+  // }, [location.state, dispatch]);
 
   return (
     <div style={{}}>
