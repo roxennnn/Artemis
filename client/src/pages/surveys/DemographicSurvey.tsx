@@ -1,22 +1,22 @@
-import React, { useState, useEffect, useContext } from "react";
-import CenterView from "../../components/CenterView";
+import React, { useState, useEffect, useContext } from 'react';
+import CenterView from '../../components/CenterView';
 
-import Countries from "../../constants/Countries";
-import { binarise } from "../../constants/Utilities";
+import Countries from '../../constants/Countries';
+import { binarise, FixMeLater } from '../../constants/Utilities';
 
-import PrimaryButton from "../../components/PrimaryButton";
-import BackButton from "../../components/BackButton";
+import PrimaryButton from '../../components/PrimaryButton';
+import BackButton from '../../components/BackButton';
 
-import Dropdown from "../../components/surveyComponents/Dropdown";
-import CountryDropdown from "../../components/surveyComponents/CountryDropdown";
-import Checkboxes from "../../components/surveyComponents/Checkboxes";
-import Radiobuttons from "../../components/surveyComponents/Radiobuttons";
-import SurveyService from "../../services/survey.service";
+import Dropdown from '../../components/surveyComponents/Dropdown';
+import CountryDropdown from '../../components/surveyComponents/CountryDropdown';
+import Checkboxes from '../../components/surveyComponents/Checkboxes';
+import Radiobuttons from '../../components/surveyComponents/Radiobuttons';
+import SurveyService from '../../services/survey.service';
 
-import { LanguageContext } from "../../languages/LanguageProvider";
+import { LanguageContext } from '../../languages/LanguageProvider';
 
 // - How old are you
-let ageRange = [...Array(47).keys()].map((i) => {
+const ageRange = [...Array(47).keys()].map((i) => {
   return { name: i + 18, value: i + 18 };
 });
 
@@ -27,15 +27,15 @@ const containerStyle = {
     // borderWidth: 2,
     // borderColor: "black",
 
-    padding: "2%",
-    margin: "2%",
+    padding: '2%',
+    margin: '2%',
     borderRadius: 20,
     shadow: 100,
-    background: "white",
+    background: 'white',
   },
 };
 
-const DemographicSurvey = (props) => {
+const DemographicSurvey = (props: FixMeLater) => {
   const { strings } = useContext(LanguageContext);
   const [submitError, setSubmitError] = useState(false);
 
@@ -135,7 +135,7 @@ const DemographicSurvey = (props) => {
           .postGraduateUniversityDegree,
       value: 5,
     },
-    { label: "Other", value: 6 },
+    { label: 'Other', value: 6 },
   ];
 
   // - What is your marital status?
@@ -289,10 +289,10 @@ const DemographicSurvey = (props) => {
 
   // Change background color
   useEffect(() => {
-    document.body.style = `background: rgba(59,89,152,0.05);`;
+    document.body.style.cssText = `background: rgba(59,89,152,0.05);`;
 
     return () => {
-      document.body.style = `background: rgb(255,255,255);`;
+      document.body.style.cssText = `background: rgb(255,255,255);`;
     };
   }, []);
 
@@ -303,20 +303,22 @@ const DemographicSurvey = (props) => {
     if (weddingAges.length === ages.length) {
       setWeddingAges(ages);
     } else {
-      let possibleAges = ages.filter((age) => {
-        return age.value <= howOldAreYouValue;
-      });
-      setWeddingAges(possibleAges); // @TOFIX --> should update the viewed wedding age
+      if (howOldAreYouValue) {
+        const possibleAges = ages.filter((age) => {
+          return age.value <= (howOldAreYouValue || 100); // FixMeLater
+        });
+        setWeddingAges(possibleAges); // @TOFIX --> should update the viewed wedding age
+      }
     }
   }, [strings]);
 
   // QUESTIONS
   // - How old are you?
-  const [howOldAreYouValue, setHowOldAreYouValue] = useState();
+  const [howOldAreYouValue, setHowOldAreYouValue] = useState<FixMeLater>();
   const [oldError, setOldError] = useState(false);
 
-  const howOldAreYouOnChangeHandler = (key) => {
-    let possibleAges = ages.filter((age) => {
+  const howOldAreYouOnChangeHandler = (key: FixMeLater) => {
+    const possibleAges = ages.filter((age) => {
       return age.value <= key;
     });
     setWeddingAges(possibleAges); // @TOFIX --> should update the viewed wedding age
@@ -325,14 +327,14 @@ const DemographicSurvey = (props) => {
   };
 
   // - Country question
-  const [country, setCountry] = useState();
-  const [region, setRegion] = useState();
+  const [country, setCountry] = useState<FixMeLater>();
+  const [region, setRegion] = useState<FixMeLater>();
   const [countryError, setCountryError] = useState(false);
 
-  const onCountrySelectHandler = (value) => {
+  const onCountrySelectHandler = (value: FixMeLater) => {
     setCountry(value);
   };
-  const onRegionSelectHandler = (value) => {
+  const onRegionSelectHandler = (value: FixMeLater) => {
     setRegion(value);
   };
 
@@ -341,23 +343,22 @@ const DemographicSurvey = (props) => {
     new Array(transportationList.length).fill(0)
   );
   const [transportationError, setTransportationError] = useState(false);
-
-  const onTransporationChangeHanlder = (e) => {
+  const onTransporationChangeHanlder = (e: FixMeLater) => {
     // of interest: e.target.value --> needed to be made integer (to be considered as index)
-    let tmp_values = transportationValues;
-    const index = parseInt(e.target.value);
-    let tmp = tmp_values[index];
+    const tmpValues = transportationValues;
+    const index = parseInt(e.target.value, 10);
+    let tmp = tmpValues[index];
     tmp = (tmp + 1) % 2; // update the value: if 0 -> 1, if 1 -> 0
-    tmp_values[index] = tmp;
-    setTransportationValues(tmp_values);
+    tmpValues[index] = tmp;
+    setTransportationValues(tmpValues);
   };
 
   // - What is your highest level of education?
   const [educationValue, setEducationValue] = useState(-1);
   const [educationError, setEducationError] = useState(false);
 
-  const onEducationChangeHandler = (e) => {
-    setEducationValue(parseInt(e.target.value));
+  const onEducationChangeHandler = (e: FixMeLater) => {
+    setEducationValue(parseInt(e.target.value, 10));
   };
 
   // - What is your marital status?
@@ -365,18 +366,18 @@ const DemographicSurvey = (props) => {
   const [maritalError, setMaritalError] = useState(false);
 
   // - How old were you when you got married?
-  const [weddingAge, setWeddingAge] = useState();
+  const [weddingAge, setWeddingAge] = useState<FixMeLater>();
   const [weddingError, setWeddingError] = useState(false);
 
-  const onMaritalStatusChangeHandler = (e) => {
-    const newValue = parseInt(e.target.value);
-    if (newValue !== 2 || newValue !== 3 || newValue !== 4) {
+  const onMaritalStatusChangeHandler = (e: FixMeLater) => {
+    const newValue = parseInt(e.target.value, 10);
+    if (newValue < 2 || newValue > 4) {
       setWeddingAge(1);
     }
     setMaritalStatusValue(newValue);
   };
 
-  const onWeddingAgeChangeHandler = (key, obj) => {
+  const onWeddingAgeChangeHandler = (key: FixMeLater, obj: FixMeLater) => {
     setWeddingAge(key);
   };
 
@@ -384,16 +385,16 @@ const DemographicSurvey = (props) => {
   const [primaryIncomeValue, setPrimaryIncomeValue] = useState(-1);
   const [primaryIncomeError, setPrimaryIncomeError] = useState(false);
 
-  const onPrimaryIncomeChangeHandler = (e) => {
-    setPrimaryIncomeValue(parseInt(e.target.value));
+  const onPrimaryIncomeChangeHandler = (e: FixMeLater) => {
+    setPrimaryIncomeValue(parseInt(e.target.value, 10));
   };
 
   // - What do you mainly do for work?
   const [mainlyWorkValue, setMainlyWorkValue] = useState(-1);
   const [mainlyWorkError, setMainlyWorkError] = useState(false);
 
-  const onMainlyWorkChangeHandler = (e) => {
-    setMainlyWorkValue(parseInt(e.target.value));
+  const onMainlyWorkChangeHandler = (e: FixMeLater) => {
+    setMainlyWorkValue(parseInt(e.target.value, 10));
   };
 
   // SUBMIT button
@@ -456,8 +457,8 @@ const DemographicSurvey = (props) => {
     ) {
       if (
         !weddingAge ||
-        parseInt(weddingAge) >
-          parseInt(howOldAreYouValue || parseInt(weddingAge) === 1)
+        parseInt(weddingAge, 10) > parseInt(howOldAreYouValue as string, 10) ||
+        parseInt(weddingAge, 10) === 1
       ) {
         setWeddingError(true);
         noErrors = false;
@@ -499,13 +500,14 @@ const DemographicSurvey = (props) => {
       // STEPS:
       // - make array
       const answers = [
-        parseInt(new Date().getFullYear()) - howOldAreYouValue,
-        parseInt(country) + 1,
-        parseInt(region) + 1,
+        new Date().getFullYear() -
+          (!!howOldAreYouValue ? howOldAreYouValue : 0),
+        parseInt(country, 10) + 1,
+        parseInt(region, 10) + 1,
         transportationBinarised,
         educationValue,
         maritalStatusValue,
-        parseInt(weddingAge),
+        parseInt(weddingAge, 10),
         primaryIncomeValue,
         mainlyWorkValue,
       ];
@@ -514,10 +516,10 @@ const DemographicSurvey = (props) => {
 
       // post request
       try {
-        await SurveyService.submitSurvey("demographics", answers);
+        await SurveyService.submitSurvey('demographics', answers);
         // Go back to profile page
         props.history.push({
-          pathname: "/profile",
+          pathname: '/profile',
           state: {
             from: true,
             to: 0,
@@ -530,12 +532,12 @@ const DemographicSurvey = (props) => {
       // red border
       // actually don't need to do anything
       setSubmitError(true);
-      console.log("SOme errors found");
+      console.log('SOme errors found');
     }
   };
 
   return (
-    <div style={{ margin: "2%" }}>
+    <div style={{ margin: '2%' }}>
       <CenterView
         middle={8}
         sides={2}
@@ -543,7 +545,7 @@ const DemographicSurvey = (props) => {
           <BackButton
             onClick={() => {
               props.history.push({
-                pathname: "/profile",
+                pathname: '/profile',
                 state: {
                   from: true,
                   to: 0,
@@ -716,11 +718,17 @@ const DemographicSurvey = (props) => {
         </div>
       </CenterView>
       {submitError && (
-        <div style={{ color: "red", textAlign: "center", fontSize: 16, marginTop: "0.5%", marginBottom: "0.5%" }}>
-          {
-              strings.Profile &&
-              strings.Profile.ProfileSurveys.youMustAnswerToAllTheQuestions
-            }
+        <div
+          style={{
+            color: 'red',
+            textAlign: 'center',
+            fontSize: 16,
+            marginTop: '0.5%',
+            marginBottom: '0.5%',
+          }}
+        >
+          {strings.Profile &&
+            strings.Profile.ProfileSurveys.youMustAnswerToAllTheQuestions}
         </div>
       )}
       <PrimaryButton
@@ -729,7 +737,7 @@ const DemographicSurvey = (props) => {
           strings.Profile.ProfileSurveys.DemographicsSurvey.submit
         }
         onClick={onSubmit}
-        buttonStyle={{ width: "10%" }}
+        buttonStyle={{ width: '10%' }}
       />
     </div>
   );

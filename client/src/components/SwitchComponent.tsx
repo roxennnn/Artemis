@@ -1,23 +1,24 @@
-import React, { useEffect } from "react";
-import { Switch, Route } from "react-router-dom";
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 
-import SignupPage from "../pages/SignupPage";
-import ProfilePage from "../pages/ProfilePage";
-import TodoPage from "../pages/TodoPage";
-import LandingPage from "../pages/LandingPage";
-import OrganisationPage from "../pages/OrganisationPage";
+import SignupPage from '../pages/SignupPage';
+import ProfilePage from '../pages/ProfilePage';
+import TodoPage from '../pages/TodoPage';
+import LandingPage from '../pages/LandingPage';
+import OrganisationPage from '../pages/OrganisationPage';
 
 // Surveys
-import DemographicSurvey from "../pages/surveys/DemographicSurvey";
-import DomesticSurvey from "../pages/surveys/DomesticSurvey";
-import SkillsSurvey from "../pages/surveys/SkillsSurvey";
+import DemographicSurvey from '../pages/surveys/DemographicSurvey';
+import DomesticSurvey from '../pages/surveys/DomesticSurvey';
+import SkillsSurvey from '../pages/surveys/SkillsSurvey';
 
-import OccupationDetailPage from "../pages/OccupationDetailPage";
+import OccupationDetailPage from '../pages/OccupationDetailPage';
 
 // Learn More
-import HowToUseItPage from "../pages/learnMore/HowToUseItPage";
+import HowToUseItPage from '../pages/learnMore/HowToUseItPage';
+import { FixMeLater } from '../constants/Utilities';
 
-const SwitchComponent = (props) => {
+const SwitchComponent = (props: FixMeLater) => {
   // const { location } = props;
 
   // useEffect(() => {
@@ -27,7 +28,7 @@ const SwitchComponent = (props) => {
   return (
     <div>
       <Switch>
-        <Route exact path={["/", "/home"]} component={LandingPage} />
+        <Route exact path={['/', '/home']} component={LandingPage} />
         {/* <Route exact path="/login" component={LoginPage} /> */}
         <Route exact path="/signup" component={SignupPage} />
         <Route exact path="/profile" component={ProfilePage} />

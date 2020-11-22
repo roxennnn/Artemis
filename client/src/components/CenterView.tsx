@@ -1,8 +1,8 @@
-import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import React from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import { FixMeLater } from '../constants/Utilities';
 
-const CenterView = (props) => {
-
+const CenterView = (props: FixMeLater) => {
   return (
     <Container>
       <Row className="show-grid">

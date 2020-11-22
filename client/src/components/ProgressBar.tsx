@@ -1,4 +1,5 @@
-import React from "react";
+import React from 'react';
+import { FixMeLater } from '../constants/Utilities';
 
 /***************************************************************************
  * PROPS:
@@ -13,23 +14,23 @@ import React from "react";
 
 const styles = {
   outside: {
-    width: "100%",
+    width: '100%',
     height: 50,
-    borderStyle: "solid",
-    borderWidth: "1%",
+    borderStyle: 'solid',
+    borderWidth: '1%',
     borderRadius: 25,
   },
   inside: {
-    height: "100%",
+    height: '100%',
     borderRadius: 20,
   },
   text: {
-    display: "flex",
-    justifyContent: "center",
+    display: 'flex',
+    justifyContent: 'center',
   },
 };
 
-const ProgressBar = (props) => {
+const ProgressBar = (props: FixMeLater) => {
   return (
     <div
       id="outside"

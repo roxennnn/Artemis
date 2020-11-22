@@ -1,27 +1,27 @@
-import React, { useState } from "react";
-import { Form } from "react-bootstrap";
-import { Checkbox } from "@material-ui/core";
+import React, { useState } from 'react';
+import { Form } from 'react-bootstrap';
+import { Checkbox } from '@material-ui/core';
 
-import AuthService from "../services/auth.service";
+import AuthService from '../services/auth.service';
 
-import PrimaryButton from "../components/PrimaryButton";
-import Colors from "../constants/Colors";
-import { validateEmail } from "../constants/Utilities";
+import PrimaryButton from '../components/PrimaryButton';
+import Colors from '../constants/Colors';
+import { FixMeLater, validateEmail } from '../constants/Utilities';
 
-const WomanSignUp = (props) => {
-  const [username, setUsername] = useState("");
+const WomanSignUp = (props: FixMeLater) => {
+  const [username, setUsername] = useState('');
   const [usernameInvalid, setUsernameInvalid] = useState(false);
 
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const [emailInvalid, setEmailInvalid] = useState(false);
 
-  const [confirmEmail, setConfirmEmail] = useState("");
+  const [confirmEmail, setConfirmEmail] = useState('');
   const [confirmEmailInvalid, setConfirmEmailInvalid] = useState(false);
 
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState('');
   const [passwordInvalid, setPasswordInvalid] = useState(false);
 
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [confirmPasswordInvalid, setConfirmPasswordInvalid] = useState(false);
 
   const [termsAndConditions, setTermsAndConditions] = useState(false);
@@ -95,9 +95,9 @@ const WomanSignUp = (props) => {
         await AuthService.registerWoman(usernameValue, emailValue, pass);
         // props.history.push("/home");
         props.history.push({
-          pathname: "/home",
+          pathname: '/home',
           state: {
-            lang: props.language
+            lang: props.language,
           },
         });
       } catch (err) {
@@ -125,8 +125,8 @@ const WomanSignUp = (props) => {
         <Form.Label style={{ fontSize: 22 }}>Username</Form.Label>
         <Form.Control
           onChange={(name) => setUsername(name.target.value)}
-          onKeyPress={(event) => {
-            if (event.key === "Enter") {
+          onKeyPress={(event: FixMeLater) => {
+            if (event.key === 'Enter') {
               submitHandler();
             }
           }}
@@ -146,9 +146,9 @@ const WomanSignUp = (props) => {
           {props.strings.SignupPage && props.strings.SignupPage.emailAddress}
         </Form.Label>
         <Form.Control
-          onChange={(email) => setEmail(email.target.value)}
-          onKeyPress={(event) => {
-            if (event.key === "Enter") {
+          onChange={(e) => setEmail(e.target.value)}
+          onKeyPress={(event: FixMeLater) => {
+            if (event.key === 'Enter') {
               submitHandler();
             }
           }}
@@ -172,9 +172,9 @@ const WomanSignUp = (props) => {
             props.strings.SignupPage.confirmEmailAddress}
         </Form.Label>
         <Form.Control
-          onChange={(email) => setConfirmEmail(email.target.value)}
-          onKeyPress={(event) => {
-            if (event.key === "Enter") {
+          onChange={(e) => setConfirmEmail(e.target.value)}
+          onKeyPress={(event: FixMeLater) => {
+            if (event.key === 'Enter') {
               submitHandler();
             }
           }}
@@ -198,8 +198,8 @@ const WomanSignUp = (props) => {
         </Form.Label>
         <Form.Control
           onChange={(pass) => setPassword(pass.target.value)}
-          onKeyPress={(event) => {
-            if (event.key === "Enter") {
+          onKeyPress={(event: FixMeLater) => {
+            if (event.key === 'Enter') {
               submitHandler();
             }
           }}
@@ -222,8 +222,8 @@ const WomanSignUp = (props) => {
         </Form.Label>
         <Form.Control
           onChange={(pass) => setConfirmPassword(pass.target.value)}
-          onKeyPress={(event) => {
-            if (event.key === "Enter") {
+          onKeyPress={(event: FixMeLater) => {
+            if (event.key === 'Enter') {
               submitHandler();
             }
           }}
@@ -250,25 +250,25 @@ const WomanSignUp = (props) => {
       <Form.Group controlId="formTermsAndConditions">
         <div
           style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
           }}
         >
           <Checkbox
             classes={
-              termsAndConditionsInvalid ? { root: "error-checkbox" } : {}
+              termsAndConditionsInvalid ? { root: 'error-checkbox' } : {}
             }
             color="primary"
             checked={termsAndConditions}
             onChange={() => setTermsAndConditions(!termsAndConditions)}
           />
           <Form.Label style={{ marginBottom: 0 }}>
-            {props.strings.SignupPage && props.strings.SignupPage.agreeTo}{" "}
+            {props.strings.SignupPage && props.strings.SignupPage.agreeTo}{' '}
             <a href="">
               {props.strings.SignupPage && props.strings.SignupPage.terms}
-            </a>{" "}
-            {props.strings.SignupPage && props.strings.SignupPage.and}{" "}
+            </a>{' '}
+            {props.strings.SignupPage && props.strings.SignupPage.and}{' '}
             <a href="">
               {props.strings.SignupPage && props.strings.SignupPage.conditions}
             </a>
@@ -277,11 +277,11 @@ const WomanSignUp = (props) => {
         {termsAndConditionsInvalid && (
           <div
             style={{
-              width: "100%",
-              marginTop: ".25rem",
-              marginLeft: "1%",
-              fontSize: "80%",
-              color: "#dc3545",
+              width: '100%',
+              marginTop: '.25rem',
+              marginLeft: '1%',
+              fontSize: '80%',
+              color: '#dc3545',
             }}
           >
             {props.strings.SignupPage && props.strings.SignupPage.youMustAgree}
@@ -298,17 +298,17 @@ const WomanSignUp = (props) => {
       <div
         className="hover-underline"
         style={{
-          textAlign: "center",
-          marginTop: "2%",
+          textAlign: 'center',
+          marginTop: '2%',
           color: Colors.primary,
           fontSize: 20,
         }}
         onClick={() => {
-          props.onChangeUserType("Login-Woman");
+          props.onChangeUserType('Login-Woman');
         }}
       >
         {props.strings.NavComponent &&
-          props.strings.NavComponent.LoginNavbar.loginQuestion}{" "}
+          props.strings.NavComponent.LoginNavbar.loginQuestion}{' '}
         Login
       </div>
     </Form>

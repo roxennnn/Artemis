@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { Dropdown } from "react-bootstrap";
+import React, { useState, useEffect } from 'react';
+import { Dropdown } from 'react-bootstrap';
 
-import Colors from "../../constants/Colors";
+import Colors from '../../constants/Colors';
+import { FixMeLater } from '../../constants/Utilities';
 // import Countries from "../../constants/Countries";
 
 /***************************************************************************
@@ -9,7 +10,7 @@ import Colors from "../../constants/Colors";
  * and make your own dropdown component
  ***************************************************************************/
 
-const CustomCountryDropdown = (props) => {
+const CustomCountryDropdown = (props: FixMeLater) => {
   const styles = {
     dropdown: {
       background: Colors.gradient,
@@ -26,16 +27,16 @@ const CustomCountryDropdown = (props) => {
       ? props.defaultMessageCountry
       : props.strings.Profile
       ? props.strings.Profile.ProfileSurveys.DemographicsSurvey.selectCountry
-      : "Select"
+      : 'Select'
   );
 
   const { strings } = props;
 
   useEffect(() => {
     if (
-      currentCountry === "" ||
+      currentCountry === '' ||
       currentCountry === undefined ||
-      currentCountry === "Select"
+      currentCountry === 'Select'
     ) {
       setCurrentCountry(
         props.strings.Profile &&
@@ -58,8 +59,9 @@ const CustomCountryDropdown = (props) => {
   const [regions, setRegions] = useState([]);
 
   useEffect(() => {
-    let tmp = props.countries.find((c) => {
-      return c["name"] === currentCountry;
+    const tmp = props.countries.find((c: FixMeLater) => {
+      const name = 'name';
+      return c[name] === currentCountry;
     });
     if (tmp) {
       setCurrentRegion(
@@ -69,7 +71,8 @@ const CustomCountryDropdown = (props) => {
               props.strings.Profile.ProfileSurveys.DemographicsSurvey
                 .selectARegion
       );
-      setRegions(tmp["regions"]);
+      const regionsLit = 'regions';
+      setRegions(tmp[regionsLit]);
     }
   }, [currentCountry, props.countries, props.defaultMessageRegion]);
 
@@ -80,23 +83,23 @@ const CustomCountryDropdown = (props) => {
         ...props.style.container,
       }}
       // class="select-dropdown to-hover"
-      class={
-        props.error ? "select-dropdown error-box" : "select-dropdown to-hover"
+      className={
+        props.error ? 'select-dropdown error-box' : 'select-dropdown to-hover'
       }
     >
       <div>{props.title}</div>
-      <div style={{ display: "flex", flexDirection: "row" }}>
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
         {/* Country */}
         <Dropdown onSelect={props.onSelectCountry}>
           <Dropdown.Toggle
             variant="success"
-            // id="dropdown-basic"
+            id="dropdown-country"
             style={styles.dropdown}
           >
             {currentCountry}
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            {props.countries.map((value) => (
+            {props.countries.map((value: FixMeLater) => (
               <Dropdown.Item
                 eventKey={value.value}
                 href=""
@@ -113,13 +116,13 @@ const CustomCountryDropdown = (props) => {
         {/* Region */}
         {regions.length > 0 && (
           <Dropdown onSelect={props.onSelectRegion}>
-            <Dropdown.Toggle variant="success" style={styles.dropdown}>
+            <Dropdown.Toggle variant="success" style={styles.dropdown} id="dropdown-region">
               {currentRegion}
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              {regions.map((value, index) => (
+              {regions.map((value: FixMeLater, index: number) => (
                 <Dropdown.Item
-                  eventKey={index}
+                  eventKey={index.toString()}
                   href=""
                   onClick={() => {
                     setCurrentRegion(value.name);
@@ -135,10 +138,10 @@ const CustomCountryDropdown = (props) => {
       {props.error && (
         <div
           style={{
-            color: "red",
+            color: 'red',
             fontSize: 16,
-            display: "flex",
-            justifyContent: "flex-end",
+            display: 'flex',
+            justifyContent: 'flex-end',
           }}
         >
           {props.errorMessage}

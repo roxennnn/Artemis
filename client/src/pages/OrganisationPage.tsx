@@ -1,39 +1,40 @@
-import React, { useContext, useState, useEffect } from "react";
-import { Spinner } from "react-bootstrap";
+import React, { useContext, useState, useEffect } from 'react';
+import { Spinner } from 'react-bootstrap';
 
-import CenterView from "../components/CenterView";
-import PrimaryButton from "../components/PrimaryButton";
-import Dropdrown from "../components/surveyComponents/Dropdown";
+import CenterView from '../components/CenterView';
+import PrimaryButton from '../components/PrimaryButton';
+import Dropdrown from '../components/surveyComponents/Dropdown';
 
-import { LanguageContext } from "../languages/LanguageProvider";
+import { LanguageContext } from '../languages/LanguageProvider';
 
-import Countries from "../constants/Countries";
+import Countries from '../constants/Countries';
+import { FixMeLater } from '../constants/Utilities';
 
 const containerStyle = {
   container: {
     // borderStyle: "solid",
     // borderWidth: 2,
     // borderColor: "black",
-    width: "32%",
-    textAlign: "center",
-    padding: "2%",
+    width: '32%',
+    textAlign: 'center',
+    padding: '2%',
     // margin: "2%",
     // borderRadius: 20,
     // shadow: 100,
-    background: "white",
-    boxShadow: "none  ",
+    background: 'white',
+    boxShadow: 'none  ',
   },
 };
 
-const OrganisationPage = (props) => {
+const OrganisationPage = (props: FixMeLater) => {
   const { strings, language, updateLanguage } = useContext(LanguageContext);
 
-  const [currentUser, setCurrentUser] = useState(); // data of logged user
+  const [currentUser, setCurrentUser] = useState<FixMeLater>(); // data of logged user
   const [loading, setLoading] = useState(false);
 
   // Selector values
   const [dataLanguage, setDataLanguage] = useState();
-  const onDataLanguageSelect = (value) => {
+  const onDataLanguageSelect = (value: FixMeLater) => {
     setDataLanguage(value);
   };
   const dataLanguages = [
@@ -56,7 +57,7 @@ const OrganisationPage = (props) => {
   ];
 
   const [dataCountry, setDataCountry] = useState();
-  const onDataCountrySelect = (value) => {
+  const onDataCountrySelect = (value: FixMeLater) => {
     setDataCountry(value);
   };
   const dataCountries = [
@@ -73,7 +74,7 @@ const OrganisationPage = (props) => {
   ];
 
   const [dataSurvey, setDataSurvey] = useState();
-  const onDataSurveySelect = (value) => {
+  const onDataSurveySelect = (value: FixMeLater) => {
     setDataSurvey(value);
   };
   const dataSurveys = [
@@ -102,7 +103,7 @@ const OrganisationPage = (props) => {
 
   useEffect(() => {
     setLoading(true);
-    const user = localStorage.getItem("user");
+    const user = localStorage.getItem('user');
     if (user) {
       setCurrentUser(user);
       setLoading(false);
@@ -114,7 +115,7 @@ const OrganisationPage = (props) => {
     if (location.state && location.state.lang) {
       updateLanguage(location.state.lang);
     }
-  }, [location.state]); 
+  }, [location.state]);
 
   return (
     <div style={{}}>
@@ -127,8 +128,8 @@ const OrganisationPage = (props) => {
               alt=""
               src={require(`../images/women/woman6.png`)}
               style={{
-                margin: "30%",
-                width: "650%",
+                margin: '30%',
+                width: '650%',
                 // height: 400,
               }}
             />
@@ -136,29 +137,29 @@ const OrganisationPage = (props) => {
         }
       >
         {loading ? (
-          <div style={{ textAlign: "center", margin: "2%" }}>
+          <div style={{ textAlign: 'center', margin: '2%' }}>
             <Spinner animation="border" variant="primary" />
           </div>
         ) : (
-          <div style={{ marginTop: "8%" }}>
+          <div style={{ marginTop: '8%' }}>
             <img
               alt=""
               style={{
-                width: "100%",
+                width: '100%',
                 borderRadius: 10,
                 // marginBottom: "5%",
-                boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.3)",
+                boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.3)',
               }}
               src={require(`../images/${language}/dataset.png`)}
             />
             <div
               className="to-hover organisation-dropdowns"
               style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center",
-                marginTop: "5%",
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginTop: '5%',
                 // boxShadow: "0 2px 4px 0 rgba(0,0,0,0.2)",
                 opacity: 1,
                 borderRadius: 20,
@@ -195,27 +196,27 @@ const OrganisationPage = (props) => {
             {dataLanguage && dataSurvey && dataCountry && (
               <div
                 style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  marginTop: "5%"
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  marginTop: '5%',
                 }}
               >
-                <div style={{ margin: "1%" }}>
+                <div style={{ margin: '1%' }}>
                   <PrimaryButton
                     label={
                       strings.Organisation && strings.Organisation.readOnline
                     }
-                    buttonStyle={{ width: "10%" }}
+                    buttonStyle={{ width: '10%' }}
                   />
                 </div>
-                <div style={{ margin: "1%" }}>
+                <div style={{ margin: '1%' }}>
                   <PrimaryButton
                     label={
                       strings.Organisation &&
                       strings.Organisation.downloadDataset
                     }
-                    buttonStyle={{ width: "10%" }}
+                    buttonStyle={{ width: '10%' }}
                   />
                 </div>
               </div>

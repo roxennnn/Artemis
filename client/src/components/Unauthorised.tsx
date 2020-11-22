@@ -1,11 +1,12 @@
-import React from "react";
+import React from 'react';
+import { FixMeLater } from '../constants/Utilities';
 
-import CenterView from "./CenterView";
+import CenterView from './CenterView';
 
-const Unauthorised = (props) => {
+const Unauthorised = (props: FixMeLater) => {
   return (
     <CenterView middle={8} sides={2}>
-      <h1 style={{textAlign: "center"}}>401 Unauthorised Access!</h1>
+      <h1 style={{ textAlign: 'center' }}>401 Unauthorised Access!</h1>
     </CenterView>
   );
 };

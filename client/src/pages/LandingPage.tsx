@@ -1,13 +1,14 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from 'react';
 
-import AuthService from "../services/auth.service";
+import AuthService from '../services/auth.service';
 
-import Colors from "../constants/Colors";
-import PrimaryButton from "../components/PrimaryButton";
+import Colors from '../constants/Colors';
+import PrimaryButton from '../components/PrimaryButton';
 
-import { LanguageContext } from "../languages/LanguageProvider";
+import { LanguageContext } from '../languages/LanguageProvider';
+import { FixMeLater } from '../constants/Utilities';
 
-const LandingPage = (props) => {
+const LandingPage = (props: FixMeLater) => {
   const { strings, language, updateLanguage } = useContext(LanguageContext);
   const [currentUser, setCurrentUser] = useState();
 
@@ -16,21 +17,21 @@ const LandingPage = (props) => {
     if (location.state && location.state.lang) {
       updateLanguage(location.state.lang);
     }
-  }, [location.state]);
+  }, [location.state, updateLanguage]);
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
     if (user) {
       setCurrentUser(user);
     }
-    const lang = localStorage.getItem("language");
+    const lang = localStorage.getItem('language');
     if (lang) {
       updateLanguage(lang);
     }
-  }, []);
+  }, [updateLanguage]);
 
-  const learnMoreClickHandler = (e) => {
-    localStorage.setItem("language", language);
+  const learnMoreClickHandler = (e: FixMeLater) => {
+    localStorage.setItem('language', language);
     // props.history.push(`/learn-more/how-to-use-it#${e.target.id}`);
     props.history.push(`/learn-more/how-to-use-it`);
   };
@@ -40,7 +41,7 @@ const LandingPage = (props) => {
       {currentUser && (
         <img
           style={{
-            width: "100%",
+            width: '100%',
             paddingRight: 5,
           }}
           alt=""
@@ -53,30 +54,30 @@ const LandingPage = (props) => {
           <div>
             <img
               style={{
-                width: "100%",
-                paddingTop: "3%",
+                width: '100%',
+                paddingTop: '3%',
               }}
               alt=""
               src={require(`../images/${language}/Home/registrationBanner.png`)}
             />
             <div
               style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-around",
-                marginRight: "10%",
-                marginLeft: "12%",
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-around',
+                marginRight: '10%',
+                marginLeft: '12%',
               }}
             >
               <div
                 onClick={() => {
-                  localStorage.setItem("language", language);
+                  localStorage.setItem('language', language);
                   props.history.push({
-                    pathname: "/signup",
+                    pathname: '/signup',
                     state: {
                       from: true,
-                      to: "Woman",
+                      to: 'Woman',
                     },
                   });
                 }}
@@ -86,7 +87,7 @@ const LandingPage = (props) => {
                   style={{
                     width: 600,
                     height: 130,
-                    marginTop: "6.8%",
+                    marginTop: '6.8%',
                     // marginLeft: "14",
                   }}
                   alt=""
@@ -95,12 +96,12 @@ const LandingPage = (props) => {
               </div>
               <div
                 onClick={() => {
-                  localStorage.setItem("language", language);
+                  localStorage.setItem('language', language);
                   props.history.push({
-                    pathname: "/signup",
+                    pathname: '/signup',
                     state: {
                       from: true,
-                      to: "Organisation",
+                      to: 'Organisation',
                     },
                   });
                 }}
@@ -110,7 +111,7 @@ const LandingPage = (props) => {
                   style={{
                     width: 600,
                     height: 130,
-                    marginTop: "6.8%",
+                    marginTop: '6.8%',
                     // marginRight: "120%",
                   }}
                   alt=""
@@ -120,8 +121,8 @@ const LandingPage = (props) => {
             </div>
             <img
               style={{
-                width: "100%",
-                paddingTop: "3%",
+                width: '100%',
+                paddingTop: '3%',
                 paddingRight: 5,
               }}
               alt=""
@@ -132,7 +133,7 @@ const LandingPage = (props) => {
       </div>
       <img
         style={{
-          width: "100%",
+          width: '100%',
           // paddingLeft: 1
         }}
         alt=""
@@ -141,13 +142,13 @@ const LandingPage = (props) => {
       <div
         style={{
           backgroundColor: Colors.landingPageInfographics,
-          marginRight: "30%",
+          marginRight: '30%',
         }}
       >
         <PrimaryButton
           label={strings.LandingPage && strings.LandingPage.learnMore}
-          buttonStyle={{ width: "10%" }}
-          style={{ display: "flex", justifyContent: "flex-end" }}
+          buttonStyle={{ width: '10%' }}
+          style={{ display: 'flex', justifyContent: 'flex-end' }}
           onClick={learnMoreClickHandler}
           id="woman"
         />
@@ -155,18 +156,18 @@ const LandingPage = (props) => {
       <div>
         <img
           style={{
-            width: "100%",
+            width: '100%',
           }}
           alt=""
           src={require(`../images/${language}/Home/homeLearnMore2.png`)}
         />
         <PrimaryButton
           label={strings.LandingPage && strings.LandingPage.learnMore}
-          buttonStyle={{ width: "10%" }}
+          buttonStyle={{ width: '10%' }}
           style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            position: "absolute",
+            display: 'flex',
+            justifyContent: 'flex-end',
+            position: 'absolute',
             // bottom: currentUser ? -1320 : -1400,
             bottom: currentUser ? -1320 : -1360,
             left: -574,

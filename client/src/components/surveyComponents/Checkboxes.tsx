@@ -29,8 +29,8 @@ const Checkboxes = (props: FixMeLater) => {
       <div id="title">{props.title}</div>
       <FormControl component="fieldset">
         {/* <FormLabel component="legend">{props.title}</FormLabel> */}
-        <FormGroup value={props.value} onChange={props.onChange}>
-          {props.optionList.map((option) => (
+        <FormGroup /* value={props.value} */ onChange={props.onChange}>
+          {props.optionList.map((option: FixMeLater) => (
             <FormControlLabel
               value={option.value}
               label={option.label}

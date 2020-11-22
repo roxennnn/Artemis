@@ -14,7 +14,7 @@ export interface ContextType {
   updateLanguage: FixMeLater;
 }
 
-export const LanguageContext = createContext({
+export const LanguageContext = createContext<ContextType>({
   language: 'es',
   strings: {},
   updateLanguage: () => {},

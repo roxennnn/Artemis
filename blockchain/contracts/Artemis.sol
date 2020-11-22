@@ -8,7 +8,7 @@ pragma experimental ABIEncoderV2;
 
 contract ArtemisContract {
 
-    address private owner = 0x55958fADDF67d6051FE7F5F9bfF015531C09d4eD; // in Truffle
+    address private owner = 0x0D2c952dC556f65E8b3e89208C00cd54f4B9BF9B; // in Truffle
     // address private owner = 0x849f9Bd5869E436688F3BaeAbB552B548aC091b2; // in Remix
 
     mapping (address => uint[79]) private userData;

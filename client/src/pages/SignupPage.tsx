@@ -1,34 +1,28 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from 'react';
 
-import CenterView from "../components/CenterView";
-import WomanSignUp from "../components/WomanSignUp";
-import OrganisationSignUp from "../components/OrganisationSignUp";
-import Colors from "../constants/Colors";
+import CenterView from '../components/CenterView';
+import WomanSignUp from '../components/WomanSignUp';
+import OrganisationSignUp from '../components/OrganisationSignUp';
+import Colors from '../constants/Colors';
 
-import { LanguageContext } from "../languages/LanguageProvider";
+import { LanguageContext } from '../languages/LanguageProvider';
 
-import BackButton from "../components/BackButton";
-import LoginComponent from "../components/LoginComponent";
+import BackButton from '../components/BackButton';
+import LoginComponent from '../components/LoginComponent';
+import { FixMeLater } from '../constants/Utilities';
 
-const styles = {
-  buttons: {
-    margin: 10,
-    maxWidth: 300,
-  },
-};
-
-const SignupPage = (props) => {
+const SignupPage = (props: FixMeLater) => {
   const { strings, language, updateLanguage } = useContext(LanguageContext);
-  const [userType, setUserType] = useState("None");
+  const [userType, setUserType] = useState('None');
 
   const fetchLanguage = async () => {
-    const lang = await localStorage.getItem("language");
+    const lang = await localStorage.getItem('language');
     updateLanguage(lang);
   };
 
   useEffect(() => {
     fetchLanguage();
-  }, []);
+  }, [fetchLanguage]);
 
   const { location } = props;
   useEffect(() => {
@@ -38,34 +32,34 @@ const SignupPage = (props) => {
         updateLanguage(location.state.lang);
       }
     }
-  }, [location.state]); 
+  }, [location.state, updateLanguage]);
 
   return (
     <div>
-      {userType === "None" ? (
+      {userType === 'None' ? (
         <div style={{ backgroundColor: Colors.landingPageInfographics }}>
           <div>
             <img
               style={{
-                width: "100%",
-                paddingTop: "3%",
+                width: '100%',
+                paddingTop: '3%',
               }}
               alt=""
               src={require(`../images/${language}/Home/registrationBanner.png`)}
             />
             <div
               style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-around",
-                marginRight: "10%",
-                marginLeft: "12%"
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-around',
+                marginRight: '10%',
+                marginLeft: '12%',
               }}
             >
               <div
                 onClick={() => {
-                  setUserType("Woman");
+                  setUserType('Woman');
                 }}
               >
                 <img
@@ -73,7 +67,7 @@ const SignupPage = (props) => {
                   style={{
                     width: 600,
                     height: 130,
-                    marginTop: "6.8%",
+                    marginTop: '6.8%',
                     // marginLeft: "10%",
                   }}
                   alt=""
@@ -82,7 +76,7 @@ const SignupPage = (props) => {
               </div>
               <div
                 onClick={() => {
-                  setUserType("Organisation");
+                  setUserType('Organisation');
                 }}
               >
                 <img
@@ -90,7 +84,7 @@ const SignupPage = (props) => {
                   style={{
                     width: 600,
                     height: 130,
-                    marginTop: "6.8%",
+                    marginTop: '6.8%',
                     // marginRight: "10%",
                   }}
                   alt=""
@@ -100,8 +94,8 @@ const SignupPage = (props) => {
             </div>
             <img
               style={{
-                width: "100%",
-                paddingTop: "3%",
+                width: '100%',
+                paddingTop: '3%',
               }}
               alt=""
               src={require(`../images/${language}/Home/registrationFooter.png`)}
@@ -109,18 +103,18 @@ const SignupPage = (props) => {
           </div>
         </div>
       ) : (
-        <div style={{margin: "3%"}}>
+        <div style={{ margin: '3%' }}>
           <CenterView
             left={
-              userType !== "None" ? (
+              userType !== 'None' ? (
                 <BackButton
                   onClick={() => {
-                    setUserType("None");
+                    setUserType('None');
                   }}
                   label={
-                    userType === "Woman"
+                    userType === 'Woman'
                       ? strings.SignupPage && strings.SignupPage.notAWoman
-                      : userType === "Organisation"
+                      : userType === 'Organisation'
                       ? strings.SignupPage &&
                         strings.SignupPage.notAnOrganisation
                       : strings.back && strings.back
@@ -130,25 +124,25 @@ const SignupPage = (props) => {
             }
             right={
               <div>
-                {(userType === "Woman" || userType === "Login-Woman") && (
+                {(userType === 'Woman' || userType === 'Login-Woman') && (
                   <img
                     alt=""
                     src={require(`../images/women/woman3.png`)}
                     style={{
-                      marginTop: "15%",
-                      width: "300%",
+                      marginTop: '15%',
+                      width: '300%',
                       // height: 400,
                     }}
                   />
                 )}
-                {(userType === "Organisation" ||
-                  userType === "Login-Organisation") && (
+                {(userType === 'Organisation' ||
+                  userType === 'Login-Organisation') && (
                   <img
                     alt=""
                     src={require(`../images/women/woman5.png`)}
                     style={{
-                      marginTop: "15%",
-                      width: "300%",
+                      marginTop: '15%',
+                      width: '300%',
                       // height: 400,
                     }}
                   />
@@ -158,7 +152,7 @@ const SignupPage = (props) => {
             middle={8}
             sides={2}
           >
-            {userType === "Woman" && (
+            {userType === 'Woman' && (
               <WomanSignUp
                 history={props.history}
                 strings={strings}
@@ -166,7 +160,7 @@ const SignupPage = (props) => {
                 onChangeUserType={setUserType}
               />
             )}
-            {userType === "Organisation" && (
+            {userType === 'Organisation' && (
               <OrganisationSignUp
                 history={props.history}
                 strings={strings}
@@ -174,7 +168,7 @@ const SignupPage = (props) => {
                 onChangeUserType={setUserType}
               />
             )}
-            {userType.split("-")[0] === "Login" && (
+            {userType.split('-')[0] === 'Login' && (
               <div>
                 <h3>Login</h3>
                 <LoginComponent
@@ -186,16 +180,16 @@ const SignupPage = (props) => {
                 <div
                   className="hover-underline"
                   style={{
-                    textAlign: "center",
-                    marginTop: "2%",
+                    textAlign: 'center',
+                    marginTop: '2%',
                     color: Colors.primary,
                     fontSize: 20,
                   }}
                   onClick={() => {
-                    setUserType(userType.split("-")[1]);
+                    setUserType(userType.split('-')[1]);
                   }}
                 >
-                  {strings.SignupPage && strings.SignupPage.signupQuestion}{" "}
+                  {strings.SignupPage && strings.SignupPage.signupQuestion}{' '}
                 </div>
               </div>
             )}

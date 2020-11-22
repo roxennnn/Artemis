@@ -32,7 +32,7 @@ const Radiobuttons = (props: FixMeLater) => {
       <FormControl component="fieldset">
         {/* <FormLabel component="legend">{props.title}</FormLabel> */}
         <RadioGroup value={props.value} onChange={props.onChange}>
-          {props.optionList.map((option) => (
+          {props.optionList.map((option: FixMeLater) => (
             <FormControlLabel
               value={option.value}
               label={option.label}

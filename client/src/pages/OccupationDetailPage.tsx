@@ -1,22 +1,23 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Spinner } from "react-bootstrap";
+import React, { useState, useEffect, useContext } from 'react';
+import { Spinner } from 'react-bootstrap';
 
-import Colors from "../constants/Colors";
-import BackButton from "../components/BackButton";
-import CenterView from "../components/CenterView";
-import ProgressBar from "../components/ProgressBar";
-import MatchingService from "../services/matching.service";
+import Colors from '../constants/Colors';
+import BackButton from '../components/BackButton';
+import CenterView from '../components/CenterView';
+import ProgressBar from '../components/ProgressBar';
+import MatchingService from '../services/matching.service';
 
-import { LanguageContext } from "../languages/LanguageProvider";
+import { LanguageContext } from '../languages/LanguageProvider';
+import { FixMeLater } from '../constants/Utilities';
 
-const OccupationDetailPage = (props) => {
+const OccupationDetailPage = (props: FixMeLater) => {
   const { strings, language, updateLanguage } = useContext(LanguageContext);
 
   const [loading, setLoading] = useState(false);
-  const [occupationDetail, setOccupationDetail] = useState();
+  const [occupationDetail, setOccupationDetail] = useState<FixMeLater>();
 
   const asyncFetchOccupationDetail = async () => {
-    let oid = props.location.state.oid;
+    const oid = props.location.state.oid;
     const occ = await MatchingService.fetchOccupationDetail(language, oid);
     setOccupationDetail(occ.details);
   };
@@ -37,12 +38,12 @@ const OccupationDetailPage = (props) => {
     if (location.state && location.state.lang) {
       updateLanguage(location.state.lang);
     }
-  }, [location.state]); 
+  }, [location.state]);
 
-  const avgStringArray = (arr) => {
+  const avgStringArray = (arr: FixMeLater) => {
     let avg = 0;
-    for (let i = 0; i < arr.length; i++) {
-      avg += parseFloat(arr[i]);
+    for (const a of arr) {
+      avg += parseFloat(a);
     }
 
     avg /= arr.length;
@@ -51,17 +52,17 @@ const OccupationDetailPage = (props) => {
   };
 
   return (
-    <div style={{ margin: "2%" }}>
+    <div style={{ margin: '2%' }}>
       <CenterView
         middle={10}
         sides={1}
         left={
           <BackButton
             onClick={() => {
-              localStorage.setItem("language", language);
+              localStorage.setItem('language', language);
               // props.history.goBack();
               props.history.push({
-                pathname: "/profile",
+                pathname: '/profile',
                 state: {
                   from: true,
                   to: 2,
@@ -77,8 +78,8 @@ const OccupationDetailPage = (props) => {
               alt=""
               src={require(`../images/women/woman4.png`)}
               style={{
-                margin: "30%",
-                width: "650%",
+                margin: '30%',
+                width: '650%',
                 // height: 400,
               }}
             />
@@ -86,7 +87,7 @@ const OccupationDetailPage = (props) => {
         }
       >
         {loading ? (
-          <div style={{ textAlign: "center" }}>
+          <div style={{ textAlign: 'center' }}>
             <Spinner animation="border" variant="primary" />
           </div>
         ) : (
@@ -101,23 +102,23 @@ const OccupationDetailPage = (props) => {
                     strings.Profile.ProfileMatchings.OccupationDetails
                       .requiredSkills}
                 </h3>
-                {occupationDetail.category_names.map((name, index) => {
+                {occupationDetail.category_names.map((name: FixMeLater, index: number) => {
                   return (
                     <div
                       key={index}
                       style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        marginTop: "2%",
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        marginTop: '2%',
                       }}
                     >
-                      <div style={{ width: "50%" }}>{name}</div>
+                      <div style={{ width: '50%' }}>{name}</div>
                       <ProgressBar
                         percentage={`${occupationDetail.category_scores[index]}%`}
                         color={Colors.primary}
                         gradient={Colors.gradient}
-                        outsideStyle={{ width: "50%", height: 20 }}
+                        outsideStyle={{ width: '50%', height: 20 }}
                       />
                     </div>
                   );
@@ -125,18 +126,18 @@ const OccupationDetailPage = (props) => {
                 <br />
                 <div
                   style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
                     fontSize: 24,
                   }}
                 >
-                  <div style={{ fontWeight: "bold" }}>
+                  <div style={{ fontWeight: 'bold' }}>
                     {strings.Profile &&
                       strings.Profile.ProfileMatchings.OccupationDetails
                         .affinity}
                   </div>
-                  <div style={{ marginLeft: "2%" }}>
+                  <div style={{ marginLeft: '2%' }}>
                     {avgStringArray(occupationDetail.category_scores)} %
                   </div>
                 </div>

@@ -1,8 +1,9 @@
-import React from "react";
+import React from 'react';
 
-import Colors from "../constants/Colors";
+import Colors from '../constants/Colors';
+import { FixMeLater } from '../constants/Utilities';
 
-const BackButton = (props) => {
+const BackButton = (props: FixMeLater) => {
   return (
     <div className="hover-underline" style={{ color: Colors.primary }}>
       <a
@@ -10,7 +11,8 @@ const BackButton = (props) => {
         onClick={props.onClick}
         style={{ color: Colors.primary }}
       >
-        {"<"}{props.label}
+        {'<'}
+        {props.label}
       </a>
     </div>
   );

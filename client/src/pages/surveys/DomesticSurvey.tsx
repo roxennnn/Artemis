@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useContext } from "react";
-import CenterView from "../../components/CenterView";
+import React, { useState, useEffect, useContext } from 'react';
+import CenterView from '../../components/CenterView';
 
-import { binarise } from "../../constants/Utilities";
+import { binarise, FixMeLater } from '../../constants/Utilities';
 
-import PrimaryButton from "../../components/PrimaryButton";
-import BackButton from "../../components/BackButton";
-import Checkboxes from "../../components/surveyComponents/Checkboxes";
-import SurveyService from "../../services/survey.service";
+import PrimaryButton from '../../components/PrimaryButton';
+import BackButton from '../../components/BackButton';
+import Checkboxes from '../../components/surveyComponents/Checkboxes';
+import SurveyService from '../../services/survey.service';
 
-import { LanguageContext } from "../../languages/LanguageProvider";
+import { LanguageContext } from '../../languages/LanguageProvider';
 
 // Styles
 const containerStyle = {
@@ -17,34 +17,35 @@ const containerStyle = {
     // borderWidth: 2,
     // borderColor: "black",
 
-    padding: "2%",
-    margin: "2%",
+    padding: '2%',
+    margin: '2%',
     borderRadius: 20,
     shadow: 100,
-    background: "white",
+    background: 'white',
   },
 };
 
-const Domestic = (props) => {
+const Domestic = (props: FixMeLater) => {
   const { strings } = useContext(LanguageContext);
 
   // Change background color
   useEffect(() => {
-    document.body.style = `background: rgba(59,89,152,0.05);`;
+    document.body.style.cssText = `background: rgba(59,89,152,0.05);`;
 
     return () => {
-      document.body.style = `background: rgb(255,255,255);`;
+      document.body.style.cssText = `background: rgb(255,255,255);`;
     };
   }, []);
 
   // Search for 1s in state arrays
-  const searchOnes = (arr) => {
+  const searchOnes = (arr: FixMeLater) => {
     return arr.includes(1);
   };
 
   // QUESTIONS' DATA
 
-  // - I would like to ask you to tell me whether at any time in your life, any husband, partner or ex-partner has done any of the following things:
+  // - I would like to ask you to tell me whether at any time in your life,
+  // any husband, partner or ex-partner has done any of the following things:
   const q1List = [
     {
       label:
@@ -72,7 +73,8 @@ const Domestic = (props) => {
     },
   ];
 
-  // - I would like to ask you to tell me whether at any time in your life, any husband, partner or ex-partner has done any of the following things:
+  // - I would like to ask you to tell me whether at any time in your life,
+  // any husband, partner or ex-partner has done any of the following things:
   const q2List = [
     {
       label:
@@ -106,7 +108,8 @@ const Domestic = (props) => {
     },
   ];
 
-  // - Now I am going to ask you about situations that happen to some women. Please tell me whether the following statements apply to your relationship with your (last) husband (partner):
+  // - Now I am going to ask you about situations that happen to some women.
+  // Please tell me whether the following statements apply to your relationship with your (last) husband (partner):
   const q3List = [
     {
       label:
@@ -146,7 +149,8 @@ const Domestic = (props) => {
     },
   ];
 
-  // - Sometimes husbands/partners get upset by the things that their wives do. In your opinion, is it justified for your husband/partner to beat you in the following situations:
+  // - Sometimes husbands/partners get upset by the things that their wives do.
+  // In your opinion, is it justified for your husband/partner to beat you in the following situations:
   const q4List = [
     {
       label:
@@ -180,7 +184,8 @@ const Domestic = (props) => {
     },
   ];
 
-  // - I would like to ask you if at any time in your life your husband/life partner or any other partner with whom you were married or in a relationship with has ever done any of the following things:
+  // - I would like to ask you if at any time in your life your husband/life partner or
+  // any other partner with whom you were married or in a relationship with has ever done any of the following things:
   const q5List = [
     {
       label:
@@ -220,7 +225,8 @@ const Domestic = (props) => {
     },
   ];
 
-  // - Would like you to tell me whether at any time in your life your husband/life partner or any other partner that you were married to or lived with has done any of the following things:
+  // - Would like you to tell me whether at any time in your life your husband/life partner
+  // or any other partner that you were married to or lived with has done any of the following things:
   const q6List = [
     {
       label:
@@ -372,20 +378,21 @@ const Domestic = (props) => {
   const [q7Visibility, setQ7Visibility] = useState(false);
   const [q8Visibility, setQ8Visibility] = useState(false);
 
-  // - I would like to ask you to tell me whether at any time in your life, any husband, partner or ex-partner has done any of the following things:
+  // - I would like to ask you to tell me whether at any time in your life,
+  // any husband, partner or ex-partner has done any of the following things:
   const [q1Values, setQ1Values] = useState(new Array(q1List.length).fill(0));
 
-  const onQ1ChangeHandler = (e) => {
+  const onQ1ChangeHandler = (e: FixMeLater) => {
     // of interest: e.target.value --> needed to be made integer (to be considered as index)
-    let tmp_values = q1Values;
-    const index = parseInt(e.target.value);
-    let tmp = tmp_values[index];
+    const tmpValues = q1Values;
+    const index = parseInt(e.target.value, 10);
+    let tmp = tmpValues[index];
     tmp = (tmp + 1) % 2; // update the value: if 0 -> 1, if 1 -> 0
-    tmp_values[index] = tmp;
-    setQ1Values(tmp_values);
+    tmpValues[index] = tmp;
+    setQ1Values(tmpValues);
 
-    let q8vist = searchOnes([
-      ...tmp_values,
+    const q8vist = searchOnes([
+      ...tmpValues,
       ...q1Values,
       ...q2Values,
       ...q4Values,
@@ -395,20 +402,21 @@ const Domestic = (props) => {
     setQ8Visibility(q8vist);
   };
 
-  // - I would like to ask you to tell me whether at any time in your life, any husband, partner or ex-partner has done any of the following things:
+  // - I would like to ask you to tell me whether at any time in your life,
+  // any husband, partner or ex-partner has done any of the following things:
   const [q2Values, setQ2Values] = useState(new Array(q2List.length).fill(0));
 
-  const onQ2ChangeHandler = (e) => {
+  const onQ2ChangeHandler = (e: FixMeLater) => {
     // of interest: e.target.value --> needed to be made integer (to be considered as index)
-    let tmp_values = q2Values;
-    const index = parseInt(e.target.value);
-    let tmp = tmp_values[index];
+    const tmpValues = q2Values;
+    const index = parseInt(e.target.value, 10);
+    let tmp = tmpValues[index];
     tmp = (tmp + 1) % 2; // update the value: if 0 -> 1, if 1 -> 0
-    tmp_values[index] = tmp;
-    setQ2Values(tmp_values);
+    tmpValues[index] = tmp;
+    setQ2Values(tmpValues);
 
-    let q8vist = searchOnes([
-      ...tmp_values,
+    const q8vist = searchOnes([
+      ...tmpValues,
       ...q1Values,
       ...q3Values,
       ...q4Values,
@@ -418,20 +426,21 @@ const Domestic = (props) => {
     setQ8Visibility(q8vist);
   };
 
-  // - Now I am going to ask you about situations that happen to some women. Please tell me whether the following statements apply to your relationship with your (last) husband (partner):
+  // - Now I am going to ask you about situations that happen to some women.
+  // Please tell me whether the following statements apply to your relationship with your (last) husband (partner):
   const [q3Values, setQ3Values] = useState(new Array(q3List.length).fill(0));
 
-  const onQ3ChangeHandler = (e) => {
+  const onQ3ChangeHandler = (e: FixMeLater) => {
     // of interest: e.target.value --> needed to be made integer (to be considered as index)
-    let tmp_values = q3Values;
-    const index = parseInt(e.target.value);
-    let tmp = tmp_values[index];
+    const tmpValues = q3Values;
+    const index = parseInt(e.target.value, 10);
+    let tmp = tmpValues[index];
     tmp = (tmp + 1) % 2; // update the value: if 0 -> 1, if 1 -> 0
-    tmp_values[index] = tmp;
-    setQ3Values(tmp_values);
+    tmpValues[index] = tmp;
+    setQ3Values(tmpValues);
 
-    let q8vist = searchOnes([
-      ...tmp_values,
+    const q8vist = searchOnes([
+      ...tmpValues,
       ...q1Values,
       ...q2Values,
       ...q4Values,
@@ -441,23 +450,24 @@ const Domestic = (props) => {
     setQ8Visibility(q8vist);
   };
 
-  // - Sometimes husbands/partners get upset by the things that their wives do. In your opinion, is it justified for your husband/partner to beat you in the following situations:
+  // - Sometimes husbands/partners get upset by the things that their wives do.
+  // In your opinion, is it justified for your husband/partner to beat you in the following situations:
   const [q4Values, setQ4Values] = useState(new Array(q4List.length).fill(0));
 
-  const onQ4ChangeHandler = (e) => {
+  const onQ4ChangeHandler = (e: FixMeLater) => {
     // of interest: e.target.value --> needed to be made integer (to be considered as index)
-    let tmp_values = q4Values;
-    const index = parseInt(e.target.value);
-    let tmp = tmp_values[index];
+    const tmpValues = q4Values;
+    const index = parseInt(e.target.value, 10);
+    let tmp = tmpValues[index];
     tmp = (tmp + 1) % 2; // update the value: if 0 -> 1, if 1 -> 0
-    tmp_values[index] = tmp;
-    setQ4Values(tmp_values);
+    tmpValues[index] = tmp;
+    setQ4Values(tmpValues);
 
-    let q7vist = searchOnes([...tmp_values, ...q5Values, ...q6Values]);
+    const q7vist = searchOnes([...tmpValues, ...q5Values, ...q6Values]);
     setQ7Visibility(q7vist);
 
-    let q8vist = searchOnes([
-      ...tmp_values,
+    const q8vist = searchOnes([
+      ...tmpValues,
       ...q1Values,
       ...q2Values,
       ...q3Values,
@@ -467,23 +477,24 @@ const Domestic = (props) => {
     setQ8Visibility(q8vist);
   };
 
-  // - I would like to ask you if at any time in your life your husband/life partner or any other partner with whom you were married or in a relationship with has ever done any of the following things:
+  // - I would like to ask you if at any time in your life your husband/life partner or
+  // any other partner with whom you were married or in a relationship with has ever done any of the following things:
   const [q5Values, setQ5Values] = useState(new Array(q5List.length).fill(0));
 
-  const onQ5ChangeHandler = (e) => {
+  const onQ5ChangeHandler = (e: FixMeLater) => {
     // of interest: e.target.value --> needed to be made integer (to be considered as index)
-    let tmp_values = q5Values;
-    const index = parseInt(e.target.value);
-    let tmp = tmp_values[index];
+    const tmpValues = q5Values;
+    const index = parseInt(e.target.value, 10);
+    let tmp = tmpValues[index];
     tmp = (tmp + 1) % 2; // update the value: if 0 -> 1, if 1 -> 0
-    tmp_values[index] = tmp;
-    setQ5Values(tmp_values);
+    tmpValues[index] = tmp;
+    setQ5Values(tmpValues);
 
-    let q7vist = searchOnes([...tmp_values, ...q4Values, ...q6Values]);
+    const q7vist = searchOnes([...tmpValues, ...q4Values, ...q6Values]);
     setQ7Visibility(q7vist);
 
-    let q8vist = searchOnes([
-      ...tmp_values,
+    const q8vist = searchOnes([
+      ...tmpValues,
       ...q1Values,
       ...q2Values,
       ...q3Values,
@@ -493,23 +504,24 @@ const Domestic = (props) => {
     setQ8Visibility(q8vist);
   };
 
-  // - Would like you to tell me whether at any time in your life your husband/life partner or any other partner that you were married to or lived with has done any of the following things:
+  // - Would like you to tell me whether at any time in your life your husband/life partner or
+  // any other partner that you were married to or lived with has done any of the following things:
   const [q6Values, setQ6Values] = useState(new Array(q6List.length).fill(0));
 
-  const onQ6ChangeHandler = (e) => {
+  const onQ6ChangeHandler = (e: FixMeLater) => {
     // of interest: e.target.value --> needed to be made integer (to be considered as index)
-    let tmp_values = q6Values;
-    const index = parseInt(e.target.value);
-    let tmp = tmp_values[index];
+    const tmpValues = q6Values;
+    const index = parseInt(e.target.value, 10);
+    let tmp = tmpValues[index];
     tmp = (tmp + 1) % 2; // update the value: if 0 -> 1, if 1 -> 0
-    tmp_values[index] = tmp;
-    setQ6Values(tmp_values);
+    tmpValues[index] = tmp;
+    setQ6Values(tmpValues);
 
-    let q7vist = searchOnes([...tmp_values, ...q5Values, ...q4Values]);
+    const q7vist = searchOnes([...tmpValues, ...q5Values, ...q4Values]);
     setQ7Visibility(q7vist);
 
-    let q8vist = searchOnes([
-      ...tmp_values,
+    const q8vist = searchOnes([
+      ...tmpValues,
       ...q1Values,
       ...q2Values,
       ...q3Values,
@@ -522,40 +534,40 @@ const Domestic = (props) => {
   // - Please tell me whether any of the following things happened to you as a result of something that your partner (husband) did:
   const [q7Values, setQ7Values] = useState(new Array(q7List.length).fill(0));
 
-  const onQ7ChangeHandler = (e) => {
+  const onQ7ChangeHandler = (e: FixMeLater) => {
     // of interest: e.target.value --> needed to be made integer (to be considered as index)
-    let tmp_values = q7Values;
-    const index = parseInt(e.target.value);
-    let tmp = tmp_values[index];
+    const tmpValues = q7Values;
+    const index = parseInt(e.target.value, 10);
+    let tmp = tmpValues[index];
     tmp = (tmp + 1) % 2; // update the value: if 0 -> 1, if 1 -> 0
-    tmp_values[index] = tmp;
-    setQ7Values(tmp_values);
+    tmpValues[index] = tmp;
+    setQ7Values(tmpValues);
   };
 
   // - What particular situations make/made him violent? Any other situation?
   const [q8Values, setQ8Values] = useState(new Array(q8List.length).fill(0));
 
-  const onQ8ChangeHandler = (e) => {
+  const onQ8ChangeHandler = (e: FixMeLater) => {
     // of interest: e.target.value --> needed to be made integer (to be considered as index)
-    let tmp_values = q8Values;
-    const index = parseInt(e.target.value);
-    let tmp = tmp_values[index];
+    const tmpValues = q8Values;
+    const index = parseInt(e.target.value, 10);
+    let tmp = tmpValues[index];
     tmp = (tmp + 1) % 2; // update the value: if 0 -> 1, if 1 -> 0
-    tmp_values[index] = tmp;
-    setQ8Values(tmp_values);
+    tmpValues[index] = tmp;
+    setQ8Values(tmpValues);
   };
 
   // - When this (these) person (people) assaulted you during the past year, to whom did you go for help?
   const [q9Values, setQ9Values] = useState(new Array(q9List.length).fill(0));
 
-  const onQ9ChangeHandler = (e) => {
+  const onQ9ChangeHandler = (e: FixMeLater) => {
     // of interest: e.target.value --> needed to be made integer (to be considered as index)
-    let tmp_values = q9Values;
-    const index = parseInt(e.target.value);
-    let tmp = tmp_values[index];
+    const tmpValues = q9Values;
+    const index = parseInt(e.target.value, 10);
+    let tmp = tmpValues[index];
     tmp = (tmp + 1) % 2; // update the value: if 0 -> 1, if 1 -> 0
-    tmp_values[index] = tmp;
-    setQ9Values(tmp_values);
+    tmpValues[index] = tmp;
+    setQ9Values(tmpValues);
   };
 
   // SUBMIT button
@@ -599,10 +611,10 @@ const Domestic = (props) => {
 
     // post request
     try {
-      await SurveyService.submitSurvey("domestic", answers);
+      await SurveyService.submitSurvey('domestic', answers);
       // Go back to profile page
       props.history.push({
-        pathname: "/profile",
+        pathname: '/profile',
         state: {
           from: true,
           to: 0,
@@ -614,7 +626,7 @@ const Domestic = (props) => {
   };
 
   return (
-    <div style={{ margin: "2%" }}>
+    <div style={{ margin: '2%' }}>
       <CenterView
         middle={8}
         sides={2}
@@ -622,7 +634,7 @@ const Domestic = (props) => {
           <BackButton
             onClick={() => {
               props.history.push({
-                pathname: "/profile",
+                pathname: '/profile',
                 state: {
                   from: true,
                   to: 0,
@@ -755,7 +767,7 @@ const Domestic = (props) => {
           strings.Profile.ProfileSurveys.ExperienceSurvey.submit
         }
         onClick={onSubmit}
-        buttonStyle={{ width: "10%" }}
+        buttonStyle={{ width: '10%' }}
       />
     </div>
   );

@@ -1,3 +1,5 @@
+// To be fixed
+
 import React, { useContext, useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -13,9 +15,8 @@ import logo from '../images/logo.png';
 
 // Multilingual
 import { LanguageContext } from '../languages/LanguageProvider';
-import { FixMeLater } from '../constants/Utilities';
 
-const LanguageComponent = (props: FixMeLater) => {
+const LanguageComponent = (props) => {
   return (
     <div
       className="dropdown-item flag-dropdown-item"
@@ -30,7 +31,7 @@ const LanguageComponent = (props: FixMeLater) => {
   );
 };
 
-const NavComponent = (props: FixMeLater) => {
+const NavComponent = (props) => {
   const { strings, language, updateLanguage } = useContext(LanguageContext);
   const [currentFlag, setCurrentFlag] = useState();
   const history = useHistory();

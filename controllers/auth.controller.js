@@ -1,14 +1,14 @@
-import Wallet from "ethereumjs-wallet";
+import Wallet from 'ethereumjs-wallet';
 
-import { secret } from "../config/auth.config.js";
-import db from "../models/index.js";
+import { secret } from '../config/auth.config.js';
+import db from '../models/index.js';
 const User = db.user;
 const Organisation = db.organisation;
 
-import jsonwebtoken from "jsonwebtoken";
+import jsonwebtoken from 'jsonwebtoken';
 const { sign } = jsonwebtoken;
 
-import bcryptjs from "bcryptjs";
+import bcryptjs from 'bcryptjs';
 const { hashSync, compareSync } = bcryptjs;
 
 // "WHY DID I USE THESE ADDRESSES??"
@@ -16,29 +16,29 @@ const { hashSync, compareSync } = bcryptjs;
 // ***********************************************************
 // ONLY FOR TESTING
 const addresses = [
-  "0x55958faddf67d6051fe7f5f9bff015531c09d4ed",
-  "0xecd30d8b0e147bfca67096ea647454ce4c2998b5",
-  "0x35bae80efca4c9e865d5c9174dd4b2f9dbf0791d",
-  "0x6e39680ebbfa517369710bb5f5506adf09bc96d9",
-  "0x4733edd60d7bfce50a813e7416b28d5e0662154c",
-  "0xdd43d3bfb2d5330693b8fc57734449831afc0fe4",
-  "0x804a7152dbfba7a1718aa2595d13de3f0a23a85c",
-  "0x690c98b88f3ae942f7f9a6ea60ce66cfe2d0a18f",
-  "0x40e0c539d66b6da80d3a30ce435ab204460e4850",
-  "0x80d2f61163ad941895f573bbfcd7447c7340f36f",
+  '0x0d2c952dc556f65e8b3e89208c00cd54f4b9bf9b',
+  '0x6ba62c69fcf2dbe26b6a8bec123c627b09f51ccf',
+  '0xcd4a38fd4317938246818ab0f14a6577d2af0e74',
+  '0xc5fc18a96d723c2db3fd05af55f2b04ae595bb05',
+  '0xe89b3bc56b9aeb72d86f214f9469c904bec7e307',
+  '0xd150b6fe6662dc0082ed0c73b616aabf5c7db322',
+  '0x8e25e61f17bd900c336ac52e94bd5aa4667b8ada',
+  '0x0c35f38f04ed3ad3adcbe5211e55e7ea1104810c',
+  '0xb9305c740ee54a7aa8899fc14b279185c7af39aa',
+  '0x48c35dc0d12a8362dcbd6b23364b3054d83ae6f6',
 ];
 
 const priv_keys = [
-  "b15b50d6de19a40386af995e8851d55f7249d4f944bbf884c6cbc21be8e3f643",
-  "c66242bf1ce2ce48055317012db942bae1edd7625f5cba48c269a58b553b97d4",
-  "d827e6ad290a77c5339d5b435f53ff962bd28f234e2454e7cd43815b7fd53321",
-  "3cbc376535bbc3f4ea8933b812ee8640acea9a17a8cf37a71d951b16bb5c30a6",
-  "9b4962b740dae453b3c7c6e23eae625014da6edce357ae9c9d6e76f881197ef9",
-  "8686fcc75b5fec653da3eeec2febb7c8ff9c5c2dda236eb5a36f8b4f4f882a0d",
-  "0d26dba0dc1e3c40df0fac0c88728a3fb2e1ad12fcb49e962e8bc85547902d0b",
-  "c41c04039a23a3f202872e79b53fea75badcb1e8d0b04fe91292a98d03ff365c",
-  "fce4be96bba64e04fc2d493a0f231c76b171e2f41ef52f7bd290ec13f58adabf",
-  "599d7c8ac083a71d890da9d8569b8a3ed99ea20e7e0ae84792d01997c30f6274",
+  'f63f4571aea34657c8b1b3886638b66387a4673f00c91cd6777d09a2bafad72f',
+  'b3a38a3c4019e9c0552fca8d8d57564a0115f0d9dc1c0d6d86d965331c907a1b',
+  'a62f380f5e6497c41a491ac96788db74d5f8172f5ab0f6230e7bb7938cf7cad0',
+  '28777f99d9c473eca3765be43136b61ec7e84fc52b5fb405762ff572c3dce6fc',
+  '577b44893282600de6b29e6dce7a1aff7c86cee6ec9b1cd63060785b3fc1092e',
+  '1963c5be984f4d733e49e29fbd316c26f41c7798d9d1d56b686382cd75e4bc39',
+  '1545c4b4706af8a8999c7f102023770e046e8a7e3354b6ab494ed62e784c64ba',
+  '0155bc0606504a6a4332458179ab1af8cbe1fa964c9abbfe71a7d260241e73d4',
+  'bd10fc99d7ecb47f319ed2aab69e3ddb497066a817fc4cc549a1f303e4fb5a98',
+  '747cfa99d27cbac04f0d8211dc7e0253ba96f9466eb99905d545c8507f7e92d2',
 ];
 
 let crazyId = 1;
@@ -144,8 +144,8 @@ export const signin = (req, res) => {
         }
 
         if (!organisation) {
-          console.log("USER NOT FOUND");
-          return res.status(404).send({ message: "User Not found." });
+          console.log('USER NOT FOUND');
+          return res.status(404).send({ message: 'User Not found.' });
         }
 
         var passwordIsValid = compareSync(
@@ -155,7 +155,7 @@ export const signin = (req, res) => {
 
         if (!passwordIsValid) {
           return res.status(401).send({
-            message: "Invalid Password!",
+            message: 'Invalid Password!',
           });
         }
 
@@ -176,7 +176,7 @@ export const signin = (req, res) => {
 
       if (!passwordIsValid) {
         return res.status(401).send({
-          message: "Invalid Password!",
+          message: 'Invalid Password!',
         });
       }
 

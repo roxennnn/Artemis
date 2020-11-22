@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { Spinner } from "react-bootstrap";
+import React, { useState, useEffect } from 'react';
+import { Spinner } from 'react-bootstrap';
 
-import MatchingService from "../../services/matching.service";
+import MatchingService from '../../services/matching.service';
 
-import Colors from "../../constants/Colors";
-import CenterView from "../CenterView";
-import PrimaryButton from "../PrimaryButton";
-import ProgressBar from "../ProgressBar";
+import Colors from '../../constants/Colors';
+import CenterView from '../CenterView';
+import PrimaryButton from '../PrimaryButton';
+import ProgressBar from '../ProgressBar';
 
-import image from "../../images/women/woman1.png";
+import image from '../../images/women/woman1.png';
 import { FixMeLater } from '../../constants/Utilities';
 
 const SkillRow = (props: FixMeLater) => {
@@ -16,23 +16,23 @@ const SkillRow = (props: FixMeLater) => {
     <div
       key={props.index}
       style={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        marginTop: "1%",
-        paddingLeft: "2%",
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: '1%',
+        paddingLeft: '2%',
         fontSize: 24,
       }}
       title={props.skill.name}
     >
       <div
         style={{
-          width: "50%",
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-          marginRight: "1%",
-          padding: "2%",
+          width: '50%',
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          marginRight: '1%',
+          padding: '2%',
         }}
       >
         {props.skill.name}
@@ -41,13 +41,13 @@ const SkillRow = (props: FixMeLater) => {
         percentage={`${props.skill.score}%`}
         color={Colors.primary}
         gradient={Colors.gradient}
-        outsideStyle={{ width: "45%", height: 20 }}
+        outsideStyle={{ width: '45%', height: 20 }}
       />
     </div>
   );
 };
 
-//showValue = 2
+// showValue = 2
 const ProfileSkills = (props: FixMeLater) => {
   const [loading, setLoading] = useState(false);
   const [skills, setSkills] = useState([]);
@@ -62,8 +62,8 @@ const ProfileSkills = (props: FixMeLater) => {
   }, [language]);
 
   const asyncFetchSkills = async () => {
-    const skills = await MatchingService.fetchSkills(language);
-    setSkills(skills.scores);
+    const fetchedSkills = await MatchingService.fetchSkills(language);
+    setSkills(fetchedSkills.scores);
   };
 
   const onClickShowAll = () => {
@@ -75,57 +75,61 @@ const ProfileSkills = (props: FixMeLater) => {
   };
 
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ width: '100%' }}>
       {loading ? (
         <CenterView middle={8} sides={2}>
-          <div style={{ textAlign: "center" }}>
+          <div style={{ textAlign: 'center' }}>
             <Spinner animation="border" variant="primary" />
           </div>
         </CenterView>
       ) : (
-        <div style={{ width: "100%" }}>
+        <div style={{ width: '100%' }}>
           <div
             style={{
               backgroundColor: Colors.profileBannerInfographics,
-              width: "100%",
+              width: '100%',
               borderRadius: 10,
-              marginBottom: "1%",
-              boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.3)",
-              paddingBottom: "1%",
+              marginBottom: '1%',
+              boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.3)',
+              paddingBottom: '1%',
             }}
           >
             <img
               alt=""
               src={require(`../../images/${language}/Profile/skillsBanner.png`)}
               style={{
-                width: "100%",
+                width: '100%',
               }}
             />
           </div>
-          <div style={{ width: "100%", display: "flex", flexDirection: "row" }}>
-            <div id="left-box" style={{ width: showAll ? "50%" : "65%" }}>
+          <div style={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
+            <div id="left-box" style={{ width: showAll ? '50%' : '65%' }}>
               {skills && (
                 <div>
                   {showAll ? (
                     <div>
-                      {skills ? skills.map((skill, index) => {
-                        if (index % 2 === 0) {
-                          return <SkillRow skill={skill} key={index} />;
-                        }
-                      }) : undefined}
+                      {skills
+                        ? skills.map((skill, index) => {
+                            if (index % 2 === 0) {
+                              return <SkillRow skill={skill} key={index} />;
+                            }
+                          })
+                        : undefined}
                     </div>
                   ) : (
                     <div>
-                      {skills ? skills.slice(0, 5).map((skill, index) => {
-                        return <SkillRow skill={skill} key={index} />;
-                      }) : undefined}
+                      {skills
+                        ? skills.slice(0, 5).map((skill, index) => {
+                            return <SkillRow skill={skill} key={index} />;
+                          })
+                        : undefined}
                       <PrimaryButton
                         label={
                           strings.Profile &&
                           strings.Profile.ProfileMatchings.showAll
                         }
-                        style={{ margin: "5%" }}
-                        buttonStyle={{ padding: 10, width: "10%" }}
+                        style={{ margin: '5%' }}
+                        buttonStyle={{ padding: 10, width: '10%' }}
                         onClick={onClickShowAll}
                       />
                     </div>
@@ -133,32 +137,33 @@ const ProfileSkills = (props: FixMeLater) => {
                 </div>
               )}
             </div>
-            <div id="right-box" style={{ width: showAll ? "50%" : "35%" }}>
+            <div id="right-box" style={{ width: showAll ? '50%' : '35%' }}>
               {skills && (
                 <div>
                   {showAll ? (
                     <div>
-                      {skills && skills.map((skill, index) => {
-                        if (index % 2 === 1) {
-                          return <SkillRow skill={skill} key={index} />;
-                        }
-                      })}
+                      {skills &&
+                        skills.map((skill, index) => {
+                          if (index % 2 === 1) {
+                            return <SkillRow skill={skill} key={index} />;
+                          }
+                        })}
                     </div>
                   ) : (
-                    <img src={image} alt="" style={{ width: "100%" }} />
+                    <img src={image} alt="" style={{ width: '100%' }} />
                   )}
                 </div>
               )}
             </div>
           </div>
           {showAll && (
-            <div style={{ textAlign: "center", width: "90%" }}>
+            <div style={{ textAlign: 'center', width: '90%' }}>
               <PrimaryButton
                 label={
                   strings.Profile && strings.Profile.ProfileMatchings.showLess
                 }
-                style={{ marginTop: "5%" }}
-                buttonStyle={{ padding: 10, width: "10%" }}
+                style={{ marginTop: '5%' }}
+                buttonStyle={{ padding: 10, width: '10%' }}
                 onClick={onClickShowLess}
               />
             </div>

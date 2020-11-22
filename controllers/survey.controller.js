@@ -6,7 +6,7 @@ import db from "../models/index.js";
 const User = db.user;
 
 // ONLY FOR TESTING
-const OWNER_ADDR = "0x55958faddf67d6051fe7f5f9bff015531c09d4ed";
+const OWNER_ADDR = "0x0d2c952dc556f65e8b3e89208c00cd54f4b9bf9b";
 const GAS_LIMIT = 5550000; // I DON'T KNOW HOW TO SET THIS VALUE!
 
 export const submitSurveyAnswers = async (req, res) => {

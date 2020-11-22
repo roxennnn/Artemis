@@ -1,14 +1,15 @@
-import React from "react";
+import React from 'react';
 
-import Colors from "../constants/Colors";
+import Colors from '../constants/Colors';
+import { FixMeLater } from '../constants/Utilities';
 
-const PrimaryButton = (props) => {
+const PrimaryButton = (props: FixMeLater) => {
   return (
     <div
       className={
         props.divClassName
-          ? "center-col col " + props.divClassName
-          : "center-col col"
+          ? 'center-col col ' + props.divClassName
+          : 'center-col col'
       }
       title={props.title}
       style={props.style}
@@ -17,14 +18,12 @@ const PrimaryButton = (props) => {
         className={
           props.disabled
             ? props.buttonClassName
-              ? "btn-radius btn btn-radius-disabled " +
-                props.buttonClassName
-              : "btn-radius btn btn-radius-disabled"
+              ? 'btn-radius btn btn-radius-disabled ' + props.buttonClassName
+              : 'btn-radius btn btn-radius-disabled'
             : props.buttonClassName
-            ? "btn-radius btn hover-opacity-button " + props.buttonClassName
-            : "btn-radius btn hover-opacity-button"
+            ? 'btn-radius btn hover-opacity-button ' + props.buttonClassName
+            : 'btn-radius btn hover-opacity-button'
         }
-
         style={{
           background: Colors.gradient,
           backgroundColor: Colors.primary,
@@ -32,7 +31,7 @@ const PrimaryButton = (props) => {
           ...props.buttonStyle,
         }}
         role="button"
-        onClick={props.disabled ? "" : props.onClick}
+        onClick={props.disabled ? '' : props.onClick}
       >
         {props.label}
       </div>

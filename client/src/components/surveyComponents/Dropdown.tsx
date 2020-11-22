@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { Dropdown } from "react-bootstrap";
+import React, { useState, useEffect } from 'react';
+import { Dropdown } from 'react-bootstrap';
 
-import Colors from "../../constants/Colors";
+import Colors from '../../constants/Colors';
+import { FixMeLater } from '../../constants/Utilities';
 
-import "../../css/surveyComponents/Dropdown.css";
+import '../../css/surveyComponents/Dropdown.css';
 
 /***************************************************************************
  * PROPS:
@@ -15,9 +16,9 @@ import "../../css/surveyComponents/Dropdown.css";
  * - style: to add some custom style { container | button }
  ***************************************************************************/
 
-const CustomDropdown = (props) => {
+const CustomDropdown = (props: FixMeLater) => {
   const [current, setCurrent] = useState(
-    props.defaultMessage ? props.defaultMessage : "Select an option"
+    props.defaultMessage ? props.defaultMessage : 'Select an option'
   );
 
   const { defaultMessage } = props;
@@ -25,9 +26,9 @@ const CustomDropdown = (props) => {
   useEffect(() => {
     console.log(props.defaultMessage);
     if (
-      current === "" ||
+      current === '' ||
       current === undefined ||
-      current === "Select an option"
+      current === 'Select an option'
     ) {
       setCurrent(props.defaultMessage && defaultMessage);
     }
@@ -40,16 +41,16 @@ const CustomDropdown = (props) => {
       style={{
         ...props.style.container,
       }}
-      // class="select-dropdown to-hover"
-      class={
-        props.error ? "select-dropdown error-box" : "select-dropdown to-hover"
+      // className="select-dropdown to-hover"
+      className={
+        props.error ? 'select-dropdown error-box' : 'select-dropdown to-hover'
       }
     >
       <div>{props.title}</div>
       <Dropdown onSelect={props.onSelect}>
         <Dropdown.Toggle
           variant="success"
-          // id="dropdown-basic"
+          id="dropdown"
           style={{
             background: Colors.gradient,
             backgroundColor: Colors.primary,
@@ -63,7 +64,7 @@ const CustomDropdown = (props) => {
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
-          {props.valueList.map((value) => (
+          {props.valueList.map((value: FixMeLater) => (
             <Dropdown.Item
               eventKey={value.value}
               href=""
@@ -79,10 +80,10 @@ const CustomDropdown = (props) => {
       {props.error && (
         <div
           style={{
-            color: "red",
+            color: 'red',
             fontSize: 16,
-            display: "flex",
-            justifyContent: "flex-end",
+            display: 'flex',
+            justifyContent: 'flex-end',
           }}
         >
           {props.errorMessage}

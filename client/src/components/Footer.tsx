@@ -1,17 +1,18 @@
-import React from "react";
+import React from 'react';
 
-import Colors from "../constants/Colors";
+import Colors from '../constants/Colors';
 
 // Fontawesome
-import { faFacebookF } from "@fortawesome/free-brands-svg-icons";
-import { faInstagram } from "@fortawesome/free-brands-svg-icons";
-import { faTwitter } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebookF } from '@fortawesome/free-brands-svg-icons';
+import { faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FixMeLater } from '../constants/Utilities';
 
-const Footer = (props) => {
+const Footer = (props: FixMeLater) => {
   return (
     <div
-      class="footer"
+      className="footer"
       style={{
         flexShrink: 0,
       }}
@@ -21,32 +22,32 @@ const Footer = (props) => {
           marginTop: 0,
         }}
       />
-      <div style={{ display: "flex", flexDirection: "row" }}>
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
         <div
-          class="container"
+          className="container"
           style={{
-            display: "flex",
-            justifyContent: "flex-start",
-            alignItems: "center",
-            marginLeft: "10%",
+            display: 'flex',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            marginLeft: '10%',
           }}
         >
           <small>Copyright &copy; Artemis</small>
         </div>
         <div
-          class="container"
+          className="container"
           style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            alignItems: "center",
-            marginRight: "10%",
+            display: 'flex',
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+            marginRight: '10%',
           }}
         >
           <FontAwesomeIcon
             className="footer-icon"
             icon={faFacebookF}
             title="Facebook"
-            style={{ cursor: "pointer" }}
+            style={{ cursor: 'pointer' }}
             size="lg"
             color={Colors.primary}
           />
@@ -54,7 +55,7 @@ const Footer = (props) => {
             className="footer-icon"
             icon={faTwitter}
             title="Twitter"
-            style={{ marginLeft: "5%", cursor: "pointer" }}
+            style={{ marginLeft: '5%', cursor: 'pointer' }}
             size="lg"
             color={Colors.primary}
           />
@@ -62,7 +63,7 @@ const Footer = (props) => {
             className="footer-icon"
             icon={faInstagram}
             title="Instagram"
-            style={{ marginLeft: "5%", cursor: "pointer" }}
+            style={{ marginLeft: '5%', cursor: 'pointer' }}
             size="lg"
             color={Colors.primary}
           />

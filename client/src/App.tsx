@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 // import MdPerson from "react-ionicons/lib/MdPerson";
 
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./css/App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './css/App.css';
 
-import NavComponent from "./components/NavComponent";
-import SwitchComponent from "./components/SwitchComponent";
-import Footer from "./components/Footer";
+import NavComponent from './components/NavComponent';
+import SwitchComponent from './components/SwitchComponent';
+import Footer from './components/Footer';
+import { FixMeLater } from './constants/Utilities';
 
-const App = (props) => {
+const App = (props: FixMeLater) => {
   return (
     <div className="switch-content">
       <Router>
-        <div style={{ width: "100%", height: "100%" }}>
+        <div style={{ width: '100%', height: '100%' }}>
           <NavComponent />
           <SwitchComponent />
         </div>

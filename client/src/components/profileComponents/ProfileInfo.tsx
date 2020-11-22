@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import { FixMeLater } from '../../constants/Utilities';
 
-import SurveyCard from "./SurveyCard";
+import SurveyCard from './SurveyCard';
 
 // showValue = 0
 const ProfileInfo = (props: FixMeLater) => {
@@ -13,16 +13,16 @@ const ProfileInfo = (props: FixMeLater) => {
   );
   const [skillsDone, setSkillsDone] = useState(props.currentUser.skills_done);
 
-  const setDoneFalse = (href) => {
-    const survey = href.split("-survey")[0];
-    if (survey === "demographic") {
+  const setDoneFalse = (href: FixMeLater) => {
+    const survey = href.split('-survey')[0];
+    if (survey === 'demographic') {
       setDemographicDone(false);
-    } else if (survey === "domestic") {
+    } else if (survey === 'domestic') {
       setDomesticDone(false);
-    } else if (survey === "skills") {
+    } else if (survey === 'skills') {
       setSkillsDone(false);
     } else {
-      console.log("INVALID SURVEY");
+      console.log('INVALID SURVEY');
     }
   };
 
@@ -32,19 +32,19 @@ const ProfileInfo = (props: FixMeLater) => {
         alt=""
         src={require(`../../images/${props.language}/Profile/profileBanner.png`)}
         style={{
-          width: "100%",
+          width: '100%',
           borderRadius: 10,
-          marginBottom: "5%",
-          boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.3)",
+          marginBottom: '5%',
+          boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.3)',
         }}
       />
       <div
         style={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
         <SurveyCard
@@ -62,7 +62,7 @@ const ProfileInfo = (props: FixMeLater) => {
           done={demographicDone}
           timestamp={props.currentUser.demographics_timestamp}
           history={props.history}
-          cardStyle={{ marginLeft: "1.5%" }}
+          cardStyle={{ marginLeft: '1.5%' }}
           setDoneFalse={setDoneFalse}
         />
         <SurveyCard
@@ -80,7 +80,7 @@ const ProfileInfo = (props: FixMeLater) => {
           done={skillsDone}
           timestamp={props.currentUser.skills_timestamp}
           history={props.history}
-          cardStyle={{ marginLeft: "3%", marginRight: "3%" }}
+          cardStyle={{ marginLeft: '3%', marginRight: '3%' }}
           setDoneFalse={setDoneFalse}
         />
         <SurveyCard
@@ -98,7 +98,7 @@ const ProfileInfo = (props: FixMeLater) => {
           done={domesticDone}
           timestamp={props.currentUser.experience_timestamp}
           history={props.history}
-          cardStyle={{ marginRight: "1.5%" }}
+          cardStyle={{ marginRight: '1.5%' }}
           setDoneFalse={setDoneFalse}
         />
       </div>

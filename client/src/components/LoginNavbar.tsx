@@ -1,10 +1,11 @@
-import React from "react";
-import { useHistory } from "react-router-dom";
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 
-import LoginComponent from "./LoginComponent";
-import Colors from "../constants/Colors";
+import LoginComponent from './LoginComponent';
+import Colors from '../constants/Colors';
+import { FixMeLater } from '../constants/Utilities';
 
-const LoginNavbar = (props) => {
+const LoginNavbar = (props: FixMeLater) => {
   const history = useHistory();
   return (
     <div>
@@ -20,7 +21,7 @@ const LoginNavbar = (props) => {
           <span className="nav-text">
             {props.strings.NavComponent &&
               props.strings.NavComponent.LoginNavbar.loginQuestion}
-          </span>{" "}
+          </span>{' '}
           Login
         </a>
         <ul id="login-dp" className="dropdown-menu dropdown-menu-right">
@@ -34,11 +35,11 @@ const LoginNavbar = (props) => {
                 />
                 <div className="bottom-login text-center">
                   {props.strings.NavComponent &&
-                    props.strings.NavComponent.LoginNavbar.newHere}{" "}
+                    props.strings.NavComponent.LoginNavbar.newHere}{' '}
                   <span
                     onClick={() => {
-                      localStorage.setItem("language", props.language);
-                      history.push("/signup");
+                      localStorage.setItem('language', props.language);
+                      history.push('/signup');
                     }}
                   >
                     <b

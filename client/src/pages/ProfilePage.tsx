@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Spinner } from "react-bootstrap";
+import React, { useState, useEffect, useContext } from 'react';
+import { Spinner } from 'react-bootstrap';
 
-import CenterView from "../components/CenterView";
+import CenterView from '../components/CenterView';
 
-import ProfileInfo from "../components/profileComponents/ProfileInfo";
-import ProfileMatchings from "../components/profileComponents/ProfileMatchings";
-import ProfileSkills from "../components/profileComponents/ProfileSkills";
+import ProfileInfo from '../components/profileComponents/ProfileInfo';
+import ProfileMatchings from '../components/profileComponents/ProfileMatchings';
+import ProfileSkills from '../components/profileComponents/ProfileSkills';
 
-import Colors from "../constants/Colors";
-import Countries from "../constants/Countries";
+import Colors from '../constants/Colors';
+import Countries from '../constants/Countries';
 
 import {
   faMapMarkerAlt,
@@ -22,36 +22,37 @@ import {
   faGraduationCap,
   faComment,
   faSignOutAlt,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import SurveyService from "../services/survey.service";
-import AuthService from "../services/auth.service";
+import SurveyService from '../services/survey.service';
+import AuthService from '../services/auth.service';
 
-import { LanguageContext } from "../languages/LanguageProvider";
+import { LanguageContext } from '../languages/LanguageProvider';
 
-import avatar2 from "../images/avatar2.png";
+import avatar2 from '../images/avatar2.png';
 
-import "../css/ProfilePage.css";
+import '../css/ProfilePage.css';
+import { FixMeLater } from '../constants/Utilities';
 
 const styles = {
   someInfo: {
-    width: "72%",
-    paddingLeft: "3%",
+    width: '72%',
+    paddingLeft: '3%',
   },
 };
 
-const IconBox = (props) => {
+const IconBox = (props: FixMeLater) => {
   return (
     <div
       className={
-        props.title === "Logout"
-          ? "icon-box-logout"
+        props.title === 'Logout'
+          ? 'icon-box-logout'
           : props.disabled
-          ? "icon-box icon-box-disabled"
+          ? 'icon-box icon-box-disabled'
           : props.active
-          ? "icon-box icon-box-active"
-          : "icon-box"
+          ? 'icon-box icon-box-active'
+          : 'icon-box'
       }
       style={{
         // borderStyle: "solid",
@@ -62,19 +63,19 @@ const IconBox = (props) => {
         margin: 5,
         // height: 100,
 
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
         ...props.style,
       }}
-      onClick={props.disabled ? "" : props.onClick}
+      onClick={props.disabled ? '' : props.onClick}
     >
       <FontAwesomeIcon
         icon={props.icon}
         className="icon-hover"
         style={{ fontSize: 28 }}
       />
-      <div style={{ textAlign: "center" }}>{props.title}</div>
+      <div style={{ textAlign: 'center' }}>{props.title}</div>
     </div>
   );
 };
@@ -82,13 +83,13 @@ const IconBox = (props) => {
 // TODO
 // - Add sort buttons in occupations and skills
 
-const ProfilePage = (props) => {
+const ProfilePage = (props: FixMeLater) => {
   const { strings, language, updateLanguage } = useContext(LanguageContext);
 
   const [showValue, setShowValue] = useState(0);
-  const [currentUser, setCurrentUser] = useState(); // data of logged user
+  const [currentUser, setCurrentUser] = useState<FixMeLater>(); // data of logged user
   const [loading, setLoading] = useState(false);
-  const [geoPosition, setGeoPosition] = useState();
+  const [geoPosition, setGeoPosition] = useState<FixMeLater>();
 
   const asyncQueryProfileData = async () => {
     const user = await SurveyService.queryProfileData();
@@ -157,62 +158,62 @@ const ProfilePage = (props) => {
         updateLanguage(location.state.lang);
       }
     }
-  }, [location.state]); 
+  }, [location.state, updateLanguage]);
 
   return (
-    <div style={{ margin: "2%" }}>
+    <div style={{ margin: '2%' }}>
       {loading ? (
         <CenterView middle={8} sides={2}>
-          <div style={{ textAlign: "center" }}>
+          <div style={{ textAlign: 'center' }}>
             <Spinner animation="border" variant="primary" />
           </div>
         </CenterView>
       ) : (
         <div>
           {currentUser && (
-            <div className="my-container" style={{ width: "100%" }}>
+            <div className="my-container" style={{ width: '100%' }}>
               <div
                 className="my-row"
                 style={{
-                  display: "flex",
-                  flexDirection: "row",
+                  display: 'flex',
+                  flexDirection: 'row',
                 }}
               >
                 <div
                   id="left-box"
                   style={{
-                    width: "25%",
-                    display: "flex",
-                    justifyContent: "center",
+                    width: '25%',
+                    display: 'flex',
+                    justifyContent: 'center',
                   }}
                 >
                   <div
                     style={{
-                      display: "flex",
-                      alignItems: "center",
-                      flexDirection: "column",
-                      width: "90%",
+                      display: 'flex',
+                      alignItems: 'center',
+                      flexDirection: 'column',
+                      width: '90%',
                       height: 680,
 
-                      borderStyle: "solid",
-                      borderColor: "#ccc",
+                      borderStyle: 'solid',
+                      borderColor: '#ccc',
                       borderWidth: 1,
                       borderRadius: 10,
-                      boxShadow: "0 8px 16px 0 rgba(59, 89, 152, 0.2)",
+                      boxShadow: '0 8px 16px 0 rgba(59, 89, 152, 0.2)',
                     }}
                   >
                     <img
                       style={{
-                        width: "38%",
-                        marginTop: "6%",
+                        width: '38%',
+                        marginTop: '6%',
                         // borderStyle: "initial",
-                        borderStyle: "solid",
+                        borderStyle: 'solid',
                         borderColor: completionBorder,
                         borderWidth: 8,
                         // borderBottomWidth: 6,
-                        borderBottomStyle: "dotted",
+                        borderBottomStyle: 'dotted',
                         padding: 3,
-                        cursor: "pointer",
+                        cursor: 'pointer',
                       }}
                       className="rounded-pill profile-page-avatar"
                       alt=""
@@ -220,11 +221,11 @@ const ProfilePage = (props) => {
                       src={avatar2}
                       // src="https://bootdey.com/img/Content/avatar/avatar9.png"
                     />
-                    <div style={{ fontSize: 24, marginTop: "2%" }}>
-                      <b>{currentUser ? currentUser.username : ""}</b>
+                    <div style={{ fontSize: 24, marginTop: '2%' }}>
+                      <b>{currentUser ? currentUser.username : ''}</b>
                     </div>
                     {geoPosition && (
-                      <div style={{ textAlign: "center" }}>
+                      <div style={{ textAlign: 'center' }}>
                         <FontAwesomeIcon
                           icon={faMapMarkerAlt}
                           color={Colors.primary}
@@ -235,18 +236,18 @@ const ProfilePage = (props) => {
                     )}
                     <hr
                       style={{
-                        width: "90%",
-                        marginLeft: "5%",
-                        marginRight: "5%",
+                        width: '90%',
+                        marginLeft: '5%',
+                        marginRight: '5%',
                       }}
                     />
                     <div>
                       <div
                         style={{
-                          display: "flex",
-                          flexDirection: "row",
+                          display: 'flex',
+                          flexDirection: 'row',
                           // justifyContent: "space-between",
-                          alignItems: "center",
+                          alignItems: 'center',
                         }}
                       >
                         <IconBox
@@ -276,10 +277,10 @@ const ProfilePage = (props) => {
                       </div>
                       <div
                         style={{
-                          display: "flex",
-                          flexDirection: "row",
+                          display: 'flex',
+                          flexDirection: 'row',
                           // justifyContent: "space-between",
-                          alignItems: "center",
+                          alignItems: 'center',
                         }}
                       >
                         <IconBox
@@ -311,10 +312,10 @@ const ProfilePage = (props) => {
                       </div>
                       <div
                         style={{
-                          display: "flex",
-                          flexDirection: "row",
+                          display: 'flex',
+                          flexDirection: 'row',
                           // justifyContent: "space-between",
-                          alignItems: "center",
+                          alignItems: 'center',
                         }}
                       >
                         <IconBox
@@ -335,12 +336,12 @@ const ProfilePage = (props) => {
                           style={{ width: 130, marginLeft: 15 }}
                           onClick={() => {
                             AuthService.logout();
-                            localStorage.setItem("language", language);
+                            localStorage.setItem('language', language);
                             // props.history.push("/");
                             props.history.push({
-                              pathname: "/",
+                              pathname: '/',
                               state: {
-                                lang: props.language
+                                lang: props.language,
                               },
                             });
                           }}

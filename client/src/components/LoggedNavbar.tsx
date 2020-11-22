@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
-import { Spinner } from "react-bootstrap";
+import React, { useEffect, useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
+import { Spinner } from 'react-bootstrap';
 
-import Colors from "../constants/Colors";
+import Colors from '../constants/Colors';
 
 import {
   faBriefcase,
@@ -15,33 +15,34 @@ import {
   faGraduationCap,
   faComment,
   faSignOutAlt,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import AuthService from "../services/auth.service";
-import SurveyService from "../services/survey.service";
+import AuthService from '../services/auth.service';
+import SurveyService from '../services/survey.service';
 
-import CenterView from "../components/CenterView";
+import CenterView from '../components/CenterView';
 
-import avatar2 from "../images/avatar2.png";
+import avatar2 from '../images/avatar2.png';
+import { FixMeLater } from '../constants/Utilities';
 
 const styles = {
   dropdownItem: {
-    color: "black",
-    textAlign: "left",
+    color: 'black',
+    textAlign: 'left' as 'left',
     fontSize: 20,
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'row' as 'row',
+    alignItems: 'center',
     // justifyContent: "space-evenly",
-    width: "100%",
+    width: '100%',
   },
 };
 
-const LoggedNavbar = (props) => {
+const LoggedNavbar = (props: FixMeLater) => {
   const history = useHistory();
   const location = useLocation();
-  const [currentUser, setCurrentUser] = useState(); // data of logged user
+  const [currentUser, setCurrentUser] = useState<FixMeLater>(); // data of logged user
   const [loading, setLoading] = useState(false);
 
   const [skillsDone, setSkillsDone] = useState();
@@ -53,12 +54,13 @@ const LoggedNavbar = (props) => {
       setSkillsDone(user.user.skills_done);
     }
   };
-  useEffect(() => { // @TOFIX: it does not update the dropdown menu when the skills survey is done unless a page refresh is done
+  useEffect(() => {
+    // @TOFIX: it does not update the dropdown menu when the skills survey is done unless a page refresh is done
     setLoading(true);
-    if (location.pathname === "/profile") {
+    if (location.pathname === '/profile') {
       asyncQueryProfileData();
     } else {
-      setLoading(false);  // it should work now
+      setLoading(false); // it should work now
     }
   }, [location.pathname]);
 
@@ -72,7 +74,7 @@ const LoggedNavbar = (props) => {
     <div>
       {loading ? (
         <CenterView middle={8} sides={2}>
-          <div style={{ textAlign: "center" }}>
+          <div style={{ textAlign: 'center' }}>
             <Spinner animation="border" variant="primary" />
           </div>
         </CenterView>
@@ -89,19 +91,19 @@ const LoggedNavbar = (props) => {
                   aria-haspopup="true"
                   aria-expanded="false"
                   style={{
-                    display: "flex",
-                    justifyContent: "flex-end",
-                    alignItems: "center",
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    alignItems: 'center',
                   }}
                 >
                   <span style={{ fontSize: 18 }}>{currentUser.username}</span>
                   {!currentUser.organisation && (
                     <img // No percentages... @TOFIX for a responsive design
                       style={{
-                        width: "8%",
+                        width: '8%',
                         marginLeft: 20,
-                        borderStyle: "solid",
-                        borderColor: "white",
+                        borderStyle: 'solid',
+                        borderColor: 'white',
                         borderWidth: 1,
                       }}
                       className="rounded-pill nav-avatar"
@@ -123,7 +125,7 @@ const LoggedNavbar = (props) => {
                             style={styles.dropdownItem}
                             onClick={() => {
                               history.push({
-                                pathname: "/profile",
+                                pathname: '/profile',
                                 state: {
                                   from: true,
                                   to: 0,
@@ -131,14 +133,14 @@ const LoggedNavbar = (props) => {
                               });
                             }}
                           >
-                            <div style={{ width: "25%" }}>
+                            <div style={{ width: '25%' }}>
                               <FontAwesomeIcon
                                 className="profile-dropdown-icon"
                                 icon={faUser}
                                 style={{ fontSize: 25 }}
                               />
                             </div>
-                            <div style={{ width: "70%", marginRight: "5%" }}>
+                            <div style={{ width: '70%', marginRight: '5%' }}>
                               {props.strings.ProfileListings &&
                                 props.strings.ProfileListings.profile}
                             </div>
@@ -150,7 +152,7 @@ const LoggedNavbar = (props) => {
                                 style={styles.dropdownItem}
                                 onClick={() => {
                                   history.push({
-                                    pathname: "/profile",
+                                    pathname: '/profile',
                                     state: {
                                       from: true,
                                       to: 1,
@@ -158,7 +160,7 @@ const LoggedNavbar = (props) => {
                                   });
                                 }}
                               >
-                                <div style={{ width: "25%" }}>
+                                <div style={{ width: '25%' }}>
                                   <FontAwesomeIcon
                                     className="profile-dropdown-icon"
                                     icon={faComment}
@@ -166,7 +168,7 @@ const LoggedNavbar = (props) => {
                                   />
                                 </div>
                                 <div
-                                  style={{ width: "70%", marginRight: "5%" }}
+                                  style={{ width: '70%', marginRight: '5%' }}
                                 >
                                   {props.strings.ProfileListings &&
                                     props.strings.ProfileListings.messages}
@@ -178,7 +180,7 @@ const LoggedNavbar = (props) => {
                                   style={styles.dropdownItem}
                                   onClick={() => {
                                     history.push({
-                                      pathname: "/profile",
+                                      pathname: '/profile',
                                       state: {
                                         from: true,
                                         to: 2,
@@ -186,7 +188,7 @@ const LoggedNavbar = (props) => {
                                     });
                                   }}
                                 >
-                                  <div style={{ width: "25%" }}>
+                                  <div style={{ width: '25%' }}>
                                     <FontAwesomeIcon
                                       className="profile-dropdown-icon"
                                       icon={faBriefcase}
@@ -194,7 +196,7 @@ const LoggedNavbar = (props) => {
                                     />
                                   </div>
                                   <div
-                                    style={{ width: "70%", marginRight: "5%" }}
+                                    style={{ width: '70%', marginRight: '5%' }}
                                   >
                                     {props.strings.ProfileListings &&
                                       props.strings.ProfileListings.occupations}
@@ -207,7 +209,7 @@ const LoggedNavbar = (props) => {
                                   style={styles.dropdownItem}
                                   onClick={() => {
                                     history.push({
-                                      pathname: "/profile",
+                                      pathname: '/profile',
                                       state: {
                                         from: true,
                                         to: 3,
@@ -215,7 +217,7 @@ const LoggedNavbar = (props) => {
                                     });
                                   }}
                                 >
-                                  <div style={{ width: "25%" }}>
+                                  <div style={{ width: '25%' }}>
                                     <FontAwesomeIcon
                                       className="profile-dropdown-icon"
                                       icon={faGraduationCap}
@@ -223,7 +225,7 @@ const LoggedNavbar = (props) => {
                                     />
                                   </div>
                                   <div
-                                    style={{ width: "70%", marginRight: "5%" }}
+                                    style={{ width: '70%', marginRight: '5%' }}
                                   >
                                     {props.strings.ProfileListings &&
                                       props.strings.ProfileListings.skills}
@@ -239,7 +241,7 @@ const LoggedNavbar = (props) => {
                             style={styles.dropdownItem}
                             onClick={() => {
                               history.push({
-                                pathname: "/profile",
+                                pathname: '/profile',
                                 state: {
                                   from: true,
                                   to: 4,
@@ -247,38 +249,38 @@ const LoggedNavbar = (props) => {
                               });
                             }}
                           >
-                            <div style={{ width: "25%" }}>
+                            <div style={{ width: '25%' }}>
                               <FontAwesomeIcon
                                 className="profile-dropdown-icon"
                                 icon={faCog}
                                 style={{ fontSize: 25 }}
                               />
                             </div>
-                            <div style={{ width: "70%", marginRight: "5%" }}>
+                            <div style={{ width: '70%', marginRight: '5%' }}>
                               {props.strings.ProfileListings &&
                                 props.strings.ProfileListings.settings}
                             </div>
                           </span>
                           <span
                             className="dropdown-item logout-dropdown-item"
-                            style={{ ...styles.dropdownItem, color: "#dc3545" }}
+                            style={{ ...styles.dropdownItem, color: '#dc3545' }}
                             onClick={() => {
                               AuthService.logout();
-                              localStorage.setItem("language", props.language);
-                              if (location.pathname === "/") {
-                                history.push("/home");
+                              localStorage.setItem('language', props.language);
+                              if (location.pathname === '/') {
+                                history.push('/home');
                               } else {
-                                history.push("/");
+                                history.push('/');
                               }
                             }}
                           >
-                            <div style={{ width: "25%" }}>
+                            <div style={{ width: '25%' }}>
                               <FontAwesomeIcon
                                 icon={faSignOutAlt}
                                 style={{ fontSize: 25 }}
                               />
                             </div>
-                            <div style={{ width: "70%", marginRight: "5%" }}>
+                            <div style={{ width: '70%', marginRight: '5%' }}>
                               Logout
                             </div>
                           </span>

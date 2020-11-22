@@ -1,26 +1,29 @@
-import React, { useContext } from "react";
+import React, { useContext } from 'react';
 
-import Colors from "../../constants/Colors";
+import Colors from '../../constants/Colors';
+import { FixMeLater } from '../../constants/Utilities';
 
-import { LanguageContext } from "../../languages/LanguageProvider";
+import { LanguageContext } from '../../languages/LanguageProvider';
 
-const HowToUseItPage = (props) => {
+const HowToUseItPage = (props: FixMeLater) => {
   const { language } = useContext(LanguageContext);
   return (
-    <div style={{ width: "100%", backgroundColor: Colors.learnMoreInfographics }}>
+    <div
+      style={{ width: '100%', backgroundColor: Colors.learnMoreInfographics }}
+    >
       <div
         style={{
-          width: "90%",
-          marginLeft: "5%",
-          marginRight: "5%",
-          paddingTop: "3%",
+          width: '90%',
+          marginLeft: '5%',
+          marginRight: '5%',
+          paddingTop: '3%',
         }}
       >
         <img
           id="woman"
           style={{
-            width: "100%",
-            marginBottom: "8%",
+            width: '100%',
+            marginBottom: '8%',
           }}
           alt=""
           src={require(`../../images/${language}/LearnMore/howtouseit_citizen.png`)}
@@ -28,7 +31,7 @@ const HowToUseItPage = (props) => {
         <img
           id="organisation"
           style={{
-            width: "100%",
+            width: '100%',
           }}
           alt=""
           src={require(`../../images/${language}/LearnMore/howtouseit_organisation.png`)}

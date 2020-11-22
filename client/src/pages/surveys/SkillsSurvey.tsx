@@ -1,25 +1,26 @@
-import React, { useState, useEffect, useContext } from "react";
-import CenterView from "../../components/CenterView";
+import React, { useState, useEffect, useContext } from 'react';
+import CenterView from '../../components/CenterView';
 
-import PrimaryButton from "../../components/PrimaryButton";
-import BackButton from "../../components/BackButton";
+import PrimaryButton from '../../components/PrimaryButton';
+import BackButton from '../../components/BackButton';
 
-import SurveyService from "../../services/survey.service";
+import SurveyService from '../../services/survey.service';
 
-import TableQuestions from "../../components/surveyComponents/TableQuestions";
+import TableQuestions from '../../components/surveyComponents/TableQuestions';
 
-import { LanguageContext } from "../../languages/LanguageProvider";
+import { LanguageContext } from '../../languages/LanguageProvider';
+import { FixMeLater } from '../../constants/Utilities';
 
-const SkillsSurvey = (props) => {
+const SkillsSurvey = (props: FixMeLater) => {
   const { strings, language } = useContext(LanguageContext);
   const [submitError, setSubmitError] = useState(false);
 
   // Change background color
   useEffect(() => {
-    document.body.style = `background: rgba(59,89,152,0.05);`;
+    document.body.style.cssText = `background: rgba(59,89,152,0.05);`;
 
     return () => {
-      document.body.style = `background: rgb(255,255,255);`;
+      document.body.style.cssText = `background: rgb(255,255,255);`;
     };
   }, []);
 
@@ -28,19 +29,19 @@ const SkillsSurvey = (props) => {
   // - 1. Organising and planning work and activities
   const t1 = strings.Profile
     ? [
-        "",
+        '',
         strings.Profile.ProfileSurveys.SkillsSurvey.categories[0],
         strings.Profile.ProfileSurveys.SkillsSurvey.categories[1],
         strings.Profile.ProfileSurveys.SkillsSurvey.categories[2],
         strings.Profile.ProfileSurveys.SkillsSurvey.categories[3],
         strings.Profile.ProfileSurveys.SkillsSurvey.categories[4],
       ]
-    : [""];
+    : [''];
 
   // - 2. General skills
   const t2 = strings.Profile
     ? [
-        "",
+        '',
         strings.Profile.ProfileSurveys.SkillsSurvey.categories[5],
         strings.Profile.ProfileSurveys.SkillsSurvey.categories[6],
         strings.Profile.ProfileSurveys.SkillsSurvey.categories[7],
@@ -49,12 +50,12 @@ const SkillsSurvey = (props) => {
         strings.Profile.ProfileSurveys.SkillsSurvey.categories[10],
         strings.Profile.ProfileSurveys.SkillsSurvey.categories[11],
       ]
-    : [""];
+    : [''];
 
   // - 3. Preparing and serving food and drinks
   const t3 = strings.Profile
     ? [
-        "",
+        '',
         strings.Profile.ProfileSurveys.SkillsSurvey.categories[12],
         strings.Profile.ProfileSurveys.SkillsSurvey.categories[13],
         strings.Profile.ProfileSurveys.SkillsSurvey.categories[14],
@@ -73,12 +74,12 @@ const SkillsSurvey = (props) => {
         strings.Profile.ProfileSurveys.SkillsSurvey.categories[27],
         strings.Profile.ProfileSurveys.SkillsSurvey.categories[28],
       ]
-    : [""];
+    : [''];
 
   // - 4. Provide beauty care
   const t4 = strings.Profile
     ? [
-        "",
+        '',
         strings.Profile.ProfileSurveys.SkillsSurvey.categories[29],
         strings.Profile.ProfileSurveys.SkillsSurvey.categories[30],
         strings.Profile.ProfileSurveys.SkillsSurvey.categories[31],
@@ -88,12 +89,12 @@ const SkillsSurvey = (props) => {
         strings.Profile.ProfileSurveys.SkillsSurvey.categories[35],
         strings.Profile.ProfileSurveys.SkillsSurvey.categories[36],
       ]
-    : [""];
+    : [''];
 
   // - 5. Providing information and support to others
   const t5 = strings.Profile
     ? [
-        "",
+        '',
         strings.Profile.ProfileSurveys.SkillsSurvey.categories[37],
         strings.Profile.ProfileSurveys.SkillsSurvey.categories[38],
         strings.Profile.ProfileSurveys.SkillsSurvey.categories[39],
@@ -110,12 +111,12 @@ const SkillsSurvey = (props) => {
         strings.Profile.ProfileSurveys.SkillsSurvey.categories[50],
         strings.Profile.ProfileSurveys.SkillsSurvey.categories[51],
       ]
-    : [""];
+    : [''];
 
   // - 6. Assist people with children, people with special needs and elderly
   const t6 = strings.Profile
     ? [
-        "",
+        '',
         strings.Profile.ProfileSurveys.SkillsSurvey.categories[52],
         strings.Profile.ProfileSurveys.SkillsSurvey.categories[53],
         strings.Profile.ProfileSurveys.SkillsSurvey.categories[54],
@@ -125,73 +126,73 @@ const SkillsSurvey = (props) => {
         strings.Profile.ProfileSurveys.SkillsSurvey.categories[58],
         strings.Profile.ProfileSurveys.SkillsSurvey.categories[59],
       ]
-    : [""];
+    : [''];
 
   // QUESTIONS's STATE
 
   // - 1.
-  const [t1Value, setT1Value] = useState([]);
+  const [t1Value, setT1Value] = useState<number[]>([]);
   const [t1Error, setT1Error] = useState(false);
 
-  const t1Handler = (e) => {
-    const index = e.target.id - 1;
-    let tmp = t1Value;
-    tmp[index] = parseInt(e.target.value);
+  const t1Handler = (e: FixMeLater) => {
+    const index: number = e.target.id - 1;
+    const tmp = t1Value;
+    tmp[index] = parseInt(e.target.value, 10);
     setT1Value(tmp);
   };
 
   // - 2.
-  const [t2Value, setT2Value] = useState([]);
+  const [t2Value, setT2Value] = useState<number[]>([]);
   const [t2Error, setT2Error] = useState(false);
 
-  const t2Handler = (e) => {
+  const t2Handler = (e: FixMeLater) => {
     const index = e.target.id - 1;
-    let tmp = t2Value;
-    tmp[index] = parseInt(e.target.value);
+    const tmp = t2Value;
+    tmp[index] = parseInt(e.target.value, 10);
     setT2Value(tmp);
   };
 
   // - 3.
-  const [t3Value, setT3Value] = useState([]);
+  const [t3Value, setT3Value] = useState<number[]>([]);
   const [t3Error, setT3Error] = useState(false);
 
-  const t3Handler = (e) => {
+  const t3Handler = (e: FixMeLater) => {
     const index = e.target.id - 1;
-    let tmp = t3Value;
-    tmp[index] = parseInt(e.target.value);
+    const tmp = t3Value;
+    tmp[index] = parseInt(e.target.value, 10);
     setT3Value(tmp);
   };
 
   // - 4.
-  const [t4Value, setT4Value] = useState([]);
+  const [t4Value, setT4Value] = useState<number[]>([]);
   const [t4Error, setT4Error] = useState(false);
 
-  const t4Handler = (e) => {
+  const t4Handler = (e: FixMeLater) => {
     const index = e.target.id - 1;
-    let tmp = t4Value;
-    tmp[index] = parseInt(e.target.value);
+    const tmp = t4Value;
+    tmp[index] = parseInt(e.target.value, 10);
     setT4Value(tmp);
   };
 
   // - 5.
-  const [t5Value, setT5Value] = useState([]);
+  const [t5Value, setT5Value] = useState<number[]>([]);
   const [t5Error, setT5Error] = useState(false);
 
-  const t5Handler = (e) => {
+  const t5Handler = (e: FixMeLater) => {
     const index = e.target.id - 1;
-    let tmp = t5Value;
-    tmp[index] = parseInt(e.target.value);
+    const tmp = t5Value;
+    tmp[index] = parseInt(e.target.value, 10);
     setT5Value(tmp);
   };
 
   // - 6.
-  const [t6Value, setT6Value] = useState([]);
+  const [t6Value, setT6Value] = useState<number[]>([]);
   const [t6Error, setT6Error] = useState(false);
 
-  const t6Handler = (e) => {
+  const t6Handler = (e: FixMeLater) => {
     const index = e.target.id - 1;
-    let tmp = t6Value;
-    tmp[index] = parseInt(e.target.value);
+    const tmp = t6Value;
+    tmp[index] = parseInt(e.target.value, 10);
     setT6Value(tmp);
   };
 
@@ -281,10 +282,10 @@ const SkillsSurvey = (props) => {
 
       // post request
       try {
-        await SurveyService.submitSurvey("skills", answers);
+        await SurveyService.submitSurvey('skills', answers);
         // Go back to profile page
         props.history.push({
-          pathname: "/profile",
+          pathname: '/profile',
           state: {
             from: true,
             to: 0,
@@ -297,12 +298,12 @@ const SkillsSurvey = (props) => {
       setSubmitError(true);
       // red border
       // actually don't need to do anything
-      console.log("Some errors found");
+      console.log('Some errors found');
     }
   };
 
   return (
-    <div style={{ margin: "2%" }}>
+    <div style={{ margin: '2%' }}>
       <CenterView
         middle={10}
         sides={1}
@@ -310,7 +311,7 @@ const SkillsSurvey = (props) => {
           <BackButton
             onClick={() => {
               props.history.push({
-                pathname: "/profile",
+                pathname: '/profile',
                 state: {
                   from: true,
                   to: 0,
@@ -461,11 +462,11 @@ const SkillsSurvey = (props) => {
       {submitError && (
         <div
           style={{
-            color: "red",
-            textAlign: "center",
+            color: 'red',
+            textAlign: 'center',
             fontSize: 16,
-            marginTop: "0.5%",
-            marginBottom: "0.5%",
+            marginTop: '0.5%',
+            marginBottom: '0.5%',
           }}
         >
           {strings.Profile &&
@@ -478,7 +479,7 @@ const SkillsSurvey = (props) => {
           strings.Profile.ProfileSurveys.ExperienceSurvey.submit
         }
         onClick={onSubmit}
-        buttonStyle={{ width: "10%" }}
+        buttonStyle={{ width: '10%' }}
       />
     </div>
   );

@@ -1,34 +1,35 @@
-import React, { useState } from "react";
-import { Form } from "react-bootstrap";
+import React, { useState } from 'react';
+import { Form } from 'react-bootstrap';
 
-import Colors from "../constants/Colors";
-import PrimaryButton from "./PrimaryButton";
+import Colors from '../constants/Colors';
+import PrimaryButton from './PrimaryButton';
 
-import AuthService from "../services/auth.service";
+import AuthService from '../services/auth.service';
+import { FixMeLater } from '../constants/Utilities';
 
-const LoginComponent = (props) => {
-  const [usernameValue, setUsernameValue] = useState("");
-  const [passValue, setPassValue] = useState("");
+const LoginComponent = (props: FixMeLater) => {
+  const [usernameValue, setUsernameValue] = useState('');
+  const [passValue, setPassValue] = useState('');
   const [loginErrorMessage, setLoginErrorMessage] = useState();
 
   const submitHandler = async () => {
     const username = usernameValue;
     const pass = passValue;
 
-    setLoginErrorMessage();
+    setLoginErrorMessage(undefined);
 
     // make login POST request
     try {
       const response = await AuthService.login(username, pass);
-      localStorage.setItem("language", props.language);
+      localStorage.setItem('language', props.language);
       if (response.organisation) {
-        props.history.push("/organisation");
+        props.history.push('/organisation');
       } else {
-        props.history.push("/profile");
+        props.history.push('/profile');
       }
 
-      setUsernameValue("");
-      setPassValue("");
+      setUsernameValue('');
+      setPassValue('');
     } catch (err) {
       // THE FOLLOWING CAN BE USED FOR THE ERROR MESSAGE....
       const resMessage =
@@ -41,7 +42,7 @@ const LoginComponent = (props) => {
   };
 
   return (
-    <div className={props.show ? "" : "col-md-12"}>
+    <div className={props.show ? '' : 'col-md-12'}>
       <Form>
         <Form.Group controlId="formUsername">
           <div>
@@ -55,12 +56,12 @@ const LoginComponent = (props) => {
               props.show
                 ? props.strings.SignupPage &&
                   props.strings.SignupPage.enterYourUsername
-                : "Username"
+                : 'Username'
             }
             onChange={(username) => setUsernameValue(username.target.value)}
             value={usernameValue}
-            onKeyPress={(event) => {
-              if (event.key === "Enter") {
+            onKeyPress={(event: FixMeLater) => {
+              if (event.key === 'Enter') {
                 submitHandler();
               }
             }}
@@ -83,8 +84,8 @@ const LoginComponent = (props) => {
             }
             onChange={(pass) => setPassValue(pass.target.value)}
             value={passValue}
-            onKeyPress={(event) => {
-              if (event.key === "Enter") {
+            onKeyPress={(event: FixMeLater) => {
+              if (event.key === 'Enter') {
                 submitHandler();
               }
             }}
@@ -100,7 +101,9 @@ const LoginComponent = (props) => {
           </a>
         </div>
         {loginErrorMessage && (
-          <div style={{ color: "red", textAlign: "center" }}>{loginErrorMessage}</div>
+          <div style={{ color: 'red', textAlign: 'center' }}>
+            {loginErrorMessage}
+          </div>
         )}
         <PrimaryButton
           label="Log In"
