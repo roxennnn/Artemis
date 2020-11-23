@@ -14,13 +14,13 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "pre-push": "echo \"ciao\""
     }
   },
   "lint-staged": {
     "*.{ts,js,tsx}": [
-      "npm run lint",
-      "tsc"
+      "npm run lint"
     ]
   },
   "keywords": [],
