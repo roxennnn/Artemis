@@ -1,42 +1,45 @@
-import axios from "axios";
+import axios from 'axios';
 
-const API_URL = "http://localhost:8080/api/auth/";
- 
+const API_URL = 'http://localhost:8080/api/auth/;
+
 class AuthService {
-  login = async (username, password) => {
-    const response = await axios
-      .post(API_URL + "signin", {
-        username,
-        password
-      });
+  login = async (username: string, password: string) => {
+    const response = await axios.post(API_URL + 'signin', {
+      username,
+      password,
+    });
     if (response.data.accessToken) {
-      localStorage.setItem("user", JSON.stringify(response.data));
+      localStorage.setItem('user', JSON.stringify(response.data));
     }
     return response.data;
   }
 
   logout = () => {
-    localStorage.removeItem("user");
+    localStorage.removeItem('user');
   }
 
-  registerWoman = (username, email, password) => {
-    return axios.post(API_URL + "signup/woman", {
+  registerWoman = (username: string, email: string, password: string) => {
+    return axios.post(API_URL + 'signup/woman', {
       username,
       email,
-      password
+      password,
     });
   }
 
-  registerOrganisation = (organisationName, email, password) => {
-    return axios.post(API_URL + "signup/organisation", {
+  registerOrganisation = (
+    organisationName: string,
+    email: string,
+    password: string
+  ) => {
+    return axios.post(API_URL + 'signup/organisation', {
       organisationName,
       email,
-      password
+      password,
     });
   }
 
   getCurrentUser = () => {
-    return JSON.parse(localStorage.getItem('user'));;
+    return JSON.parse(localStorage.getItem('user') as string);
   }
 }
 

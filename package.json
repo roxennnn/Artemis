@@ -9,7 +9,20 @@
     "client": "npm run start --prefix client",
     "server": "nodemon index.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-    "start": "node index.js"
+    "start": "node index.js",
+    "lint": "tslint"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,js,tsx}": [
+      "npm run lint",
+      "tsc",
+      "git add"
+    ]
   },
   "keywords": [],
   "author": "",
