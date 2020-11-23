@@ -20,8 +20,7 @@
   "lint-staged": {
     "*.{ts,js,tsx}": [
       "npm run lint",
-      "tsc",
-      "git add"
+      "tsc"
     ]
   },
   "keywords": [],
