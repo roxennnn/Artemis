@@ -23,11 +23,17 @@ Currently, the web application is in three languages (Spanish, English, and Port
 
 # Development environment setup
 
-In order to run the development environment, the following are needed:
+In order to run the development environment, the followings are needed:
   * [Node.js](https://nodejs.org/en/)
   * [mongoDB](https://www.mongodb.com/)
   * [React](https://reactjs.org/)
   * [TRUFFLE](https://www.trufflesuite.com/)
+
+## Enable pre-push git client hook - only developers
+Run the following command to enable the `pre-push` git client hook:
+```bash
+cp hooks/pre-push .git/hooks/
+```
 
 ## Install package dependencies
 At first, following command is needed to install all the package dependencies for the back-end:
