@@ -10,8 +10,7 @@
     "server": "nodemon index.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "start": "node index.js",
-    "lint": "tslint",
-    "copy-hook": "cp ./hooks/pre-push .git/hooks/"
+    "lint": "tslint"
   },
   "husky": {
     "hooks": {
@@ -21,7 +20,6 @@
   },
   "lint-staged": {
     "*.{ts,js,tsx}": [
-      "npm run copy-hook",
       "npm run lint"
     ]
   },
