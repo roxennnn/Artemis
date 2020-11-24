@@ -52,6 +52,14 @@ def check_branch(push_branch=''):
       print(f'\n🚫 \033[31mYou cannot push to the \033[1m{RESTRICTED_BRANCH}\033[0m\033[31m!\033[0m\n')
       sys.exit(1) # abort push --> this user cannot push to the master branch
 
+  ########################################
+  #          Everything is fine          #
+  ########################################
+
+  print('\n✅ \033[32mpush allowed!\033[0m')
+  sys.exit(0) # push is allowed --> the branch is not the restricted one
+
+
 ########################################
 #               Branches               #
 ########################################
@@ -77,10 +85,3 @@ if current_branch not in push_branch:
   sys.exit(1)
 
 check_branch(push_branch)
-
-########################################
-#          Everything is fine          #
-########################################
-
-print('\n✅ \033[32mpush allowed!\033[0m')
-sys.exit(0) # push is allowed --> the branch is not the restricted one
