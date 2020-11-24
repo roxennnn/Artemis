@@ -11,7 +11,7 @@
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "start": "node index.js",
     "lint": "tslint",
-    "copy-hook": "./hooks/copy_hook.sh"
+    "hook-setup": "./hooks/setup.sh"
   },
   "husky": {
     "hooks": {
@@ -24,7 +24,7 @@
       "npm run lint"
     ],
     "*": [
-      "npm run copy-hook"
+      "npm run setup"
     ]
   },
   "keywords": [],
