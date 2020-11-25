@@ -29,12 +29,6 @@ In order to run the development environment, the followings are needed:
   * [React](https://reactjs.org/)
   * [TRUFFLE](https://www.trufflesuite.com/)
 
-## Enable pre-push git client hook - only developers
-Run the following command to enable the `pre-push` git client hook:
-```bash
-cp hooks/pre-push .git/hooks/
-```
-
 ## Install package dependencies
 At first, following command is needed to install all the package dependencies for the back-end:
 ```bash
