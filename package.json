@@ -10,21 +10,16 @@
     "server": "nodemon index.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "start": "node index.js",
-    "lint": "tslint",
-    "hook-setup": "./hooks/setup.sh"
+    "lint": "tslint"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "python3 hooks/pre-push.py"
+      "pre-commit": "node hooks/restrict-commit.js && echo \"Running tslint...\" && lint-staged"
     }
   },
   "lint-staged": {
     "*.{ts,js,tsx}": [
-      "npm run lint"
-    ],
-    "*": [
-      "npm run setup"
+      "tslint"
     ]
   },
   "keywords": [],
@@ -50,6 +45,7 @@
     "web3": "^1.2.9"
   },
   "devDependencies": {
+    "codelyzer": "^6.0.1",
     "concurrently": "^5.2.0",
     "nodemon": "^2.0.4"
   }
