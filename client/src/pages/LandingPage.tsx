@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-
-import AuthService from '../services/auth.service';
+import React from 'react';
 
 import Colors from '../constants/Colors';
 import PrimaryButton from '../components/PrimaryButton';
@@ -16,27 +14,8 @@ const LandingPage = (props: FixMeLater) => {
   const { strings, language } = useSelector(
     (state: RootState) => state.language
   );
-  const [currentUser, setCurrentUser] = useState();
 
-  // const { location } = props;
-  // useEffect(() => {
-  //   if (location.state && location.state.lang) {
-  //     // updateLanguage(location.state.lang);
-  //     dispatch(setLanguage(location.state.lang));
-  //   }
-  // }, [location.state, dispatch]);
-
-  useEffect(() => {
-    const user = AuthService.getCurrentUser();
-    if (user) {
-      setCurrentUser(user);
-    }
-    // const lang = localStorage.getItem('language');
-    // if (lang) {
-    //   // updateLanguage(lang);
-    //   dispatch(setLanguage(lang as Language));
-    // }
-  }, []);
+  const { isLogged } = useSelector((state: RootState) => state.user);
 
   const learnMoreClickHandler = (e: FixMeLater) => {
     localStorage.setItem('language', language);
@@ -46,7 +25,7 @@ const LandingPage = (props: FixMeLater) => {
 
   return (
     <div style={{ backgroundColor: Colors.landingPageInfographics }}>
-      {currentUser && (
+      {isLogged && (
         <img
           style={{
             width: '100%',
@@ -58,7 +37,7 @@ const LandingPage = (props: FixMeLater) => {
       )}
 
       <div>
-        {!currentUser && (
+        {!isLogged && (
           <div>
             <img
               style={{
@@ -177,7 +156,7 @@ const LandingPage = (props: FixMeLater) => {
             justifyContent: 'flex-end',
             position: 'absolute',
             // bottom: currentUser ? -1320 : -1400,
-            bottom: currentUser ? -1320 : -1360,
+            bottom: isLogged ? -1320 : -1360,
             left: -574,
             zIndex: 100,
           }}

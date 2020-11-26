@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Spinner } from 'react-bootstrap';
 
-import MatchingService from '../../services/matching.service';
-
 import Colors from '../../constants/Colors';
 import CenterView from '../CenterView';
 import PrimaryButton from '../PrimaryButton';
@@ -10,6 +8,9 @@ import ProgressBar from '../ProgressBar';
 
 import image from '../../images/women/woman1.png';
 import { FixMeLater } from '../../constants/Utilities';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store/reducers/root.reducer';
+import { getSkills } from '../../store/actions/matching.action';
 
 const SkillRow = (props: FixMeLater) => {
   return (
@@ -49,22 +50,18 @@ const SkillRow = (props: FixMeLater) => {
 
 // showValue = 2
 const ProfileSkills = (props: FixMeLater) => {
-  const [loading, setLoading] = useState(false);
-  const [skills, setSkills] = useState([]);
   const [showAll, setShowAll] = useState(false);
 
-  const { strings, language } = props;
+  const { strings, language } = useSelector(
+    (state: RootState) => state.language
+  );
+  const { skills, loading } = useSelector((state: RootState) => state.matching);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setLoading(true);
-    asyncFetchSkills();
-    setLoading(false);
+    dispatch(getSkills(language));
   }, [language]);
-
-  const asyncFetchSkills = async () => {
-    const fetchedSkills = await MatchingService.fetchSkills(language);
-    setSkills(fetchedSkills.scores);
-  };
 
   const onClickShowAll = () => {
     setShowAll(true);
@@ -104,7 +101,7 @@ const ProfileSkills = (props: FixMeLater) => {
           </div>
           <div style={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
             <div id="left-box" style={{ width: showAll ? '50%' : '65%' }}>
-              {skills && (
+              {skills.length > 0 && (
                 <div>
                   {showAll ? (
                     <div>
@@ -118,7 +115,7 @@ const ProfileSkills = (props: FixMeLater) => {
                     </div>
                   ) : (
                     <div>
-                      {skills
+                      {skills.length > 0
                         ? skills.slice(0, 5).map((skill, index) => {
                             return <SkillRow skill={skill} key={index} />;
                           })
@@ -138,11 +135,11 @@ const ProfileSkills = (props: FixMeLater) => {
               )}
             </div>
             <div id="right-box" style={{ width: showAll ? '50%' : '35%' }}>
-              {skills && (
+              {skills.length > 0 && (
                 <div>
                   {showAll ? (
                     <div>
-                      {skills &&
+                      {skills.length > 0 &&
                         skills.map((skill, index) => {
                           if (index % 2 === 1) {
                             return <SkillRow skill={skill} key={index} />;

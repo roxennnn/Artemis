@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { Checkbox } from '@material-ui/core';
 
-import AuthService from '../services/auth.service';
+// import AuthService from '../services/auth.service';
 
 import PrimaryButton from '../components/PrimaryButton';
 import Colors from '../constants/Colors';
 import { FixMeLater, validateEmail } from '../constants/Utilities';
+import { useDispatch } from 'react-redux';
+import { signUpWoman } from '../store/actions/user.action';
 
 const WomanSignUp = (props: FixMeLater) => {
+  const dispatch = useDispatch();
+
   const [username, setUsername] = useState('');
   const [usernameInvalid, setUsernameInvalid] = useState(false);
 
@@ -92,7 +96,8 @@ const WomanSignUp = (props: FixMeLater) => {
 
     if (noErrors) {
       try {
-        await AuthService.registerWoman(usernameValue, emailValue, pass);
+        // await AuthService.registerWoman(usernameValue, emailValue, pass);
+        dispatch(signUpWoman(usernameValue, emailValue, pass));
         // props.history.push("/home");
         props.history.push({
           pathname: '/home',

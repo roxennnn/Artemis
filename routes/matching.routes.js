@@ -15,7 +15,7 @@ export default (app) => {
   });
 
   app.get(
-    "/api/matching/fetch-matchings/:lang",
+    "/api/matching/:lang/occupation",
     [
       authJwt.verifyToken, // only authorised users can perform this operation
     ],
@@ -23,7 +23,7 @@ export default (app) => {
   );
 
   app.get(
-    "/api/matching/occupation-detail/:lang/:oid",
+    "/api/matching/:lang/occupation/:oid",
     [
       authJwt.verifyToken, // only authorised users can perform this operation
     ],
@@ -31,7 +31,7 @@ export default (app) => {
   );
 
   app.get(
-    "/api/matching/fetch-skills/:lang",
+    "/api/matching/:lang/skill",
     [
       authJwt.verifyToken, // only authorised users can perform this operation
     ],

@@ -5,7 +5,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 import Colors from '../constants/Colors';
-import AuthService from '../services/auth.service';
+// import AuthService from '../services/auth.service';
 
 import LoginNavbar from './LoginNavbar';
 import LoggedNavbar from './LoggedNavbar';
@@ -28,13 +28,17 @@ const NavComponent = (props: FixMeLater) => {
 
   const [currentFlag, setCurrentFlag] = useState<FixMeLater>('GB');
   const history = useHistory();
-  const [currentUser, setCurrentUser] = useState<FixMeLater>();
+  // const [currentUser, setCurrentUser] = useState<FixMeLater>();
 
-  const location = useLocation();
-  useEffect(() => {
-    const user = AuthService.getCurrentUser();
-    setCurrentUser(user);
-  }, [location.pathname]);
+  const {user, isLogged} = useSelector(
+    (state: RootState) => state.user
+  );
+
+  // const location = useLocation();
+  // useEffect(() => {
+  //   // const user = AuthService.getCurrentUser();
+  //   // setCurrentUser(user);
+  // }, [location.pathname]);
 
   const fetchLanguage = () => {
     const lang = localStorage.getItem('language');
@@ -134,7 +138,7 @@ const NavComponent = (props: FixMeLater) => {
                   setCurrentFlag('ES');
                   // updateLanguage('es');
                   dispatch(setLanguage(Language.ES));
-                  localStorage.setItem('language', 'es');  // FixMeLater
+                  localStorage.setItem('language', 'es'); // FixMeLater
                 }}
               />
               <LanguageComponent
@@ -223,7 +227,7 @@ const NavComponent = (props: FixMeLater) => {
             </div>
           </li>
 
-          {currentUser && !currentUser.organisation && (
+          {isLogged && !user?.organisation && (
             <li className="nav-item">
               <Link to={'/forum'} className="nav-link">
                 Forum
@@ -245,7 +249,7 @@ const NavComponent = (props: FixMeLater) => {
       <div className="collapse navbar-collapse" id="navbarTop">
         <ul className="navbar-nav ml-auto">
           <li>
-            {currentUser ? (
+            {isLogged ? (
               <LoggedNavbar
                 history={props.history}
                 strings={strings}

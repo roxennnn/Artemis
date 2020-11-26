@@ -7,8 +7,12 @@ import AuthService from '../services/auth.service';
 import Colors from '../constants/Colors';
 import PrimaryButton from '../components/PrimaryButton';
 import { FixMeLater, validateEmail } from '../constants/Utilities';
+import { signUpOrganisation } from '../store/actions/user.action';
+import { useDispatch } from 'react-redux';
 
 const OrganisationSignUp = (props: FixMeLater) => {
+  const dispatch = useDispatch();
+
   const [username, setUsername] = useState('');
   const [usernameInvalid, setUsernameInvalid] = useState(false);
 
@@ -92,12 +96,13 @@ const OrganisationSignUp = (props: FixMeLater) => {
 
     if (noErrors) {
       try {
-        const response = await AuthService.registerOrganisation(
-          usernameValue,
-          emailValue,
-          pass
-        );
-        console.log(response);
+        // const response = await AuthService.registerOrganisation(
+        //   usernameValue,
+        //   emailValue,
+        //   pass
+        // );
+        dispatch(signUpOrganisation(usernameValue, emailValue, pass));
+        // console.log(response);
         props.history.push('/home');
       } catch (err) {
         // here we should handle duplicate usernames or emails

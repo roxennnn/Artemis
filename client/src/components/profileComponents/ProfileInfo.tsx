@@ -1,30 +1,13 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { FixMeLater } from '../../constants/Utilities';
+import { RootState } from '../../store/reducers/root.reducer';
 
 import SurveyCard from './SurveyCard';
 
 // showValue = 0
 const ProfileInfo = (props: FixMeLater) => {
-  const [demographicDone, setDemographicDone] = useState(
-    props.currentUser.demographics_done
-  );
-  const [domesticDone, setDomesticDone] = useState(
-    props.currentUser.experience_done
-  );
-  const [skillsDone, setSkillsDone] = useState(props.currentUser.skills_done);
-
-  const setDoneFalse = (href: FixMeLater) => {
-    const survey = href.split('-survey')[0];
-    if (survey === 'demographic') {
-      setDemographicDone(false);
-    } else if (survey === 'domestic') {
-      setDomesticDone(false);
-    } else if (survey === 'skills') {
-      setSkillsDone(false);
-    } else {
-      console.log('INVALID SURVEY');
-    }
-  };
+  const { user } = useSelector((state: RootState) => state.user);
 
   return (
     <div>
@@ -58,12 +41,11 @@ const ProfileInfo = (props: FixMeLater) => {
             props.strings.Profile &&
             props.strings.Profile.ProfileSurveys.DemographicsSurvey.description
           }
-          href="demographic-survey"
-          done={demographicDone}
-          timestamp={props.currentUser.demographics_timestamp}
+          href="demographics-survey"
+          done={user?.demographicsDone}
+          timestamp={user?.demographicsTimestamp}
           history={props.history}
           cardStyle={{ marginLeft: '1.5%' }}
-          setDoneFalse={setDoneFalse}
         />
         <SurveyCard
           strings={props.strings}
@@ -71,35 +53,33 @@ const ProfileInfo = (props: FixMeLater) => {
             props.strings.Profile &&
             props.strings.Profile.ProfileSurveys.SkillsSurvey.title
           }
-          active={demographicDone || domesticDone}
+          active={user?.demographicsDone || user?.domesticDone}
           description={
             props.strings.Profile &&
             props.strings.Profile.ProfileSurveys.SkillsSurvey.description
           }
           href="skills-survey"
-          done={skillsDone}
-          timestamp={props.currentUser.skills_timestamp}
+          done={user?.skillsDone}
+          timestamp={user?.skillsTimestamp}
           history={props.history}
           cardStyle={{ marginLeft: '3%', marginRight: '3%' }}
-          setDoneFalse={setDoneFalse}
         />
         <SurveyCard
           strings={props.strings}
           title={
             props.strings.Profile &&
-            props.strings.Profile.ProfileSurveys.ExperienceSurvey.title
+            props.strings.Profile.ProfileSurveys.DomesticSurvey.title
           }
-          active={(demographicDone && skillsDone) || domesticDone}
+          active={(user?.demographicsDone && user?.skillsDone) || user?.domesticDone}
           description={
             props.strings.Profile &&
-            props.strings.Profile.ProfileSurveys.ExperienceSurvey.description
+            props.strings.Profile.ProfileSurveys.DomesticSurvey.description
           }
           href="domestic-survey"
-          done={domesticDone}
-          timestamp={props.currentUser.experience_timestamp}
+          done={user?.domesticDone}
+          timestamp={user?.domesticTimestamp}
           history={props.history}
           cardStyle={{ marginRight: '1.5%' }}
-          setDoneFalse={setDoneFalse}
         />
       </div>
     </div>

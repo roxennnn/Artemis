@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Colors from '../constants/Colors';
-import { FixMeLater } from '../constants/Utilities';
+import { emptyFunction, FixMeLater } from '../constants/Utilities';
 
 const PrimaryButton = (props: FixMeLater) => {
   return (
@@ -31,7 +31,7 @@ const PrimaryButton = (props: FixMeLater) => {
           ...props.buttonStyle,
         }}
         role="button"
-        onClick={props.disabled ? '' : props.onClick}
+        onClick={props.disabled ? emptyFunction : props.onClick}
       >
         {props.label}
       </div>

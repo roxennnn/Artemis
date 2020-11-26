@@ -14,27 +14,21 @@ import {
   faMapMarkerAlt,
   faBriefcase,
   faCog,
-  // faTools,
-  // faUtensils,
   faUser,
-  // faDice,
-  // faHammer,
   faGraduationCap,
   faComment,
   faSignOutAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import SurveyService from '../services/survey.service';
-import AuthService from '../services/auth.service';
-
 import avatar2 from '../images/avatar2.png';
 
 import '../css/ProfilePage.css';
-import { FixMeLater } from '../constants/Utilities';
+import { emptyFunction, FixMeLater } from '../constants/Utilities';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/reducers/root.reducer';
 import { setLanguage } from '../store/actions/language.action';
+import { signOut } from '../store/actions/user.action';
 
 const styles = {
   someInfo: {
@@ -69,7 +63,7 @@ const IconBox = (props: FixMeLater) => {
         alignItems: 'center',
         ...props.style,
       }}
-      onClick={props.disabled ? '' : props.onClick}
+      onClick={props.disabled ? emptyFunction : props.onClick}
     >
       <FontAwesomeIcon
         icon={props.icon}
@@ -85,61 +79,41 @@ const IconBox = (props: FixMeLater) => {
 // - Add sort buttons in occupations and skills
 
 const ProfilePage = (props: FixMeLater) => {
-  // const { strings, language, updateLanguage } = useContext(LanguageContext);
   const { strings, language } = useSelector(
     (state: RootState) => state.language
   );
   const dispatch = useDispatch();
 
   const [showValue, setShowValue] = useState(0);
-  // const [currentUser, setCurrentUser] = useState<FixMeLater>(); // data of logged user
-  const { username } = useSelector((state: RootState) => state.authentication);
-  const [loading, setLoading] = useState(false);
+  const { user, isLogged, loading } = useSelector(
+    (state: RootState) => state.user
+  );
   const [geoPosition, setGeoPosition] = useState<FixMeLater>();
 
-  const asyncQueryProfileData = async () => {
-    // const user = await SurveyService.queryProfileData();
-    // if (user) {
-    //   setCurrentUser(user.user);
-    // }
-  };
   useEffect(() => {
-    setLoading(true);
-    asyncQueryProfileData();
-    // const lang = localStorage.getItem('language');
-    // if (lang) {
-    //   updateLanguage(lang);
-    // }
-  }, []);
-
-  useEffect(() => {
-    if (currentUser) {
-      setLoading(false);
-      if (currentUser.geoPosition) {
-        const country = Countries[currentUser.geoPosition[0] - 1];
-        setGeoPosition(
-          `${country.name}, ${
-            country.regions[currentUser.geoPosition[1] - 1].name
-          }`
-        );
-      }
+    if (user?.geoPosition) {
+      const country = Countries[user.geoPosition[0] - 1];
+      const region = country.regions[user.geoPosition[1] - 1];
+      setGeoPosition(
+        `${country.name}, ${region.name}`
+      );
     }
-  }, [currentUser]);
+  }, [user]);
 
   // Handle done surveys
   const [completionBorder, setCompletionBorder] = useState(
     `white white ${Colors.primary} white`
   );
   useEffect(() => {
-    if (currentUser) {
+    if (isLogged) {
       let counter = 0;
-      if (currentUser.demographics_done) {
+      if (user?.demographicsDone) {
         counter++;
       }
-      if (currentUser.experience_done) {
+      if (user?.domesticDone) {
         counter++;
       }
-      if (currentUser.skills_done) {
+      if (user?.skillsDone) {
         counter++;
       }
       if (counter === 1) {
@@ -154,16 +128,12 @@ const ProfilePage = (props: FixMeLater) => {
         );
       }
     }
-  }, [currentUser]);
+  }, [user]);
 
   const { location } = props;
   useEffect(() => {
     if (location.state && location.state.from) {
       setShowValue(location.state.to);
-      // if (location.state.lang) {
-      //   // updateLanguage(location.state.lang);
-      //   dispatch(setLanguage(location.state.lang));
-      // }
     }
   }, [location.state]);
 
@@ -177,7 +147,7 @@ const ProfilePage = (props: FixMeLater) => {
         </CenterView>
       ) : (
         <div>
-          {currentUser && (
+          {isLogged && (
             <div className="my-container" style={{ width: '100%' }}>
               <div
                 className="my-row"
@@ -229,7 +199,7 @@ const ProfilePage = (props: FixMeLater) => {
                       // src="https://bootdey.com/img/Content/avatar/avatar9.png"
                     />
                     <div style={{ fontSize: 24, marginTop: '2%' }}>
-                      <b>{currentUser ? currentUser.username : ''}</b>
+                      <b>{isLogged && user ? user.username : ''}</b>
                     </div>
                     {geoPosition && (
                       <div style={{ textAlign: 'center' }}>
@@ -297,7 +267,7 @@ const ProfilePage = (props: FixMeLater) => {
                           }
                           icon={faBriefcase}
                           style={{ width: 130, marginRight: 15 }}
-                          disabled={!currentUser.skills_done}
+                          disabled={!user?.skillsDone}
                           active={showValue === 2}
                           onClick={() => {
                             setShowValue(2);
@@ -310,7 +280,7 @@ const ProfilePage = (props: FixMeLater) => {
                           }
                           icon={faGraduationCap}
                           style={{ width: 130, marginLeft: 15 }}
-                          disabled={!currentUser.skills_done}
+                          disabled={!user?.skillsDone}
                           active={showValue === 3}
                           onClick={() => {
                             setShowValue(3);
@@ -342,7 +312,8 @@ const ProfilePage = (props: FixMeLater) => {
                           icon={faSignOutAlt}
                           style={{ width: 130, marginLeft: 15 }}
                           onClick={() => {
-                            AuthService.logout();
+                            // AuthService.logout();
+                            dispatch(signOut());
                             localStorage.setItem('language', language);
                             // props.history.push("/");
                             props.history.push({
@@ -366,7 +337,6 @@ const ProfilePage = (props: FixMeLater) => {
                   {showValue === 0 && (
                     <ProfileInfo
                       history={props.history}
-                      currentUser={currentUser}
                       language={language}
                       strings={strings}
                     />

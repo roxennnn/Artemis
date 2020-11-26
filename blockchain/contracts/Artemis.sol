@@ -14,7 +14,7 @@ contract ArtemisContract {
     mapping (address => uint[79]) private userData;
     // 0:       existance
     // 1-9:     demographics    // 9 questions
-    // 10-18:   experience      // 9 questions
+    // 10-18:   domestic      // 9 questions
     // 19-78:   skills          // 60 skills
 
     // msg.sender will be the person who's currently connecting with the contract.
@@ -66,8 +66,8 @@ contract ArtemisContract {
 
     }
 
-    // Transaction: add (or update) experience answers of userAddr; only the ownerAddr can perform this transaction
-    function addExperienceAnwsers(address userAddr, uint[9] memory answers) public {
+    // Transaction: add (or update) domestic answers of userAddr; only the ownerAddr can perform this transaction
+    function addDomesticAnwsers(address userAddr, uint[9] memory answers) public {
         // Check if the sender of this transaction is the owner
         require(isOwner(msg.sender), "Permission Denied! Only the owner can perform this operation");
 
@@ -158,8 +158,8 @@ contract ArtemisContract {
         return returnArr;
     }
 
-    // Call: get the user's answers to the experience survey; user's data can be read only by the user itself
-    function getExperienceData() public view returns(uint[9] memory) {
+    // Call: get the user's answers to the domestic survey; user's data can be read only by the user itself
+    function getDomesticData() public view returns(uint[9] memory) {
 
         // Check if the address is stored in the map
         require(exists(userData[msg.sender]), "User does not exist...");

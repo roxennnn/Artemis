@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Spinner } from 'react-bootstrap';
 
-import MatchingService from '../../services/matching.service';
-
 import CenterView from '../CenterView';
 import MatchingRow from './MatchingRow';
 import PrimaryButton from '../PrimaryButton';
@@ -12,25 +10,28 @@ import Colors from '../../constants/Colors';
 // import woman from "../../images/women/woman0.png";
 import woman from '../../images/women/woman2.png';
 import { FixMeLater } from '../../constants/Utilities';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store/reducers/root.reducer';
+import { getMatchings } from '../../store/actions/matching.action';
+import { Matching } from '../../model/matching.model';
 
 // showValue = 2
 const ProfileMatchings = (props: FixMeLater) => {
-  const [loading, setLoading] = useState(false);
   const [showAll, setShowAll] = useState(false);
-  const [occupationMatchings, setOccupationMatchings] = useState([]);
 
-  const { strings, language } = props;
+  const { strings, language } = useSelector(
+    (state: RootState) => state.language
+  );
+  const { matchings, loading } = useSelector(
+    (state: RootState) => state.matching
+  );
 
-  const asyncFetchOccupations = async () => {
-    const matchings = await MatchingService.fetchMatchings(language);
-    setOccupationMatchings(matchings.scoredOccupations);
-  };
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setLoading(true);
-    asyncFetchOccupations();
-    setLoading(false);
-  }, [language, asyncFetchOccupations]);
+    dispatch(getMatchings(language));
+    console.log(matchings);
+  }, [language]);
 
   const onClickShowAll = () => {
     setShowAll(true);
@@ -70,22 +71,26 @@ const ProfileMatchings = (props: FixMeLater) => {
           </div>
           <div style={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
             <div id="left-box" style={{ width: showAll ? '50%' : '65%' }}>
-              {occupationMatchings && (
+              {matchings.length > 0 && (
                 <div>
                   {showAll ? (
                     <div>
-                      {occupationMatchings.map((o: FixMeLater, index: number) => {
-                        if (index % 2 === 0) {
-                          return <MatchingRow occupation={o} key={index} />;
+                      {matchings.map(
+                        (o: Matching, index: number) => {
+                          if (index % 2 === 0) {
+                            return <MatchingRow occupation={o} key={index} />;
+                          }
+                          return undefined;
                         }
-                        return undefined;
-                      })}
+                      )}
                     </div>
                   ) : (
                     <div>
-                      {occupationMatchings.slice(0, 5).map((o: FixMeLater, index: number) => {
-                        return <MatchingRow occupation={o} key={index} />;
-                      })}
+                      {matchings
+                        .slice(0, 5)
+                        .map((o: FixMeLater, index: number) => {
+                          return <MatchingRow occupation={o} key={index} />;
+                        })}
                       <PrimaryButton
                         label={
                           strings.Profile &&
@@ -101,16 +106,18 @@ const ProfileMatchings = (props: FixMeLater) => {
               )}
             </div>
             <div id="right-box" style={{ width: showAll ? '50%' : '35%' }}>
-              {occupationMatchings && (
+              {matchings.length > 0 && (
                 <div>
                   {showAll ? (
                     <div>
-                      {occupationMatchings.map((o: FixMeLater, index: number) => {
-                        if (index % 2 === 1) {
-                          return <MatchingRow occupation={o} key={index} />;
+                      {matchings.map(
+                        (o: FixMeLater, index: number) => {
+                          if (index % 2 === 1) {
+                            return <MatchingRow occupation={o} key={index} />;
+                          }
+                          return undefined;
                         }
-                        return undefined;
-                      })}
+                      )}
                     </div>
                   ) : (
                     <img src={woman} alt="" style={{ width: '100%' }} />

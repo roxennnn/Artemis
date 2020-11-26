@@ -1,6 +1,8 @@
 import Wallet from 'ethereumjs-wallet';
 
 import { secret } from '../config/auth.config.js';
+import { artemisContract } from '../server.js';
+
 import db from '../models/index.js';
 const User = db.user;
 const Organisation = db.organisation;
@@ -9,6 +11,7 @@ import jsonwebtoken from 'jsonwebtoken';
 const { sign } = jsonwebtoken;
 
 import bcryptjs from 'bcryptjs';
+import { CustomError } from '../models/error.js';
 const { hashSync, compareSync } = bcryptjs;
 
 // "WHY DID I USE THESE ADDRESSES??"
@@ -28,41 +31,10 @@ const addresses = [
   '0x48c35dc0d12a8362dcbd6b23364b3054d83ae6f6',
 ];
 
-const priv_keys = [
-  'f63f4571aea34657c8b1b3886638b66387a4673f00c91cd6777d09a2bafad72f',
-  'b3a38a3c4019e9c0552fca8d8d57564a0115f0d9dc1c0d6d86d965331c907a1b',
-  'a62f380f5e6497c41a491ac96788db74d5f8172f5ab0f6230e7bb7938cf7cad0',
-  '28777f99d9c473eca3765be43136b61ec7e84fc52b5fb405762ff572c3dce6fc',
-  '577b44893282600de6b29e6dce7a1aff7c86cee6ec9b1cd63060785b3fc1092e',
-  '1963c5be984f4d733e49e29fbd316c26f41c7798d9d1d56b686382cd75e4bc39',
-  '1545c4b4706af8a8999c7f102023770e046e8a7e3354b6ab494ed62e784c64ba',
-  '0155bc0606504a6a4332458179ab1af8cbe1fa964c9abbfe71a7d260241e73d4',
-  'bd10fc99d7ecb47f319ed2aab69e3ddb497066a817fc4cc549a1f303e4fb5a98',
-  '747cfa99d27cbac04f0d8211dc7e0253ba96f9466eb99905d545c8507f7e92d2',
-];
-
 let crazyId = 1;
 const OWNER_ADDR = addresses[0];
 // *************************************************************
 ////////////////////////////////////////////////////////////////
-
-// NOT USED...
-// export const signup = (req, res) => {
-//   console.log(req.body);
-//   z;
-//   const user = new User({
-//     username: req.body.username,
-//     email: req.body.email,
-//     password: hashSync(req.body.password, 8),
-//   });
-
-//   user.save((err, user) => {
-//     if (err) {
-//       res.status(500).send({ message: err });
-//       return;
-//     }
-//   });
-// };
 
 // Add smartcontract communication
 export const signupWoman = (req, res) => {
@@ -79,7 +51,6 @@ export const signupWoman = (req, res) => {
   // const address = addresses[crazyId];
   // const priv_key = priv_keys[crazyId];
   // crazyId++;
-  // console.log(`CRAZYID: ${crazyId}`);
 
   const user = new User({
     // survey data are not stored, defult values used
@@ -92,7 +63,7 @@ export const signupWoman = (req, res) => {
     // priv_key: priv_key,                             // used only now, for pre-set addresses
   });
 
-  user.save((err, user) => {
+  user.save((err, _usr) => {
     if (err) {
       res.status(500).send({ message: err });
       return;
@@ -105,7 +76,7 @@ export const signupWoman = (req, res) => {
 export const signupOrganisation = async (req, res) => {
   // Generate a public(address)-private key pair
   // let addressData = Wallet.default.generate();   // RIGHT APPROACH
-  let address = OWNER_ADDR; // bad approach, just for the video demo --> in the future, add "organisation addresses list" in the smart contract
+  const address = OWNER_ADDR; // bad approach, just for the video demo --> in the future, add "organisation addresses list" in the smart contract
 
   const organisation = new Organisation({
     organisationName: req.body.organisationName,
@@ -114,9 +85,8 @@ export const signupOrganisation = async (req, res) => {
     eth_address: address,
   });
 
-  organisation.save((err, organisation) => {
+  organisation.save((err, _org) => {
     if (err) {
-      console.log(err);
       res.status(500).send({ message: err });
       return;
     } else {
@@ -125,69 +95,78 @@ export const signupOrganisation = async (req, res) => {
   });
 };
 
-export const signin = (req, res) => {
-  User.findOne({
-    username: req.body.username,
-  }).exec((err, user) => {
-    if (err) {
-      res.status(500).send({ message: err });
-      return;
-    }
+export const signin = async (req, res) => {
+  let user;
+  let organisation;
+
+  try {
+    user = await User.findOne(
+      { username: req.body.username } // get the whole data
+    ).exec();
 
     if (!user) {
-      Organisation.findOne({
+      organisation = await Organisation.findOne({
         organisationName: req.body.username,
-      }).exec((err, organisation) => {
-        if (err) {
-          res.status(500).send({ message: err });
-          return;
-        }
+      }).exec();
+    }
 
-        if (!organisation) {
-          console.log('USER NOT FOUND');
-          return res.status(404).send({ message: 'User Not found.' });
-        }
-
-        var passwordIsValid = compareSync(
-          req.body.password,
-          organisation.password
-        );
-
-        if (!passwordIsValid) {
-          return res.status(401).send({
-            message: 'Invalid Password!',
-          });
-        }
-
-        var token = sign({ id: organisation.id }, secret, {
-          expiresIn: 86400, // 24 hours
-        });
-
-        return res.status(200).send({
-          accessToken: token,
-          username: organisation.organisationName, // needed to show it when the user is logged
-          organisation: true,
-        });
-      });
-      // console.log("USER NOT FOUND");
-      // return res.status(404).send({ message: "User Not found." });
+    if (!user && !organisation) {
+      throw new CustomError('Invalid Credentials', 501);
     } else {
-      var passwordIsValid = compareSync(req.body.password, user.password);
-
+      const passwordIsValid = compareSync(req.body.password, user.password);
       if (!passwordIsValid) {
-        return res.status(401).send({
-          message: 'Invalid Password!',
-        });
+        throw new CustomError('Invalid Password', 502);
       }
 
-      var token = sign({ id: user.id }, secret, {
+      let userId = user ? user.id : organisation.id;
+
+      let returnData;
+      if (user) {
+        userId = user.id;
+
+        returnData = {
+          username: user.username,
+          organisation: false,
+          demographicsDone: user.demographics_done,
+          demographicsTimestamp: user.demographics_timestamp,
+          domesticDone: user.domestic_done,
+          domesticTimestamp: user.domestic_timestamp,
+          skillsDone: user.skills_done,
+          skillsTimestamp: user.skills_timestamp,
+        };
+
+        if (user.demographics_done) {
+          const geo = await artemisContract.methods // FixMeLater?
+            .getDemographicsData()
+            .call({ from: user.eth_address });
+          returnData = {
+            ...returnData,
+            geoPosition: [geo[1], geo[2]],
+          };
+        }
+      } else {
+        userId = organisation.id;
+        returnData = {
+          username: organisation.organisationName, // needed to show it when the user is logged
+          organisation: true,
+          demographicsDone: false,
+          skillsDone: false,
+          domesticDone: false,
+        };
+      }
+
+      const token = sign({ id: userId }, secret, {
         expiresIn: 86400, // 24 hours
       });
 
       return res.status(200).send({
         accessToken: token,
-        username: user.username, // needed to show it when the user is logged
+        user: returnData,
       });
     }
-  });
+  } catch (err) {
+    return res
+      .status(err.statusCode ? err.statusCode : 500)
+      .send({ message: err.message });
+  }
 };

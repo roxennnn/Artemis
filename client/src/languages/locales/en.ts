@@ -189,7 +189,7 @@ export default {
             'This section includes activities to help and support children, people with special needs and elderly.\n\nHow familiar are you with the following activities? Please think about your hobbies, house duties and past working experiences (if any). Rate as follows:\n\nBeginner = I have never done this activity and I don’t have any related knowledge.\nIntermediate = I have done this activity a few times and/or I have some basic related knowledge.\nCompetent = I have done this activity sometimes and I have good related knowledge.\nProficient = I often do this activity and I have a very good related knowledge.\n ',
         },
       },
-      ExperienceSurvey: {
+      DomesticSurvey: {
         title: 'Domestic survey',
         description:
           'Telling us about your relationship can help us understand whether working is helping you and other women to be safe.',

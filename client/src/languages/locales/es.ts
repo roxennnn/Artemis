@@ -191,7 +191,7 @@ export default {
             'Esta sección incluye actividades para ayudar y apoyar a niños, personas con necesidades especiales y ancianos.\n\n¿Qué tan familiarizado está con las siguientes actividades? Piense en sus pasatiempos, tareas domésticas y experiencias laborales pasadas (si las hubiera). Califique de la siguiente manera:\n\nPrincipiante = Nunca he realizado esta actividad y no tengo ningún conocimiento relacionado.\nIntermedia = He realizado esta actividad varias veces y / o tengo algunos conocimientos básicos relacionados.\nCompetente = A veces he realizado esta actividad y tengo buenos conocimientos relacionados.\nExperta = A menudo hago esta actividad y tengo muy buenos conocimientos relacionados.\n ',
         },
       },
-      ExperienceSurvey: {
+      DomesticSurvey: {
         title: 'Encuesta domestica',
         description:
           'Informarnos sobre su relación puede ayudarnos a comprender si trabajar les ayuda a usted y a otras mujeres a estar seguras.',
@@ -255,7 +255,8 @@ export default {
           first:
             'Te sientes obligado por miedo (a tu pareja) a tener relaciones sexuales no deseadas',
           second:
-            'Usó la fuerza para hacerte tener relaciones sexuales cuando no querías o para hacerte realizar actos sexuales que no aprobaste',
+            'Usó la fuerza para hacerte tener relaciones sexuales cuando no querías o para hacerte realizar \
+            actos sexuales que no aprobaste',
         },
         q7: {
           title:

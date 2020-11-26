@@ -7,26 +7,20 @@ import Colors from '../constants/Colors';
 import {
   faBriefcase,
   faCog,
-  // faTools,
-  // faUtensils,
   faUser,
-  // faDice,
-  // faHammer,
   faGraduationCap,
   faComment,
   faSignOutAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import AuthService from '../services/auth.service';
-import SurveyService from '../services/survey.service';
-
 import CenterView from '../components/CenterView';
 
 import avatar2 from '../images/avatar2.png';
 import { FixMeLater } from '../constants/Utilities';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/reducers/root.reducer';
+import { signOut } from '../store/actions/user.action';
 
 const styles = {
   dropdownItem: {
@@ -36,7 +30,6 @@ const styles = {
     display: 'flex',
     flexDirection: 'row' as 'row',
     alignItems: 'center',
-    // justifyContent: "space-evenly",
     width: '100%',
   },
 };
@@ -44,37 +37,10 @@ const styles = {
 const LoggedNavbar = (props: FixMeLater) => {
   const history = useHistory();
   const location = useLocation();
-  const [currentUser, setCurrentUser] = useState<FixMeLater>(); // data of logged user
-  const { username, loading, organisation } = useSelector(
-    (state: RootState) => state.authentication
+  const { user, loading, isLogged } = useSelector(
+    (state: RootState) => state.user
   );
-  // const [loading, setLoading] = useState(false);
-
-  const [skillsDone, setSkillsDone] = useState();
-
-  const asyncQueryProfileData = async () => {
-    const user = await SurveyService.queryProfileData();
-    if (user && user.user) {
-      setCurrentUser(user.user);
-      setSkillsDone(user.user.skills_done);
-    }
-  };
-  useEffect(() => {
-    // @TOFIX: it does not update the dropdown menu when the skills survey is done unless a page refresh is done
-    // setLoading(true);
-    if (location.pathname === '/profile') {
-      asyncQueryProfileData();
-    }
-    // else {
-    //   setLoading(false); // it should work now
-    // }
-  }, [location.pathname]);
-
-  // useEffect(() => {
-  //   if (currentUser) {
-  //     setLoading(false);
-  //   }
-  // }, [currentUser]);
+  const dispatch = useDispatch();
 
   return (
     <div>
@@ -86,9 +52,9 @@ const LoggedNavbar = (props: FixMeLater) => {
         </CenterView>
       ) : (
         <div>
-          {username && (
+          {isLogged && (
             <div>
-              <li className="nav-item dropdown">
+              <div className="nav-item dropdown">
                 <a
                   className="nav-link profile-nav-link"
                   id="navbarDropdown"
@@ -102,8 +68,8 @@ const LoggedNavbar = (props: FixMeLater) => {
                     alignItems: 'center',
                   }}
                 >
-                  <span style={{ fontSize: 18 }}>{username}</span>
-                  {!organisation && (
+                  <span style={{ fontSize: 18 }}>{user?.username}</span>
+                  {!user?.organisation && (
                     <img // No percentages... @TOFIX for a responsive design
                       style={{
                         width: '8%',
@@ -151,7 +117,7 @@ const LoggedNavbar = (props: FixMeLater) => {
                                 props.strings.ProfileListings.profile}
                             </div>
                           </span>
-                          {!organisation && (
+                          {!user?.organisation && (
                             <div>
                               <span
                                 className="dropdown-item profile-dropdown-item"
@@ -180,7 +146,7 @@ const LoggedNavbar = (props: FixMeLater) => {
                                     props.strings.ProfileListings.messages}
                                 </div>
                               </span>
-                              {skillsDone && (
+                              {user?.skillsDone && (
                                 <span
                                   className="dropdown-item profile-dropdown-item"
                                   style={styles.dropdownItem}
@@ -209,7 +175,7 @@ const LoggedNavbar = (props: FixMeLater) => {
                                   </div>
                                 </span>
                               )}
-                              {skillsDone && (
+                              {user?.skillsDone && (
                                 <span
                                   className="dropdown-item profile-dropdown-item"
                                   style={styles.dropdownItem}
@@ -271,7 +237,8 @@ const LoggedNavbar = (props: FixMeLater) => {
                             className="dropdown-item logout-dropdown-item"
                             style={{ ...styles.dropdownItem, color: '#dc3545' }}
                             onClick={() => {
-                              AuthService.logout();
+                              // AuthService.logout();
+                              dispatch(signOut());
                               localStorage.setItem('language', props.language);
                               if (location.pathname === '/') {
                                 history.push('/home');
@@ -295,7 +262,7 @@ const LoggedNavbar = (props: FixMeLater) => {
                     </div>
                   </li>
                 </ul>
-              </li>
+              </div>
             </div>
           )}
         </div>

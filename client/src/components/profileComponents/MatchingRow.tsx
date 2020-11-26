@@ -19,16 +19,6 @@ const MatchingRow = (props: FixMeLater) => {
     });
   };
 
-  // const handleLongTitle = (title) => {
-  //   const tmp = title.substring(0, 21).split(" ");
-  //   let newTitle = "";
-  //   for (let i = 0; i < tmp.length - 1; i++) {
-  //     newTitle += tmp[i] + " ";
-  //   }
-  //   newTitle = newTitle.trim() + "...";
-  //   return newTitle;
-  // };
-
   return (
     <div
       className="occupation-row"

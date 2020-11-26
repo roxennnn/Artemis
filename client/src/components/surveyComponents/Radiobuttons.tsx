@@ -34,6 +34,7 @@ const Radiobuttons = (props: FixMeLater) => {
         <RadioGroup value={props.value} onChange={props.onChange}>
           {props.optionList.map((option: FixMeLater) => (
             <FormControlLabel
+              key={option.label}
               value={option.value}
               label={option.label}
               control={<Radio color="primary" />}

@@ -1,7 +1,7 @@
 ## Root
 
 # dependencies
-/node_modules
+node_modules/
 
 # misc
 /.vscode
@@ -9,7 +9,6 @@
 ## Front-end
 
 # dependencies
-client/node_modules
 client/.pnp
 client/.pnp.js
 

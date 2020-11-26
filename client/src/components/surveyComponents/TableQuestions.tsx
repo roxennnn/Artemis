@@ -38,7 +38,7 @@ const TableQuestions = (props: FixMeLater) => {
       <div className="description">{props.description}</div>
       {props.optionList.map((value: FixMeLater, index: number) => {
         return (
-          <div>
+          <div key={index}>
             <RowRadios
               optionList={index === 0 ? columns : rowOptions}
               label={value}

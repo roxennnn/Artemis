@@ -4,48 +4,39 @@ import { Form } from 'react-bootstrap';
 import Colors from '../constants/Colors';
 import PrimaryButton from './PrimaryButton';
 
-import AuthService from '../services/auth.service';
+// import AuthService from '../services/auth.service';
 import { FixMeLater } from '../constants/Utilities';
-import { signIn } from '../store/actions/authentication.action';
+import { signIn } from '../store/actions/user.action';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/reducers/root.reducer';
+import { useEffect } from 'react';
 
 const LoginComponent = (props: FixMeLater) => {
   const [usernameValue, setUsernameValue] = useState('');
   const [passValue, setPassValue] = useState('');
-  const [loginErrorMessage, setLoginErrorMessage] = useState();
 
-  const { organisation } = useSelector((state: RootState) => state.authentication);
+  const { user, isLogged } = useSelector((state: RootState) => state.user);
+  const loginErrorMessage = useSelector((state: RootState) => state.user.error);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isLogged) {
+      if (user?.organisation) {
+        props.history.push('/organisation');
+      } else {
+        props.history.push('/profile');
+      }
+      setUsernameValue('');
+      setPassValue('');
+    }
+  }, [isLogged]);
 
   const submitHandler = async () => {
     const username = usernameValue;
     const pass = passValue;
 
-    setLoginErrorMessage(undefined);
-
     // make login POST request
-    try {
-      // const response = await AuthService.login(username, pass);
-      // localStorage.setItem('language', props.language);
-      dispatch(signIn(username, pass));
-      if (organisation) {
-        props.history.push('/organisation');
-      } else {
-        props.history.push('/profile');
-      }
-
-      setUsernameValue('');
-      setPassValue('');
-    } catch (err) {
-      // THE FOLLOWING CAN BE USED FOR THE ERROR MESSAGE....
-      const resMessage =
-        (err.response && err.response.data && err.response.data.message) ||
-        err.message ||
-        err.toString();
-
-      setLoginErrorMessage(resMessage);
-    }
+    dispatch(signIn(username, pass));
   };
 
   return (
@@ -98,6 +89,11 @@ const LoginComponent = (props: FixMeLater) => {
             }}
           />
         </Form.Group>
+        {loginErrorMessage && (
+          <div style={{ color: 'red', textAlign: 'center' }}>
+            {loginErrorMessage}
+          </div>
+        )}
         <div
           className="help-block text-right hover-underline"
           style={{ color: Colors.primary }}
@@ -107,11 +103,6 @@ const LoginComponent = (props: FixMeLater) => {
               props.strings.NavComponent.LoginNavbar.forgotPassword}
           </a>
         </div>
-        {loginErrorMessage && (
-          <div style={{ color: 'red', textAlign: 'center' }}>
-            {loginErrorMessage}
-          </div>
-        )}
         <PrimaryButton
           label="Log In"
           buttonStyle={{ margin: 10 }}

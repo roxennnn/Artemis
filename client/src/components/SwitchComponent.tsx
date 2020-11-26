@@ -46,7 +46,7 @@ const SwitchComponent = (props: FixMeLater) => {
 
         <Route
           exact
-          path="/profile/demographic-survey"
+          path="/profile/demographics-survey"
           component={DemographicSurvey}
         />
         <Route

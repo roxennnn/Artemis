@@ -4,17 +4,18 @@ import CenterView from '../../components/CenterView';
 import PrimaryButton from '../../components/PrimaryButton';
 import BackButton from '../../components/BackButton';
 
-import SurveyService from '../../services/survey.service';
-
 import TableQuestions from '../../components/surveyComponents/TableQuestions';
 
 import { FixMeLater } from '../../constants/Utilities';
 import { RootState } from '../../store/reducers/root.reducer';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { submitSurvey } from '../../store/actions/user.action';
 
 const SkillsSurvey = (props: FixMeLater) => {
-  const {strings, language} = useSelector((state: RootState) => state.language);
-
+  const { strings, language } = useSelector(
+    (state: RootState) => state.language
+  );
+  const dispatch = useDispatch();
   const [submitError, setSubmitError] = useState(false);
 
   // Change background color
@@ -284,7 +285,7 @@ const SkillsSurvey = (props: FixMeLater) => {
 
       // post request
       try {
-        await SurveyService.submitSurvey('skills', answers);
+        dispatch(submitSurvey('skills', answers));
         // Go back to profile page
         props.history.push({
           pathname: '/profile',
@@ -478,7 +479,7 @@ const SkillsSurvey = (props: FixMeLater) => {
       <PrimaryButton
         label={
           strings.Profile &&
-          strings.Profile.ProfileSurveys.ExperienceSurvey.submit
+          strings.Profile.ProfileSurveys.DomesticSurvey.submit
         }
         onClick={onSubmit}
         buttonStyle={{ width: '10%' }}

@@ -5,46 +5,26 @@ import Colors from '../constants/Colors';
 import BackButton from '../components/BackButton';
 import CenterView from '../components/CenterView';
 import ProgressBar from '../components/ProgressBar';
-import MatchingService from '../services/matching.service';
 
 import { FixMeLater } from '../constants/Utilities';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/reducers/root.reducer';
 import { setLanguage } from '../store/actions/language.action';
+import { getOccupationDetail } from '../store/actions/matching.action';
 
 const OccupationDetailPage = (props: FixMeLater) => {
   const { strings, language } = useSelector(
     (state: RootState) => state.language
   );
+  const { currentOccupation, loading } = useSelector(
+    (state: RootState) => state.matching
+  );
+
   const dispatch = useDispatch();
 
-  const [loading, setLoading] = useState(false);
-  const [occupationDetail, setOccupationDetail] = useState<FixMeLater>();
-
-  const asyncFetchOccupationDetail = async () => {
-    const oid = props.location.state.oid;
-    const occ = await MatchingService.fetchOccupationDetail(language, oid);
-    setOccupationDetail(occ.details);
-  };
-
   useEffect(() => {
-    setLoading(true);
-    asyncFetchOccupationDetail();
+    dispatch(getOccupationDetail(language, props.location.state.oid));
   }, [language]);
-
-  useEffect(() => {
-    if (occupationDetail) {
-      setLoading(false);
-    }
-  }, [occupationDetail]);
-
-  // const { location } = props;
-  // useEffect(() => {
-  //   if (location.state && location.state.lang) {
-  //     // updateLanguage(location.state.lang);
-  //     dispatch(setLanguage(location.state.lang));
-  //   }
-  // }, [location.state, dispatch]);
 
   const avgStringArray = (arr: FixMeLater) => {
     let avg = 0;
@@ -98,17 +78,17 @@ const OccupationDetailPage = (props: FixMeLater) => {
           </div>
         ) : (
           <div style={{ fontSize: 22 }}>
-            {occupationDetail ? (
+            {currentOccupation ? (
               <div>
-                <h2>{occupationDetail.title}</h2>
-                <div>{occupationDetail.description}</div>
+                <h2>{currentOccupation.title}</h2>
+                <div>{currentOccupation.description}</div>
                 <br />
                 <h3>
                   {strings.Profile &&
                     strings.Profile.ProfileMatchings.OccupationDetails
                       .requiredSkills}
                 </h3>
-                {occupationDetail.category_names.map(
+                {currentOccupation.categoryNames.map(
                   (name: FixMeLater, index: number) => {
                     return (
                       <div
@@ -122,7 +102,7 @@ const OccupationDetailPage = (props: FixMeLater) => {
                       >
                         <div style={{ width: '50%' }}>{name}</div>
                         <ProgressBar
-                          percentage={`${occupationDetail.category_scores[index]}%`}
+                          percentage={`${currentOccupation.categoryScores[index]}%`}
                           color={Colors.primary}
                           gradient={Colors.gradient}
                           outsideStyle={{ width: '50%', height: 20 }}
@@ -146,7 +126,7 @@ const OccupationDetailPage = (props: FixMeLater) => {
                         .affinity}
                   </div>
                   <div style={{ marginLeft: '2%' }}>
-                    {avgStringArray(occupationDetail.category_scores)} %
+                    {avgStringArray(currentOccupation.categoryScores)} %
                   </div>
                 </div>
               </div>

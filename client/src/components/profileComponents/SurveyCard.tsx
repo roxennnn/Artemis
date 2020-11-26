@@ -2,12 +2,14 @@ import React from 'react';
 import { faTrash, faRedoAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import SurveyService from '../../services/survey.service';
 import PrimaryButton from '../PrimaryButton';
 import Colors from '../../constants/Colors';
 import { FixMeLater } from '../../constants/Utilities';
+import { resetSurvey } from '../../store/actions/user.action';
+import { useDispatch } from 'react-redux';
 
 const SurveyCard = (props: FixMeLater) => {
+  const dispatch = useDispatch();
   const onClickHandler = () => {
     props.history.push(`profile/${props.href}`);
   };
@@ -74,12 +76,7 @@ const SurveyCard = (props: FixMeLater) => {
                 props.strings.Profile.ProfileSurveys.resetAnswers
               }
               onClick={async () => {
-                const status = await SurveyService.resetSurvey(props.href);
-                // console.log(status);
-                if (status === 200) {
-                  // window.location.reload();
-                  props.setDoneFalse(props.href);
-                }
+                dispatch(resetSurvey(props.href.split('-survey')[0]));
               }}
               // style={{borderStyle: "solid", borderColor: "red", width: "20%"}}
               buttonStyle={{

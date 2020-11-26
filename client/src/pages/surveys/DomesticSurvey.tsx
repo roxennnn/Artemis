@@ -6,10 +6,10 @@ import { binarise, FixMeLater } from '../../constants/Utilities';
 import PrimaryButton from '../../components/PrimaryButton';
 import BackButton from '../../components/BackButton';
 import Checkboxes from '../../components/surveyComponents/Checkboxes';
-import SurveyService from '../../services/survey.service';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/reducers/root.reducer';
+import { submitSurvey } from '../../store/actions/user.action';
 
 // Styles
 const containerStyle = {
@@ -28,7 +28,7 @@ const containerStyle = {
 
 const Domestic = (props: FixMeLater) => {
   const strings = useSelector((state: RootState) => state.language.strings);
-
+  const dispatch = useDispatch();
 
   // Change background color
   useEffect(() => {
@@ -52,25 +52,25 @@ const Domestic = (props: FixMeLater) => {
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q1.first,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q1.first,
       value: 0,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q1.second,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q1.second,
       value: 1,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q1.third,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q1.third,
       value: 2,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q1.fourth,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q1.fourth,
       value: 3,
     },
   ];
@@ -81,31 +81,31 @@ const Domestic = (props: FixMeLater) => {
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q2.first,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q2.first,
       value: 0,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q2.second,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q2.second,
       value: 1,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q2.third,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q2.third,
       value: 2,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q2.fourth,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q2.fourth,
       value: 3,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q2.fifth,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q2.fifth,
       value: 4,
     },
   ];
@@ -116,37 +116,37 @@ const Domestic = (props: FixMeLater) => {
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q3.first,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q3.first,
       value: 0,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q3.second,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q3.second,
       value: 1,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q3.third,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q3.third,
       value: 2,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q3.fourth,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q3.fourth,
       value: 3,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q3.fifth,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q3.fifth,
       value: 4,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q3.sixth,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q3.sixth,
       value: 5,
     },
   ];
@@ -157,31 +157,31 @@ const Domestic = (props: FixMeLater) => {
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q4.first,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q4.first,
       value: 0,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q4.second,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q4.second,
       value: 1,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q4.third,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q4.third,
       value: 2,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q4.fourth,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q4.fourth,
       value: 3,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q4.fifth,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q4.fifth,
       value: 4,
     },
   ];
@@ -192,37 +192,37 @@ const Domestic = (props: FixMeLater) => {
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q5.first,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q5.first,
       value: 0,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q5.second,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q5.second,
       value: 1,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q5.third,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q5.third,
       value: 2,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q5.fourth,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q5.fourth,
       value: 3,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q5.fifth,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q5.fifth,
       value: 4,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q5.sixth,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q5.sixth,
       value: 5,
     },
   ];
@@ -233,13 +233,13 @@ const Domestic = (props: FixMeLater) => {
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q6.first,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q6.first,
       value: 0,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q6.second,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q6.second,
       value: 1,
     },
   ];
@@ -249,19 +249,19 @@ const Domestic = (props: FixMeLater) => {
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q7.first,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q7.first,
       value: 0,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q7.second,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q7.second,
       value: 1,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q7.third,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q7.third,
       value: 2,
     },
   ];
@@ -271,73 +271,73 @@ const Domestic = (props: FixMeLater) => {
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q8.first,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q8.first,
       value: 0,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q8.second,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q8.second,
       value: 1,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q8.third,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q8.third,
       value: 2,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q8.fourth,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q8.fourth,
       value: 3,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q8.fifth,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q8.fifth,
       value: 4,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q8.sixth,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q8.sixth,
       value: 5,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q8.seventh,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q8.seventh,
       value: 6,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q8.eighth,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q8.eighth,
       value: 7,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q8.ninth,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q8.ninth,
       value: 8,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q8.tenth,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q8.tenth,
       value: 9,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q8.eleventh,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q8.eleventh,
       value: 10,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q8.twelveth,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q8.twelveth,
       value: 11,
     },
   ];
@@ -347,31 +347,31 @@ const Domestic = (props: FixMeLater) => {
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q9.first,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q9.first,
       value: 0,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q9.second,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q9.second,
       value: 1,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q9.third,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q9.third,
       value: 2,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q9.fourth,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q9.fourth,
       value: 3,
     },
     {
       label:
         strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.q9.fifth,
+        strings.Profile.ProfileSurveys.DomesticSurvey.q9.fifth,
       value: 4,
     },
   ];
@@ -608,12 +608,9 @@ const Domestic = (props: FixMeLater) => {
       q9Binarised,
     ];
 
-    // Debugging logs
-    // console.log(answers);
-
     // post request
     try {
-      await SurveyService.submitSurvey('domestic', answers);
+      dispatch(submitSurvey('domestic', answers));
       // Go back to profile page
       props.history.push({
         pathname: '/profile',
@@ -650,18 +647,18 @@ const Domestic = (props: FixMeLater) => {
         <div>
           <h3>
             {strings.Profile &&
-              strings.Profile.ProfileSurveys.ExperienceSurvey.title}
+              strings.Profile.ProfileSurveys.DomesticSurvey.title}
           </h3>
           <div>
             {strings.Profile &&
-              strings.Profile.ProfileSurveys.ExperienceSurvey.introduction}
+              strings.Profile.ProfileSurveys.DomesticSurvey.introduction}
           </div>
         </div>
         <div>
           <Checkboxes
             title={
               strings.Profile &&
-              strings.Profile.ProfileSurveys.ExperienceSurvey.q1.title
+              strings.Profile.ProfileSurveys.DomesticSurvey.q1.title
             }
             optionList={q1List}
             style={containerStyle}
@@ -672,7 +669,7 @@ const Domestic = (props: FixMeLater) => {
           <Checkboxes
             title={
               strings.Profile &&
-              strings.Profile.ProfileSurveys.ExperienceSurvey.q2.title
+              strings.Profile.ProfileSurveys.DomesticSurvey.q2.title
             }
             optionList={q2List}
             style={containerStyle}
@@ -683,7 +680,7 @@ const Domestic = (props: FixMeLater) => {
           <Checkboxes
             title={
               strings.Profile &&
-              strings.Profile.ProfileSurveys.ExperienceSurvey.q3.title
+              strings.Profile.ProfileSurveys.DomesticSurvey.q3.title
             }
             optionList={q3List}
             style={containerStyle}
@@ -694,7 +691,7 @@ const Domestic = (props: FixMeLater) => {
           <Checkboxes
             title={
               strings.Profile &&
-              strings.Profile.ProfileSurveys.ExperienceSurvey.q4.title
+              strings.Profile.ProfileSurveys.DomesticSurvey.q4.title
             }
             optionList={q4List}
             style={containerStyle}
@@ -705,7 +702,7 @@ const Domestic = (props: FixMeLater) => {
           <Checkboxes
             title={
               strings.Profile &&
-              strings.Profile.ProfileSurveys.ExperienceSurvey.q5.title
+              strings.Profile.ProfileSurveys.DomesticSurvey.q5.title
             }
             optionList={q5List}
             style={containerStyle}
@@ -716,7 +713,7 @@ const Domestic = (props: FixMeLater) => {
           <Checkboxes
             title={
               strings.Profile &&
-              strings.Profile.ProfileSurveys.ExperienceSurvey.q6.title
+              strings.Profile.ProfileSurveys.DomesticSurvey.q6.title
             }
             optionList={q6List}
             style={containerStyle}
@@ -728,7 +725,7 @@ const Domestic = (props: FixMeLater) => {
             <Checkboxes
               title={
                 strings.Profile &&
-                strings.Profile.ProfileSurveys.ExperienceSurvey.q7.title
+                strings.Profile.ProfileSurveys.DomesticSurvey.q7.title
               }
               optionList={q7List}
               style={containerStyle}
@@ -742,7 +739,7 @@ const Domestic = (props: FixMeLater) => {
               <Checkboxes
                 title={
                   strings.Profile &&
-                  strings.Profile.ProfileSurveys.ExperienceSurvey.q8.title
+                  strings.Profile.ProfileSurveys.DomesticSurvey.q8.title
                 }
                 optionList={q8List}
                 style={containerStyle}
@@ -753,7 +750,7 @@ const Domestic = (props: FixMeLater) => {
               <Checkboxes
                 title={
                   strings.Profile &&
-                  strings.Profile.ProfileSurveys.ExperienceSurvey.q9.title
+                  strings.Profile.ProfileSurveys.DomesticSurvey.q9.title
                 }
                 optionList={q9List}
                 style={containerStyle}
@@ -766,7 +763,7 @@ const Domestic = (props: FixMeLater) => {
       <PrimaryButton
         label={
           strings.Profile &&
-          strings.Profile.ProfileSurveys.ExperienceSurvey.submit
+          strings.Profile.ProfileSurveys.DomesticSurvey.submit
         }
         onClick={onSubmit}
         buttonStyle={{ width: '10%' }}

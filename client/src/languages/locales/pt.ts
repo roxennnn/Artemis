@@ -192,7 +192,7 @@ export default {
             'Esta seção inclui atividades para ajudar e apoiar crianças, pessoas com necessidades especiais e idosos.\n\nVocê está familiarizado com as seguintes atividades? Pense em seus hobbies, tarefas domésticas e experiências anteriores de trabalho (se houver). Classifique da seguinte forma:\n\nPrincipiante = Nunca fiz essa atividade e não tenho nenhum conhecimento relacionado.\nIntermedia = Já fiz esta atividade algumas vezes e / ou tenho algum conhecimento básico relacionado.\nCompetente = Já fiz esta atividade algumas vezes e tenho bons conhecimentos relacionados.\nExperta = Costumo fazer esta atividade e tenho um conhecimento muito bom relacionado.\n ',
         },
       },
-      ExperienceSurvey: {
+      DomesticSurvey: {
         title: 'Pesquisa doméstica',
         description:
           'Contar-nos sobre seu relacionamento pode nos ajudar a entender se trabalhar está ajudando você a estar seguro.',

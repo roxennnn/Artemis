@@ -66,6 +66,7 @@ const CustomDropdown = (props: FixMeLater) => {
         <Dropdown.Menu>
           {props.valueList.map((value: FixMeLater) => (
             <Dropdown.Item
+              key={value.name}
               eventKey={value.value}
               href=""
               onClick={() => {

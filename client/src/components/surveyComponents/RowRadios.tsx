@@ -9,13 +9,10 @@ const RowRadios = (props: FixMeLater) => {
     new Array(props.optionList.length).fill(false)
   );
   const checkHandler = (e: FixMeLater) => {
-    // console.log(checked);
     const value = parseInt(e.target.value, 10);
-    // console.log(value);
     const newChecked = new Array(props.optionList.length).fill(false);
     newChecked[value - 1] = true;
     setChecked(newChecked);
-    // console.log(checked);
     props.onChange(e);
   };
 
@@ -39,6 +36,7 @@ const RowRadios = (props: FixMeLater) => {
           {props.optionList.map((value: FixMeLater, index: number) => {
             return (
               <div
+                key={index}
                 style={{
                   width: `${(1 / props.optionList.length) * 100}%`,
                   marginLeft: '5%',
@@ -52,7 +50,7 @@ const RowRadios = (props: FixMeLater) => {
                   <Radio
                     color="primary"
                     value={value}
-                    id={props.index}
+                    id={props.index.toString()}
                     onChange={checkHandler}
                     checked={checked[index]}
                   />

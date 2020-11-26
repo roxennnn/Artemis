@@ -39,11 +39,11 @@ const User = model(
     },
     skills_timestamp: String,
     // - Experience
-    experience_done: {
+    domestic_done: {
       type: Boolean,
       default: false,
     },
-    experience_timestamp: String,
+    domestic_timestamp: String,
   })
 );
 

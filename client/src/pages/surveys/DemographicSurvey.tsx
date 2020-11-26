@@ -11,10 +11,10 @@ import Dropdown from '../../components/surveyComponents/Dropdown';
 import CountryDropdown from '../../components/surveyComponents/CountryDropdown';
 import Checkboxes from '../../components/surveyComponents/Checkboxes';
 import Radiobuttons from '../../components/surveyComponents/Radiobuttons';
-import SurveyService from '../../services/survey.service';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/reducers/root.reducer';
+import { submitSurvey } from '../../store/actions/user.action';
 
 // - How old are you
 const ageRange = [...Array(47).keys()].map((i) => {
@@ -39,6 +39,8 @@ const containerStyle = {
 const DemographicSurvey = (props: FixMeLater) => {
   const strings = useSelector((state: RootState) => state.language.strings);
   const [submitError, setSubmitError] = useState(false);
+
+  const dispatch = useDispatch();
 
   // QUESTIONS' DATA
 
@@ -489,14 +491,6 @@ const DemographicSurvey = (props: FixMeLater) => {
     // Final check:
     if (noErrors) {
       const transportationBinarised = binarise(transportationValues);
-      // console.log(
-      //   `TRANSPORTATION: ${transportationValues}; BINARISED: ${transportationBinarised}`
-      // );
-      // console.log(`EDUCATION: ${educationValue}`);
-      // console.log(`MARITAL STATUS: ${maritalStatusValue}`);
-      // console.log(`WEDDING: ${weddingAge ? weddingAge : 1}`);
-      // console.log(`PRIMARY INCOME: ${primaryIncomeValue}`);
-      // console.log(`MAINLY WORK: ${mainlyWorkValue}`);
 
       // STEPS:
       // - make array
@@ -512,12 +506,10 @@ const DemographicSurvey = (props: FixMeLater) => {
         primaryIncomeValue,
         mainlyWorkValue,
       ];
-      // Debugging logs
-      // console.log(answers);
 
       // post request
       try {
-        await SurveyService.submitSurvey('demographics', answers);
+        dispatch(submitSurvey('demographics', answers));
         // Go back to profile page
         props.history.push({
           pathname: '/profile',
@@ -533,7 +525,6 @@ const DemographicSurvey = (props: FixMeLater) => {
       // red border
       // actually don't need to do anything
       setSubmitError(true);
-      console.log('SOme errors found');
     }
   };
 

@@ -9,7 +9,7 @@ const LoginNavbar = (props: FixMeLater) => {
   const history = useHistory();
   return (
     <div>
-      <li className="nav-item dropdown">
+      <div className="nav-item dropdown">
         <a
           className="nav-link"
           id="navbarDropdown"
@@ -55,7 +55,7 @@ const LoginNavbar = (props: FixMeLater) => {
             </div>
           </li>
         </ul>
-      </li>
+      </div>
     </div>
   );
 };

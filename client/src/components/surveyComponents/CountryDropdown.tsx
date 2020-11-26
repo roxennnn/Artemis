@@ -101,6 +101,7 @@ const CustomCountryDropdown = (props: FixMeLater) => {
           <Dropdown.Menu>
             {props.countries.map((value: FixMeLater) => (
               <Dropdown.Item
+                key={value.name}
                 eventKey={value.value}
                 href=""
                 onClick={() => {
@@ -116,12 +117,17 @@ const CustomCountryDropdown = (props: FixMeLater) => {
         {/* Region */}
         {regions.length > 0 && (
           <Dropdown onSelect={props.onSelectRegion}>
-            <Dropdown.Toggle variant="success" style={styles.dropdown} id="dropdown-region">
+            <Dropdown.Toggle
+              variant="success"
+              style={styles.dropdown}
+              id="dropdown-region"
+            >
               {currentRegion}
             </Dropdown.Toggle>
             <Dropdown.Menu>
               {regions.map((value: FixMeLater, index: number) => (
                 <Dropdown.Item
+                  key={value.name}
                   eventKey={index.toString()}
                   href=""
                   onClick={() => {

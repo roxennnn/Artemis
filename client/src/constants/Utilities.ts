@@ -16,4 +16,19 @@ export const binarise = (arr: FixMeLater) => {
   return outputValue;
 };
 
+export const authHeader = () => {
+  const accessToken = localStorage.getItem('ACCESS_TOKEN');
+
+  if (accessToken) {
+    return {
+      'x-access-token': accessToken,
+    };
+  } else {
+    return {};
+  }
+};
+
+export const emptyFunction = () => {};
+
+
 export type FixMeLater = any;
