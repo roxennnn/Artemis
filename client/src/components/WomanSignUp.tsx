@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { Checkbox } from '@material-ui/core';
 
@@ -7,11 +7,27 @@ import { Checkbox } from '@material-ui/core';
 import PrimaryButton from '../components/PrimaryButton';
 import Colors from '../constants/Colors';
 import { FixMeLater, validateEmail } from '../constants/Utilities';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signUpWoman } from '../store/actions/user.action';
+import { RootState } from '../store/reducers/root.reducer';
 
 const WomanSignUp = (props: FixMeLater) => {
   const dispatch = useDispatch();
+  const { error, loading } = useSelector((state: RootState) => state.user);
+  const [checkForErrors, setCheckForErrors] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!loading) {
+      if (checkForErrors && !error) {
+        setCheckForErrors(false);
+        props.history.push({
+          pathname: '/home',
+        });
+      } else {
+        setTermsAndConditions(false);
+      }
+    }
+  }, [loading]);
 
   const [username, setUsername] = useState('');
   const [usernameInvalid, setUsernameInvalid] = useState(false);
@@ -34,17 +50,14 @@ const WomanSignUp = (props: FixMeLater) => {
   );
 
   const submitHandler = async () => {
-    const usernameValue = username;
-    const emailValue = email;
-    const confirmEmailValue = confirmEmail;
-    const pass = password;
-    const confirmPass = confirmPassword;
+    const usernameValue = username.trim();
+    const emailValue = email.trim();
+    const confirmEmailValue = confirmEmail.trim();
+    const pass = password.trim();
+    const confirmPass = confirmPassword.trim();
 
     let noErrors = true;
     // VALIDATION
-
-    // Duplicate username?
-    // Duplicate email?
 
     // Empty username
     if (usernameValue.length === 0) {
@@ -95,27 +108,8 @@ const WomanSignUp = (props: FixMeLater) => {
     }
 
     if (noErrors) {
-      try {
-        // await AuthService.registerWoman(usernameValue, emailValue, pass);
-        dispatch(signUpWoman(usernameValue, emailValue, pass));
-        // props.history.push("/home");
-        props.history.push({
-          pathname: '/home',
-          state: {
-            lang: props.language,
-          },
-        });
-      } catch (err) {
-        // here we should handle duplicate usernames or emails
-        console.log(`ERROR: ${err}`);
-        // THE FOLLOWING CAN BE USED FOR THE ERROR MESSAGE....
-        // const resMessage =
-        //   (error.response &&
-        //     error.response.data &&
-        //     error.response.data.message) ||
-        //   error.message ||
-        //   error.toString();
-      }
+      dispatch(signUpWoman(usernameValue, emailValue, pass));
+      setCheckForErrors(true);
     } else {
       setTermsAndConditions(false); // user has to accept again
     }
@@ -293,6 +287,10 @@ const WomanSignUp = (props: FixMeLater) => {
           </div>
         )}
       </Form.Group>
+
+      {error && (
+        <div style={{ color: 'red', textAlign: 'center' }}>{error}</div>
+      )}
 
       <PrimaryButton
         label={props.strings.SignupPage && props.strings.SignupPage.register}

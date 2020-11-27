@@ -1,26 +1,28 @@
-import jsonwebtoken from "jsonwebtoken";
+import jsonwebtoken from 'jsonwebtoken';
 const { verify } = jsonwebtoken;
 
-import { secret } from "../config/auth.config.js";
+import { secret } from '../config/auth.config.js';
+import { CustomError } from '../models/error.js';
 
 const verifyToken = (req, res, next) => {
-  let token = req.headers["x-access-token"];
-
-  if (!token) {
-    console.log("No token provided!");
-    return res.status(403).send({ message: "No token provided!" });
-  }
-
-  verify(token, secret, (err, decoded) => {
-    if (err) {
-      console.log("Unauthorised");
-      return res.status(401).send({ message: "Unauthorized!" });
+  try {
+    let token = req.headers['x-access-token'];
+    if (!token) {
+      throw new CustomError('No token provided', 400);
     }
-    // console.log(decoded);
-    // console.log(decoded.id);
-    req.userId = decoded.id;
-    next();
-  });
+
+    verify(token, secret, (err, decoded) => {
+      if (err) {
+        throw new CustomError('Unauthorised', 401);
+      }
+      req.userId = decoded.id;
+      next();
+    });
+  } catch (err) {
+    return res
+      .status(err.statusCode ? err.statusCode : 510)
+      .send({ message: err.message });
+  }
 };
 
 const authJwt = {

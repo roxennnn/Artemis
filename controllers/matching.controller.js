@@ -197,7 +197,6 @@ const ptCategories = [
 export const fetchMatchings = async (req, res) => {
   try {
     const userId = mongoose.Types.ObjectId(req.userId);
-    // console.log(userId);
     const language = req.params.lang;
 
     const skillScores = await getSkillScores(userId);
@@ -396,7 +395,7 @@ const getOccupationDetail = async (oid, language) => {
       language: language,
     }).exec();
   } catch (err) {
-    throw new CustomError(err.msg, 403);
+    throw new CustomError(err.msg, 500);
   }
   return occupation;
 };

@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import Axios, { AxiosResponse } from 'axios';
 import {
-  GET_LOCAL_TOKEN,
+  // GET_LOCAL_TOKEN,
   SignInDispachTypes,
   SignInResponseI,
   SignUpOrganisationDispachTypes,
@@ -118,7 +118,7 @@ export const signIn = (username: string, password: string) => async (
 
     // Handle token data
     const tokenData: SignInResponseI = { ...response.data };
-    localStorage.setItem('ACCESS_TOKEN', tokenData.accessToken);
+    // localStorage.setItem('ACCESS_TOKEN', tokenData.accessToken);
     // localStorage.setItem('EXPIRATION_DATE', tokenData.expirationDate);
 
     dispatch({
@@ -141,20 +141,8 @@ export const signIn = (username: string, password: string) => async (
 };
 
 export const signOut = () => {
-  localStorage.removeItem('ACCESS_TOKEN');
+  // localStorage.removeItem('ACCESS_TOKEN');
   return { type: SIGN_OUT };
-};
-
-export const getLocalToken = () => {
-  // SUCCESS and FAIL?
-  const accessToken = localStorage.getItem('ACCESS_TOKEN');
-
-  return {
-    type: GET_LOCAL_TOKEN,
-    payload: {
-      accessToken: accessToken,
-    },
-  };
 };
 
 export const submitSurvey = (survey: string, answers: number[]) => async (
@@ -173,6 +161,8 @@ export const submitSurvey = (survey: string, answers: number[]) => async (
         headers: header,
       }
     );
+
+    console.log(response);
 
     dispatch({
       type: SUBMIT_SURVEY_SUCCESS,

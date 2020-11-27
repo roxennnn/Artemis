@@ -1,5 +1,11 @@
 import { FixMeLater } from '../constants/Utilities';
 
+export enum Survey {
+  demographics = 'demographics',
+  domestic = 'domestic',
+  skills = 'skills',
+}
+
 export interface UserDataI {
   username: string;
   organisation: boolean;
@@ -108,13 +114,13 @@ export interface SignOutI {
   type: typeof SIGN_OUT;
 }
 
-/* GET_LOCAL_TOKEN */
-export const GET_LOCAL_TOKEN = 'GET_LOCAL_TOKEN'; // get an access token if stored in the local storage
+// /* GET_LOCAL_TOKEN */
+// export const GET_LOCAL_TOKEN = 'GET_LOCAL_TOKEN'; // get an access token if stored in the local storage
 
-export interface GetLocalTokenI {
-  type: typeof GET_LOCAL_TOKEN;
-  payload: string;
-}
+// export interface GetLocalTokenI {
+//   type: typeof GET_LOCAL_TOKEN;
+//   payload: string;
+// }
 
 /* SUBMIT_SURVEY */
 export const SUBMIT_SURVEY = 'SUBMIT_SURVEY';
@@ -173,6 +179,6 @@ export type DispatchActionTypes =
   | SignUpWomanDispachTypes
   | SignUpOrganisationDispachTypes
   | SignOutI
-  | GetLocalTokenI
+  // | GetLocalTokenI
   | SubmitSurveyDispachTypes
   | ResetSurveyDispachTypes;

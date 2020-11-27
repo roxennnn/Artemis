@@ -1,7 +1,6 @@
 import {
   UserStateI,
   DispatchActionTypes,
-  GET_LOCAL_TOKEN,
   SIGN_IN,
   SIGN_IN_FAIL,
   SIGN_IN_SUCCESS,
@@ -20,6 +19,7 @@ import {
   RESET_SURVEY_FAIL,
   UserDataI,
   getEmptyUserData,
+  Survey,
 } from '../../model/user.model';
 
 const initialState: UserStateI = {
@@ -90,13 +90,6 @@ const UserReducer = (
         error: action.payload,
         isLogged: false,
       };
-    case GET_LOCAL_TOKEN:
-      return {
-        // loading?, error?
-        ...state,
-        accessToken: action.payload,
-        error: undefined,
-      };
     case SIGN_OUT:
       return initialState;
     case SUBMIT_SURVEY:
@@ -113,15 +106,15 @@ const UserReducer = (
         };
       }
       switch (action.payload.survey) {
-        case 'demographics':
+        case Survey.demographics:
           submitUser.demographicsDone = true;
           submitUser.demographicsTimestamp = action.payload.timestamp;
           break;
-        case 'domestic':
+        case Survey.domestic:
           submitUser.domesticDone = true;
           submitUser.domesticTimestamp = action.payload.timestamp;
           break;
-        case 'skills':
+        case Survey.skills:
           submitUser.skillsDone = true;
           submitUser.skillsTimestamp = action.payload.timestamp;
           break;
@@ -154,15 +147,15 @@ const UserReducer = (
         };
       }
       switch (action.payload) {
-        case 'demographics':
+        case Survey.demographics:
           resetUser.demographicsDone = false;
           resetUser.demographicsTimestamp = undefined;
           break;
-        case 'domestic':
+        case Survey.domestic:
           resetUser.domesticDone = false;
           resetUser.domesticTimestamp = undefined;
           break;
-        case 'skills':
+        case Survey.skills:
           resetUser.skillsDone = false;
           resetUser.skillsTimestamp = undefined;
           break;

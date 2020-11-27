@@ -39,8 +39,25 @@ const containerStyle = {
 const DemographicSurvey = (props: FixMeLater) => {
   const strings = useSelector((state: RootState) => state.language.strings);
   const [submitError, setSubmitError] = useState(false);
+  const [checkForErrors, setCheckForErrors] = useState<boolean>(false);
 
   const dispatch = useDispatch();
+  const { loading, error } = useSelector((state: RootState) => state.user);
+
+  useEffect(() => {
+    if (!loading) {
+      if (checkForErrors && !error) {
+        setCheckForErrors(false);
+        props.history.push({
+          pathname: '/profile',
+          state: {
+            from: true,
+            to: 0,
+          },
+        });
+      }
+    }
+  }, [loading]);
 
   // QUESTIONS' DATA
 
@@ -508,19 +525,8 @@ const DemographicSurvey = (props: FixMeLater) => {
       ];
 
       // post request
-      try {
-        dispatch(submitSurvey('demographics', answers));
-        // Go back to profile page
-        props.history.push({
-          pathname: '/profile',
-          state: {
-            from: true,
-            to: 0,
-          },
-        });
-      } catch (err) {
-        console.log(err);
-      }
+      dispatch(submitSurvey('demographics', answers));
+      setCheckForErrors(true);
     } else {
       // red border
       // actually don't need to do anything
@@ -721,6 +727,19 @@ const DemographicSurvey = (props: FixMeLater) => {
         >
           {strings.Profile &&
             strings.Profile.ProfileSurveys.youMustAnswerToAllTheQuestions}
+        </div>
+      )}
+      {error && (
+        <div
+          style={{
+            color: 'red',
+            textAlign: 'center',
+            fontSize: 16,
+            marginTop: '0.5%',
+            marginBottom: '0.5%',
+          }}
+        >
+          {error}
         </div>
       )}
       <PrimaryButton

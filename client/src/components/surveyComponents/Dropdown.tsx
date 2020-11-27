@@ -24,7 +24,6 @@ const CustomDropdown = (props: FixMeLater) => {
   const { defaultMessage } = props;
 
   useEffect(() => {
-    console.log(props.defaultMessage);
     if (
       current === '' ||
       current === undefined ||

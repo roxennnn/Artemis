@@ -17,18 +17,17 @@ export const binarise = (arr: FixMeLater) => {
 };
 
 export const authHeader = () => {
-  const accessToken = localStorage.getItem('ACCESS_TOKEN');
-
-  if (accessToken) {
+  const accessToken = JSON.parse(localStorage.getItem('ACCESS_TOKEN') || '{}');
+  console.log(accessToken);
+  if (Object.keys(accessToken).length > 0) {
     return {
       'x-access-token': accessToken,
     };
   } else {
-    return {};
+    throw new Error('authHeader Token error');
   }
 };
 
 export const emptyFunction = () => {};
-
 
 export type FixMeLater = any;

@@ -1,8 +1,11 @@
 import mongoose from 'mongoose';
 import { artemisContract } from '../server.js';
 import { getCurrentDatetime } from '../models/utilities.js';
-
 import db from '../models/index.js';
+
+import { CustomError } from '../models/error.js';
+import Survey from '../models/survey.enum.js';
+
 const User = db.user;
 
 // ONLY FOR TESTING
@@ -24,17 +27,19 @@ export const submitSurveyAnswers = async (req, res) => {
 
     // Check if the user has been found
     if (!user) {
-      return res.status(404).send({ message: 'User Not found.' });
+      throw new CustomError('User Not Found', 404);
     }
 
     // Get the user addr
     userAddr = user.eth_address;
   } catch (err) {
-    return res.status(500).send({ message: err });
+    return res
+      .status(err.statusCode ? err.statusCode : 500)
+      .send({ message: err });
   }
 
   try {
-    if (survey === 'demographics') {
+    if (survey === Survey.demographics) {
       await artemisContract.methods
         .addDemographicsAnwsers(userAddr, answers)
         .send({ from: OWNER_ADDR, gas: GAS_LIMIT });
@@ -46,7 +51,7 @@ export const submitSurveyAnswers = async (req, res) => {
         { _id: userId },
         { demographics_done: true, demographics_timestamp: currentTimestamp }
       );
-    } else if (survey === 'domestic') {
+    } else if (survey === Survey.domestic) {
       await artemisContract.methods
         .addDomesticAnwsers(userAddr, answers)
         .send({ from: OWNER_ADDR, gas: GAS_LIMIT });
@@ -55,7 +60,7 @@ export const submitSurveyAnswers = async (req, res) => {
         { _id: userId },
         { domestic_done: true, domestic_timestamp: currentTimestamp }
       );
-    } else if (survey === 'skills') {
+    } else if (survey === Survey.skills) {
       await artemisContract.methods
         .addSkillsAnwsers(userAddr, answers)
         .send({ from: OWNER_ADDR, gas: GAS_LIMIT });
@@ -65,50 +70,38 @@ export const submitSurveyAnswers = async (req, res) => {
         { skills_done: true, skills_timestamp: currentTimestamp }
       );
     } else {
-      res.status(404).send({ message: 'ERROR: Not an available survey' });
+      return res
+        .status(404)
+        .send({ message: 'ERROR: Not an available survey' });
     }
   } catch (err) {
-    res.status(600).send({ message: `Blockchain error: ${err.message}` });
-    return;
+    return res
+      .status(600)
+      .send({ message: `Blockchain error: ${err.message}` });
   }
 
   // Operation successful
-  res.status(200).send({ timestamp: currentTimestamp });
-  return;
+  return res.status(200).send({ timestamp: currentTimestamp });
 };
 
 export const resetSurveyData = async (req, res) => {
   const userId = mongoose.Types.ObjectId(req.userId);
   const survey = req.path.split('/api/survey/reset/')[1];
 
-  if (survey === 'demographics') {
-    User.updateOne(
-      { _id: userId },
-      { $set: { demographics_done: false } },
-      (err) => {
-        if (err) {
-          return res.send(500, { error: err.message });
-        }
-        return res.send(200, 'Succesfully resetted.');
-      }
-    );
-  } else if (survey === 'skills') {
-    User.updateOne({ _id: userId }, { $set: { skills_done: false } }, (err) => {
-      if (err) {
-        return res.send(500, { error: err.message });
-      }
+  try {
+    if (survey === Survey.demographics) {
+      User.updateOne({ _id: userId }, { $set: { demographics_done: false } });
       return res.send(200, 'Succesfully resetted.');
-    });
-  } else if (survey === 'domestic') {
-    User.updateOne(
-      { _id: userId },
-      { $set: { domestic_done: false } },
-      (err) => {
-        if (err) {
-          return res.send(500, { error: err.message });
-        }
-        return res.send(200, 'Succesfully resetted.');
-      }
-    );
+    } else if (survey === Survey.skills) {
+      User.updateOne({ _id: userId }, { $set: { skills_done: false } });
+      return res.send(200, 'Succesfully resetted.');
+    } else if (survey === Survey.domestic) {
+      User.updateOne({ _id: userId }, { $set: { domestic_done: false } });
+      return res.send(200, 'Succesfully resetted.');
+    }
+  } catch (err) {
+    return res
+      .status(err.statusCode ? err.statusCode : 510)
+      .send({ message: err.message });
   }
 };

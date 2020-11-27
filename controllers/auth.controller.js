@@ -36,76 +36,68 @@ const OWNER_ADDR = addresses[0];
 // *************************************************************
 ////////////////////////////////////////////////////////////////
 
-// Add smartcontract communication
 export const signupWoman = (req, res) => {
-  // not the best approach for production --> @TOFIX
+  try {
+    // Generate a public(address)-private key pair
+    const addressData = Wallet.default.generate();
 
-  // Generate a public(address)-private key pair
-  let addressData = Wallet.default.generate(); // RIGHT APPROACH
+    const user = new User({
+      username: req.body.username,
+      email: hashSync(req.body.email, 8),
+      password: hashSync(req.body.password, 8),
+      eth_address: addressData.getAddressString(), // random generated
+      priv_key: addressData.getPrivateKeyString(), // random generated
+    });
 
-  // // USING TRUFFLE ADDRESSES
-  // if (crazyId >= 10) {
-  //   process.exit();
-  // }
-  // Kind of random generated address (?)
-  // const address = addresses[crazyId];
-  // const priv_key = priv_keys[crazyId];
-  // crazyId++;
-
-  const user = new User({
-    // survey data are not stored, defult values used
-    username: req.body.username,
-    email: hashSync(req.body.email, 8),
-    password: hashSync(req.body.password, 8),
-    eth_address: addressData.getAddressString(), // used when random generated
-    priv_key: addressData.getPrivateKeyString(), // used when random generated
-    // eth_address: address,                           // used only now, for pre-set addresses
-    // priv_key: priv_key,                             // used only now, for pre-set addresses
-  });
-
-  user.save((err, _usr) => {
-    if (err) {
-      res.status(500).send({ message: err });
-      return;
-    } else {
-      res.status(200).send();
-    }
-  });
+    user.save((err, _usr) => {
+      if (err) {
+        throw new CustomError(err.message, 400);
+      } else {
+        return res.status(200).send();
+      }
+    });
+  } catch (err) {
+    return res
+      .status(err.statusCode ? err.statusCode : 500)
+      .send({ message: err.message });
+  }
 };
 
 export const signupOrganisation = async (req, res) => {
-  // Generate a public(address)-private key pair
-  // let addressData = Wallet.default.generate();   // RIGHT APPROACH
-  const address = OWNER_ADDR; // bad approach, just for the video demo --> in the future, add "organisation addresses list" in the smart contract
+  try {
+    // Generate a public(address)-private key pair
+    // let addressData = Wallet.default.generate();   // RIGHT APPROACH
+    const address = OWNER_ADDR; // bad approach, just for the video demo --> in the future, add "organisation addresses list" in the smart contract
 
-  const organisation = new Organisation({
-    organisationName: req.body.organisationName,
-    email: hashSync(req.body.email, 8),
-    password: hashSync(req.body.password, 8),
-    eth_address: address,
-  });
+    const organisation = new Organisation({
+      organisationName: req.body.organisationName,
+      email: hashSync(req.body.email, 8),
+      password: hashSync(req.body.password, 8),
+      eth_address: address,
+    });
 
-  organisation.save((err, _org) => {
-    if (err) {
-      res.status(500).send({ message: err });
-      return;
-    } else {
-      res.status(200).send();
-    }
-  });
-};
+    organisation.save((err, _org) => {
+      if (err) {
+        throw new CustomError(err.message, 400)
+      } else {
+        return res.status(200).send();
+      }
+    });
+  } catch (err) {
+    return res
+      .status(err.statusCode ? err.statusCode : 500)
+      .send({ message: err.message });
+  }
+}; 
 
 export const signin = async (req, res) => {
-  let user;
-  let organisation;
-
   try {
-    user = await User.findOne(
+    const user = await User.findOne(
       { username: req.body.username } // get the whole data
     ).exec();
 
     if (!user) {
-      organisation = await Organisation.findOne({
+      const organisation = await Organisation.findOne({
         organisationName: req.body.username,
       }).exec();
     }

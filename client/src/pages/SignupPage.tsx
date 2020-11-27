@@ -10,11 +10,8 @@ import LoginComponent from '../components/LoginComponent';
 import { FixMeLater } from '../constants/Utilities';
 import { RootState } from '../store/reducers/root.reducer';
 import { useDispatch, useSelector } from 'react-redux';
-import { setLanguage } from '../store/actions/language.action';
-import { Language } from '../model/language.model';
 
 const SignupPage = (props: FixMeLater) => {
-  // const { strings, language, updateLanguage } = useContext(LanguageContext);
   const { strings, language } = useSelector(
     (state: RootState) => state.language
   );
@@ -23,8 +20,6 @@ const SignupPage = (props: FixMeLater) => {
 
   const fetchLanguage = () => {
     const lang = localStorage.getItem('language');
-    // dispatch(setLanguage(lang as Language));
-    // updateLanguage(lang);
   };
 
   useEffect(() => {
@@ -35,9 +30,6 @@ const SignupPage = (props: FixMeLater) => {
   useEffect(() => {
     if (location.state && location.state.from) {
       setUserType(location.state.to);
-      // if (location.state.lang) {
-      //   updateLanguage(location.state.lang);
-      // }
     }
   }, [location.state]);
 
