@@ -1,6 +1,6 @@
-<p align="center">
+<div style="text-align: center;">
   <image src="media/logo.png" />
-</p>
+</div>
 
 **Artemis** is an online platform that helps uneducated or poorly educated women find a job that matches their skills. The website uses ESCO (European Classification of Skills Knowledge and Occupations, available [here](https://ec.europa.eu/esco/portal/home)) to create a match between the women’s skills and the most suitable occupations they can apply for in the formal labour market.
 
