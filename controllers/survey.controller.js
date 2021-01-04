@@ -14,7 +14,8 @@ const GAS_LIMIT = 5550000; // I DON'T KNOW HOW TO SET THIS VALUE!
 
 export const submitSurveyAnswers = async (req, res) => {
   // Useful variables
-  const survey = req.path.split('/api/survey/')[1];
+  // const survey = req.path.split('/api/survey/')[1];
+  const survey = req.params.survey;
   const answers = req.body.answers;
 
   const userId = mongoose.Types.ObjectId(req.userId);
@@ -86,7 +87,8 @@ export const submitSurveyAnswers = async (req, res) => {
 
 export const resetSurveyData = async (req, res) => {
   const userId = mongoose.Types.ObjectId(req.userId);
-  const survey = req.path.split('/api/survey/reset/')[1];
+  // const survey = req.path.split('/api/survey/reset/')[1];
+  const survey = req.params.survey;
 
   try {
     if (survey === Survey.demographics) {
