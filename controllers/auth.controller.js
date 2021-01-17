@@ -1,17 +1,16 @@
+import bcryptjs from 'bcryptjs';
 import Wallet from 'ethereumjs-wallet';
-
+import jsonwebtoken from 'jsonwebtoken';
 import { secret } from '../config/auth.config.js';
+import { CustomError } from '../models/error.js';
+import db from '../models/index.js';
 import { artemisContract } from '../server.js';
 
-import db from '../models/index.js';
 const User = db.user;
 const Organisation = db.organisation;
 
-import jsonwebtoken from 'jsonwebtoken';
 const { sign } = jsonwebtoken;
 
-import bcryptjs from 'bcryptjs';
-import { CustomError } from '../models/error.js';
 const { hashSync, compareSync } = bcryptjs;
 
 // "WHY DID I USE THESE ADDRESSES??"
@@ -78,7 +77,7 @@ export const signupOrganisation = async (req, res) => {
 
     organisation.save((err, _org) => {
       if (err) {
-        throw new CustomError(err.message, 400)
+        throw new CustomError(err.message, 400);
       } else {
         return res.status(200).send();
       }
@@ -88,7 +87,7 @@ export const signupOrganisation = async (req, res) => {
       .status(err.statusCode ? err.statusCode : 500)
       .send({ message: err.message });
   }
-}; 
+};
 
 export const signin = async (req, res) => {
   try {
@@ -96,8 +95,9 @@ export const signin = async (req, res) => {
       { username: req.body.username } // get the whole data
     ).exec();
 
+    let organisation;
     if (!user) {
-      const organisation = await Organisation.findOne({
+      organisation = await Organisation.findOne({
         organisationName: req.body.username,
       }).exec();
     }
@@ -105,7 +105,10 @@ export const signin = async (req, res) => {
     if (!user && !organisation) {
       throw new CustomError('Invalid Credentials', 501);
     } else {
-      const passwordIsValid = compareSync(req.body.password, user.password);
+      const passwordIsValid = compareSync(
+        req.body.password,
+        user ? user.password : organisation.password
+      );
       if (!passwordIsValid) {
         throw new CustomError('Invalid Password', 502);
       }

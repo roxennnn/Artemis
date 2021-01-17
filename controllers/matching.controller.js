@@ -1,11 +1,10 @@
 import mongoose from 'mongoose';
 import { CustomError } from '../models/error.js';
-
 import db from '../models/index.js';
+import { artemisContract } from '../server.js';
+
 const User = db.user;
 const Occupation = db.occupation;
-
-import { artemisContract } from '../server.js';
 
 const esCategories = [
   'Organizar actividades básicas',

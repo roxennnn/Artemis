@@ -1,6 +1,5 @@
-import { Dispatch } from 'redux';
 import Axios, { AxiosResponse } from 'axios';
-import {} from '../../model/user.model';
+import { Dispatch } from 'redux';
 import { authHeader, FixMeLater } from '../../constants/Utilities';
 import {
   GetMatchingsDispachTypes,
@@ -16,6 +15,7 @@ import {
   GET_SKILLS_FAIL,
   GET_SKILLS_SUCCESS,
 } from '../../model/matching.model';
+import {} from '../../model/user.model';
 
 const API_URL = 'http://localhost:8080/api/matching/';
 
@@ -28,6 +28,7 @@ export const getMatchings = (language: string) => async (
     });
 
     const header = authHeader();
+    console.log(header);
     const response: AxiosResponse<FixMeLater> = await Axios.get(
       API_URL + `${language}/occupation`,
       { headers: header }

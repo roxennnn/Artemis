@@ -1,8 +1,7 @@
 import jsonwebtoken from 'jsonwebtoken';
-const { verify } = jsonwebtoken;
-
 import { secret } from '../config/auth.config.js';
 import { CustomError } from '../models/error.js';
+const { verify } = jsonwebtoken;
 
 const verifyToken = (req, res, next) => {
   try {

@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Spinner } from 'react-bootstrap';
-
+import { useDispatch, useSelector } from 'react-redux';
 import CenterView from '../components/CenterView';
 import PrimaryButton from '../components/PrimaryButton';
 import Dropdrown from '../components/surveyComponents/Dropdown';
-
 import Countries from '../constants/Countries';
 import { FixMeLater } from '../constants/Utilities';
-import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/reducers/root.reducer';
 
 const containerStyle = {
@@ -35,7 +33,7 @@ const OrganisationPage = (props: FixMeLater) => {
   // const [currentUser, setCurrentUser] = useState<FixMeLater>(); // data of logged user
   // const [loading, setLoading] = useState(false);
 
-  const {username, loading} = useSelector((state: RootState) => state.authentication);
+  const { loading } = useSelector((state: RootState) => state.user);
 
   // Selector values
   const [dataLanguage, setDataLanguage] = useState();
@@ -100,8 +98,7 @@ const OrganisationPage = (props: FixMeLater) => {
     },
     {
       name:
-        strings.Profile &&
-        strings.Profile.ProfileSurveys.ExperienceSurvey.title,
+        strings.Profile && strings.Profile.ProfileSurveys.DomesticSurvey.title,
       value: 3,
     },
   ];
