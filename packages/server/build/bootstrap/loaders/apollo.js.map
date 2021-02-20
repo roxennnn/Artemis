@@ -1,0 +1,1 @@
+{"version":3,"file":"apollo.js","sourceRoot":"","sources":["../../../src/bootstrap/loaders/apollo.ts"],"names":[],"mappings":";;AAAA,iEAAqD;AACrD,yCAAsC;AACtC,uCAA0C;AAE1C,kBAAe,KAAK,IAAI,EAAE;IACxB,MAAM,MAAM,GAAG,MAAM,mBAAW,EAAE,CAAC;IAEnC,OAAO,IAAI,oCAAY,CAAC;QACtB,MAAM;QACN,UAAU,EAAE,eAAM,CAAC,KAAK;KACzB,CAAC,CAAC;AACL,CAAC,CAAC"}

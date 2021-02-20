@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "lib": ["esnext", "esnext.asynciterable"],
+    "outDir": "build",
+    "rootDir": "src",
+    "strict": true,
+    "noImplicitAny": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strictPropertyInitialization": false
+  },
+  "references": [{ "path": "../common" }],
+  "exclude": ["node_modules", "**/*.test.ts"],
+  "include": ["./src/**/*"]
+}

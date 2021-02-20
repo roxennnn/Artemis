@@ -30,8 +30,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # blockchain
-blockchain/constants*
-blockchain/build/*
+packages/old-server/blockchain/constants*
+packages/old-server/blockchain/build/*
 
 # custom
 notes.md
