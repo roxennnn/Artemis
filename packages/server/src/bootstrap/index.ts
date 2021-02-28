@@ -4,7 +4,7 @@ import { Config } from '../config';
 import loaders from './loaders';
 
 export default async (config: Config) => {
-  const app = express();
+  const app: any = express();
 
   const server = await loaders(app);
 
@@ -13,7 +13,9 @@ export default async (config: Config) => {
     path: config.graphqlPath,
     // Health check on /.well-known/apollo/server-health
     onHealthCheck: async () => {
-      if (mongoose.connection.readyState === 1) return;
+      if (mongoose.connection.readyState === 1) {
+        return;
+      }
 
       throw new Error();
     },

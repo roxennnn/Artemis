@@ -3,7 +3,6 @@
 // TypeGraphQL
 // https://typegraphql.com/docs/types-and-fields.html
 import { prop } from '@typegoose/typegoose';
-import { ObjectId } from 'mongodb';
 import { Field, ObjectType } from 'type-graphql';
 
 // @Field(() => Rate)
@@ -14,9 +13,6 @@ import { Field, ObjectType } from 'type-graphql';
 // However, you can change that behavior by providing nullableByDefault: true option in buildSchema settings
 @ObjectType({ description: 'The user model' })
 export class User {
-  @Field()
-  readonly _id!: ObjectId;
-
   @prop({ required: true })
   @Field()
   username!: string;
@@ -26,7 +22,7 @@ export class User {
   email!: string;
 
   @prop({ required: true })
-  @Field()
+  // @Field()
   password!: string;
 
   @prop({ required: true })
@@ -34,30 +30,30 @@ export class User {
   ethAddress!: string;
 
   @prop({ required: true })
-  @Field()
+  // @Field()
   privKey!: string;
 
   @prop({ default: false })
   @Field()
-  demographicsDone: boolean;
+  demographicsDone?: boolean;
 
   @prop()
   @Field()
-  demographicsTimestamp: string;
+  demographicsTimestamp?: string;
 
   @prop({ default: false })
   @Field()
-  skillsDone: boolean;
+  skillsDone?: boolean;
 
   @prop()
   @Field()
-  skillsTimestamp: string;
+  skillsTimestamp?: string;
 
   @prop({ default: false })
   @Field()
-  domesticDone: boolean;
+  domesticDone?: boolean;
 
   @prop()
   @Field()
-  domesticTimestamp: string;
+  domesticTimestamp?: string;
 }

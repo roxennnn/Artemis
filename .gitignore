@@ -40,3 +40,5 @@ manageSkills/
 start_services.sh
 
 
+# Back-End
+build/

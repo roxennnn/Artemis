@@ -1,10 +1,11 @@
 {
-  "extends": "tslint:recommended",
+  "extends": ["tslint:recommended"],
   "linterOptions": {
     "exclude": ["hooks/restrict-commit.js"]
   },
   "rulesDirectory": ["codelyzer"],
   "rules": {
+    "react-hooks-nesting": "error",
     "align": {
       "options": ["parameters", "statements"]
     },
@@ -35,15 +36,13 @@
     "no-console": [true, "debug", "info", "time", "timeEnd", "trace"],
     "no-empty": false,
     "no-inferrable-types": [true, "ignore-params"],
-    "no-non-null-assertion": true,
+    "no-non-null-assertion": false,
     "no-redundant-jsdoc": true,
     "no-switch-case-fall-through": true,
     "no-var-requires": false,
     "object-literal-key-quotes": [true, "as-needed"],
     "quotemark": [true, "single", "jsx-double"],
-    "semicolon": {
-      "options": ["always"]
-    },
+    "semicolon": [true, "always", "ignore-bound-class-methods"],
     "space-before-function-paren": {
       "options": {
         "anonymous": "never",
@@ -90,6 +89,7 @@
         "check-typecast"
       ]
     },
+    "object-literal-shorthand": false,
     "component-class-suffix": true,
     "contextual-lifecycle": true,
     "directive-class-suffix": true,
@@ -104,7 +104,6 @@
     "template-banana-in-box": true,
     "template-no-negated-async": true,
     "use-lifecycle-interface": true,
-    "use-pipe-transform-interface": true,
-    "object-literal-shorthand": false
+    "use-pipe-transform-interface": true
   }
 }
