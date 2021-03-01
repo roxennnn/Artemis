@@ -1,22 +1,53 @@
-import { hashSync } from 'bcryptjs';
+import { compareSync, hashSync } from 'bcryptjs';
 import Wallet from 'ethereumjs-wallet';
+import { sign } from 'jsonwebtoken';
 import { Service } from 'typedi';
+import { config } from '../../config';
 import { User } from '../../entities';
 import { ISignUpUser } from '../../models/user.model';
 import { CustomError } from '../../utils/custom-error';
-import { NewUserInput } from './input';
+import { SignUpUserInput } from './input';
 import UserModel from './model';
+import { SignInUserOutput } from './output';
 
 @Service() // Dependencies injection
 export default class UserService {
   constructor(private readonly userModel: UserModel) {}
 
-  public async getUserByUsername(username: string): Promise<User | null> {
-    return this.userModel.getUserByUsername(username);
+  public getUserByUsername = async (
+    username: string,
+    queryingUser?: string
+  ): Promise<User | null> => {
+    return this.userModel.getUserByUsername(username, queryingUser);
+  };
+
+  private async getUserByEmail(email: string): Promise<User | null> {
+    return this.userModel.getUserByEmail(email);
   }
 
-  public async addUser(data: NewUserInput): Promise<User> {
+  private checkDuplicate = async (
+    username: string,
+    email: string
+  ): Promise<boolean> => {
+    // returns true if a duplicate is found
+    const users: User[] | null = await this.userModel.getUsers();
+    if (users) {
+      for (const user of users) {
+        if (username === user.username || compareSync(email, user.email)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  };
+
+  public async addUser(data: SignUpUserInput): Promise<User> {
     try {
+      const isDuplicate = await this.checkDuplicate(data.username, data.email);
+      if (isDuplicate) {
+        throw new CustomError('Username or email already registered', 409);
+      }
+
       // Generate a public(address)-private key pair
       const addressData = Wallet.generate();
 
@@ -34,8 +65,44 @@ export default class UserService {
       return newUser;
     } catch (err) {
       throw new CustomError(
-        'UserService-addUser-catch Error:\n' + err.message,
-        500
+        'UserService-addUser-catch Error: ' + err.message,
+        err.statusCode ? err.statusCode : 500
+      );
+    }
+  }
+
+  public async signInUser(
+    username: string,
+    password: string
+  ): Promise<SignInUserOutput> {
+    try {
+      const user: User | null = await this.userModel.getUserByUsername(
+        username
+      );
+      if (!user) {
+        throw new CustomError('Invalid Credentials', 401); // Invalid Username
+      }
+      const passwordIsValid = compareSync(password, user.password);
+      if (!passwordIsValid) {
+        throw new CustomError('Invalid Credentials', 401); // Invalid Password
+      }
+
+      return {
+        accessToken: sign({ id: user._id }, config.secret, {
+          expiresIn: 3600, // 1hour --> Add token refresh mechanism
+        }),
+        username: username,
+        demographicsDone: user.demographicsDone,
+        demographicsTimestamp: user.demographicsTimestamp,
+        domesticDone: user.domesticDone,
+        domesticTimestamp: user.domesticTimestamp,
+        skillsDone: user.skillsDone,
+        skillsTimestamp: user.skillsTimestamp,
+      };
+    } catch (err) {
+      throw new CustomError(
+        'UserService-signInUser-catch Error: ' + err.message,
+        err.statusCode ? err.statusCode : 500
       );
     }
   }

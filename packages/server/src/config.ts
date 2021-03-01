@@ -1,4 +1,4 @@
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 dotenv.config();
 
 // Safely get the environment variable in the process
@@ -13,6 +13,7 @@ const env = (name: string): string => {
 };
 
 export interface Config {
+  secret: string;
   port: number;
   graphqlPath: string;
   isDev: boolean;
@@ -27,14 +28,15 @@ export interface Config {
 
 // All your secrets, keys go here
 export const config: Config = {
-  port: +env("PORT"),
-  graphqlPath: env("GRAPHQL_PATH"),
-  isDev: env("NODE_ENV") === "development",
+  secret: env('SECRET'),
+  port: +env('PORT'),
+  graphqlPath: env('GRAPHQL_PATH'),
+  isDev: env('NODE_ENV') === 'development',
   mongoDB: {
-    uri: env("MONGODB_URI"),
+    uri: env('MONGODB_URI'),
   },
   redis: {
-    port: +env("REDIS_PORT"),
-    host: env("REDIS_HOST"),
+    port: +env('REDIS_PORT'),
+    host: env('REDIS_HOST'),
   },
 };

@@ -3,6 +3,7 @@
 // TypeGraphQL
 // https://typegraphql.com/docs/types-and-fields.html
 import { prop } from '@typegoose/typegoose';
+import { ObjectId } from 'mongodb';
 import { Field, ObjectType } from 'type-graphql';
 
 // @Field(() => Rate)
@@ -13,6 +14,9 @@ import { Field, ObjectType } from 'type-graphql';
 // However, you can change that behavior by providing nullableByDefault: true option in buildSchema settings
 @ObjectType({ description: 'The user model' })
 export class User {
+  @Field()
+  readonly _id!: ObjectId;
+
   @prop({ required: true })
   @Field()
   username!: string;
