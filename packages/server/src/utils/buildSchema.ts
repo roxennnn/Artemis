@@ -13,7 +13,6 @@ const authChecker: AuthChecker<Context> = ({ context: { user } }, roles) => {
   // and check his permission in the db against the `roles` argument
   // that comes from the `@Authorized` decorator, eg. ["ADMIN", "MODERATOR"]
 
-  console.log(user);
   if (user?.authorized) {
     return true;
   } else {

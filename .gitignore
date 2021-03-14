@@ -42,3 +42,6 @@ start_services.sh
 
 # Back-End
 build/
+
+# Common
+dist/

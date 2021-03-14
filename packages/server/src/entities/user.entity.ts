@@ -4,7 +4,7 @@
 // https://typegraphql.com/docs/types-and-fields.html
 import { prop } from '@typegoose/typegoose';
 import { ObjectId } from 'mongodb';
-import { Field, ObjectType } from 'type-graphql';
+import { Field, Int, ObjectType } from 'type-graphql';
 
 // @Field(() => Rate)
 // @Field(type => [Rate])
@@ -12,6 +12,7 @@ import { Field, ObjectType } from 'type-graphql';
 // setting nullable: "itemsAndList" would produce [[Item]] while nullable: "items" would produce [[Item]]!
 // By default, all fields are non nullable, just like properties in TypeScript.
 // However, you can change that behavior by providing nullableByDefault: true option in buildSchema settings
+
 @ObjectType({ description: 'The user model' })
 export class User {
   @Field()
@@ -37,27 +38,40 @@ export class User {
   // @Field()
   privKey!: string;
 
+  /* Surveys */
   @prop({ default: false })
   @Field()
   demographicsDone?: boolean;
 
   @prop()
-  @Field()
+  @Field({ nullable: true })
   demographicsTimestamp?: string;
+
+  @prop({ type: [Number] })
+  @Field(() => [Int], { nullable: true })
+  demographicsAnswers?: number[];
 
   @prop({ default: false })
   @Field()
   skillsDone?: boolean;
 
   @prop()
-  @Field()
+  @Field({ nullable: true })
   skillsTimestamp?: string;
+
+  @prop({ type: [Number] })
+  @Field(() => [Int], { nullable: true })
+  skillsAnswers?: number[];
 
   @prop({ default: false })
   @Field()
   domesticDone?: boolean;
 
   @prop()
-  @Field()
+  @Field({ nullable: true })
   domesticTimestamp?: string;
+
+  @prop({ type: [Number] })
+  @Field(() => [Int], { nullable: true })
+  domesticAnswers?: number[];
 }

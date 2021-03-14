@@ -136,24 +136,14 @@
         "signature": "89bf2b7a601b73ea4311eda9c41f86a58994fec1bee3b87c4a14d68d9adcdcbd",
         "affectsGlobalScope": true
       },
-      "./src/models/company.model.ts": {
-        "version": "2d6082ef0567bea6b42125f789c4ccb103bc7df5e4e7be9e76057b4e71f0bf12",
-        "signature": "2599efdc4e5a67db907c5c8455a9bfaa1a89d469a45343c359b0b15e27d29f97",
-        "affectsGlobalScope": false
-      },
-      "./src/models/filters.model.ts": {
-        "version": "13fd68246e1205e7bc62385ede69c7adaf8fa1593f8c1dc72cb870ec2c75188d",
-        "signature": "1bc44a40b577332e75e641ef08f8f9b3113d41137a721155885bea27bbb08c85",
+      "./src/models/user.model.ts": {
+        "version": "244a3fe9c0f34166fc77127a5601bfa528d81377b3d16e85e1b0084895e7715f",
+        "signature": "48304ab0f0f881b8ca13649badc2d76764cadac63d7e69906166a0fbec7ef123",
         "affectsGlobalScope": false
       },
       "./src/index.ts": {
-        "version": "ef470e5f389a0ddf8a79fe5d3bcf219bc1355e471da590e164473dd0e9141012",
-        "signature": "ef470e5f389a0ddf8a79fe5d3bcf219bc1355e471da590e164473dd0e9141012",
-        "affectsGlobalScope": false
-      },
-      "./src/models/structure.model.ts": {
-        "version": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "version": "f0f89aac6554fa52feae064bd3a9667f6979fc69b34db52ca10d943a0618c428",
+        "signature": "f0f89aac6554fa52feae064bd3a9667f6979fc69b34db52ca10d943a0618c428",
         "affectsGlobalScope": false
       },
       "../../node_modules/@types/node/globals.d.ts": {
@@ -608,8 +598,7 @@
         "../../node_modules/@types/node/stream.d.ts"
       ],
       "./src/index.ts": [
-        "./src/models/company.model.ts",
-        "./src/models/filters.model.ts"
+        "./src/models/user.model.ts"
       ]
     },
     "exportedModulesMap": {
@@ -789,8 +778,7 @@
         "../../node_modules/@types/node/stream.d.ts"
       ],
       "./src/index.ts": [
-        "./src/models/company.model.ts",
-        "./src/models/filters.model.ts"
+        "./src/models/user.model.ts"
       ]
     },
     "semanticDiagnosticsPerFile": [
@@ -874,9 +862,7 @@
       "./node_modules/typescript/lib/lib.es5.d.ts",
       "./node_modules/typescript/lib/lib.esnext.intl.d.ts",
       "./src/index.ts",
-      "./src/models/company.model.ts",
-      "./src/models/filters.model.ts",
-      "./src/models/structure.model.ts"
+      "./src/models/user.model.ts"
     ]
   },
   "version": "3.9.7"

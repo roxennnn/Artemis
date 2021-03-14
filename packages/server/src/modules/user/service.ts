@@ -1,4 +1,5 @@
 import { compareSync, hashSync } from 'bcryptjs';
+import { SurveyEnum } from 'common-models';
 import Wallet from 'ethereumjs-wallet';
 import { sign } from 'jsonwebtoken';
 import { Service } from 'typedi';
@@ -21,10 +22,11 @@ export default class UserService {
     return this.userModel.getUserByUsername(username, queryingUser);
   };
 
-  private async getUserByEmail(email: string): Promise<User | null> {
+  private getUserByEmail = async (email: string): Promise<User | null> => {
     return this.userModel.getUserByEmail(email);
-  }
+  };
 
+  /* Authentication */
   private checkDuplicate = async (
     username: string,
     email: string
@@ -41,7 +43,7 @@ export default class UserService {
     return false;
   };
 
-  public async addUser(data: SignUpUserInput): Promise<User> {
+  public addUser = async (data: SignUpUserInput): Promise<User> => {
     try {
       const isDuplicate = await this.checkDuplicate(data.username, data.email);
       if (isDuplicate) {
@@ -60,7 +62,7 @@ export default class UserService {
         privKey: addressData.getPrivateKey().toString(),
       };
 
-      const newUser = await this.userModel.signUpUser(userData);
+      const newUser = this.userModel.signUpUser(userData);
 
       return newUser;
     } catch (err) {
@@ -69,7 +71,7 @@ export default class UserService {
         err.statusCode ? err.statusCode : 500
       );
     }
-  }
+  };
 
   public async signInUser(
     username: string,
@@ -106,4 +108,18 @@ export default class UserService {
       );
     }
   }
+
+  /* Surveys */
+  // Move to blockchain in the future
+  public surveyAction = async (
+    userId: string,
+    survey: SurveyEnum,
+    answers: number[]
+  ): Promise<User | null> => {
+    if (answers.length > 0) {
+      return this.userModel.submitSurvey(userId, survey, answers);
+    } else {
+      return this.userModel.resetSurvey(userId, survey);
+    }
+  };
 }
