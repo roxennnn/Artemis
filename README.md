@@ -1,3 +1,5 @@
+### *** ATTENTION: THIS PROJECT IS STILL UNDER DEVELOPMENT AND CURRENTY ON A HIATUS. ***
+
 <div style="text-align: center">
   <image src="media/logo.png" style="width: 500px;" />
 </div>
